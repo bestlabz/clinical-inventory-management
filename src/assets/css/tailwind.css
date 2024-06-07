@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.public-route {
+  @apply w-screen h-screen flex;
+}
+
+.public-route-right {
+  @apply bg-gray-300  2xl:p-10 xl:p-10 lg:p-10 md:p-0 sm:p-10 xs:p-0 xss:p-0 mobile:p-0 2xl:w-[60%] xl:w-[60%] lg:w-[60%] md:w-0 sm:w-0 xs:w-0 xss:w-0  mobile:w-0;
+}
+
+.public-route-right-inside {
+  @apply w-full h-full bg-primary_color rounded-3xl;
+}
+
+.public-route-left {
+  @apply bg-white 2xl:w-[40%] xl:w-[40%] lg:w-[40%] md:w-[100%] sm:w-[100%] xs:w-[100%] xss:w-[100%]  mobile:w-[100%];
+}
+
+.public-route-left-inside {
+  @apply 2xl:w-[70%] xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] xs:w-[100%] xss:w-[100%]  mobile:w-[100%] h-full flex flex-col justify-center mx-auto gap-4 2xl:items-start xl:items-start lg:items-start md:items-center xs:items-center xss:items-center mobile:items-center;
+}
+
+.title-text {
+  @apply text-[30px] font-semibold;
+}
+
+.input-container {
+  @apply 2xl:w-[90%] xl:w-[90%] lg:w-[90%] md:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] my-3 flex flex-col gap-1;
+}
+
+.input-label {
+  @apply text-[16px];
+}
+
+.input-box {
+  @apply w-full;
+}
+
+.input {
+  @apply w-full h-full py-4 rounded-xl border-[1px] border-gray-300 p-2  outline-none;
+}
+
+.login-button {
+  @apply 2xl:w-[90%] xl:w-[90%] lg:w-[90%] md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] p-3 bg-primary_color text-white rounded-xl;
+}
+
+.login-button-otp {
+  @apply 2xl:w-full xl:w-full lg:w-full md:w-[80%] sm:w-[90%] xs:w-[90%] xss:w-[90%] mobile:w-[90%]  p-3 bg-primary_color text-white rounded-xl mt-3;
+}
+
+.otp-box {
+  @apply flex items-center justify-between  2xl:w-full xl:w-full lg:w-full md:w-[80%] sm:w-[90%] xs:w-[90%] xss:w-[90%] mobile:w-[90%] gap-4 p-1;
+}
+
+.otp-box-input {
+  @apply outline-none border-[1px] border-gray-300 rounded-lg   2xl:w-[55px] xl:w-[55px] lg:w-[55px] md:w-[55px] sm:w-[55px]  2xl:h-[55px] xl:h-[55px] lg:h-[55px] md:h-[55px] sm:h-[55px] xs:w-[30px]  xss:w-[35px]  mobile:w-[45px] xs:h-[45px]  xss:h-[35px]  mobile:h-[45px]  text-center text-[20px] font-semibold cursor-pointer focus:border-[3px] focus:border-primary_color;
+}
+
+.resend-text {
+  @apply 2xl:w-full xl:w-full lg:w-full md:w-[80%] sm:w-[90%] xs:w-[90%] xss:w-[90%] mobile:w-[90%]  flex items-center justify-between text-gray-300 p-1;
+}
