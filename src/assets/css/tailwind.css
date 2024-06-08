@@ -43,7 +43,7 @@
 }
 
 .login-button {
-  @apply 2xl:w-[90%] xl:w-[90%] lg:w-[90%] md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] p-3 bg-primary_color text-white rounded-xl;
+  @apply 2xl:w-[90%] xl:w-[90%] lg:w-[100%] md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] p-3 bg-primary_color text-white rounded-xl;
 }
 
 .login-button-otp {
@@ -60,4 +60,8 @@
 
 .resend-text {
   @apply 2xl:w-full xl:w-full lg:w-full md:w-[80%] sm:w-[90%] xs:w-[90%] xss:w-[90%] mobile:w-[90%]  flex items-center justify-between text-gray-300 p-1;
+}
+
+.sub-text {
+  @apply text-secondary_text text-[16px] font-medium
 }

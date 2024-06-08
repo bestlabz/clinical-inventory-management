@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Login = () => {
+const Signup = () => {
   const [step, setStep] = useState(1);
   const [otpCount, setotpCount] = useState(6);
   const [otp, setOtp] = useState(new Array(otpCount).fill(""));
@@ -8,7 +8,7 @@ const Login = () => {
   const [error1, setError1] = useState(false);
 
   const handelClick = () => {
-    if (step !== 2) {
+    if (step !== 4) {
       return setStep((step) => step + 1);
     }
   };
@@ -46,4 +46,4 @@ const Login = () => {
   };
 };
 
-export default Login;
+export default Signup;

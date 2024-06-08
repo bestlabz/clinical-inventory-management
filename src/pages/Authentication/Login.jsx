@@ -20,7 +20,7 @@ const Login = () => {
           <h1 className="title-text">Log in to your account</h1>
           {step === 1 && (
             <>
-              <Input label="Mobile Number" placeholder="Enter you number" />
+              <Input label="Mobile Number" placeholder="Enter your number" />
               <button className="login-button" onClick={handelClick}>
                 Log in
               </button>

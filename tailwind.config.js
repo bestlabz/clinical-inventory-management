@@ -35,7 +35,8 @@ const config = {
        dark_purple: "#6941C6",
        pagination_text_color: "#344054",
        orange_light: "#F9DBAF",
-       orange_dark: "#F79009"
+       orange_dark: "#F79009",
+       secondary_text: "#8A8A8A"
        
       },
     },
