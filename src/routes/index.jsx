@@ -2,6 +2,8 @@ import { lazy } from "react";
 
 // use lazy for better code splitting
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
+const Doctors = lazy(() => import("../pages/Doctors/Doctors"));
+
 
 /*
 //  * ⚠ These are internal routes!
@@ -18,6 +20,10 @@ const routes = [
   {
     path: "/dashboard",
     component: Dashboard,
+  },
+  {
+    path: "/doctors",
+    component: Doctors,
   }
 ];
 

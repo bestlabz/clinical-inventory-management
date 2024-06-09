@@ -7,8 +7,18 @@ import LoginFunction from "../../hooks/Authentication/Login";
 import CountDown from "../../hooks/Authentication/CountDown";
 
 const Login = () => {
-  const { step, handelClick } = LoginFunction();
+  const {
+    step,
+    handelClick,
+    handleNavigate,
+    number,
+    setNumber,
+    error,
+    error1,
+  } = LoginFunction();
   const { count, formatTime, setTime } = CountDown();
+  console.log('error1', error1);
+
 
   return (
     <div className="public-route">
@@ -20,8 +30,14 @@ const Login = () => {
           <h1 className="title-text">Log in to your account</h1>
           {step === 1 && (
             <>
-              <Input label="Mobile Number" placeholder="Enter your number" />
-              <button className="login-button" onClick={handelClick}>
+              <Input
+                label="Mobile Number"
+                placeholder="Enter your number"
+                value={number}
+                setValue={(e) => setNumber(e.target.value)}
+                err={error ? "Required" : ""}
+              />
+              <button className="login-button" onClick={() => handelClick()}>
                 Log in
               </button>
               <p className=" w-full text-center mt-3 font-semibold">
@@ -34,7 +50,7 @@ const Login = () => {
           )}
           {step === 2 && (
             <>
-              <OTP />
+              <OTP err={error1} />
               <p className="resend-text">
                 <span
                   onClick={setTime}
@@ -44,13 +60,15 @@ const Login = () => {
                 </span>
                 {formatTime(count)}
               </p>
-              <button className="login-button-otp" onClick={handelClick}>
+              <button className="login-button-otp" onClick={handleNavigate}>
                 Log in
               </button>
-              <p className=" text-center mt-3 font-semibold">
+              <p className="w-full text-center mt-3 font-semibold">
                 Don't have an account?
               </p>
-              <p className=" text-center cursor-pointer">Create a new one</p>
+              <p className="w-full text-center cursor-pointer">
+                Create a new one
+              </p>
             </>
           )}
         </div>

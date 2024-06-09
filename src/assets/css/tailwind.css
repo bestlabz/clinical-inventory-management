@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  @apply scrollbar-hide;
+}
+
 .public-route {
   @apply w-screen h-screen flex;
 }
@@ -27,7 +31,7 @@
 }
 
 .input-container {
-  @apply 2xl:w-[90%] xl:w-[90%] lg:w-[90%] md:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] my-3 flex flex-col gap-1;
+  @apply 2xl:w-[90%] xl:w-[90%] lg:w-[90%] md:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] my-3 flex flex-col gap-1 relative;
 }
 
 .input-label {
@@ -39,7 +43,7 @@
 }
 
 .input {
-  @apply w-full h-full py-4 rounded-xl border-[1px] border-gray-300 p-2  outline-none;
+  @apply w-full h-full py-4 rounded-xl border-[1px]  p-2  outline-none;
 }
 
 .login-button {
@@ -64,4 +68,83 @@
 
 .sub-text {
   @apply text-secondary_text text-[16px] font-medium
+}
+
+
+.sidebar-container {
+  @apply flex gap-4 relative overflow-hidden;
+}
+
+.sidebar {
+  @apply bg-navbar_color text-white h-screen overflow-hidden rounded-3xl flex flex-col ;
+}
+
+.top_sectiom {
+  @apply flex items-center;
+}
+
+
+.link {
+  @apply flex items-center gap-[15px] px-3 py-3 transition-all duration-300 my-3;
+}
+
+.active {
+  @apply bg-navbar_activate_color text-white rounded-2xl;
+}
+
+.InActive {
+  @apply bg-transparent text-white;
+}
+
+.icon {
+  @apply text-[20px];
+}
+
+.link_text {
+  @apply text-[20px] mt-1;
+}
+
+
+.bottom-section {
+  @apply py-3 
+}
+
+.profile {
+  @apply flex items-center justify-between gap-3 my-3
+}
+
+.profile-content {
+  @apply flex items-center gap-3 mt-3
+}
+
+.profile-details {
+  @apply flex  flex-col gap-1
+}
+
+.profile-details-name {
+  @apply text-[14px] font-semibold
+}
+
+.profile-details-id {
+  @apply text-[12px] font-semibold
+}
+
+.card-content {
+  @apply w-full flex items-center justify-center gap-8
+}
+
+.card-text {
+  @apply text-[16px] font-medium
+}
+
+.card-count {
+  @apply text-[44px] font-semibold
+}
+
+.err-border {
+  @apply border-red-500;
+}
+
+.err-txt {
+  @apply text-start w-[100%] text-red-400 text-[13px] flex gap-3 p-1 absolute top-[100%];
 }

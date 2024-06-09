@@ -5,9 +5,9 @@ import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Main from "./Main";
 import routes from "../routes/index";
 import ThemeSuspense from "../Components/theme/ThemeSuspense";
-import Sidebar from "../Components/properties/sidebar/Sidebar";
+import Sidebar from "../Components/Properites/sidebar/Sidebar";
 
-const Page404 = React.lazy(() => import("../pages/Error/404"));
+// const Page404 = React.lazy(() => import("../pages/Error/404"));
 
 const Layout = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,14 +25,14 @@ const Layout = () => {
           You are in offline mode!
         </div>
       )}
-      <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="flex h-screen overflow-auto">
         <div className="flex flex-col flex-1 w-full">
           {isLoading ? (
             <ThemeSuspense />
           ) : (
             <Main>
               <Suspense fallback={<ThemeSuspense />}>
-                {/* <Sidebar>
+                <Sidebar>
                   <Routes>
                     {routes.map((route, i) => (
                       route.component && (
@@ -44,9 +44,9 @@ const Layout = () => {
                       )
                     ))}
                     <Route path="/" element={<Navigate to="/dashboard" replace />} />
-                    <Route path="*" element={<Page404 />} />
+                    {/* <Route path="*" element={<Page404 />} /> */}
                   </Routes>
-                </Sidebar> */}
+                </Sidebar>
               </Suspense>
             </Main>
           )}

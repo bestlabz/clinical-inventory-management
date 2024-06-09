@@ -18,11 +18,11 @@ const Input = ({
   return (
     <div className="input-container">
         <label className="input-label">{label}</label>
-      <div className={`input-box ${err && "err-border"}`}>
+      <div className={`input-box `}>
         <input
           id={id}
           name={name}
-          className="input"
+          className={`input ${err ? "err-border" : "border-gray-300"}`}
           type={type}
           maxLength={length}
           placeholder={placeholder}

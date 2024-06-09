@@ -3,16 +3,24 @@ import { RiMenuUnfold4Line } from "react-icons/ri";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import GridSvgComponent from "../../../assets/Svg/Home";
+import DoctorsIcon from "../../../assets/Svg/DoctorsIcon";
+
 
 const menuConfig = [
   {
-    paths: ["/dashboard"],
+    paths: ["/dashboard", "/doctors"],
     items: [
       {
         path: "/dashboard",
         name: "Dashboard",
         icon: <GridSvgComponent />,
         activeName: "dashboard",
+      },
+      {
+        path: "/doctors",
+        name: "Doctors",
+        icon: <DoctorsIcon />,
+        activeName: "doctors",
       },
       
     ],
@@ -64,11 +72,11 @@ const Sidemenu = () => {
             icon: <RiMenuUnfold4Line size={35} className="" />,
             activeName: "menu",
           },
-          ...config
-          // .items.map((item) => ({
-          //   ...item,
-          //   path: item.path.replace(":id", ID),
-          // })),
+          
+          ...config.items.map((item) => ({
+            ...item,
+            // path: item.path.replace(":id", ID),
+          })),
         ];
       }
     }

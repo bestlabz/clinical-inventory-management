@@ -10,119 +10,109 @@ import { useSelector } from "react-redux";
 // import LogoFull from "../../../../public/logo/logo-large-roti-ghar (250 x 100 px).png";
 // import Logo from "../../../../public/logo/logo-small-roti-ghar (100 x 100 px).png";
 
-import { IoMdReturnLeft } from "react-icons/io";
-
+import NotificationIcon from "../../../assets/Svg/NotificationIcon";
+import { FiLogOut } from "react-icons/fi";
 
 const Sidebar = ({ children }) => {
   const navigate = useNavigate();
   const { MenuItem } = menuItem();
-  const { location, toggle } =
-    SideMenuFunction();
+  const { location, toggle } = SideMenuFunction();
   const { sidebarStatus } = useSelector((state) => state.sidebarInfo);
-
 
   return (
     <div className="sidebar-container">
       <div
-        className={`sidebar ${
+        className={`sidebar transition-all duration-500 ${
           sidebarStatus
-            ? "2xl:w-[300px] xl:w-[300px] lg:w-[300px] md:w-[300px]: sm:w-[300px] xs:w-[70px] xss:w-[70px] mobile:w-[70px]"
-            : " w-[70px]"
+            ? "2xl:w-[300px] xl:w-[300px] lg:w-[300px] md:w-[300px]: sm:w-[300px] xs:w-[90px] xss:w-[90px] mobile:w-[90px] 2xl:p-4 xl:p-4 lg:p-4 md:p-4 sm:p-2 xs:p-2 xss:p-2 mobile:p-2"
+            : " w-[90px] 2xl:p-4 xl:p-4 lg:p-4 md:p-4 sm:p-2 xs:p-2 xss:p-2 mobile:p-2"
         }`}
       >
-        <div
-          className={`top_sectiom ${
-            sidebarStatus ? "h-[100px] object-contain 2xl:px-5 xl:px-5 lg:px-5 md:px-5 sm:px-5 xs:px-0 xss:px-0 mobile:px-0" : "h-[100px]"
-          } `}
-        >
-          {/* <div className="  w-full  overflow-hidden">
-            <img
-              src={sidebarStatus ? LogoFull : Logo}
-              className=" 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden"
-            />
-            <img
-              src={Logo}
-              className="2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:block xss:block mobile:block"
-            />
-          </div> */}
-          {/* <h1
-            className={`logo ${
-              sidebarStatus
-                ? "block ml-[30px]  transition-all duration-300"
-                : "hidden "
-            }`}
-          >
-            logo
-          </h1> */}
+        <div className="flex-1">
+          {MenuItem().map((item, index) => {
+            const isActive =
+              location.pathname.replace(/[\/\d]/g, "") === item.activeName;
+            // const isAddStore =
+            //   location.pathname.replace(/[\/\d]/g, "") === "add-store";
+            // const isAddCategory =
+            //   location.pathname.replace(/[\/\d]/g, "") === "add-category";
+            // const isAddClerk =
+            //   location.pathname.replace(/[\/\d]/g, "") === "add-clerk";
+            // const isAddItems =
+            //   location.pathname.replace(/[\/\d]/g, "") === "add-items";
+            const linkClass = [
+              "link",
+              // isAddStore && item.activeName === "store" ? "active" : "",
+              // isAddCategory && item.activeName === "category" ? "active" : "",
+              // isAddClerk && item.activeName === "clerks" ? "active" : "",
+              // isAddItems && item.activeName === "all-items" ? "active" : "",
+
+              isActive
+                ? "active"
+                : item.activeName === "menu"
+                ? "InActive"
+                : "hover:bg-navbar_activate_color hover:text-white hover:rounded-2xl",
+            ]
+              .filter(Boolean)
+              .join(" ");
+
+            return (
+              <NavLink
+                to={item.path}
+                key={index}
+                className={linkClass}
+                onClick={() => item.name === "Menu" && toggle()}
+              >
+                <div className="icon">{item.icon}</div>
+                {sidebarStatus && (
+                  <div className="link_text 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden">
+                    {item.name}
+                  </div>
+                )}
+              </NavLink>
+            );
+          })}
         </div>
-        <hr className=" text-white" />
 
-        {MenuItem().map((item, index) => {
-          const isActive =
-            location.pathname.replace(/[\/\d]/g, "") === item.activeName;
-          // const isAddStore =
-          //   location.pathname.replace(/[\/\d]/g, "") === "add-store";
-          // const isAddCategory =
-          //   location.pathname.replace(/[\/\d]/g, "") === "add-category";
-          // const isAddClerk =
-          //   location.pathname.replace(/[\/\d]/g, "") === "add-clerk";
-          // const isAddItems =
-          //   location.pathname.replace(/[\/\d]/g, "") === "add-items";
-          const linkClass = [
-            // "link",
-            // isAddStore && item.activeName === "store" ? "active" : "",
-            // isAddCategory && item.activeName === "category" ? "active" : "",
-            // isAddClerk && item.activeName === "clerks" ? "active" : "",
-            // isAddItems && item.activeName === "all-items" ? "active" : "",
-
-            isActive
-              ? "active"
-              : item.activeName === "menu"
-              ? "InActive"
-              : "hover:bg-white hover:text-primary_color",
-          ]
-            .filter(Boolean)
-            .join(" ");
-
-          return (
-            <NavLink
-              to={item.path}
-              key={index}
-              className={linkClass}
-              onClick={() => item.name === "Menu" && toggle()}
-            >
-              <div className="icon">{item.icon}</div>
-              <div className="link_text 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden">{item.name}</div>
-            </NavLink>
-          );
-        })}
-
-        {location.pathname.replace(/[\/\d]/g, "") !== "store" &&
-          location.pathname.replace(/[\/\d]/g, "") !== "dashboard" &&
-          location.pathname.replace(/[\/\d]/g, "") !== "add-store" && (
-            <>
-            <span
-            onClick={() => navigate("/store")}
-            className=" cursor-pointer absolute  2xl:w-[252px] xl:w-[252px] lg:w-[252px] md:w-[202px] sm:w-[202px] bottom-3  text-white transition-all duration-200 hover:bg-white hover:text-primary_color p-4 text-center 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden"
-          >
+        <div className=" bottom-section">
+          <div className=" flex items-center gap-[15px] px-3 py-3 cursor-pointer hover:bg-navbar_activate_color hover:rounded-xl">
+            <NotificationIcon />
             {
-              sidebarStatus ? <div className="flex items-center w-full gap-6"><IoMdReturnLeft size={25} />  Return to stores</div> : <IoMdReturnLeft size={25} />
+              sidebarStatus &&
+            <span className="link_text 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden">Notifications</span>
             }
-            
-          </span>
-            <span
-              onClick={() => navigate("/store")}
-              className=" cursor-pointer absolute left-2  bottom-3 text-white  hover:text-primary_color text-center 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:block xss:block mobile:block"
-            >
-             <IoMdReturnLeft size={25} />
-            </span>
-            </>
-          )}
+          </div>
+          <hr className=" mt-4 mb-2 text-white" />
+          <div className="profile">
+            {
+              sidebarStatus &&
+            <div className="profile-content 2xl:flex xl:flex lg:flex md:flex sm:flex xs:hidden xss:hidden mobile:hidden">
+            <img className="w-[35px] h-[35px] rounded-full object-cover 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREoRGyXmHy_6aIgXYqWHdOT3KjfmnuSyxypw&s" alt="profile"/>
+            <div className="profile-details">
+              <span className="profile-details-name">Mohamed Thawfeek</span>
+              <span className="profile-details-id">859300</span>
+            </div>
+
+            </div>
+            }
+            {
+              sidebarStatus ? 
+            <FiLogOut size={20} className=" cursor-pointer 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden" /> :   <div className=" flex items-center gap-[15px] px-4 py-3 cursor-pointer hover:bg-navbar_activate_color hover:rounded-xl">
+            <FiLogOut size={20}  />
+
+          </div>
+            }
+            <div className="2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:block xss:block mobile:block flex items-center gap-[15px] px-4 py-3 cursor-pointer hover:bg-navbar_activate_color hover:rounded-xl">
+              <FiLogOut size={20}  />
+
+            </div>
+          </div>
+
+        </div>
       </div>
       <div className=" flex flex-col 2xl:w-full xl:w-full lg:w-full w-screen  h-screen overflow-auto">
         {/* <Navbar /> */}
 
-      
         <main className="py-2 h-screen overflow-auto">{children}</main>
       </div>
     </div>
