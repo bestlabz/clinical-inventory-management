@@ -77,14 +77,14 @@ const ImageInput = ({
                 border-2 
                 border-gray-200
                 px-1 py-1 
-                rounded-searchBox 
+                rounded-md 
                 flex items-center gap-4 justify-start w-full
                 `}
             >
               {/* <span className=" text-2xl">
                 <CiImageOn />
               </span> */}
-              <div className=" w-[80px] h-[40px] overflow-hidden ">
+              <div className=" w-[80px] h-[40px] overflow-hidden rounded-md ">
                 <img
                   src={base64Image && base64Image}
                   className="object-contain"

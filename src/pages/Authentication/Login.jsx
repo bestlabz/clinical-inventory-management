@@ -9,16 +9,15 @@ import CountDown from "../../hooks/Authentication/CountDown";
 const Login = () => {
   const {
     step,
-    handelClick,
-    handleNavigate,
-    number,
-    setNumber,
+    handelClickOTP,
     error,
-    error1,
+    errors,
+    handleChange,
+    handleSubmit,
+    values,
+    navigateSignup
   } = LoginFunction();
   const { count, formatTime, setTime } = CountDown();
-  console.log('error1', error1);
-
 
   return (
     <div className="public-route">
@@ -29,28 +28,32 @@ const Login = () => {
         <div className="public-route-left-inside">
           <h1 className="title-text">Log in to your account</h1>
           {step === 1 && (
-            <>
+            <form onSubmit={handleSubmit} autoComplete="off" className="login-form">
               <Input
+                id="phone_number"
+                name="phone_number"
                 label="Mobile Number"
-                placeholder="Enter your number"
-                value={number}
-                setValue={(e) => setNumber(e.target.value)}
-                err={error ? "Required" : ""}
+                placeholder="Enter your phone number"
+                value={values.phone_number}
+                setValue={handleChange}
+                err={errors.phone_number}
+                length={10}
+                
               />
-              <button className="login-button" onClick={() => handelClick()}>
+              <button type="submit" className="login-button">
                 Log in
               </button>
               <p className=" w-full text-center mt-3 font-semibold">
                 Don't have an account?
               </p>
-              <p className=" w-full text-center cursor-pointer">
+              <p onClick={navigateSignup} className=" w-full text-center cursor-pointer">
                 Create a new one
               </p>
-            </>
+            </form>
           )}
           {step === 2 && (
             <>
-              <OTP err={error1} />
+              <OTP err={error} />
               <p className="resend-text">
                 <span
                   onClick={setTime}
@@ -60,7 +63,7 @@ const Login = () => {
                 </span>
                 {formatTime(count)}
               </p>
-              <button className="login-button-otp" onClick={handleNavigate}>
+              <button className="login-button-otp" onClick={handelClickOTP}>
                 Log in
               </button>
               <p className="w-full text-center mt-3 font-semibold">

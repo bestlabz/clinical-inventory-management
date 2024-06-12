@@ -1,6 +1,16 @@
 import React, { useState } from "react";
+
+// Third party libraries
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+//Components
+import FormHandel from "../../Components/Properites/FormHandel/Formhandel";
+
+//Utilities
+import { LoginSchema } from "../../utils/Validation/Login";
+
+//Hooks
 import { setUser } from "../../Redux/Slice/User";
 import { setOTP } from "../../Redux/Slice/Otp";
 
@@ -11,23 +21,39 @@ const Login = () => {
   const [otpCount, setotpCount] = useState(6);
   const [otp, setOtp] = useState(new Array(otpCount).fill(""));
   const [error, setError] = useState(false);
-  const [error1, setError1] = useState(false);
   const [number, setNumber] = useState(null);
 
   const { otpValue } = useSelector((state) => state.otpValue);
 
-  const handelClick = () => {
-    if (step === 1) {
-      if (number) {
-        if (step !== 2) {
-          setError(false);
-          return setStep((step) => step + 1);
-        }
-      } else {
-        setError(true);
-      }
-    }
+  const onSubmit = async (values, actions) => {
+
+    console.log(values);
+    return setStep((step) => step + 1);
+    // dispatchForm()
+    //   return setCurrentIndex(currentIndex + 1);
   };
+
+  const { errors, handleChange, handleSubmit, values } = FormHandel({
+    initialValue: { phone_number: "" },
+    schema: LoginSchema,
+    submitFunction: onSubmit,
+  });
+
+  const handelClickOTP = () => {
+      if (!otpValue) {
+        return setError(true);
+      }
+      const OTPVALUE = otpValue.join("");
+      if (!OTPVALUE || OTPVALUE?.length < 6) {
+        return setError(true);
+      } else {
+        setError(false);
+        dispatch(setUser("Mohamed Thawfeek"));
+        return navigate("/dashboard");
+      }
+  };
+
+
 
   const handelChange = ({ e, i }) => {
     const value = e.target.value;
@@ -52,32 +78,27 @@ const Login = () => {
     return;
   };
 
-  const handleNavigate = () => {
-    if (!otpValue) {
-      return setError1(true);
-    }
-    const OTPVALUE = otpValue.join("");
-    if (!OTPVALUE || OTPVALUE?.length < 6) {
-      return setError1(true);
-    } else {
-      setError1(false);
-      dispatch(setUser("Mohamed Thawfeek"));
-      return navigate("/dashboard");
-    }
-  };
+ 
+
+  const navigateSignup = () => {
+    navigate('/signup')
+  }
 
   return {
     step,
     setStep,
-    handelClick,
     setotpCount,
     handelChange,
     otp,
-    handleNavigate,
+    handelClickOTP,
     setNumber,
     number,
     error,
-    error1,
+    errors,
+    handleChange,
+    handleSubmit,
+    values,
+    navigateSignup
   };
 };
 

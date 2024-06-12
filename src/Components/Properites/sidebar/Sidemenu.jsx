@@ -4,11 +4,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import GridSvgComponent from "../../../assets/Svg/Home";
 import DoctorsIcon from "../../../assets/Svg/DoctorsIcon";
+import Receptionist from "../../../assets/Svg/Receptionist";
+import Medicine from "../../../assets/Svg/Medicine";
+
 
 
 const menuConfig = [
   {
-    paths: ["/dashboard", "/doctors"],
+    paths: ["/dashboard", "/doctors", "/receptionist", "/medicine"],
     items: [
       {
         path: "/dashboard",
@@ -22,6 +25,20 @@ const menuConfig = [
         icon: <DoctorsIcon />,
         activeName: "doctors",
       },
+      {
+        path: "/receptionist",
+        name: "Receptionist",
+        icon: <Receptionist />,
+        activeName: "receptionist",
+      },
+      
+      {
+        path: "/medicine",
+        name: "Medicine",
+        icon: <Medicine />,
+        activeName: "medicine",
+      },
+      
       
     ],
   },
