@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-  @apply scrollbar-hide;
+  @apply scrollbar-hide font-roboto;
 }
 
 .public-route {
@@ -11,11 +11,11 @@
 }
 
 .public-route-right {
-  @apply bg-gray-300  2xl:p-10 xl:p-10 lg:p-10 md:p-0 sm:p-10 xs:p-0 xss:p-0 mobile:p-0 2xl:w-[60%] xl:w-[60%] lg:w-[60%] md:w-0 sm:w-0 xs:w-0 xss:w-0  mobile:w-0;
+  @apply bg-custom-bg bg-cover bg-center  2xl:p-10 xl:p-10 lg:p-10 md:p-0 sm:p-10 xs:p-0 xss:p-0 mobile:p-0 2xl:w-[60%] xl:w-[60%] lg:w-[60%] md:w-0 sm:w-0 xs:w-0 xss:w-0  mobile:w-0;
 }
 
 .public-route-right-inside {
-  @apply w-full h-full bg-primary_color rounded-3xl;
+  @apply w-full h-full bg-clinic-bg bg-cover bg-center rounded-3xl;
 }
 
 .public-route-left {
@@ -151,25 +151,39 @@
 }
 
 .table-box {
-  @apply w-[99.5%] h-full rounded-lg p-3 overflow-auto mt-4;
+  @apply w-[99.5%] h-full rounded-lg overflow-hidden mt-4;
 }
 
 .table-box-top {
-  @apply w-full min-h-[50px] flex items-center 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col;
+  @apply w-full min-h-[50px] max-h-[20%] overflow-auto flex items-center 2xl:flex-row xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col mobile:flex-col xss:flex-col gap-2 py-2 px-3;
 }
 
 .table-box-top-left {
-  @apply  2xl:flex-1 xl:flex-1 lg:flex-1 md:w-full sm:w-full xs:w-full mobile:w-full xss:w-full h-[50px] bg-red-400 flex items-center;
+  @apply  2xl:flex-1 xl:flex-1 lg:flex-1 md:w-full sm:w-full xs:w-full mobile:w-full xss:w-full h-[50px] flex items-center;
+}
+
+.header-container {
+  @apply flex items-center 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-row mobile:flex-col xss:flex-col 2xl:gap-3 xl:gap-3 lg:gap-3 md:gap-3 sm:gap-3 xs:gap-3 mobile:gap-0 xss:gap-0 2xl:px-6  xl:px-6  lg:px-6  md:px-6  sm:px-6  xs:px-0  mobile:px-0 xss:px-0
+}
+
+.header-container-left {
+  @apply text-[20px] xs:text-[16px] mobile:text-[16px] xss:text-[16px] font-semibold
+}
+
+.header-container-right {
+  @apply text-[12px] text-dark_purple border-[1px] border-[#dfc5fd] bg-light_purple w-[80px] mobile:w-[100px] xss:w-[100px] p-[2px] text-center rounded-full
 }
 
 .table-box-top-right {
-  @apply  2xl:w-[30%] xl:w-[30%] lg:w-[30%] md:w-[45%] sm:w-[45%] xs:w-full mobile:w-full xss:w-full h-[50px] flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col;
+  @apply  2xl:w-[30%] xl:w-[30%] lg:w-[60%] md:w-[95%] sm:w-[95%] xs:w-full mobile:w-full xss:w-full h-[50px] flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col gap-3;
 }
 
 .table-box-top-right-content-date {
-  @apply  2xl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[50%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] h-full bg-green-400 flex items-start py-2 ;
+  @apply  2xl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[50%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] h-full flex items-start py-1 ;
 }
 
 .table-box-top-right-content-filter {
-  @apply 2xl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[50%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] h-full bg-orange-500 flex items-start py-2;
+  @apply 2xl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[50%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] h-full flex items-center py-2;
 }
+
+

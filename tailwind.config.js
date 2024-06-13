@@ -5,9 +5,14 @@ const config = {
   darkMode: "class",
   theme: {
     extend: {
+      backgroundImage: {
+        'custom-bg': "url('/BackgroundFrame.png')", 
+        'clinic-bg': "url('/ClinicImage.png')", 
+
+      },
+
       fontFamily: {
-        sans: ["Open Sans", "sans-serif"],
-        serif: ["Inter", ...defaultTheme.fontFamily.sans],
+        roboto: ['Roboto', 'sans-serif'],
       },
       boxShadow: {
         bottom:
@@ -24,14 +29,15 @@ const config = {
         mobile: "375px"
       },
       colors: {
-       primary_color: "#171717",
+       primary_color: "#0073EE",
+       text_blue_color: "#1C01FF",
        navbar_activate_color: "#545D5F",
        navbar_color: "#293332",
        green_light: "#17B26A",
        green_dark: "#069B56",
        light_gray: "#E8E8E8",
        blue: "#0073EE",
-       light_purple: "#E9D7FE",
+       light_purple: "#f0e5fd",
        dark_purple: "#6941C6",
        pagination_text_color: "#344054",
        orange_light: "#F9DBAF",

@@ -28,6 +28,7 @@ const Signup = () => {
   const [base64Image, setBase64Image] = useState(null);
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState(false);
+  const [validationError, setValidationError] = useState(false)
 
   const { newuser } = useSelector((state) => state.Signup);
   const { otpValue } = useSelector((state) => state.otpValue);
@@ -170,6 +171,13 @@ const Signup = () => {
     setBase64Image(null); // Clear base64Image when deleting file
   };
 
+  const validationCheck = () => {
+    setValidationError(true)
+    setTimeout(() => {
+      setValidationError(false)
+    }, 2000)
+  }
+
   return {
     step,
     setStep,
@@ -187,6 +195,8 @@ const Signup = () => {
     handleDeleteFile,
     setFieldValue,
     error,
+    validationCheck,
+    validationError
   };
 };
 

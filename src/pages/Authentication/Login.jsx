@@ -46,7 +46,7 @@ const Login = () => {
               <p className=" w-full text-center mt-3 font-semibold">
                 Don't have an account?
               </p>
-              <p onClick={navigateSignup} className=" w-full text-center cursor-pointer">
+              <p onClick={navigateSignup} className=" w-full text-center cursor-pointer text-text_blue_color">
                 Create a new one
               </p>
             </form>
@@ -69,7 +69,7 @@ const Login = () => {
               <p className="w-full text-center mt-3 font-semibold">
                 Don't have an account?
               </p>
-              <p className="w-full text-center cursor-pointer">
+              <p onClick={navigateSignup} className="w-full text-center cursor-pointer text-text_blue_color">
                 Create a new one
               </p>
             </>

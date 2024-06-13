@@ -21,7 +21,9 @@ const Signup = () => {
     loader,
     setFieldValue,
     handleDeleteFile,
-    error
+    error,
+    validationError,
+    validationCheck
   } = SignupFunction();
   const { count, formatTime, setTime } = CountDown();
 
@@ -47,9 +49,9 @@ const Signup = () => {
                 length={10}
                 label="Mobile Number"
                 placeholder="Enter your number"
-                err={errors.phone_number}
+                err={validationError && errors.phone_number}
               />
-              <button type="submit" className="login-button">
+              <button type="submit" onClick={validationCheck} className="login-button">
                 Next
               </button>
               <p className=" w-full text-center mt-3 font-semibold">
@@ -57,7 +59,7 @@ const Signup = () => {
               </p>
               <p
                 onClick={navigateLogin}
-                className=" w-full text-center cursor-pointer"
+                className=" w-full text-center cursor-pointer text-text_blue_color"
               >
                 Login
               </p>
@@ -84,7 +86,7 @@ const Signup = () => {
                 </p>
                 <p
                   onClick={navigateLogin}
-                  className=" text-center cursor-pointer"
+                  className=" text-center cursor-pointer text-text_blue_color"
                 >
                   Login
                 </p>
@@ -103,7 +105,7 @@ const Signup = () => {
                 name="name"
                 value={values.name}
                 setValue={handleChange}
-                err={errors.name}
+                err={validationError && errors.name}
                 label="Name"
                 placeholder="Enter your name"
               />
@@ -112,7 +114,7 @@ const Signup = () => {
                 name="clinic_name"
                 value={values.clinic_name}
                 setValue={handleChange}
-                err={errors.clinic_name}
+                err={validationError && errors.clinic_name}
                 label="Clinic Name"
                 placeholder="Enter your clinic name"
               />
@@ -121,7 +123,7 @@ const Signup = () => {
                 name="email"
                 value={values.email}
                 setValue={handleChange}
-                err={errors.email}
+                err={validationError && errors.email}
                 label="Email"
                 placeholder="Enter your email"
               />
@@ -134,7 +136,7 @@ const Signup = () => {
                 <span>Agree to terms and conditions</span>
               </div>
 
-              <button type="submit" className="login-button">
+              <button type="submit" onClick={validationCheck} className="login-button">
                 Next
               </button>
             </form>
@@ -153,7 +155,7 @@ const Signup = () => {
                   handleDeleteFile={handleDeleteFile}
                   setFieldValue={setFieldValue}
                 />
-                {errors.file && (
+                {validationError && errors.file && (
                   <span className=" absolute top-[98%] left-0 err-txt ">
                     {errors.file}
                   </span>
