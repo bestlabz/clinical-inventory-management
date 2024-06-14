@@ -11,7 +11,7 @@ import Medicine from "../../../assets/Svg/Medicine";
 
 const menuConfig = [
   {
-    paths: ["/dashboard", "/doctors", "/receptionist", "/medicine", "/add-doctor"],
+    paths: ["/dashboard", "/doctors", "/receptionist", "/medicine", "/add-doctor", "/add-recptionist"],
     items: [
       {
         path: "/dashboard",

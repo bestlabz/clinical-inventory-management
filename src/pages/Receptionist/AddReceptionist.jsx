@@ -7,12 +7,12 @@ import { IoArrowBackSharp } from "react-icons/io5";
 import PhoneNumber from "../../Components/Properites/PhoneNumber/PhoneNumber";
 
 //Hooks
-import AddDoctorFunction from "../../hooks/Doctors/AddDoctor";
+import AddReceptionistFunction from "../../hooks/Receptionist/AddReceptionist";
 import OTP from "../../Components/Properites/OTP/OTP";
 import OTPResponsive1 from "../../Components/Properites/OTP/OTPResponsive1";
 
-const AddDoctor = () => {
-  const { goBack, next, pre, step, otp, setOTP } = AddDoctorFunction();
+const AddReceptionist = () => {
+  const { goBack, next, pre, step, otp, setOTP } = AddReceptionistFunction();
 
   return (
     <div
@@ -34,14 +34,14 @@ const AddDoctor = () => {
           }}
           className=" cursor-pointer"
         />
-        <p className="add-doctor-top-title">Invite Doctor</p>
+        <p className="add-doctor-top-title">Invite Receptionist</p>
       </div>
 
       <div className="add-doctor-content">
         {step === 1 && (
           <>
             <p className="add-doctor-content-header">
-              Enter Doctor’s Mobile number
+              Enter Receptionist Mobile number
             </p>
             <PhoneNumber />
 
@@ -53,11 +53,13 @@ const AddDoctor = () => {
         {step === 2 && (
           <>
             <p className="add-doctor-content-header">
-              Enter Doctor’s Mobile number
+              Enter Receptionist Mobile number
             </p>
+
             <p className=" text-gray-500">
-              A secure code has been sent to doctor’s mobile number
+              A secure code has been sent to Receptionist mobile number
             </p>
+
             <OTPResponsive1 otp={otp} setOTP={setOTP} />
 
             <p className=" flex items-center gap-3 cursor-pointer">
@@ -81,4 +83,4 @@ const AddDoctor = () => {
   );
 };
 
-export default AddDoctor;
+export default AddReceptionist;

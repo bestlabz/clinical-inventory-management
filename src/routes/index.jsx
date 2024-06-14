@@ -4,6 +4,8 @@ import { lazy } from "react";
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
 const Doctors = lazy(() => import("../pages/Doctors/Doctors"));
 const AddDoctor = lazy(() => import("../pages/Doctors/AddDoctor"));
+const AddReceptionist = lazy(() => import("../pages/Receptionist/AddReceptionist"));
+
 
 const Receptionist = lazy(() => import("../pages/Receptionist/Receptionist"));
 const Medicine = lazy(() => import("../pages/Medicine/Medicine"));
@@ -42,6 +44,10 @@ const routes = [
   {
     path: "/add-doctor",
     component: AddDoctor,
+  },
+  {
+    path: "/add-recptionist",
+    component: AddReceptionist,
   }
 ];
 
