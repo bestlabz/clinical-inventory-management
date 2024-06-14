@@ -7,6 +7,7 @@ import SignupFunction from "../../hooks/Authentication/Signup";
 import CountDown from "../../hooks/Authentication/CountDown";
 import ImageInput from "../../Components/Properites/imageInput/ImageInput";
 import { ClipLoader } from "react-spinners";
+import OTPResponsive from "../../Components/Properites/OTP/OTPResponsive";
 
 const Signup = () => {
   const {
@@ -23,9 +24,12 @@ const Signup = () => {
     handleDeleteFile,
     error,
     validationError,
-    validationCheck
+    validationCheck,
+    handelChange,
+    otpValue
   } = SignupFunction();
   const { count, formatTime, setTime } = CountDown();
+
 
   return (
     <div className="public-route">
@@ -51,7 +55,11 @@ const Signup = () => {
                 placeholder="Enter your number"
                 err={validationError && errors.phone_number}
               />
-              <button type="submit" onClick={validationCheck} className="login-button">
+              <button
+                type="submit"
+                onClick={validationCheck}
+                className="login-button"
+              >
                 Next
               </button>
               <p className=" w-full text-center mt-3 font-semibold">
@@ -67,7 +75,13 @@ const Signup = () => {
           )}
           {step === 2 && (
             <>
-              <OTP err={error} />
+              <OTPResponsive
+                error={error}
+                handelChange={(e) => handelChange({ e })}
+                length={6}
+                otpValue={otpValue}
+              />
+
               <p className="resend-text">
                 <span
                   onClick={setTime}
@@ -136,7 +150,11 @@ const Signup = () => {
                 <span>Agree to terms and conditions</span>
               </div>
 
-              <button type="submit" onClick={validationCheck} className="login-button">
+              <button
+                type="submit"
+                onClick={validationCheck}
+                className="login-button"
+              >
                 Next
               </button>
             </form>

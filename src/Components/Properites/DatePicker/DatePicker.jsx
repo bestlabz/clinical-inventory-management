@@ -15,13 +15,14 @@ const DatePicker = ({ date, handleDateSelect }) => {
     };
   
     return (
-      <div className=" flex items-center justify-center w-full px-2 mx-auto gap-1 border-[2px] border-gray-200 overflow-hidden rounded-sm">
-        <CiCalendarDate onClick={clickDate} className="cursor-pointer text-[40px] ml-1"/>
+      <div className=" flex items-center justify-center w-full px-2 mx-auto gap-1 border-[2px] border-gray-200 overflow-hidden rounded-md">
+        <CiCalendarDate onClick={clickDate} className="cursor-pointer text-[35px] ml-1"/>
         <SelectDate
           ref={dateRef}
-          className="w-[100%] p-2 outline-none border-0 text-[16px] font-medium text-gray-500"
+          className="w-[100%] p-1 outline-none border-0 text-[16px] font-medium text-gray-500"
           selected={date}
           onChange={handleDateSelect}
+          dateFormat="dd-MM-yyyy"
         />
       </div>
     );

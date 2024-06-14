@@ -23,15 +23,19 @@ const Signup = () => {
   const dispatch = useDispatch();
 
   const [step, setStep] = useState(1);
-  const [otpCount, setotpCount] = useState(6);
-  const [otp, setOtp] = useState(new Array(otpCount).fill(""));
   const [base64Image, setBase64Image] = useState(null);
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState(false);
-  const [validationError, setValidationError] = useState(false)
+  const [validationError, setValidationError] = useState(false);
 
   const { newuser } = useSelector((state) => state.Signup);
   const { otpValue } = useSelector((state) => state.otpValue);
+
+  useEffect(() => {
+      setTimeout(() => {
+        setError(false);
+      }, 2000);
+  }, [error]);
 
   const initialvalue = () => {
     if (step === 1) {
@@ -129,9 +133,10 @@ const Signup = () => {
       if (!otpValue) {
         return setError(true);
       }
-      const OTPVALUE = otpValue.join("");
-      if (!OTPVALUE || OTPVALUE?.length < 6) {
-        return setError(true);
+      if (otpValue?.length < 6) {
+        setError(true);
+
+        return;
       } else {
         setError(false);
         return setStep((step) => step + 1);
@@ -139,26 +144,15 @@ const Signup = () => {
     }
   };
 
-  const handelChange = ({ e, i }) => {
-    const value = e.target.value;
+  const handelChange = ({ e }) => {
+    const value = e;
 
     // Check if the value is a digit
     if (!/^\d*$/.test(value)) {
       return; // If not a digit, return without updating the state
     }
 
-    const newOtp = [...otp];
-    newOtp[i] = value;
-
-    if (value && e.target.nextSibling) {
-      e.target.nextSibling.focus();
-    }
-    if (value === "" && e.target.previousSibling) {
-      e.target.previousSibling.focus();
-    }
-
-    dispatch(setOTP(newOtp));
-    setOtp(newOtp);
+    dispatch(setOTP(value));
     return;
   };
 
@@ -172,19 +166,17 @@ const Signup = () => {
   };
 
   const validationCheck = () => {
-    setValidationError(true)
+    setValidationError(true);
     setTimeout(() => {
-      setValidationError(false)
-    }, 2000)
-  }
+      setValidationError(false);
+    }, 2000);
+  };
 
   return {
     step,
     setStep,
     handelClickOTP,
-    setotpCount,
     handelChange,
-    otp,
     navigateLogin,
     errors,
     handleChange,
@@ -196,7 +188,8 @@ const Signup = () => {
     setFieldValue,
     error,
     validationCheck,
-    validationError
+    validationError,
+    otpValue,
   };
 };
 

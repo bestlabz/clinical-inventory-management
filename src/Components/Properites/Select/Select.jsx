@@ -13,7 +13,7 @@ const Select = ({ options, value, SelectedValue, placeholder, styles, clear=true
          
          })
       }}
-        className="my-1 w-full "
+        className=" w-full "
         value={value}
         onChange={SelectedValue}
         options={options}

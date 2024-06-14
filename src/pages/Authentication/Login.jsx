@@ -5,6 +5,7 @@ import OTP from "../../Components/Properites/OTP/OTP";
 
 import LoginFunction from "../../hooks/Authentication/Login";
 import CountDown from "../../hooks/Authentication/CountDown";
+import OTPResponsive from "../../Components/Properites/OTP/OTPResponsive";
 
 const Login = () => {
   const {
@@ -15,9 +16,14 @@ const Login = () => {
     handleChange,
     handleSubmit,
     values,
-    navigateSignup
+    navigateSignup,
+    handelChange,
+    otpValue
   } = LoginFunction();
   const { count, formatTime, setTime } = CountDown();
+
+  console.log('sign', error);
+
 
   return (
     <div className="public-route">
@@ -53,7 +59,8 @@ const Login = () => {
           )}
           {step === 2 && (
             <>
-              <OTP err={error} />
+           <OTPResponsive error={error} handelChange={(e) => handelChange({e})} length={6} otpValue={otpValue}  />
+
               <p className="resend-text">
                 <span
                   onClick={setTime}

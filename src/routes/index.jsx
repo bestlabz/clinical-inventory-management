@@ -3,8 +3,11 @@ import { lazy } from "react";
 // use lazy for better code splitting
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
 const Doctors = lazy(() => import("../pages/Doctors/Doctors"));
+const AddDoctor = lazy(() => import("../pages/Doctors/AddDoctor"));
+
 const Receptionist = lazy(() => import("../pages/Receptionist/Receptionist"));
 const Medicine = lazy(() => import("../pages/Medicine/Medicine"));
+
 
 
 
@@ -35,6 +38,10 @@ const routes = [
   {
     path: "/medicine",
     component: Medicine,
+  },
+  {
+    path: "/add-doctor",
+    component: AddDoctor,
   }
 ];
 

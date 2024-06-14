@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Third party libraries
 import { useDispatch, useSelector } from "react-redux";
@@ -25,8 +25,13 @@ const Login = () => {
 
   const { otpValue } = useSelector((state) => state.otpValue);
 
-  const onSubmit = async (values, actions) => {
+  useEffect(() => {
+    setTimeout(() => {
+      setError(false);
+    }, 2000);
+  }, [error]);
 
+  const onSubmit = async (values, actions) => {
     console.log(values);
     return setStep((step) => step + 1);
     // dispatchForm()
@@ -40,49 +45,33 @@ const Login = () => {
   });
 
   const handelClickOTP = () => {
-      if (!otpValue) {
-        return setError(true);
-      }
-      const OTPVALUE = otpValue.join("");
-      if (!OTPVALUE || OTPVALUE?.length < 6) {
-        return setError(true);
-      } else {
-        setError(false);
-        dispatch(setUser("Mohamed Thawfeek"));
-        return navigate("/dashboard");
-      }
+    if (!otpValue) {
+      return setError(true);
+    }
+    if (otpValue?.length < 6) {
+      return setError(true);
+    } else {
+      setError(false);
+      dispatch(setUser("Mohamed Thawfeek"));
+      return navigate("/dashboard");
+    }
   };
 
-
-
-  const handelChange = ({ e, i }) => {
-    const value = e.target.value;
+  const handelChange = ({ e }) => {
+    const value = e;
 
     // Check if the value is a digit
     if (!/^\d*$/.test(value)) {
       return; // If not a digit, return without updating the state
     }
 
-    const newOtp = [...otp];
-    newOtp[i] = value;
-
-    if (value && e.target.nextSibling) {
-      e.target.nextSibling.focus();
-    }
-    if (value === "" && e.target.previousSibling) {
-      e.target.previousSibling.focus();
-    }
-
-    dispatch(setOTP(newOtp));
-    setOtp(newOtp);
+    dispatch(setOTP(value));
     return;
   };
 
- 
-
   const navigateSignup = () => {
-    navigate('/signup')
-  }
+    navigate("/signup");
+  };
 
   return {
     step,
@@ -98,7 +87,8 @@ const Login = () => {
     handleChange,
     handleSubmit,
     values,
-    navigateSignup
+    navigateSignup,
+    otpValue,
   };
 };
 

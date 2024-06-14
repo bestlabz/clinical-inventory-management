@@ -155,8 +155,12 @@
 }
 
 .table-box-top {
-  @apply w-full min-h-[50px] max-h-[20%] overflow-auto flex items-center 2xl:flex-row xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col mobile:flex-col xss:flex-col gap-2 py-2 px-3;
+  @apply w-full flex items-center 2xl:flex-row xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col mobile:flex-col xss:flex-col gap-2 py-2 px-3;
 }
+
+/* .small-screen-scroll {
+  @apply max-h-[20%] overflow-auto
+} */
 
 .table-box-top-left {
   @apply  2xl:flex-1 xl:flex-1 lg:flex-1 md:w-full sm:w-full xs:w-full mobile:w-full xss:w-full h-[50px] flex items-center;
@@ -178,12 +182,59 @@
   @apply  2xl:w-[30%] xl:w-[30%] lg:w-[60%] md:w-[95%] sm:w-[95%] xs:w-full mobile:w-full xss:w-full h-[50px] flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col gap-3;
 }
 
+.table-box-top-right-grid {
+  @apply grid 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1 xss:grid-cols-1 mobile:grid-cols-1 gap-3
+}
+
 .table-box-top-right-content-date {
-  @apply  2xl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[50%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] h-full flex items-start py-1 ;
+  @apply  w-full h-full flex items-end;
 }
 
 .table-box-top-right-content-filter {
-  @apply 2xl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[50%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] h-full flex items-center py-2;
+  @apply w-full h-full flex items-end;
 }
 
 
+.table-box-top-right-1 {
+  @apply  2xl:w-[43%] xl:w-[43%] lg:w-[60%] md:w-[95%] sm:w-[95%] xs:w-full mobile:w-full xss:w-full h-[50px] flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col gap-3;
+}
+.table-box-top-right-grid-1 {
+  @apply grid 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-3 xs:grid-cols-1 xss:grid-cols-1 mobile:grid-cols-1 gap-3
+}
+
+.table-box-top-right-content-date-1 {
+  @apply w-full h-full flex items-end ;
+}
+
+.table-box-top-right-content-filter-1 {
+  @apply w-full h-full flex items-end;
+}
+
+.table-box-top-right-content-button-1 {
+ @apply bg-primary_color w-full rounded-md text-white py-2 flex items-center justify-center font-medium gap-1
+}
+
+
+.add-doctor-container {
+  @apply w-[99%] h-full rounded-lg mx-auto py-6 2xl:px-10 xl:px-10 lg:px-10 md:px-6 sm:px-6 xs:px-3 xss:px-1 mobile:px-3  overflow-hidden
+}
+
+.add-doctor-top {
+  @apply flex items-center gap-4
+}
+
+.add-doctor-top-title {
+  @apply text-[20px] font-semibold
+}
+
+.add-doctor-content {
+  @apply w-full h-[80%] flex flex-col items-center justify-center gap-8
+}
+
+.add-doctor-content-header {
+  @apply text-[16px] font-semibold
+}
+
+.add-doctor-content-phonenumber {
+  @apply bg-primary_color text-white font-medium py-3 rounded-lg 2xl:w-[40%] xl:w-[40%] lg:w-[60%] md:w-[80%] sm:w-[80%] xs:w-[100%] xss:w-[100%] mobile:w-[100%]
+}

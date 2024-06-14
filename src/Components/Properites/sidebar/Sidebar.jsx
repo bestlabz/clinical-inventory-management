@@ -32,8 +32,8 @@ const Sidebar = ({ children }) => {
           {MenuItem().map((item, index) => {
             const isActive =
               location.pathname.replace(/[\/\d]/g, "") === item.activeName;
-            // const isAddStore =
-            //   location.pathname.replace(/[\/\d]/g, "") === "add-store";
+            const isAddDoctor =
+              location.pathname.replace(/[\/\d]/g, "") === "add-doctor";
             // const isAddCategory =
             //   location.pathname.replace(/[\/\d]/g, "") === "add-category";
             // const isAddClerk =
@@ -42,7 +42,7 @@ const Sidebar = ({ children }) => {
             //   location.pathname.replace(/[\/\d]/g, "") === "add-items";
             const linkClass = [
               "link",
-              // isAddStore && item.activeName === "store" ? "active" : "",
+              isAddDoctor && item.activeName === "doctors" ? "active" : "",
               // isAddCategory && item.activeName === "category" ? "active" : "",
               // isAddClerk && item.activeName === "clerks" ? "active" : "",
               // isAddItems && item.activeName === "all-items" ? "active" : "",

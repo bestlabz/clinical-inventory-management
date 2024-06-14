@@ -51,11 +51,12 @@ const Dashboard = () => {
         }}
         className="table-box "
       >
-        <div className="table-box-top">
+        <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[30%] xss:h-[30%] mobile:h-[30%]">
           <div className="table-box-top-left">
-            <TableHeaderTitle />
+            <TableHeaderTitle title="Patient List" subContent="100 Patients" />
           </div>
           <div className="table-box-top-right">
+          <div className="table-box-top-right-grid">
             <div className="table-box-top-right-content-date">
               <DatePicker
                 date={selectedDate}
@@ -63,11 +64,12 @@ const Dashboard = () => {
               />
             </div>
             <div className="table-box-top-right-content-filter">
-              <Select options={Options} styles={style} placeholder="Select" />
+              <Select options={Options} styles={style} placeholder="Filter" />
             </div>
           </div>
+          </div>
         </div>
-        <div className=" mt-3 pb-3 overflow-auto w-full h-[75%]">
+        <div className=" mt-3 pb-3 overflow-auto w-full  2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[53%] xss:h-[53%] mobile:h-[53%]">
           <Table
             headers={[
               { title: "S.No" },
@@ -78,6 +80,7 @@ const Dashboard = () => {
               { title: "" },
             ]}
             tableBody={tableDats}
+            tableName="Patients"
           />
         </div>
         <div className=" w-full h-[25%] flex items-start p-8 ">
