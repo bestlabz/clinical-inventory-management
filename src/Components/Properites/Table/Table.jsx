@@ -3,7 +3,7 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 const Table = ({ headers, tableBody, tableName }) => {
-  console.log("Receptionist", tableName);
+  console.log("Medicine", tableName);
   return (
     <>
       <table className="relative text-sm font-medium text-nowrap border-collapse font-poppins w-full ">
@@ -121,6 +121,34 @@ const Table = ({ headers, tableBody, tableName }) => {
                     )}
                   </td>
                   <td className={`py-2 px-10`}>
+                    <div className="flex items-center justify-end gap-6">
+                      <MdOutlineModeEdit
+                        size={20}
+                        className="text-primary_color hover:text-blue-400 cursor-pointer"
+                      />
+                    </div>
+                  </td>
+                </tr>
+              );
+            }
+            if (tableName === "Medicine") {
+              return (
+                <tr className="border-b font-medium text-start" key={i}>
+                  <td className={`py-4 px-10`}>{item.medicine_name}</td>
+                  <td className={`py-4 px-10`}>{item.dosage_form}</td>
+                  <td className={`py-4 px-10`}>{item.dosage_strength}</td>
+                  <td className={`py-4 px-10`}>
+                    {item?.status ? (
+                      <p className="text-green_dark border-[2px] border-green-100 bg-green-50 rounded-full text-[14px] w-[100px] h-[25px] flex items-center justify-center">
+                        Available
+                      </p>
+                    ) : (
+                      <p className="text-orange_dark border-[1px] border-orange-200 bg-orange-100 rounded-full w-[100px] h-[25px] text-[14px] flex items-center justify-center">
+                        Out of stock
+                      </p>
+                    )}
+                  </td>
+                  <td className={`py-4 px-10`}>
                     <div className="flex items-center justify-end gap-6">
                       <MdOutlineModeEdit
                         size={20}

@@ -9,6 +9,8 @@ const AddReceptionist = lazy(() => import("../pages/Receptionist/AddReceptionist
 
 const Receptionist = lazy(() => import("../pages/Receptionist/Receptionist"));
 const Medicine = lazy(() => import("../pages/Medicine/Medicine"));
+const AddMedicine = lazy(() => import("../pages/Medicine/AddMedicine"));
+
 
 
 
@@ -48,6 +50,10 @@ const routes = [
   {
     path: "/add-recptionist",
     component: AddReceptionist,
+  },
+  {
+    path: "/add-medicine",
+    component: AddMedicine,
   }
 ];
 

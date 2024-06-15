@@ -167,7 +167,7 @@
 }
 
 .header-container {
-  @apply flex items-center 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-row mobile:flex-col xss:flex-col 2xl:gap-3 xl:gap-3 lg:gap-3 md:gap-3 sm:gap-3 xs:gap-3 mobile:gap-0 xss:gap-0 2xl:px-6  xl:px-6  lg:px-6  md:px-6  sm:px-6  xs:px-0  mobile:px-0 xss:px-0
+  @apply flex items-center w-full 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-row mobile:flex-col xss:flex-col 2xl:gap-3 xl:gap-3 lg:gap-3 md:gap-3 sm:gap-3 xs:gap-3 mobile:gap-0 xss:gap-0 2xl:px-6  xl:px-6  lg:px-6  md:px-6  sm:px-6  xs:px-0  mobile:px-0 xss:px-0
 }
 
 .header-container-left {

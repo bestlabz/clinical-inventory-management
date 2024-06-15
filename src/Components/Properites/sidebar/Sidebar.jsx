@@ -34,8 +34,8 @@ const Sidebar = ({ children }) => {
               location.pathname.replace(/[\/\d]/g, "") === item.activeName;
             const isAddDoctor =
               location.pathname.replace(/[\/\d]/g, "") === "add-doctor";
-            // const isAddCategory =
-            //   location.pathname.replace(/[\/\d]/g, "") === "add-category";
+            const isAddMedicine =
+              location.pathname.replace(/[\/\d]/g, "") === "add-medicine";
             // const isAddClerk =
             //   location.pathname.replace(/[\/\d]/g, "") === "add-clerk";
             // const isAddItems =
@@ -43,7 +43,7 @@ const Sidebar = ({ children }) => {
             const linkClass = [
               "link",
               isAddDoctor && item.activeName === "doctors" ? "active" : "",
-              // isAddCategory && item.activeName === "category" ? "active" : "",
+              isAddMedicine && item.activeName === "medicine" ? "active" : "",
               // isAddClerk && item.activeName === "clerks" ? "active" : "",
               // isAddItems && item.activeName === "all-items" ? "active" : "",
 
