@@ -1,5 +1,11 @@
 import React from "react";
+import {
+  BsChevronLeft,
+  BsChevronRight,
+} from "react-icons/bs";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
+
+import ReactPaginate from "react-paginate";
 
 const Pagination = ({
   PrePage,
@@ -8,81 +14,63 @@ const Pagination = ({
   nextPage,
   changePage,
 }) => {
-  const getPagesCut = ({ pagesCutCount = 2 }) => {
-    const ceiling = Math.ceil(pagesCutCount / 2);
-    const floor = Math.floor(pagesCutCount / 2);
+  // const getPagesCut = ({ pagesCutCount = 2 }) => {
+  //   const ceiling = Math.ceil(pagesCutCount / 2);
+  //   const floor = Math.floor(pagesCutCount / 2);
 
-    if (pageCount <= pagesCutCount) {
-      return { start: 1, end: Number(pageCount) };
-    } else if (Number(currentpage) <= ceiling) {
-      return { start: 1, end: pagesCutCount };
-    } else if (Number(currentpage) + floor >= Number(pageCount)) {
-      return {
-        start: Number(pageCount) - Number(pagesCutCount) + 1,
-        end: Number(pageCount),
-      };
-    } else {
-      return {
-        start: Number(currentpage) - ceiling + 1,
-        end: Number(currentpage) + floor,
-      };
-    }
+  //   if (pageCount <= pagesCutCount) {
+  //     return { start: 1, end: Number(pageCount) };
+  //   } else if (Number(currentpage) <= ceiling) {
+  //     return { start: 1, end: pagesCutCount };
+  //   } else if (Number(currentpage) + floor >= Number(pageCount)) {
+  //     return {
+  //       start: Number(pageCount) - Number(pagesCutCount) + 1,
+  //       end: Number(pageCount),
+  //     };
+  //   } else {
+  //     return {
+  //       start: Number(currentpage) - ceiling + 1,
+  //       end: Number(currentpage) + floor,
+  //     };
+  //   }
+  // };
+
+  // const { start, end } = getPagesCut({ pagesCutCount: 3 }); // Adjust pagesCutCount as needed
+
+  // const pageNumbers = Array.from(
+  //   { length: end - start + 1 },
+  //   (_, i) => start + i
+  // );
+
+  const handlePageClick = ({ selected }) => {
+    return changePage({ id: selected + 1 });
   };
-
-  const { start, end } = getPagesCut({ pagesCutCount: 3 }); // Adjust pagesCutCount as needed
-
-  const pageNumbers = Array.from({ length: end - start + 1 }, (_, i) => start + i);
-
   return (
     <>
-      <button
-        onClick={PrePage}
-        disabled={currentpage === 1}
-        className={`flex items-center justify-center gap-3 border-[2px] px-3 py-1 rounded-md ${
-          currentpage !== 1 ? "text-black" : "text-gray-300"
-        } text-center cursor-pointer`}
-      >
-        <FaArrowLeft
-          className={`${currentpage !== 1 ? "text-black" : "text-gray-300"}`}
-        />
-        Previous
-      </button>
-      <div className="flex-1 flex items-center justify-center gap-4">
-        {pageNumbers.map((items) => (
-          <span
-            key={items}
-            onClick={() => changePage({ id: items })}
-            className={`${
-              currentpage === items
-                ? "bg-black text-white transition-all duration-200"
-                : "bg-transparent text-black"
-            } cursor-pointer rounded-md items-center justify-center w-[30px] h-[30px] font-bold text-base 2xl:flex xl:flex lg:flex md:flex sm:hidden xs:hidden xss:hidden mobile:hidden`}
-          >
-            {items}
+
+      <ReactPaginate
+        breakLabel={
+          <span className="flex items-center justify-center px-4 py-2">...</span>
+        }
+        nextLabel={
+          <span className=" w-[100px] h-10 flex items-center justify-center transition-all duration-300  bg-white border-[1px] border-[#d3d3d3] hover:bg-primary_color hover:text-white rounded-md mr-4 gap-2">
+            Next <FaArrowRight />
           </span>
-        ))}
-      </div>
-      {pageCount && (
-        <span
-          className={`bg-black text-white transition-all duration-200 cursor-pointer rounded-md w-[30px] h-[30px] font-bold text-base 2xl:hidden xl:hidden lg:hidden md:hidden sm:block xs:block xss:block mobile:block`}
-        >
-          <h1 className="w-full h-full flex items-center justify-center">
-            {currentpage}
-          </h1>
-        </span>
-      )}
-      <button
-        onClick={nextPage}
-        disabled={currentpage === pageCount}
-        className={`flex items-center justify-center gap-3 border-[2px] px-3 py-1 rounded-md ${
-          currentpage !== pageCount ? "text-black" : "text-gray-300"
-        } text-center cursor-pointer`}
-      >
-        Next
-        <FaArrowRight
-          className={`${currentpage !== pageCount ? "text-black" : "text-gray-300"}`}
-        />
-      </button>
+        }
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel={
+          <span className=" w-[110px] gap-2 h-10 flex items-center justify-center  border-[1px] border-[#d3d3d3] hover:bg-primary_color hover:text-white bg-white transition-all duration-300 rounded-md mr-4">
+            <FaArrowLeft /> Previous
+          </span>
+        }
+        className="w-full flex item-center justify-center mt-4 mb-4 overflow-x-auto"
+        pageClassName=" px-4 py-2 flex items-center justify-center rounded-md hover:bg-primary_color hover:text-white mr-4"
+        activeClassName="bg-primary_color text-white"
+        previousClassName=" absolute left-5"
+        nextClassName="absolute right-5"
+      />
     </>
   );
 };

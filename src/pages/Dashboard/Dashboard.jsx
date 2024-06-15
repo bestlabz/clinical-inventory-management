@@ -83,7 +83,7 @@ const Dashboard = () => {
             tableName="Patients"
           />
         </div>
-        <div className=" w-full h-[25%] flex items-start p-8 ">
+        <div className=" w-full h-[25%] flex items-start pt-4  overflow-x-auto relative">
           <Paginitation
             PrePage={PrePage}
             currentpage={currentpage}

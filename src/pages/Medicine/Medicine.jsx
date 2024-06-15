@@ -5,6 +5,7 @@ import AddMedicine from "../../assets/Svg/AddMedicine";
 
 //Third party libraries
 import { useSelector } from "react-redux";
+import { CiSearch } from "react-icons/ci";
 
 //Componets
 import TableHeaderTitle from "../../Components/Properites/TableHeaderTitle/TableHeaderTitle";
@@ -16,7 +17,6 @@ import MedicineFunction from "../../hooks/Medicine/Medicine";
 import PaginationFunction from "../../hooks/Paginitation/Paginitation";
 import Select from "../../Components/Properites/Select/Select";
 import Table from "../../Components/Properites/Table/Table";
-import { CiSearch } from "react-icons/ci";
 
 const Medicine = () => {
   const {
@@ -95,7 +95,7 @@ const Medicine = () => {
             tableName="Medicine"
           />
         </div>
-        <div className=" w-full h-[25%] flex items-start p-8 ">
+        <div className=" w-full pt-4 mx-auto h-[25%] flex items-start justify-center overflow-x-auto relative  ">
           <Paginitation
             PrePage={PrePage}
             currentpage={currentpage}
