@@ -1,5 +1,10 @@
 import React from "react";
 
+
+//Translate
+import Translate from '../../Components/translateSpan/TranslateSpan'
+import TranslateJson from "../../utils/translation/en.json"
+
 //Assets
 import AddIcon from "../../assets/Svg/AddIcon";
 
@@ -38,13 +43,13 @@ const Receptionist = () => {
         } `}
       >
         <Card
-          title="Total Doctor’s list"
+          title={TranslateJson.receptionist.card.text1}
           count="104"
           bg="#0073EE"
           textColor="#fff"
         />
-        <Card title="Doctor’s available" count="24" textColor="#000" />
-        <Card title="Doctor’s on leave" count="24" textColor="#000" />
+        <Card title={TranslateJson.receptionist.card.text2} count="24" textColor="#000" />
+        <Card title={TranslateJson.receptionist.card.text3} count="24" textColor="#000" />
       </div>
 
       <div
@@ -56,7 +61,7 @@ const Receptionist = () => {
       >
         <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
           <div className="table-box-top-left">
-            <TableHeaderTitle title="Receptionist List" subContent="100 Doctors" />
+            <TableHeaderTitle title={TranslateJson.receptionist.title} subContent={`100 ${TranslateJson.receptionist.subText}`}/>
           </div>
           <div className="table-box-top-right-1">
             <div className="table-box-top-right-grid-1">

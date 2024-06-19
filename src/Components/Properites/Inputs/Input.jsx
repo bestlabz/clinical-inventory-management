@@ -18,7 +18,7 @@ const Input = ({
   return (
     <div className="input-container">
         <label className="input-label">{label}</label>
-      <div className={`input-box `}>
+      <div className={`input-box`}>
         <input
           id={id}
           name={name}

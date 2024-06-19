@@ -1,18 +1,27 @@
 import React from "react";
 
+//Translate
+import Translate from '../../Components/translateSpan/TranslateSpan'
+import TranslateJson from "../../utils/translation/en.json"
+
 //Assets
 import ReloadIcon from "../../assets/Svg/Reloadicon";
+
 //Third party libraries
 import { IoArrowBackSharp } from "react-icons/io5";
 import PhoneNumber from "../../Components/Properites/PhoneNumber/PhoneNumber";
 
+//Components
+import OTPResponsive1 from "../../Components/Properites/OTP/OTPResponsive1";
+import ModalPopup from "../../Components/Properites/ModelPopup/ModelPopup";
+
 //Hooks
 import AddDoctorFunction from "../../hooks/Doctors/AddDoctor";
-import OTP from "../../Components/Properites/OTP/OTP";
-import OTPResponsive1 from "../../Components/Properites/OTP/OTPResponsive1";
+import ResponsiveSuccessmodal from "../../Components/Properites/ResponsiveSuccessmodal/ResponsiveSuccessmodal";
 
 const AddDoctor = () => {
-  const { goBack, next, pre, step, otp, setOTP } = AddDoctorFunction();
+  const { goBack, next, pre, step, otp, setOTP, modalPopup } =
+    AddDoctorFunction();
 
   return (
     <div
@@ -34,46 +43,50 @@ const AddDoctor = () => {
           }}
           className=" cursor-pointer"
         />
-        <p className="add-doctor-top-title">Invite Doctor</p>
+        <p className="add-doctor-top-title">{TranslateJson.add_doctor.navigate_content}r</p>
       </div>
 
       <div className="add-doctor-content">
         {step === 1 && (
           <>
             <p className="add-doctor-content-header">
-              Enter Doctor’s Mobile number
+              {TranslateJson.add_doctor.step1.title}
             </p>
             <PhoneNumber />
 
             <button onClick={next} className="add-doctor-content-phonenumber">
-              Send Code
+              {TranslateJson.add_doctor.step1.button}
             </button>
           </>
         )}
         {step === 2 && (
           <>
             <p className="add-doctor-content-header">
-              Enter Doctor’s Mobile number
+              {TranslateJson.add_doctor.step2.title}
             </p>
             <p className=" text-gray-500">
-              A secure code has been sent to doctor’s mobile number
+              {TranslateJson.add_doctor.step2.subtext}
             </p>
             <OTPResponsive1 otp={otp} setOTP={setOTP} />
 
             <p className=" flex items-center gap-3 cursor-pointer">
               {" "}
-              <ReloadIcon /> Resend Code
+              <ReloadIcon /> {TranslateJson.add_doctor.step2.resend_text}
             </p>
 
-            <button onClick={next} className="add-doctor-content-phonenumber">Verify</button>
+            <button onClick={next} className="add-doctor-content-phonenumber">
+              {TranslateJson.add_doctor.step2.button}
+            </button>
           </>
         )}
 
         {step === 3 && (
           <>
-            <button className="add-doctor-content-phonenumber">
-              Request Document
-            </button>
+            {modalPopup && (
+              <>
+                <ResponsiveSuccessmodal modalPopup={modalPopup} />
+              </>
+            )}
           </>
         )}
       </div>

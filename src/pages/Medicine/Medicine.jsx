@@ -1,5 +1,11 @@
 import React from "react";
 
+
+//Translate
+import Translate from '../../Components/translateSpan/TranslateSpan'
+import TranslateJson from "../../utils/translation/en.json"
+
+
 //Assets
 import AddMedicine from "../../assets/Svg/AddMedicine";
 
@@ -45,11 +51,11 @@ const Medicine = () => {
       >
         <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
           <div className="table-box-top-left">
-            <TableHeaderTitle title="Medicine List" subContent="100 Doctors" />
+            <TableHeaderTitle title={TranslateJson.medicine.title} subContent={`100 ${TranslateJson.medicine.subText}`}/>
             <div className=" w-[80%] h-[80%]  items-center justify-end relative 2xl:flex xl:flex lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden ">
               <input
                 type="search"
-                placeholder="Search medicine"
+                placeholder="Search"
                 className=" w-full rounded-full mt-2 py-[5px] outline-none border-[1px] border-gray-400 px-3"
               />
               <div className="h-full flex items-center justify-center absolute top-1 right-2">

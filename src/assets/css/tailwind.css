@@ -31,7 +31,7 @@
 }
 
 .input-container {
-  @apply 2xl:w-[90%] xl:w-[90%] lg:w-[90%] md:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] my-3 flex flex-col gap-1 relative;
+  @apply 2xl:w-[100%] xl:w-[100%] lg:w-[100%] md:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] my-3 flex flex-col gap-1 relative;
 }
 
 .input-label {
@@ -51,7 +51,7 @@
 }
 
 .login-button {
-  @apply 2xl:w-[90%] xl:w-[90%] lg:w-[100%] md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] p-3 bg-primary_color text-white rounded-xl mt-6;
+  @apply 2xl:w-[100%] xl:w-[100%] lg:w-[100%] md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] p-3 bg-primary_color text-white rounded-xl mt-6;
 }
 
 .login-button-otp {
@@ -237,4 +237,31 @@
 
 .add-doctor-content-phonenumber {
   @apply bg-primary_color text-white font-medium py-3 rounded-lg 2xl:w-[40%] xl:w-[40%] lg:w-[60%] md:w-[80%] sm:w-[80%] xs:w-[100%] xss:w-[100%] mobile:w-[100%]
+}
+
+
+.add-medicine-top {
+  @apply w-full h-[12%] rounded-lg mt-1 flex items-center gap-6 px-8
+}
+
+.add-medicine-top-text {
+  @apply text-[20px] font-semibold
+}
+
+.add-medicine-body {
+  @apply grid  gap-8 mt-10 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 mobile:grid-cols-1 xss:grid-cols-1
+}
+
+
+.add-medicine-footer {
+  @apply mt-10 w-full flex items-center justify-center
+}
+
+.add-medicine-footer-button {
+  @apply bg-primary_color w-[20%] py-3 rounded-lg text-white text-[16px]
+}
+
+
+.logout-button {
+  @apply w-[130px] py-2 rounded-lg border-[1px] 
 }

@@ -15,7 +15,8 @@ const Formhandel = ({
     isSubmitting,
     errors,
     setFieldValue,
-    setValues
+    setValues,
+    resetForm
 
   } = useFormik({
     initialValues: initialValue,
@@ -32,7 +33,8 @@ const Formhandel = ({
     isSubmitting,
     errors,
     setFieldValue,
-    setValues
+    setValues,
+    resetForm
   };
 };
 

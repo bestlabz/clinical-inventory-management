@@ -1,11 +1,18 @@
 import React from "react";
+
+
+//Translate
+import Translate from '../../Components/translateSpan/TranslateSpan'
+import TranslateJson from "../../utils/translation/en.json"
+
+//Components
 import Input from "../../Components/Properites/Inputs/Input";
+import OTPResponsive from "../../Components/Properites/OTP/OTPResponsive";
 
-import OTP from "../../Components/Properites/OTP/OTP";
 
+//Hooks
 import LoginFunction from "../../hooks/Authentication/Login";
 import CountDown from "../../hooks/Authentication/CountDown";
-import OTPResponsive from "../../Components/Properites/OTP/OTPResponsive";
 
 const Login = () => {
   const {
@@ -22,7 +29,7 @@ const Login = () => {
   } = LoginFunction();
   const { count, formatTime, setTime } = CountDown();
 
-  console.log('sign', error);
+
 
 
   return (
@@ -32,14 +39,14 @@ const Login = () => {
       </div>
       <div className="public-route-left">
         <div className="public-route-left-inside">
-          <h1 className="title-text">Log in to your account</h1>
+          <h1 className="title-text">{TranslateJson.Login.title}</h1>
           {step === 1 && (
             <form onSubmit={handleSubmit} autoComplete="off" className="login-form">
               <Input
                 id="phone_number"
                 name="phone_number"
-                label="Mobile Number"
-                placeholder="Enter your phone number"
+                label={TranslateJson.Login.label}
+                placeholder={TranslateJson.Login.placeholder}
                 value={values.phone_number}
                 setValue={handleChange}
                 err={errors.phone_number}
@@ -47,13 +54,13 @@ const Login = () => {
                 
               />
               <button type="submit" className="login-button">
-                Log in
+               {TranslateJson.Login.button}
               </button>
               <p className=" w-full text-center mt-3 font-semibold">
-                Don't have an account?
+                {TranslateJson.Login.bottom_text.text1}
               </p>
               <p onClick={navigateSignup} className=" w-full text-center cursor-pointer text-text_blue_color">
-                Create a new one
+                {TranslateJson.Login.bottom_text.text2}
               </p>
             </form>
           )}
@@ -66,18 +73,18 @@ const Login = () => {
                   onClick={setTime}
                   className=" text-primary_color cursor-pointer"
                 >
-                  Resend OTP
+                  {TranslateJson.verification["resend-text"]}
                 </span>
                 {formatTime(count)}
               </p>
               <button className="login-button-otp" onClick={handelClickOTP}>
-                Log in
+                {TranslateJson.verification.button}
               </button>
               <p className="w-full text-center mt-3 font-semibold">
-                Don't have an account?
+                {TranslateJson.verification.bottom_text.text1}
               </p>
               <p onClick={navigateSignup} className="w-full text-center cursor-pointer text-text_blue_color">
-                Create a new one
+                {TranslateJson.verification.bottom_text.text2}
               </p>
             </>
           )}

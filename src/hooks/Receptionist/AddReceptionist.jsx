@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 //Thired party library
 import { useNavigate } from 'react-router-dom';
@@ -8,8 +8,21 @@ const AddDoctor = () => {
 
     const [step, setStep] = useState(1)
     const [otp, setOTP] = useState("")
+    const [modalPopup, setModalPopup] = useState(false)
 
-    console.log('otpotp', otp);
+
+    useEffect(() => {
+      if(step === 3) {
+        setModalPopup(true)
+
+        setTimeout(() => {
+          setModalPopup(false)
+          setStep(1)
+        }, 3000)
+      }
+
+    }, [step])
+
 
     const goBack = () => {
         navigate(-1); // -1 means go back one page
@@ -31,7 +44,8 @@ const AddDoctor = () => {
     next,
     pre,
     setOTP,
-    otp
+    otp,
+    modalPopup
   }
 }
 

@@ -12,11 +12,16 @@ import { useSelector } from "react-redux";
 
 import NotificationIcon from "../../../assets/Svg/NotificationIcon";
 import { FiLogOut } from "react-icons/fi";
+import { IoClose } from "react-icons/io5";
+
+import ModelPopup from "../ModelPopup/ModelPopup";
+import LogOutModalResponsive from "./LogOutModalResponsive";
 
 const Sidebar = ({ children }) => {
   const navigate = useNavigate();
   const { MenuItem } = menuItem();
-  const { location, toggle } = SideMenuFunction();
+  const { location, toggle, modalpopup, openModal, logout } =
+    SideMenuFunction();
   const { sidebarStatus } = useSelector((state) => state.sidebarInfo);
 
   return (
@@ -77,37 +82,42 @@ const Sidebar = ({ children }) => {
         <div className=" bottom-section">
           <div className=" flex items-center gap-[15px] px-3 py-3 cursor-pointer hover:bg-navbar_activate_color hover:rounded-xl">
             <NotificationIcon />
-            {
-              sidebarStatus &&
-            <span className="link_text 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden">Notifications</span>
-            }
+            {sidebarStatus && (
+              <span className="link_text 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden">
+                Notifications
+              </span>
+            )}
           </div>
           <hr className=" mt-4 mb-2 text-white" />
           <div className="profile">
-            {
-              sidebarStatus &&
-            <div className="profile-content 2xl:flex xl:flex lg:flex md:flex sm:flex xs:hidden xss:hidden mobile:hidden">
-            <img className="w-[35px] h-[35px] rounded-full object-cover 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREoRGyXmHy_6aIgXYqWHdOT3KjfmnuSyxypw&s" alt="profile"/>
-            <div className="profile-details">
-              <span className="profile-details-name">Mohamed Thawfeek</span>
-              <span className="profile-details-id">859300</span>
-            </div>
-
-            </div>
-            }
-            {
-              sidebarStatus ? 
-            <FiLogOut size={20} className=" cursor-pointer 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden" /> :   <div className=" flex items-center gap-[15px] px-4 py-3 cursor-pointer hover:bg-navbar_activate_color hover:rounded-xl">
-            <FiLogOut size={20}  />
-
-          </div>
-            }
+            {sidebarStatus && (
+              <div className="profile-content 2xl:flex xl:flex lg:flex md:flex sm:flex xs:hidden xss:hidden mobile:hidden">
+                <img
+                  className="w-[35px] h-[35px] rounded-full object-cover 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREoRGyXmHy_6aIgXYqWHdOT3KjfmnuSyxypw&s"
+                  alt="profile"
+                />
+                <div className="profile-details">
+                  <span className="profile-details-name">Mohamed Thawfeek</span>
+                  <span className="profile-details-id">859300</span>
+                </div>
+              </div>
+            )}
+            {sidebarStatus ? (
+              <FiLogOut
+                onClick={openModal}
+                size={20}
+                className=" cursor-pointer 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden"
+              />
+            ) : (
+              <div className=" flex items-center gap-[15px] px-4 py-3 cursor-pointer hover:bg-navbar_activate_color hover:rounded-xl">
+                <FiLogOut size={20} onClick={openModal} />
+              </div>
+            )}
             <div className="2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:block xss:block mobile:block flex items-center gap-[15px] px-4 py-3 cursor-pointer hover:bg-navbar_activate_color hover:rounded-xl">
-              <FiLogOut size={20}  />
-
+              <FiLogOut size={20} onClick={openModal} />
             </div>
           </div>
-
         </div>
       </div>
       <div className=" flex flex-col 2xl:w-full xl:w-full lg:w-full w-screen  h-screen overflow-auto">
@@ -115,6 +125,15 @@ const Sidebar = ({ children }) => {
 
         <main className="py-2 h-screen overflow-auto">{children}</main>
       </div>
+      {modalpopup && (
+        <>
+          <LogOutModalResponsive
+            logout={logout}
+            modalpopup={modalpopup}
+            openModal={openModal}
+          />
+        </>
+      )}
     </div>
   );
 };

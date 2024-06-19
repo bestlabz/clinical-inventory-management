@@ -1,7 +1,189 @@
 {
-  "Favicon": "Favicon",
-  "Login": "Login",
-  "Verify": "Verify",
-  "Next": "Next"
+ "Login": {
+  "title": "Log in to your account",
+  "label": "Mobile Number",
+  "placeholder": "Enter your phone number",
+  "button": "Log in",
+  "bottom_text": {
+    "text1": "Don't have an account?",
+    "text2": "Create a new one"
+  },
+  "error": {
+    "phone_number_required": "Phone number is required"
+  }
+ },
+
+ "verification": {
+  "title": "Log in to your account",
+ "resend-text": "Resend OTP",
+ "button": "Log in",
+ "bottom_text": {
+  "text1": "Don't have an account?",
+  "text2": "Create a new one"
+}
+
+ },
+
+ "signup": {
+   "title": "Create a new account",
+  "step1": {
+    "label": "Mobile Number",
+    "placeholder": "Enter your phone number",
+    "button": "Next",
+    "error": {
+      "phone_number_required": "Phone number is required"
+    },
+    "bottom_text": {
+      "text1": "Already have an account?",
+      "text2": "Login"
+    }
+
+  },
+  "step2" :{
+    "resend-text": "Resend OTP",
+    "label": "Mobile Number",
+    "button": "Next",
+    "error": {
+      "phone_number_required": "Phone number is required"
+    },
+    "bottom_text": {
+      "text1": "Already have an account?",
+      "text2": "Login"
+    }
+
+  },
+  "step3" :{
+    "subtitle": "Profile Details",
+    "label": {
+      "name": "Name",
+      "clinic_name": "Clinic Name",
+      "email": "Email"
+
+    },
+    "placeholder": {
+      "name": "Enter your name",
+      "clinic_name": "Enter your clinic Name",
+      "email": "Enter your email"
+    },
+    "termsandcondition": "Agree to terms and conditions",
+    "button": "Next",
+    "error": {
+      "name_required": "Name is required",
+      "clinic_name_required": "Clinic name is required",
+      "email": "Email is required"
+    }
+  },
+
+  "step4" :{
+    "title": "Create a new account",
+    "subtitle": "Clinical Document Verification",    
+    "error": {
+      "document_required": "Document is required"
+    },
+    "button": "Submit"
+    
+
+  }
+ },
+
+ "dashboard": {
+  "title": "Patient List",
+  "subText": "Patients",
+  "card": {
+    "text1":"Today’s patient list",
+    "text2":"Doctor’s available",
+    "text3":"Doctor’s on leave"
+
+  }
+ },
+
+ "doctors": {
+  "title": "Doctor’s List",
+  "subText": "Doctors",
+  "card": {
+    "text1":"Total Doctor’s list",
+    "text2":"Doctor’s available",
+    "text3":"Doctor’s on leave"
+  }
+ },
+
+ "add_doctor": {
+   "navigate_content": "Invite Doctor",
+  "step1": {
+    "title": "Enter Doctor’s Mobile number",
+    "button": "Send Code"
+  },
+  "step2": {
+    "title": "Enter Doctor’s Mobile number",
+    "subtext": "A secure code has been sent to doctor’s mobile number",
+    "resend_text": "Resend Code",
+    "button": "Verify"
+  }
+ 
+ },
+
+ "receptionist": {
+  "title": "Receptionist List",
+  "subText": "Doctors",
+  "card": {
+    "text1":"Total Doctor’s list",
+    "text2":"Doctor’s available",
+    "text3":"Doctor’s on leave"
+  }
+ },
+
+ "add_receptionist": {
+  "navigate_content": "Invite Receptionist",
+ "step1": {
+   "title": "Enter Receptionist Mobile number",
+   "button": "Send Code"
+ },
+ "step2": {
+   "title": "Enter Receptionist Mobile number",
+   "subtext": "A secure code has been sent to Receptionist mobile number",
+   "resend_text": "Resend Code",
+   "button": "Verify"
+ }
+},
+
+"medicine": {
+  "title": "Medicine List",
+  "subText": "Doctors"
+ },
+
+ "add_medicine": {
+  "navigate_content": "Add Medicine",
+ "label": {
+  "name": "Medicine Name",
+  "dasage_form": "Dasage Form",
+  "dasage_strength": "Dasage Strength"
+ },
+ "placeholder": {
+  "name": "eg. dolo",
+  "dasage_form": "eg. Tablet, Liquid etc",
+  "dasage_strength": "eg. 500 mg"
+ },
+ "button": "Submit",
+ "errors": {
+  "name": "Medicine name is required",
+  "dasage_form":"Dasage form is required",
+  "dasage_strength":"Dasage strength is required"
+ }
+},
+
+"logout": {
+  "title": "Are you sure do you wants to logout?",
+  "buttons": {
+    "cancel": "Cancel",
+    "Submit": "Yes"
+  }
+
+},
+
+"common": {
+  "success_message": "Added Successfully",
+  "title": "Feel Great through the power of better health"
+}
+
 
 }

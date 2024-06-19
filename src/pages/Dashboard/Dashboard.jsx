@@ -1,5 +1,9 @@
 import React from "react";
 
+//Translate
+import Translate from '../../Components/translateSpan/TranslateSpan'
+import TranslateJson from "../../utils/translation/en.json"
+
 //Third party libraries
 import { useSelector } from "react-redux";
 
@@ -35,13 +39,13 @@ const Dashboard = () => {
         } `}
       >
         <Card
-          title="Today’s patient list"
+          title={TranslateJson.dashboard.card.text1}
           count="104"
           bg="#0073EE"
           textColor="#fff"
         />
-        <Card title="Doctor’s available" count="24" textColor="#000" />
-        <Card title="Doctor’s on leave" count="24" textColor="#000" />
+        <Card title={TranslateJson.dashboard.card.text2} count="24" textColor="#000" />
+        <Card title={TranslateJson.dashboard.card.text3} count="24" textColor="#000" />
       </div>
 
       <div
@@ -53,7 +57,7 @@ const Dashboard = () => {
       >
         <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[30%] xss:h-[30%] mobile:h-[30%]">
           <div className="table-box-top-left">
-            <TableHeaderTitle title="Patient List" subContent="100 Patients" />
+            <TableHeaderTitle title={TranslateJson.dashboard.title} subContent={`100 ${TranslateJson.dashboard.subText}`} />
           </div>
           <div className="table-box-top-right">
           <div className="table-box-top-right-grid">
