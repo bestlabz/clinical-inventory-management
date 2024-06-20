@@ -47,7 +47,7 @@ const Medicine = () => {
           boxShadow:
             "0 5px 9px -8px rgba(0, 0, 0, .9), 0 2px 9px -3px rgba(0, 0, 0, .9)",
         }}
-        className="table-box "
+        className="table-box"
       >
         <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
           <div className="table-box-top-left">

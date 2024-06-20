@@ -34,7 +34,7 @@ const Receptionist = () => {
   const { sidebarStatus } = useSelector((state) => state.sidebarInfo);
 
   return (
-    <div className=" w-full h-full p-3 overflow-auto">
+    <div className=" w-full h-full px-3 pb-[1px] overflow-auto">
       <div
         className={`grid  gap-4 min-h-[100px] ${
           sidebarStatus
