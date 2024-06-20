@@ -6,12 +6,14 @@ import GridSvgComponent from "../../../assets/Svg/Home";
 import DoctorsIcon from "../../../assets/Svg/DoctorsIcon";
 import Receptionist from "../../../assets/Svg/Receptionist";
 import Medicine from "../../../assets/Svg/Medicine";
+import Prescription from "../../../assets/Svg/Prescription";
+
 
 
 
 const menuConfig = [
   {
-    paths: ["/dashboard", "/doctors", "/receptionist", "/medicine", "/add-doctor", "/add-recptionist", "/add-medicine"],
+    paths: ["/dashboard", "/doctors", "/receptionist", "/medicine", "/add-doctor", "/add-recptionist", "/add-medicine", "/prescription"],
     items: [
       {
         path: "/dashboard",
@@ -31,12 +33,17 @@ const menuConfig = [
         icon: <Receptionist />,
         activeName: "receptionist",
       },
-      
       {
         path: "/medicine",
         name: "Medicine",
         icon: <Medicine />,
         activeName: "medicine",
+      },
+      {
+        path: "/prescription",
+        name: "Prescription",
+        icon: <Prescription />,
+        activeName: "prescription",
       },
       
       

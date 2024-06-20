@@ -183,7 +183,96 @@
 "common": {
   "success_message": "Added Successfully",
   "title": "Feel Great through the power of better health"
+},
+
+"prescription" : {
+  "navigate_content": "Prescription template",
+  "bottom_title": "Doctor Signature",
+  "button": "Submit",
+  "step1": {
+    "title": "Doctor Information",
+    "placeholder": {
+      "placeholder_text1": "Enter Speciality",
+      "placeholder_text2": "Enter Phone Number",
+      "placeholder_text3": "Enter License Number"
+    },
+    "label": {
+      "label1": "Speciality",
+      "label2": "Phone Number",
+      "label3": "License Number"
+    },
+    "errors": {
+      "error1": "Speciality is required",
+      "error2": "Phone number is required",
+      "error3": "License number is required"
+    }
+  },
+  "step2": {
+    "title": "Patient Information",
+    "placeholder": {
+      "placeholder_text1": "Enter Patient Name",
+      "placeholder_text2": "Enter Age",
+      "placeholder_text3": "Select Gender",
+      "placeholder_text4": "Enter Phone Number"
+    },
+    "label": {
+      "label1": "Patient Name",
+      "label2": "Age",
+      "label3": "Gender",
+      "label4": "Phone Number"
+    },
+    "errors": {
+      "error1": "Patient name is required",
+      "error2": "Age is required",
+      "error3": "Phone number is required"
+    }
+  },
+
+  "step3": {
+    "title": "Prescription Details",
+    "placeholder": {
+      "placeholder_text1": "Enter Medicine Name",
+      "placeholder_text2": "Enter Dosage",
+      "placeholder_text3": "Enter Frequency",
+      "placeholder_text4": "Enter Duration",
+      "placeholder_text5": "Enter Instruction/comments"
+
+    },
+    "label": {
+      "label1": "Medicine Name",
+      "label2": "Dosage",
+      "label3": "Frequency",
+      "label4": "Duration",
+      "label5": "Instruction/comments"
+
+    },
+    "errors": {
+      "error1": "Medicine Name is required",
+      "error2": "Dosage is required",
+      "error3": "Frequency is required",
+      "error4": "Duration is required",
+      "error5": "Instruction/comments is required"
+
+    }
+  },
+  "step4": {
+    "title": "Diagnosis",
+    "placeholder": {
+      "placeholder_text1": "Enter Diagnosis"
+
+    },
+    "label": {
+      "label1": "Diagnosis/condition",
+      "label2": "Additional Notes"
+
+    },
+    "errors": {
+      "error1": "Diagnosis/condition is required"    },
+    "image-text": "Additional Notes"
+  }
 }
+
+
 
 
 }

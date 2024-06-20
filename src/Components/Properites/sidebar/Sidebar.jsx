@@ -29,7 +29,7 @@ const Sidebar = ({ children }) => {
       <div
         className={`sidebar transition-all duration-500 ${
           sidebarStatus
-            ? "2xl:w-[300px] xl:w-[300px] lg:w-[300px] md:w-[300px]: sm:w-[300px] xs:w-[90px] xss:w-[90px] mobile:w-[90px] 2xl:p-4 xl:p-4 lg:p-4 md:p-4 sm:p-2 xs:p-2 xss:p-2 mobile:p-2"
+            ? "2xl:w-[300px] xl:w-[300px] lg:w-[300px] md:w-[330px]: sm:w-[330px] xs:w-[90px] xss:w-[90px] mobile:w-[90px] 2xl:p-4 xl:p-4 lg:p-4 md:p-4 sm:p-2 xs:p-2 xss:p-2 mobile:p-2"
             : " w-[90px] 2xl:p-4 xl:p-4 lg:p-4 md:p-4 sm:p-2 xs:p-2 xss:p-2 mobile:p-2"
         }`}
       >

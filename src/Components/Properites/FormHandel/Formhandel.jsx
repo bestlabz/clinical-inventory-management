@@ -16,8 +16,8 @@ const Formhandel = ({
     errors,
     setFieldValue,
     setValues,
-    resetForm
-
+    resetForm,
+    
   } = useFormik({
     initialValues: initialValue,
     validationSchema: schema,

@@ -5,12 +5,10 @@ const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
 const Doctors = lazy(() => import("../pages/Doctors/Doctors"));
 const AddDoctor = lazy(() => import("../pages/Doctors/AddDoctor"));
 const AddReceptionist = lazy(() => import("../pages/Receptionist/AddReceptionist"));
-
-
 const Receptionist = lazy(() => import("../pages/Receptionist/Receptionist"));
 const Medicine = lazy(() => import("../pages/Medicine/Medicine"));
 const AddMedicine = lazy(() => import("../pages/Medicine/AddMedicine"));
-
+const Prescription = lazy(() => import("../pages/Prescription/Prescription"));
 
 
 
@@ -54,6 +52,10 @@ const routes = [
   {
     path: "/add-medicine",
     component: AddMedicine,
+  },
+  {
+    path: "/prescription",
+    component: Prescription,
   }
 ];
 
