@@ -43,7 +43,7 @@ const AddDoctor = () => {
           }}
           className=" cursor-pointer"
         />
-        <p className="add-doctor-top-title">{TranslateJson.add_doctor.navigate_content}r</p>
+        <p className="add-doctor-top-title">{TranslateJson.add_doctor.navigate_content}</p>
       </div>
 
       <div className="add-doctor-content">

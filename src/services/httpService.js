@@ -1,5 +1,5 @@
 import axios from "axios";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 const instance = axios.create({
   baseURL: `${import.meta.env.VITE_APP_API_BASE_URL}`,
@@ -11,30 +11,30 @@ const instance = axios.create({
 });
 
 // Add a request interceptor
-instance.interceptors.request.use(function (config) {
-  // Do something before request is sent
-  let adminInfo;
-  if (Cookies.get("adminInfo")) {
-    adminInfo = JSON.parse(Cookies.get("adminInfo"));
-  }
+// instance.interceptors.request.use(function (config) {
+//   // Do something before request is sent
+//   let adminInfo;
+//   if (Cookies.get("adminInfo")) {
+//     adminInfo = JSON.parse(Cookies.get("adminInfo"));
+//   }
 
-  let company;
+//   let company;
 
-  if (Cookies.get("company")) {
-    company = Cookies.get("company");
-  }
+//   if (Cookies.get("company")) {
+//     company = Cookies.get("company");
+//   }
 
-  // console.log('Admin Http Services Cookie Read : ' + company);
-  // let companyName = JSON.stringify(company);
+//   // console.log('Admin Http Services Cookie Read : ' + company);
+//   // let companyName = JSON.stringify(company);
 
-  return {
-    ...config,
-    headers: {
-      authorization: adminInfo ? `Bearer ${adminInfo.token}` : null,
-      // company: company ? company : null,
-    },
-  };
-});
+//   return {
+//     ...config,
+//     headers: {
+//       authorization: adminInfo ? `Bearer ${adminInfo.token}` : null,
+//       // company: company ? company : null,
+//     },
+//   };
+// });
 
 const responseBody = (response) => response.data;
 

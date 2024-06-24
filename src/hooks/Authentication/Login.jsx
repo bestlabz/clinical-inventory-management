@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 // Third party libraries
 import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 //Components
@@ -11,8 +12,11 @@ import FormHandel from "../../Components/Properites/FormHandel/Formhandel";
 import { LoginSchema } from "../../utils/Validation/Login";
 
 //Hooks
-import { setUser } from "../../Redux/Slice/User";
+import { setToken, setUser } from "../../Redux/Slice/User";
 import { setOTP } from "../../Redux/Slice/Otp";
+
+//Api Call
+import ApiRequest from '../../services/httpService'
 
 const Login = () => {
   const navigate = useNavigate();
@@ -22,6 +26,7 @@ const Login = () => {
   const [otp, setOtp] = useState(new Array(otpCount).fill(""));
   const [error, setError] = useState(false);
   const [number, setNumber] = useState(null);
+  const [phone_number, setPhone_number] = useState("")
 
   const { otpValue } = useSelector((state) => state.otpValue);
 
@@ -32,10 +37,18 @@ const Login = () => {
   }, [error]);
 
   const onSubmit = async (values, actions) => {
-    console.log(values);
-    return setStep((step) => step + 1);
-    // dispatchForm()
-    //   return setCurrentIndex(currentIndex + 1);
+    const bodyData = {
+      mobile_number: values.phone_number
+    }
+    setPhone_number(values.phone_number)
+   const {success, message} = await ApiRequest.post("/sendotp", bodyData)
+
+   if (success) {
+     return setStep((step) => step + 1);
+
+   } else {
+    return toast.error(message);
+   }
   };
 
   const { errors, handleChange, handleSubmit, values } = FormHandel({
@@ -44,7 +57,7 @@ const Login = () => {
     submitFunction: onSubmit,
   });
 
-  const handelClickOTP = () => {
+  const handelClickOTP = async () => {
     if (!otpValue) {
       return setError(true);
     }
@@ -52,7 +65,14 @@ const Login = () => {
       return setError(true);
     } else {
       setError(false);
-      dispatch(setUser("Mohamed Thawfeek"));
+      
+      const bodyData = {
+        mobile_number: phone_number,
+        otp: otpValue
+      }
+      const {clinic, token} = await ApiRequest.post('/verifyotp', bodyData)
+      dispatch(setUser(clinic));
+      localStorage.setItem('token', token)
       return navigate("/dashboard");
     }
   };

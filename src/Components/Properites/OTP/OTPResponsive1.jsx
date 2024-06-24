@@ -11,7 +11,7 @@ const OTPResponsive1 = ({setOTP, otp}) => {
                 def="0000"
                 height="60px"
                 width="60px"
-                length="4"
+                length={4}
                 textColor="#069B56"
                 gap="10px"
               />
@@ -24,7 +24,7 @@ const OTPResponsive1 = ({setOTP, otp}) => {
                 def="0000"
                 height="40px"
                 width="40px"
-                length="4"
+                length={4}
                 textColor="#069B56"
                 gap="10px"
               />
@@ -37,7 +37,7 @@ const OTPResponsive1 = ({setOTP, otp}) => {
                 def="0000"
                 height="30px"
                 width="30px"
-                length="4"
+                length={4}
                 textColor="#069B56"
                 gap="10px"
               />
