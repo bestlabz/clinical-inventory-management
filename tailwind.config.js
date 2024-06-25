@@ -40,7 +40,6 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwind-scrollbar-hide")],
   variants: {
     display: ["group-hover"],
   },
