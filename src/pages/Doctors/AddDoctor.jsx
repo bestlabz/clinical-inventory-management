@@ -20,7 +20,7 @@ import AddDoctorFunction from "../../hooks/Doctors/AddDoctor";
 import ResponsiveSuccessmodal from "../../Components/Properites/ResponsiveSuccessmodal/ResponsiveSuccessmodal";
 
 const AddDoctor = () => {
-  const { goBack, next, pre, step, otp, setOTP, modalPopup } =
+  const { goBack, next, pre, step, otp, setOTP, modalPopup, setValue, value } =
     AddDoctorFunction();
 
   return (
@@ -52,7 +52,7 @@ const AddDoctor = () => {
             <p className="add-doctor-content-header">
               {TranslateJson.add_doctor.step1.title}
             </p>
-            <PhoneNumber />
+            <PhoneNumber setValue={setValue} value={value} />
 
             <button onClick={next} className="add-doctor-content-phonenumber">
               {TranslateJson.add_doctor.step1.button}

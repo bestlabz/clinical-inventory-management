@@ -1,6 +1,8 @@
 import axios from "axios";
 // import Cookies from "js-cookie";
 
+const token = localStorage.getItem("token");
+
 const instance = axios.create({
   baseURL: `${import.meta.env.VITE_APP_API_BASE_URL}`,
   timeout: 50000,
@@ -11,36 +13,20 @@ const instance = axios.create({
 });
 
 // Add a request interceptor
-// instance.interceptors.request.use(function (config) {
-//   // Do something before request is sent
-//   let adminInfo;
-//   if (Cookies.get("adminInfo")) {
-//     adminInfo = JSON.parse(Cookies.get("adminInfo"));
-//   }
-
-//   let company;
-
-//   if (Cookies.get("company")) {
-//     company = Cookies.get("company");
-//   }
-
-//   // console.log('Admin Http Services Cookie Read : ' + company);
-//   // let companyName = JSON.stringify(company);
-
-//   return {
-//     ...config,
-//     headers: {
-//       authorization: adminInfo ? `Bearer ${adminInfo.token}` : null,
-//       // company: company ? company : null,
-//     },
-//   };
-// });
+instance.interceptors.request.use(function (config) {
+  return {
+    ...config,
+    headers: {
+      authorization:  token ? token : null,
+    },
+  };
+});
 
 const responseBody = (response) => response.data;
 
 const requests = {
-  get: (url, body, headers) =>
-    instance.get(url, body, headers).then(responseBody),
+  get: (url, headers) =>
+    instance.get(url, headers).then(responseBody),
 
   post: (url, body) => instance.post(url, body).then(responseBody),
 
