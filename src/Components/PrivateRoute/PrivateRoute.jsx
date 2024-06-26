@@ -13,17 +13,17 @@ const PrivateRoute = ({ children, ...rest }) => {
   const { userDetails } = useSelector((state) => state.userinfo);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
     const API = async () => {
-      const { success, clinics } = await ApiRequest.get("/clinics");
-
+      const { success, clinic } = await ApiRequest.get("/clinic");
       if (success) {
-        dispatch(setUser(clinics));
+        dispatch(setUser(clinic));
       }
       setLoading(false);
     };
     API();
-  }, [dispatch]);
+  }, []);
 
   if (loading) {
     return <ThemeSuspense /> // You can replace this with a spinner or some other loading indicator

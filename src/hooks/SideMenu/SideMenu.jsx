@@ -27,6 +27,7 @@ const SideMenu = () => {
   }
 
   const logout = () => {
+    localStorage.removeItem('token')
    return dispatch(clearUser())
   }
 

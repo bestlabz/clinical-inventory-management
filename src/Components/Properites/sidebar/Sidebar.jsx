@@ -23,6 +23,9 @@ const Sidebar = ({ children }) => {
   const { location, toggle, modalpopup, openModal, logout } =
     SideMenuFunction();
   const { sidebarStatus } = useSelector((state) => state.sidebarInfo);
+  const { userDetails } = useSelector((state) => state.userinfo);
+
+  console.log('userDetails', userDetails);
 
   return (
     <div className="sidebar-container">
@@ -98,8 +101,8 @@ const Sidebar = ({ children }) => {
                   alt="profile"
                 />
                 <div className="profile-details">
-                  <span className="profile-details-name">Mohamed Thawfeek</span>
-                  <span className="profile-details-id">859300</span>
+                  <span className="profile-details-name">{userDetails?.name || ""}</span>
+                  <span className="profile-details-id">{userDetails?.mobile_number || ""}</span>
                 </div>
               </div>
             )}

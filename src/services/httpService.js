@@ -17,7 +17,7 @@ instance.interceptors.request.use(function (config) {
   return {
     ...config,
     headers: {
-      authorization:  token ? token : null,
+      authorization: token ? `Bearer ${token}` : null,
     },
   };
 });
@@ -25,8 +25,7 @@ instance.interceptors.request.use(function (config) {
 const responseBody = (response) => response.data;
 
 const requests = {
-  get: (url, headers) =>
-    instance.get(url, headers).then(responseBody),
+  get: (url, headers) => instance.get(url, headers).then(responseBody),
 
   post: (url, body) => instance.post(url, body).then(responseBody),
 

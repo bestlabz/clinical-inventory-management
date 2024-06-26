@@ -3,7 +3,6 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 const Table = ({ headers, tableBody, tableName }) => {
-  console.log("Medicine", tableName);
   return (
     <>
       <table className="relative text-sm font-medium text-nowrap border-collapse font-poppins w-full ">
@@ -28,10 +27,12 @@ const Table = ({ headers, tableBody, tableName }) => {
                     className={`py-2 px-10 flex items-center justify-start gap-3`}
                   >
                     <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
-                      <img
-                        src={item?.doctor_image}
-                        className="w-full h-full object-cover "
-                      />
+                      {item.doctor_image && (
+                        <img
+                          src={item?.doctor_image}
+                          className="w-full h-full object-cover "
+                        />
+                      )}
                     </div>
                     {item.doctor_name}
                   </td>
@@ -59,12 +60,14 @@ const Table = ({ headers, tableBody, tableName }) => {
                   <td
                     className={`py-2 px-10 flex items-center justify-start gap-3`}
                   >
-                    <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
-                      <img
-                        src={item?.doctor_image}
-                        className="w-full h-full object-cover "
-                      />
-                    </div>
+                    {/* <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
+                      {item.doctor_image && (
+                        <img
+                          src={item?.doctor_image}
+                          className="w-full h-full object-cover "
+                        />
+                      )}
+                    </div> */}
                     {item.doctor_name}
                   </td>
                   <td className={`py-2 px-10 `}>
