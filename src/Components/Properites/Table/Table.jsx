@@ -104,12 +104,12 @@ const Table = ({ headers, tableBody, tableName }) => {
                   <td
                     className={`py-2 px-10 flex items-center justify-start gap-3`}
                   >
-                    <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
+                    {/* <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
                       <img
                         src={item?.receptionist_image}
                         className="w-full h-full object-cover "
                       />
-                    </div>
+                    </div> */}
                     {item.receptionist_name}
                   </td>
                   <td className={`py-2 px-10`}>

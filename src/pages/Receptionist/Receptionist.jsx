@@ -61,7 +61,7 @@ const Receptionist = () => {
       >
         <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
           <div className="table-box-top-left">
-            <TableHeaderTitle title={TranslateJson.receptionist.title} subContent={`100 ${TranslateJson.receptionist.subText}`}/>
+            <TableHeaderTitle title={TranslateJson.receptionist.title} subContent={`${dummydata.length} ${TranslateJson.receptionist.subText}`}/>
           </div>
           <div className="table-box-top-right-1">
             <div className="table-box-top-right-grid-1">

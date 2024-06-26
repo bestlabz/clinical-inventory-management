@@ -1,9 +1,8 @@
 import React from "react";
 
-
 //Translate
-import Translate from '../../Components/translateSpan/TranslateSpan'
-import TranslateJson from "../../utils/translation/en.json"
+import Translate from "../../Components/translateSpan/TranslateSpan";
+import TranslateJson from "../../utils/translation/en.json";
 
 //Third party libraries
 import { FaArrowLeft } from "react-icons/fa6";
@@ -14,6 +13,7 @@ import Addmedicine from "../../hooks/Medicine/Addmedicine";
 import ModelPopup from "../../Components/Properites/ModelPopup/ModelPopup";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 import ResponsiveSuccessmodal from "../../Components/Properites/ResponsiveSuccessmodal/ResponsiveSuccessmodal";
+import Select from "../../Components/Properites/Select/Select";
 
 const AddMedicine = () => {
   const {
@@ -25,6 +25,13 @@ const AddMedicine = () => {
     handelClick,
     validateErr,
     modalPopup,
+    dosageFormsOptions,
+    dosageUnitOptions,
+    style,
+    selectedItem,
+    setSelectedItem,
+    selectedItem1,
+    setSelectedItem1
   } = Addmedicine();
 
   return (
@@ -55,25 +62,45 @@ const AddMedicine = () => {
           </div>
           <div className="add-medicine-body-content">
             <label>{TranslateJson.add_medicine.label.dasage_form}</label>
-            <Input
-              placeholder={TranslateJson.add_medicine.placeholder.dasage_form}
-              id="dasage_form"
-              name="dasage_form"
-              setValue={handleChange}
-              value={values.dasage_form}
-              err={validateErr && errors.dasage_form}
-            />
+            <div className=" mt-[18px] relative">
+              <Select
+                styles={style}
+                options={dosageFormsOptions}
+                placeholder={TranslateJson.add_medicine.placeholder.dasage_form}
+                SelectedValue={setSelectedItem}
+                value={selectedItem}
+              />
+            {validateErr && selectedItem === null && <span className="err-txt absolute mt-[1px]">Required Dasage Form</span>}
+            </div>
+           
           </div>
           <div className="add-medicine-body-content">
             <label>{TranslateJson.add_medicine.label.dasage_strength}</label>
             <Input
-              placeholder={TranslateJson.add_medicine.placeholder.dasage_strength}
+              placeholder={
+                TranslateJson.add_medicine.placeholder.dasage_strength
+              }
               id="dasage_strength"
               name="dasage_strength"
               setValue={handleChange}
               value={values.dasage_strength}
               err={validateErr && errors.dasage_strength}
             />
+          </div>
+
+          <div className="add-medicine-body-content">
+            <label>{TranslateJson.add_medicine.label.dasage_unit}</label>
+            <div className=" mt-[18px] relative">
+              <Select
+                styles={style}
+                options={dosageUnitOptions}
+                placeholder={TranslateJson.add_medicine.placeholder.dasage_unit}
+                SelectedValue={setSelectedItem1}
+                value={selectedItem1}
+              />
+            {validateErr && selectedItem1 === null && <span className="err-txt absolute mt-[1px]">Required Dasage Form</span>}
+            </div>
+           
           </div>
         </div>
 
@@ -88,9 +115,7 @@ const AddMedicine = () => {
         </div>
       </form>
 
-      {modalPopup && (
-        <ResponsiveSuccessmodal modalPopup={modalPopup} />
-      )}
+      {modalPopup && <ResponsiveSuccessmodal modalPopup={modalPopup} />}
     </div>
   );
 };

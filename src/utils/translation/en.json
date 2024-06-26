@@ -156,12 +156,15 @@
  "label": {
   "name": "Medicine Name",
   "dasage_form": "Dasage Form",
-  "dasage_strength": "Dasage Strength"
+  "dasage_strength": "Dasage Strength",
+  "dasage_unit": "Dasage Strength"
+
  },
  "placeholder": {
   "name": "eg. dolo",
   "dasage_form": "eg. Tablet, Liquid etc",
-  "dasage_strength": "eg. 500 mg"
+  "dasage_strength": "eg. 500",
+  "dasage_unit": "eg. mg"
  },
  "button": "Submit",
  "errors": {

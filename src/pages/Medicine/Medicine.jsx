@@ -38,7 +38,6 @@ const Medicine = () => {
       datas: dummydata,
     });
 
-  const { sidebarStatus } = useSelector((state) => state.sidebarInfo);
 
   return (
     <div className=" w-full h-full pt-0 p-3 overflow-auto">
