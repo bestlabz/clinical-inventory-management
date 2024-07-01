@@ -269,25 +269,76 @@
   @apply  h-full flex flex-col gap-4 mx-1 2xl:w-[60%] xl:w-[60%] lg:w-[100%] md:w-[100%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] 
 }
 .prescription-right {
-  @apply  w-full h-full grid 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 mobile:grid-cols-1 xss:grid-cols-1 gap-6 overflow-auto px-3;
-}
-
-.prescription-right-content {
-  @apply  2xl:col-span-1 xl:col-span-1 lg:col-span-1 sm:col-span-2 md:col-span-2 xs:col-span-2 mobile:col-span-2 xss:col-span-2 flex flex-col 2xl:w-[90%] xl:w-[90%] lg:w-[90%] md:w-[100%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] gap-2
-}
-
-.prescription-right-content-title {
-  @apply text-[20px] font-semibold my-2
-}
-
-.prescription-right-content-inside-title {
-  @apply text-[20px] font-semibold mb-2 mt-4
+  @apply  w-full h-full gap-6 overflow-auto px-3;
 }
 
 
 .add-prescription-top {
   @apply w-full h-[12%] rounded-lg  flex items-center gap-6 px-3;
 }
+
+
+.prescription-right-top {
+  @apply w-full
+}
+
+.prescription-right-top-inside {
+  @apply flex flex-col items-center justify-center w-full py-6 gap-4
+}
+
+.prescription-right-top-inside-image {
+  @apply w-[100px] h-[100px] border-[3px] border-green_light rounded-full relative
+} 
+
+.prescription-right-top-inside-image-edit-button {
+
+  @apply absolute -bottom-1 -right-2 bg-white text-primary_color rounded-full flex items-center justify-center w-[25px] h-[25px]
+
+}
+
+.prescription-right-top-input {
+  @apply outline-none border-b-[1px] border-gray-300 px-2
+}
+
+.prescription-right-content-container {
+  @apply p-2 my-6
+}
+
+.prescription-right-content-container-header {
+  @apply flex items-center justify-between
+}
+
+.prescription-right-content-container-header-text {
+  @apply text-[20px] font-semibold
+}
+
+.prescription-right-content-container-header-button {
+  @apply flex items-center gap-3 border-[1px] rounded-lg border-primary_color py-1 px-3 text-primary_color
+}
+
+.prescription-right-content-container-header-button-text {
+  @apply mt-1 text-[16px]
+}
+
+.prescription-right-content-container-input {
+  @apply grid 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 mobile:grid-cols-1 xss:grid-cols-1 place-content-start gap-4
+}
+
+.prescription-right-content-container-add-new-button {
+  @apply flex items-center gap-3 border-[1px] border-primary_color text-primary_color px-3 py-1 mt-6 rounded-md
+}
+
+.prescription-right-content-container-input1 {
+  @apply grid grid-cols-1 gap-4 place-content-start
+}
+
+.prescription-right-content-container-input1-container {
+  @apply flex items-center gap-3 2xl:w-[60%] xl:w-[60%] lg:w-[80%] md:w-[100%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%]
+}
+
+
+
+
 
 
 

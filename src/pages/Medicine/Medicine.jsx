@@ -117,7 +117,7 @@ const Medicine = () => {
                
               />
             </div>
-            <div className=" w-full pt-4 mx-auto  h-[14%] flex items-end justify-center overflow-x-auto relative  ">
+            <div className=" w-full pt-4 mx-auto  h-[10%] flex items-end justify-center overflow-x-auto relative  ">
               <Paginitation
                 PrePage={PrePage}
                 currentpage={currentpage}

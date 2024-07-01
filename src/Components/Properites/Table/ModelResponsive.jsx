@@ -18,14 +18,17 @@ const ModelResponsive = ({
   const [err, setErr] = useState(false);
 
   useEffect(() => {
-    setReason("");
-    setClear(false);
-    openModal(false);
+    if (clear && setClear) {
+
+      setReason("");
+      setClear(false);
+      openModal(false);
+    }
   }, [clear]);
   return (
     <>
       <div className=" 2xl:block xl:block lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
-        <ModelPopup showDrawer={modalpopup} width="30%" height="45%">
+        <ModelPopup showDrawer={modalpopup} width="30%" height="50%">
           <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
             <div className="absolute top-2 right-3">
               <IoClose
@@ -63,10 +66,12 @@ const ModelResponsive = ({
               </button>
               <button
                 onClick={() => {
-                  if (reason === "") {
-                    return trigger(details.id, details.value, reason);
-                  } else {
-                    return setErr(true);
+                  if (trigger) {
+                    if (reason !== "") {
+                      return trigger(details.id, details.value, reason);
+                    } else {
+                      return setErr(true);
+                    }
                   }
                 }}
                 className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
@@ -117,10 +122,12 @@ const ModelResponsive = ({
               </button>
               <button
                 onClick={() => {
-                  if (reason === "") {
-                    return trigger(details.id, details.value, reason);
-                  } else {
-                    return setErr(true);
+                  if (trigger) {
+                    if (reason !== "") {
+                      return trigger(details.id, details.value, reason);
+                    } else {
+                      return setErr(true);
+                    }
                   }
                 }}
                 className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
@@ -133,7 +140,7 @@ const ModelResponsive = ({
       </div>
 
       <div className=" 2xl:hidden xl:hidden lg:hidden md:block sm:block xs:hidden mobile:hidden xss:hidden">
-        <ModelPopup showDrawer={modalpopup} width="60%" height="55%">
+        <ModelPopup showDrawer={modalpopup} width="60%" height="60%">
           <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
             <div className="absolute top-2 right-3">
               <IoClose
@@ -171,10 +178,12 @@ const ModelResponsive = ({
               </button>
               <button
                 onClick={() => {
-                  if (reason === "") {
-                    return trigger(details.id, details.value, reason);
-                  } else {
-                    return setErr(true);
+                  if (trigger) {
+                    if (reason !== "") {
+                      return trigger(details.id, details.value, reason);
+                    } else {
+                      return setErr(true);
+                    }
                   }
                 }}
                 className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
@@ -225,10 +234,12 @@ const ModelResponsive = ({
               </button>
               <button
                 onClick={() => {
-                  if (reason === "") {
-                    return trigger(details.id, details.value, reason);
-                  } else {
-                    return setErr(true);
+                  if (trigger) {
+                    if (reason !== "") {
+                      return trigger(details.id, details.value, reason);
+                    } else {
+                      return setErr(true);
+                    }
                   }
                 }}
                 className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
@@ -241,7 +252,7 @@ const ModelResponsive = ({
       </div>
 
       <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:block">
-        <ModelPopup showDrawer={modalpopup} width="96%" height="56%">
+        <ModelPopup showDrawer={modalpopup} width="96%" height="65%">
           <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
             <div className="absolute top-2 right-3">
               <IoClose
@@ -279,10 +290,12 @@ const ModelResponsive = ({
               </button>
               <button
                 onClick={() => {
-                  if (reason === "") {
-                    return trigger(details.id, details.value, reason);
-                  } else {
-                    return setErr(true);
+                  if (trigger) {
+                    if (reason !== "") {
+                      return trigger(details.id, details.value, reason);
+                    } else {
+                      return setErr(true);
+                    }
                   }
                 }}
                 className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"

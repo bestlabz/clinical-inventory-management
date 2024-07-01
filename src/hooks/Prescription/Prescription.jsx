@@ -10,8 +10,9 @@ import { useNavigate } from "react-router-dom";
 const Prescription = () => {
   const [base64Image, setBase64Image] = useState(null);
   const [validationError, setValidationError] = useState(false);
-  const [gender, setGender] = useState(null)
-  const navigate = useNavigate()
+  const [gender, setGender] = useState(null);
+
+  const navigate = useNavigate();
 
   const initialvalue = () => {
     return {
@@ -42,7 +43,6 @@ const Prescription = () => {
       submitFunction: onSubmit,
     });
 
-
   useEffect(() => {
     const file = values.file;
 
@@ -65,7 +65,7 @@ const Prescription = () => {
   const style = {
     width: "100%",
     padding: "7px",
-    border: `${validationError && !gender ? "1px solid #ff0000" : "" }`,
+    border: `${validationError && !gender ? "1px solid #ff0000" : ""}`,
     background: "rgba(218, 227, 255, 0.31)",
     borderRadius: "10px",
   };
@@ -88,8 +88,8 @@ const Prescription = () => {
   };
 
   const SelectGender = (e) => {
-   return setGender(e)
-  }
+    return setGender(e);
+  };
 
   const goBack = () => {
     navigate(-1); // -1 means go back one page
@@ -109,7 +109,7 @@ const Prescription = () => {
     validationError,
     SelectGender,
     gender,
-    goBack
+    goBack,
   };
 };
 

@@ -33,7 +33,7 @@ const Prescription = () => {
     validationCheck,
     validationError,
     gender,
-    goBack
+    goBack,
   } = PrescriptionFunction();
   return (
     <div className="prescription-container">

@@ -7,6 +7,8 @@ import Signup from "./Slice/SignupUser";
 
 import TableDatas from "./Slice/TableDatas";
 
+import PrescriptionDetails from "./Slice/Prescription"; // Add this import statement
+
 const store = configureStore({
   reducer: {
     userinfo: User,
@@ -14,6 +16,7 @@ const store = configureStore({
     otpValue: OTP,
     Signup: Signup,
     TableDatas,
+    PrescriptionDetails
   },
 });
 

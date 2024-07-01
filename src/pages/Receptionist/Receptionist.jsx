@@ -108,7 +108,7 @@ const Receptionist = () => {
                 setClear={setClear}
               />
             </div>
-            <div className=" w-full  h-[14%] flex items-end pt-4 overflow-x-auto relative ">
+            <div className=" w-full  h-[10%] flex items-end pt-4 overflow-x-auto relative ">
               <Paginitation
                 PrePage={PrePage}
                 currentpage={currentpage}

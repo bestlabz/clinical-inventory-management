@@ -1,8 +1,14 @@
 import React from "react";
 
-import ImageInput from "../../Components/Properites/imageInput/ImageInput";
 import Input from "../../Components/Properites/Inputs/Input";
-import Select from "../../Components/Properites/Select/Select";
+
+import { TbEdit } from "react-icons/tb";
+import { IoIosAdd } from "react-icons/io";
+import { MdOutlineModeEdit } from "react-icons/md";
+
+//Hooks
+import RightSideFunction from "../../hooks/Prescription/rightSide";
+import { useSelector } from "react-redux";
 
 const RightSide = ({
   TranslateJson,
@@ -16,208 +22,229 @@ const RightSide = ({
   base64Image,
   handleDeleteFile,
   setFieldValue,
-  SelectGender
+  SelectGender,
 }) => {
+  const {
+    handelImage,
+    ImageInputRef,
+    clinicLogoupdate,
+    clinicalDetailsUpdate,
+    doctorDetailsUpdate,
+    headerAdd,
+    headerUpdate,
+    mainAdd,
+    mainUpdate,
+  } = RightSideFunction();
+
+  const {
+    clinicLogo,
+    clinicDetails,
+    doctorDetails,
+    headerDetails,
+    mainDetails,
+  } = useSelector((state) => state.PrescriptionDetails);
+
   return (
     <>
-      <div className="prescription-right-content">
-        <h1 className="prescription-right-content-title">
-          {TranslateJson.prescription.step1.title}
-        </h1>
+      <div className="prescription-right-top">
+        <div className="prescription-right-top-inside">
+          <div
+            onClick={handelImage}
+            className="prescription-right-top-inside-image"
+          >
+            <input type="file" ref={ImageInputRef} className="hidden" />
 
-        <Input
-          id="speciality"
-          name="speciality"
-          value={values.speciality}
-          setValue={handleChange}
-          err={validationError && errors.speciality}
-          label={TranslateJson.prescription.step1.label.label1}
-          placeholder={
-            TranslateJson.prescription.step1.placeholder.placeholder_text1
-          }
-          length={25}
-
-        />
-        <Input
-          id="phone_number"
-          name="phone_number"
-          value={values.phone_number}
-          setValue={handleChange}
-          err={validationError && errors.phone_number}
-          label={TranslateJson.prescription.step1.label.label2}
-          placeholder={
-            TranslateJson.prescription.step1.placeholder.placeholder_text2
-          }
-          length={10}
-        />
-        <Input
-          id="license_number"
-          name="license_number"
-          value={values.license_number}
-          setValue={handleChange}
-          err={validationError && errors.license_number}
-          label={TranslateJson.prescription.step1.label.label3}
-          placeholder={
-            TranslateJson.prescription.step1.placeholder.placeholder_text3
-          }
-          length={15}
-
-        />
+            <button
+              onClick={handelImage}
+              className="prescription-right-top-inside-image-edit-button"
+            >
+              <MdOutlineModeEdit size={16} />
+            </button>
+          </div>
+          <input
+            name="title"
+            id="title"
+            placeholder="Title"
+            className="prescription-right-top-input"
+            value={clinicLogo.title}
+            onChange={(e) => clinicLogoupdate({ title: e.target.value })}
+          />
+        </div>
       </div>
-      <div className="prescription-right-content">
-        <h1 className="prescription-right-content-title">
-          {TranslateJson.prescription.step2.title}
-        </h1>
 
-        <Input
-          id="patient_name"
-          name="patient_name"
-          value={values.patient_name}
-          setValue={handleChange}
-          err={validationError && errors.patient_name}
-          label={TranslateJson.prescription.step2.label.label1}
-          placeholder={
-            TranslateJson.prescription.step2.placeholder.placeholder_text1
-          }
-        />
-        <Input
-          id="age"
-          name="age"
-          value={values.age}
-          setValue={handleChange}
-          err={validationError && errors.age}
-          label={TranslateJson.prescription.step2.label.label2}
-          length={3}
-          placeholder={
-            TranslateJson.prescription.step2.placeholder.placeholder_text2
-          }
-        />
-        <div className=" relative mt-[12px] mb-[12px] flex flex-col gap-1">
-          <label>{TranslateJson.prescription.step2.label.label3}</label>
-
-          <Select
-            SelectedValue={(e) => SelectGender(e)}
-            value={gender}
-            styles={style}
-            options={Options}
-            placeholder={
-              TranslateJson.prescription.step2.placeholder.placeholder_text3
+      <div className="prescription-right-content-container">
+        <div className="prescription-right-content-container-header">
+          <h1 className="prescription-right-content-container-header-text">
+            Clinic Details
+          </h1>
+          <button className="prescription-right-content-container-header-button">
+            <span className="prescription-right-content-container-header-button-text">
+              Edit
+            </span>{" "}
+            <TbEdit size={25} />{" "}
+          </button>
+        </div>
+        <div className="prescription-right-content-container-input">
+          <Input
+            label="Clinic Name"
+            id="clinic_name"
+            name="clinic_name"
+            placeholder="Enter Clinic name"
+            value={clinicDetails.name}
+            setValue={(e) => clinicalDetailsUpdate({ name: e.target.value })}
+          />
+          <Input
+            label="Contact number"
+            id="contact_number"
+            name="contact_number"
+            placeholder="Enter Contact number"
+            value={clinicDetails.contact_number}
+            setValue={(e) =>
+              clinicalDetailsUpdate({ contact_number: e.target.value })
             }
           />
-          {validationError && !gender && (
-            <span className=" absolute bottom-10 left-0 err-txt ">
-              Gender is required
-            </span>
-          )}
-        </div>
-        <Input
-          id="patient_phone_number"
-          name="patient_phone_number"
-          value={values.patient_phone_number}
-          setValue={handleChange}
-          err={validationError && errors.patient_phone_number}
-          label={TranslateJson.prescription.step2.label.label4}
-          placeholder={
-            TranslateJson.prescription.step2.placeholder.placeholder_text4
-          }
-          length={10}
-        />
-      </div>
-      <div className="prescription-right-content">
-        <h1 className="prescription-right-content-title">
-          {TranslateJson.prescription.step3.title}
-        </h1>
-
-        <Input
-          id="medicine_name"
-          name="medicine_name"
-          value={values.medicine_name}
-          setValue={handleChange}
-          err={validationError && errors.medicine_name}
-          label={TranslateJson.prescription.step3.label.label1}
-          placeholder={
-            TranslateJson.prescription.step3.placeholder.placeholder_text1
-          }
-        />
-        <Input
-          id="dosage"
-          name="dosage"
-          value={values.dosage}
-          setValue={handleChange}
-          err={validationError && errors.dosage}
-          label={TranslateJson.prescription.step3.label.label2}
-          placeholder={
-            TranslateJson.prescription.step3.placeholder.placeholder_text2
-          }
-        />
-        <Input
-          id="frequency"
-          name="frequency"
-          value={values.frequency}
-          setValue={handleChange}
-          err={validationError && errors.frequency}
-          label={TranslateJson.prescription.step3.label.label3}
-          placeholder={
-            TranslateJson.prescription.step3.placeholder.placeholder_text3
-          }
-        />
-        <Input
-          id="duration"
-          name="duration"
-          value={values.duration}
-          setValue={handleChange}
-          err={validationError && errors.duration}
-          label={TranslateJson.prescription.step3.label.label4}
-          placeholder={
-            TranslateJson.prescription.step3.placeholder.placeholder_text4
-          }
-        />
-        <Input
-          id="instruction"
-          name="instruction"
-          value={values.instruction}
-          setValue={handleChange}
-          err={validationError && errors.instruction}
-          label={TranslateJson.prescription.step3.label.label5}
-          placeholder={
-            TranslateJson.prescription.step3.placeholder.placeholder_text5
-          }
-        />
-      </div>
-      <div className="prescription-right-content">
-        <h1 className="prescription-right-content-title">
-          {TranslateJson.prescription.step4.title}
-        </h1>
-        <Input
-          id="diagnosis"
-          name="diagnosis"
-          value={values.diagnosis}
-          setValue={handleChange}
-          err={validationError && errors.diagnosis}
-          label={TranslateJson.prescription.step4.label.label1}
-          placeholder={
-            TranslateJson.prescription.step4.placeholder.placeholder_text1
-          }
-        />
-        <div>
-          <div className=" relative w-full">
-            <h1 className="prescription-right-content-inside-title">
-              {TranslateJson.prescription.step4.label.label2}
-            </h1>
-
-            <ImageInput
-              base64Image={base64Image}
-              file={values.file}
-              handleDeleteFile={handleDeleteFile}
-              setFieldValue={setFieldValue}
+          <div className=" flex flex-col gap-1">
+            <label className="mt-2">Address</label>
+            <textarea
+              id="address"
+              name="address"
+              rows={3}
+              placeholder="Enter Address"
+              className=" resize-none outline-none p-2 border-[1px] border-gray-300 rounded-xl"
+              value={clinicDetails.address}
+              setValue={(e) =>
+                clinicalDetailsUpdate({ address: e.target.value })
+              }
             />
-            {validationError && errors.file && (
-              <span className=" absolute top-[98%] left-0 err-txt ">
-                {errors.file}
-              </span>
-            )}
           </div>
+          <Input
+            label="GST No"
+            id="gst_no"
+            name="gst_no"
+            placeholder="Enter GST number"
+            value={clinicDetails.gst_no}
+            setValue={(e) => clinicalDetailsUpdate({ gst_no: e.target.value })}
+          />
         </div>
+      </div>
+
+      <div className="prescription-right-content-container">
+        <div className="prescription-right-content-container-header">
+          <h1 className="prescription-right-content-container-header-text">
+            Doctor Details
+          </h1>
+          <button className="prescription-right-content-container-header-button">
+            <span className="prescription-right-content-container-header-button-text">
+              Edit
+            </span>{" "}
+            <TbEdit size={25} />{" "}
+          </button>
+        </div>
+        <div className="prescription-right-content-container-input">
+          <Input
+            label="Doctor Name"
+            id="doctor_name"
+            name="doctor_name"
+            placeholder="Enter Doctor name"
+            value={doctorDetails.doctor_name}
+            setValue={(e) =>
+              doctorDetailsUpdate({ doctor_name: e.target.value })
+            }
+          />
+          <Input
+            label="Speciality"
+            id="speciality"
+            name="speciality"
+            placeholder="Enter Speciality"
+            value={doctorDetails.speciality}
+            setValue={(e) =>
+              doctorDetailsUpdate({ speciality: e.target.value })
+            }
+          />
+          <Input
+            label="Degree"
+            id="degree"
+            name="degree"
+            placeholder="Enter degree"
+            value={doctorDetails.degree}
+            setValue={(e) => doctorDetailsUpdate({ degree: e.target.value })}
+          />
+          <Input
+            label="Work"
+            id="work"
+            name="work"
+            placeholder="Enter Work"
+            value={doctorDetails.work}
+            setValue={(e) => doctorDetailsUpdate({ work: e.target.value })}
+          />
+        </div>
+      </div>
+
+      <div className="prescription-right-content-container">
+        <div className="prescription-right-content-container-header">
+          <h1 className="prescription-right-content-container-header-text">
+            Header
+          </h1>
+          <button className=" prescription-right-content-container-header-button">
+            <span className="prescription-right-content-container-header-button-text">
+              Edit
+            </span>{" "}
+            <TbEdit size={25} />{" "}
+          </button>
+        </div>
+        <div className="prescription-right-content-container-input">
+          {headerDetails.map((item, index) => (
+            <Input
+              key={index}
+              label="Title name"
+              placeholder={`Title ${index + 1}`}
+              value={item.title}
+              setValue={(e) => headerUpdate({ index, value: e.target.value })}
+            />
+          ))}
+        </div>
+        {headerDetails.length !== 5 && (
+          <button
+            onClick={headerAdd}
+            className="prescription-right-content-container-add-new-button"
+          >
+            <span>Add New Field</span> <IoIosAdd size={30} />
+          </button>
+        )}
+      </div>
+
+      <div className="prescription-right-content-container">
+        <div className="prescription-right-content-container-header">
+          <h1 className="prescription-right-content-container-header-text">
+            Main
+          </h1>
+          <button className="prescription-right-content-container-header-button">
+            <span className="prescription-right-content-container-header-button-text">
+              Edit
+            </span>{" "}
+            <TbEdit size={25} />{" "}
+          </button>
+        </div>
+
+        <div className="prescription-right-content-container-input1">
+          {mainDetails.map((item, index) => (
+            <div className="prescription-right-content-container-input1-container">
+              <Input
+                key={index}
+                label="Title name"
+                placeholder={`Main ${index + 1}`}
+                value={item.title}
+                setValue={(e) => mainUpdate({ index, value: e.target.value })}
+              />
+            </div>
+          ))}
+        </div>
+        <button
+          onClick={mainAdd}
+          className="prescription-right-content-container-add-new-button"
+        >
+          <span>Add New Field</span> <IoIosAdd size={30} />
+        </button>
       </div>
     </>
   );

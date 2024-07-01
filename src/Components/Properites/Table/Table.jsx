@@ -227,7 +227,6 @@ const Table = ({
         </tbody>
       </table>
 
-      {clear && (
         <ModelResponsive
           modalpopup={model}
           openModal={setModel}
@@ -236,7 +235,6 @@ const Table = ({
           clear={clear}
           setClear={setClear}
         />
-      )}
     </>
   );
 };

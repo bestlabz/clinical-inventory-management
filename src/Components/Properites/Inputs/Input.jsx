@@ -13,7 +13,8 @@ const Input = ({
   showLength,
   errwidth="100%",
   errtop="100%",
-  label
+  label,
+  disabled=false,
 }) => {
   return (
     <div className="input-container">
@@ -29,6 +30,7 @@ const Input = ({
           value={value}
           onChange={setValue}
           defaultValue={def}
+          disabled={disabled}
         />
         {length && showLength && (
           <span className="input-length">
