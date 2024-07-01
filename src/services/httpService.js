@@ -17,7 +17,7 @@ instance.interceptors.request.use(function (config) {
   return {
     ...config,
     headers: {
-      authorization: token ? `Bearer ${token}` : null,
+      Authorization: token ? `Bearer ${token}` : null,
     },
   };
 });

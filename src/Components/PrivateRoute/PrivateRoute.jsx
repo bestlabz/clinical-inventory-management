@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
@@ -13,20 +13,25 @@ const PrivateRoute = ({ children, ...rest }) => {
   const { userDetails } = useSelector((state) => state.userinfo);
   const [loading, setLoading] = useState(true);
 
-
-  useEffect(() => {
-    const API = async () => {
+  const fetchClinicData = useCallback(async () => {
+    try {
       const { success, clinic } = await ApiRequest.get("/clinic");
       if (success) {
         dispatch(setUser(clinic));
       }
+    } catch (error) {
+      console.error("Error fetching clinic data:", error);
+    } finally {
       setLoading(false);
-    };
-    API();
-  }, []);
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    fetchClinicData();
+  }, [fetchClinicData]);
 
   if (loading) {
-    return <ThemeSuspense /> // You can replace this with a spinner or some other loading indicator
+    return <ThemeSuspense />; // You can replace this with a spinner or some other loading indicator
   }
 
   return userDetails ? <Outlet /> : <Navigate to="/login" />;
