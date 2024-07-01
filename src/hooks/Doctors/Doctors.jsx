@@ -38,7 +38,6 @@ const Doctors = () => {
         const tableData = doctorAvailability.map((i) => {
           return {
             id: i?.doctor?._id,
-            doctor_image: i?.doctor?.postgraduate_certificate || "",
             doctor_name: i?.doctor?.name || "",
             specialist: i?.doctor?.specilaist || "",
             availability: i?.availability === "unavailable" ? false : true,
@@ -46,7 +45,6 @@ const Doctors = () => {
             doctor_image: i?.doctor?.profile || null,
           };
         });
-        console.log('tableData', tableData);
         setPrimaryLoader(false)
         dispatch(setDoctorTable(tableData))
         return 

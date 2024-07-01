@@ -27,7 +27,6 @@ const Doctors = () => {
         const tableData = receptionists.map((i) => {
           return {
             id: i._id,
-            receptionist_image: "",
             receptionist_name: i?.name || "",
             availability:
               i?.availability === "unavailable" ? false : true || false,
