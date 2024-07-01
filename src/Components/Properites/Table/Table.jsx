@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdOutlineModeEdit } from "react-icons/md";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { TbEye } from "react-icons/tb";
+import Toggle from "../toggle/toggle";
+import ModelResponsive from "./ModelResponsive";
 
-const Table = ({ headers, tableBody, tableName }) => {
+const Table = ({
+  headers,
+  tableBody,
+  tableName,
+  model,
+  setModel,
+  handleChange,
+  clear,
+  setClear,
+}) => {
+  const [details, setDetails] = useState({
+    id: "",
+    value: "",
+  });
+
   return (
     <>
       <table className="relative text-sm font-medium text-nowrap border-collapse font-poppins w-full ">
@@ -44,9 +60,9 @@ const Table = ({ headers, tableBody, tableName }) => {
                   <td className={`py-2 px-10`}>{item?.appointment_time}</td>
                   <td className={`py-2 px-10`}>
                     <div className="flex items-center justify-start gap-6">
-                      <MdOutlineModeEdit
-                        size={20}
-                        className="text-primary_color hover:text-blue-400 cursor-pointer"
+                      <TbEye
+                        size={30}
+                        className="text-gray-400 hover:text-blue-400 cursor-pointer"
                       />
                     </div>
                   </td>
@@ -60,14 +76,14 @@ const Table = ({ headers, tableBody, tableName }) => {
                   <td
                     className={`py-2 px-10 flex items-center justify-start gap-3`}
                   >
-                    {/* <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
+                    <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
                       {item.doctor_image && (
                         <img
                           src={item?.doctor_image}
                           className="w-full h-full object-cover "
                         />
                       )}
-                    </div> */}
+                    </div>
                     {item.doctor_name}
                   </td>
                   <td className={`py-2 px-10 `}>
@@ -76,7 +92,7 @@ const Table = ({ headers, tableBody, tableName }) => {
                     </p>
                   </td>
                   <td className={`py-2 px-10`}>
-                    {item?.status ? (
+                    {item?.availability ? (
                       <p className="text-green_dark border-[2px] border-green-100 bg-green-50 rounded-full text-[14px] w-[80px] h-[25px] flex items-center justify-center">
                         Available
                       </p>
@@ -87,10 +103,31 @@ const Table = ({ headers, tableBody, tableName }) => {
                     )}
                   </td>
                   <td className={`py-2 px-10`}>
-                    <div className="flex items-center justify-end gap-6">
-                      <MdOutlineModeEdit
-                        size={20}
-                        className="text-primary_color hover:text-blue-400 cursor-pointer"
+                    <div className=" flex items-center space-x-4">
+                      <p
+                        className={`${
+                          !item.status ? "text-red-400" : "text-gray-300"
+                        } font-semibold w-[60px] text-end`}
+                      >
+                        {item.status ? "UnBlock" : "Block"}
+                      </p>
+                      <Toggle
+                        checked={item.status}
+                        onChange={(e) => {
+                          setDetails({
+                            id: item.id,
+                            value: e,
+                          });
+                          setModel(!model);
+                        }}
+                      />
+                    </div>
+                  </td>
+                  <td className={`py-2 px-10`}>
+                    <div className="flex items-center justify-start gap-6">
+                      <TbEye
+                        size={30}
+                        className="text-gray-300 hover:text-blue-400 cursor-pointer"
                       />
                     </div>
                   </td>
@@ -104,16 +141,16 @@ const Table = ({ headers, tableBody, tableName }) => {
                   <td
                     className={`py-2 px-10 flex items-center justify-start gap-3`}
                   >
-                    {/* <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
+                    <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
                       <img
                         src={item?.receptionist_image}
                         className="w-full h-full object-cover "
                       />
-                    </div> */}
+                    </div>
                     {item.receptionist_name}
                   </td>
                   <td className={`py-2 px-10`}>
-                    {item?.status ? (
+                    {item?.availability ? (
                       <p className="text-green_dark border-[2px] border-green-100 bg-green-50 rounded-full text-[14px] w-[80px] h-[25px] flex items-center justify-center">
                         Available
                       </p>
@@ -124,10 +161,31 @@ const Table = ({ headers, tableBody, tableName }) => {
                     )}
                   </td>
                   <td className={`py-2 px-10`}>
-                    <div className="flex items-center justify-end gap-6">
-                      <MdOutlineModeEdit
-                        size={20}
-                        className="text-primary_color hover:text-blue-400 cursor-pointer"
+                    <div className=" flex items-center space-x-4">
+                      <p
+                        className={`${
+                          !item.status ? "text-red-400" : "text-gray-300"
+                        } font-semibold w-[60px] text-end`}
+                      >
+                        {item.status ? "UnBlock" : "Block"}
+                      </p>
+                      <Toggle
+                        checked={item.status}
+                        onChange={(e) => {
+                          setDetails({
+                            id: item.id,
+                            value: e,
+                          });
+                          setModel(!model);
+                        }}
+                      />
+                    </div>
+                  </td>
+                  <td className={`py-2 px-10`}>
+                    <div className="flex items-center justify-start gap-6">
+                      <TbEye
+                        size={30}
+                        className="text-gray-300 hover:text-blue-400 cursor-pointer"
                       />
                     </div>
                   </td>
@@ -137,9 +195,12 @@ const Table = ({ headers, tableBody, tableName }) => {
             if (tableName === "Medicine") {
               return (
                 <tr className="border-b font-medium text-start" key={i}>
+                  {console.log("eee", item)}
                   <td className={`py-4 px-10`}>{item.medicine_name}</td>
                   <td className={`py-4 px-10`}>{item.dosage_form}</td>
-                  <td className={`py-4 px-10`}>{item.dosage_strength}</td>
+                  <td className={`py-4 px-10`}>
+                    {item.dosage_strength} {item.dosage_unit}
+                  </td>
                   <td className={`py-4 px-10`}>
                     {item?.status ? (
                       <p className="text-green_dark border-[2px] border-green-100 bg-green-50 rounded-full text-[14px] w-[100px] h-[25px] flex items-center justify-center">
@@ -151,20 +212,31 @@ const Table = ({ headers, tableBody, tableName }) => {
                       </p>
                     )}
                   </td>
-                  <td className={`py-4 px-10`}>
+                  {/* <td className={`py-4 px-10`}>
                     <div className="flex items-center justify-end gap-6">
                       <MdOutlineModeEdit
                         size={20}
                         className="text-primary_color hover:text-blue-400 cursor-pointer"
                       />
                     </div>
-                  </td>
+                  </td> */}
                 </tr>
               );
             }
           })}
         </tbody>
       </table>
+
+      {clear && (
+        <ModelResponsive
+          modalpopup={model}
+          openModal={setModel}
+          trigger={handleChange}
+          details={details}
+          clear={clear}
+          setClear={setClear}
+        />
+      )}
     </>
   );
 };

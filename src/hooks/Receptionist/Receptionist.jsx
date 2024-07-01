@@ -1,41 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 //Api
-import ApiRequest from '../../services/httpService'
+import ApiRequest from "../../services/httpService";
+import { setReceptionistTable } from "../../Redux/Slice/TableDatas";
 
 const Doctors = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [selectedDate, setselectedDate] = useState(new Date());
-  const [tableData, setTableData] = useState([])
-
+  const [selectedDate, setselectedDate] = useState();
+  const [primaryLoader, setPrimaryLoader] = useState(true);
+  const [clear, setClear] = useState(false);
+  const [model, setModel] = useState(false);
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
-
   useEffect(() => {
     const API = async () => {
-      const {success, receptionists} = await ApiRequest.get(`/receptionist/clinic/${userDetails._id}`);
+      const { success, receptionists } = await ApiRequest.get(
+        `/receptionist/clinic/${userDetails._id}`
+      );
 
-      if (success) { 
+      if (success) {
         const tableData = receptionists.map((i) => {
           return {
+            id: i._id,
             receptionist_image: "",
             receptionist_name: i?.name || "",
-            status: i?.availability === "unavailable" ? false : true || false
-  
-          }
-        })
-
-       return setTableData(tableData)
-
+            availability:
+              i?.availability === "unavailable" ? false : true || false,
+            receptionist_image: i?.profile || null,
+            status: i?.block,
+          };
+        });
+        setPrimaryLoader(false);
+        dispatch(setReceptionistTable(tableData));
+        return;
       }
-    }
-    API()
-  }, [])
-
+    };
+    API();
+  }, [model, selectedDate]);
 
   const style = {
     width: "100%",
@@ -50,18 +56,34 @@ const Doctors = () => {
     { label: "Receptionist on leave", value: "Receptionist_on_leave" },
   ];
 
-
   const navigateAddRecptionistPage = () => {
-    return navigate('/add-recptionist')
-  }
+    return navigate("/add-recptionist");
+  };
+
+  const handleChange = async (id, value, reason) => {
+    const { success } = await ApiRequest.post(`/receptionist/${id}`, {
+      block: value,
+      reason,
+    });
+
+    if (success) {
+      return setClear(true);
+      ;
+    }
+  };
 
   return {
     setselectedDate,
     selectedDate,
     style,
     Options,
-    dummydata: tableData,
-    navigateAddRecptionistPage
+    navigateAddRecptionistPage,
+    primaryLoader,
+    setModel,
+    model,
+    handleChange,
+    clear,
+    setClear
   };
 };
 

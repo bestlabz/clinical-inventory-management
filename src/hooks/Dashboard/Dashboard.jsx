@@ -1,40 +1,42 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 //Api
-import ApiRequest from '../../services/httpService'
+import ApiRequest from "../../services/httpService";
+import { setPatientsTable } from "../../Redux/Slice/TableDatas";
 
 const Dashboard = () => {
   const [selectedDate, setselectedDate] = useState(new Date());
-  const [tableData, setTableData] = useState([])
-
+  const [primaryLoader, setPrimaryLoader] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const API = async () => {
-      const {success, patients} = await ApiRequest.get("/patients");
+      const { success, patients } = await ApiRequest.get("/patients");
 
-      if (success) { 
+      if (success) {
         const tableData = patients.map((i) => {
           return {
             name: i?.name || "",
-            doctor_image: "",
-            doctor_name: "",
-            specialist: "",
-            appointment_time: ""
-  
-          }
-        })
-       return setTableData(tableData)
-
+            doctor_image: i?.appointment_history?.[0]?.doctor?.profile || null,
+            doctor_name: i?.appointment_history?.[0]?.doctor?.name || "",
+            specialist: i?.appointment_history?.[0]?.doctor?.specilaist || "",
+            appointment_time: i?.appointment_history?.[0]?.time || "",
+          };
+        });
+        setPrimaryLoader(false);
+        dispatch(setPatientsTable(tableData));
+        return;
       }
-    }
-    API()
-  }, [])
+    };
+    API();
+  }, []);
 
   const style = {
     width: "100%",
     padding: "0px",
     border: "1px solid #d3d3d3",
-    outline :"1px solid #d3d3d3",
+    outline: "1px solid #d3d3d3",
     background: "rgba(218, 227, 255, 0.31)",
   };
 
@@ -45,104 +47,12 @@ const Dashboard = () => {
     { label: "This Week", value: "this_week" },
   ];
 
-  // const dummydata = [
-  //   {
-  //     name: "Mohamed Thawfeek",
-  //     doctor_image: "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-  //     doctor_name: "Dr. Kumar",
-  //     specialist: "Cardiology",
-  //     appointment_time: "10:00 AM",
-  //   },
-  //   {
-  //     name: "Mohamed Thawfeek",
-  //     doctor_image: "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-  //     doctor_name: "Dr. Kumar",
-  //     specialist: "Cardiology",
-  //     appointment_time: "10:00 AM",
-  //   }, {
-  //     name: "Mohamed Thawfeek",
-  //     doctor_image: "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-  //     doctor_name: "Dr. Kumar",
-  //     specialist: "Cardiology",
-  //     appointment_time: "10:00 AM",
-  //   }, {
-  //     name: "Mohamed Thawfeek",
-  //     doctor_image: "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-  //     doctor_name: "Dr. Kumar",
-  //     specialist: "Cardiology",
-  //     appointment_time: "10:00 AM",
-  //   }, {
-  //     name: "Mohamed Thawfeek",
-  //     doctor_image: "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-  //     doctor_name: "Dr. Kumar",
-  //     specialist: "Cardiology",
-  //     appointment_time: "10:00 AM",
-  //   }, {
-  //     name: "Mohamed Thawfeek",
-  //     doctor_image: "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-  //     doctor_name: "Dr. Kumar",
-  //     specialist: "Cardiology",
-  //     appointment_time: "10:00 AM",
-  //   }, {
-  //     name: "Mohamed Thawfeek",
-  //     doctor_image: "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-  //     doctor_name: "Dr. Kumar",
-  //     specialist: "Cardiology",
-  //     appointment_time: "10:00 AM",
-  //   }, {
-  //     name: "Mohamed Thawfeek",
-  //     doctor_image: "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-  //     doctor_name: "Dr. Kumar",
-  //     specialist: "Cardiology",
-  //     appointment_time: "10:00 AM",
-  //   }, {
-  //     name: "Mohamed Thawfeek",
-  //     doctor_image: "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-  //     doctor_name: "Dr. Kumar",
-  //     specialist: "Cardiology",
-  //     appointment_time: "10:00 AM",
-  //   }, {
-  //     name: "Mohamed Thawfeek",
-  //     doctor_image: "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-  //     doctor_name: "Dr. Kumar",
-  //     specialist: "Cardiology",
-  //     appointment_time: "10:00 AM",
-  //   }, {
-  //     name: "Mohamed Thawfeek",
-  //     doctor_image: "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-  //     doctor_name: "Dr. Kumar",
-  //     specialist: "Cardiology",
-  //     appointment_time: "10:00 AM",
-  //   }, {
-  //     name: "Mohamed Thawfeek",
-  //     doctor_image: "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-  //     doctor_name: "Dr. Kumar",
-  //     specialist: "Cardiology",
-  //     appointment_time: "10:00 AM",
-  //   }, {
-  //     name: "Mohamed Thawfeek",
-  //     doctor_image: "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-  //     doctor_name: "Dr. Kumar",
-  //     specialist: "Cardiology",
-  //     appointment_time: "10:00 AM",
-  //   }, {
-  //     name: "Mohamed Thawfeek",
-  //     doctor_image: "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-  //     doctor_name: "Dr. Kumar",
-  //     specialist: "Cardiology",
-  //     appointment_time: "10:00 AM",
-  //   },
-  // ]
-
-
-
-
   return {
     setselectedDate,
     selectedDate,
     style,
     Options,
-    dummydata :tableData
+    primaryLoader,
   };
 };
 

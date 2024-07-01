@@ -63,8 +63,8 @@ const Addmedicine = () => {
     const bodyData = {
       medicine_name: values.medicine_name,
       dosage_strength: values.dasage_strength,
-      dosage_form: [selectedItem.value],
-      dosage_unit: selectedItem1.value,
+      dosage_form: selectedItem.label,
+      dosage_unit: selectedItem1.label,
     };
     const { success } = await ApiRequest.post("/medicines", bodyData);
 
@@ -106,10 +106,16 @@ const Addmedicine = () => {
     background: "rgba(218, 227, 255, 0.31)",
   };
 
-  const Options = [
-    { label: "Liquid", value: "Liquid" },
-    { label: "Tablet", value: "Tablet" },
-  ];
+  const style1 = {
+    width: "100%",
+    padding: "7px",
+    border: `1px solid ${validateErr && !selectedItem ? "transparent" : "transparent"}`,
+    borderRadius: "8px",
+    outline: "1px solid transparent",
+    background: "rgba(218, 227, 255, 0.31)",
+  };
+
+
   return {
     goBack,
     handleSubmit,
@@ -126,6 +132,7 @@ const Addmedicine = () => {
     selectedItem,
     setSelectedItem1,
     selectedItem1,
+    style1
   };
 };
 

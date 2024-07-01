@@ -21,7 +21,7 @@ import AddReceptionistFunction from "../../hooks/Receptionist/AddReceptionist";
 import ResponsiveSuccessmodal from "../../Components/Properites/ResponsiveSuccessmodal/ResponsiveSuccessmodal";
 
 const AddReceptionist = () => {
-  const { goBack, next, pre, step, otp, setOTP, modalPopup } = AddReceptionistFunction();
+  const { goBack, next, pre, step, otp, setOTP, modalPopup, setValue, value} = AddReceptionistFunction();
 
   return (
     <div
@@ -52,7 +52,7 @@ const AddReceptionist = () => {
             <p className="add-doctor-content-header">
               {TranslateJson.add_receptionist.step1.button}
             </p>
-            <PhoneNumber />
+            <PhoneNumber setValue={setValue} value={value}  />
 
             <button onClick={next} className="add-doctor-content-phonenumber">
              {TranslateJson.add_receptionist.step1.button}

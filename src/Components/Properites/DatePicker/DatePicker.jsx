@@ -23,6 +23,7 @@ const DatePicker = ({ date, handleDateSelect }) => {
           selected={date}
           onChange={handleDateSelect}
           dateFormat="dd-MM-yyyy"
+          placeholderText="Select date"
         />
       </div>
     );

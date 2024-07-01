@@ -7,6 +7,8 @@ import TranslateJson from "../../utils/translation/en.json";
 //Third party libraries
 import { FaArrowLeft } from "react-icons/fa6";
 import Input from "../../Components/Properites/Inputs/Input";
+import Input1 from "../../Components/Properites/Inputs/Input1";
+
 
 //Hooks
 import Addmedicine from "../../hooks/Medicine/Addmedicine";
@@ -28,6 +30,7 @@ const AddMedicine = () => {
     dosageFormsOptions,
     dosageUnitOptions,
     style,
+    style1,
     selectedItem,
     setSelectedItem,
     selectedItem1,
@@ -76,23 +79,25 @@ const AddMedicine = () => {
           </div>
           <div className="add-medicine-body-content">
             <label>{TranslateJson.add_medicine.label.dasage_strength}</label>
-            <Input
+            <div className={`flex items-end border-[1px] ${!validateErr ? "border-gray-300" : "border-red-500"} rounded-xl`}>
+              <div className=" flex-1 items-center">
+            <Input1
               placeholder={
                 TranslateJson.add_medicine.placeholder.dasage_strength
               }
               id="dasage_strength"
               name="dasage_strength"
+              errtop="140%"
               setValue={handleChange}
               value={values.dasage_strength}
               err={validateErr && errors.dasage_strength}
             />
-          </div>
 
-          <div className="add-medicine-body-content">
-            <label>{TranslateJson.add_medicine.label.dasage_unit}</label>
-            <div className=" mt-[18px] relative">
+              </div>
+              <div className=" 2xl:w-[25%] xl:w-[25%] lg:w-[25%] md:w-[30%] sm:w-[30%] xs:w-[50%] mobile:w-[60%] xss:w-[50%]">
+              <div className="relative">
               <Select
-                styles={style}
+                styles={style1}
                 options={dosageUnitOptions}
                 placeholder={TranslateJson.add_medicine.placeholder.dasage_unit}
                 SelectedValue={setSelectedItem1}
@@ -100,8 +105,10 @@ const AddMedicine = () => {
               />
             {validateErr && selectedItem1 === null && <span className="err-txt absolute mt-[1px]">Required Dasage Form</span>}
             </div>
-           
+              </div>
+            </div>
           </div>
+        
         </div>
 
         <div className="add-medicine-footer">

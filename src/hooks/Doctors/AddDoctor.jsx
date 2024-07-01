@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 //Thired party library
 import { useNavigate } from "react-router-dom";
@@ -14,12 +15,16 @@ const AddDoctor = () => {
   const [modalPopup, setModalPopup] = useState(false);
   const [value, setValue] = useState("");
 
+  const { userDetails } = useSelector((state) => state.userinfo);
+
+
   useEffect(() => {
     if (step === 3) {
       setModalPopup(true);
 
       setTimeout(() => {
         setModalPopup(false);
+        setValue("")
         setOTP("");
         setStep(1);
       }, 3000);
@@ -36,17 +41,22 @@ const AddDoctor = () => {
     }
   };
   const next = async () => {
-    if (step === 2) {
-      const { success } = await ApiRequest.post("/sendotp/doctor", {mobile_number: value});
+    if (step === 1) {
+      const { success } = await ApiRequest.post("/sendotp/doctor", {mobile_number: value, clinicId: userDetails._id});
 
       if (success) {
         return setStep((step) => step + 1);
       }
     }
 
-    if (step === 1) {
-      return setStep((step) => step + 1);
+    if (step === 2) {
+      const { success } = await ApiRequest.post("/verifyotp/doctor", {mobile_number: value, otp});
+
+      if (success) {
+        return setStep((step) => step + 1);
+      }
     }
+
   };
   return {
     goBack,

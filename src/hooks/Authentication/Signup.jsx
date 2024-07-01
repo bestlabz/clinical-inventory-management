@@ -17,6 +17,7 @@ import {
 //Hooks
 import { setUserDetails } from "../../Redux/Slice/SignupUser";
 import { setOTP } from "../../Redux/Slice/Otp";
+import ApiRequest from '../../services/httpService'
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -72,6 +73,7 @@ const Signup = () => {
   const onSubmit = async (values, actions) => {
     if (step === 1) {
       dispatch(setUserDetails({ phone_number: values.phone_number }));
+      // const {} = await ApiRequest.post('/sendotp', {mobile_number: values.phone_number})
       return setStep((step) => step + 1);
     }
     if (step === 3) {

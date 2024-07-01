@@ -31,7 +31,7 @@
 }
 
 .input-container {
-  @apply 2xl:w-[100%] xl:w-[100%] lg:w-[100%] md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] my-3 flex flex-col gap-1 relative;
+  @apply 2xl:w-[100%] xl:w-[100%] lg:w-[100%] md:w-[100%] sm:w-[100%] xs:w-[100%] xss:w-[100%] mobile:w-[100%] my-3 flex flex-col gap-1 relative;
 }
 
 .input-label {
@@ -254,7 +254,7 @@
 }
 
 .add-medicine-footer-button {
-  @apply bg-primary_color w-[20%] py-3 rounded-lg text-white text-[16px];
+  @apply bg-primary_color  py-3 rounded-lg text-white text-[16px] 2xl:w-[20%] xl:w-[20%] lg:w-[20%] md:w-[40%] sm:w-[40%] xs:w-[60%] mobile:w-[70%] xss:w-[80%];
 }
 
 .logout-button {
@@ -302,4 +302,22 @@
 
 .prescription-preview-text {
   @apply text-[13px] flex items-center whitespace-normal break-all
+}
+
+
+
+.input-container1 {
+  @apply 2xl:w-[100%] xl:w-[100%] lg:w-[100%] md:w-[100%] sm:w-[100%] xs:w-[100%] xss:w-[80%] mobile:w-[80%] my-3 flex flex-col gap-1 relative;
+}
+
+.input-label1 {
+  @apply text-[16px];
+}
+
+.input-box1 {
+  @apply w-full;
+}
+
+.input1 {
+  @apply w-full h-full py-[3px] rounded-xl  p-2  outline-none;
 }

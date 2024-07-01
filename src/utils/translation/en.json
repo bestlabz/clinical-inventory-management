@@ -273,6 +273,19 @@
       "error1": "Diagnosis/condition is required"    },
     "image-text": "Additional Notes"
   }
+},
+
+
+"toggel": {
+  "block": "Are you sure you want to Block ?",
+  "unBlock": "Are you sure you want to UnBlock ?",
+  "buttons": {
+    "cancel": "Cancel",
+    "Submit": "Yes"
+
+  },
+  "label": "Reason"
+
 }
 
 
