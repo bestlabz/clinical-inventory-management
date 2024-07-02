@@ -6,19 +6,72 @@ const initialState = {
     title: "",
   },
   clinicDetails: {
-    name: "ABC Hospital",
-    contact_number: "12345 12345",
-    address: "2118 Eadbury Ave Rowland Heights, California(CA), 91748",
-    gst_no: "12345 12345",
+    name: {
+      value: "ABC Hospital",
+      color: "#000",
+      size: "18px",
+      font: "sans-serif",
+      weight: "100"
+    },
+    contact_number: {
+      value: "12345 12345",
+      color: "#8A8A8A",
+      size: "14px",
+      font: "sans-serif",
+      weight: "100"
+    },
+    address: {
+      value: "ABC Hospital, 123 Main Street, New York, NY, 10001",
+      color: "#8A8A8A",
+      size: "14px",
+      font: "sans-serif",
+      weight: "100"
+    },
+    gst_no: {
+      value: "123456789012",
+      color: "#8A8A8A",
+      size: "14px",
+      font: "sans-serif",
+      weight: "100"
+    },
   },
   doctorDetails: {
-    doctor_name: "George",
-    speciality: "Neuro",
-    degree: "MBBS",
-    work: "Consultant Neurologist and Epileptologist ",
+    doctor_name: {
+      value: "Dr. ABC Deer",
+      color: "#000000",
+      size: "18px",
+      font: "sans-serif",
+      weight: "100"
+    },
+    speciality: {
+      value: "Neurology",
+      color: "#000000",
+      size: "18px",
+      font: "sans-serif",
+      weight: "100"
+    },
+    degree: {
+      value: "MBBS",
+      color: "#8A8A8A",
+      size: "14px",
+      font: "sans-serif",
+      weight: "100"
+    },
+    work: {
+      value: "ABC Hospital, 123 Main Street, New York, NY, 10001",
+      color: "#8A8A8A",
+      size: "14px",
+      font: "sans-serif",
+      weight: "100"
+    },
   },
-  headerDetails: [{ title: "" }, { title: "" }, { title: "" }, { title: "" }],
-  mainDetails: [{ title: "" }],
+  headerDetails: [
+    { title: "one", color: "#000", size: "14px", font: "sans-serif", weight: "100" },
+    { title: "two", color: "#000", size: "14px", font: "sans-serif", weight: "100" },
+    { title: "three", color: "#000", size: "14px", font: "sans-serif", weight: "100" },
+    { title: "four", color: "#000", size: "14px", font: "sans-serif", weight: "100" },
+  ],
+  mainDetails: [{ title: "", color: "#000", size: "18px", font: "sans-serif", weight: "100" }],
 };
 
 export const prescriptionSlice = createSlice({
@@ -26,43 +79,47 @@ export const prescriptionSlice = createSlice({
   initialState,
   reducers: {
     setClinicLogo: (state, action) => {
-      const { logo, title } = action.payload;
-      if (logo !== undefined) state.clinicLogo.logo = logo;
-      if (title !== undefined) state.clinicLogo.title = title;
+      state.clinicLogo = action.payload;
     },
     setClinicDetails: (state, action) => {
-      const { name, contact_number, address, gst_no } = action.payload;
-      if (name !== undefined) state.clinicDetails.name = name;
-      if (contact_number !== undefined)
-        state.clinicDetails.contact_number = contact_number;
-      if (address !== undefined) state.clinicDetails.address = address;
-      if (gst_no !== undefined) state.clinicDetails.gst_no = gst_no;
+      state.clinicDetails = action.payload;
+    },
+    setUpdateClinicValues: (state, action) => {
+      const { selectedKey, item } = action.payload;
+      state.clinicDetails[selectedKey] = { ...state.clinicDetails[selectedKey], ...item };
     },
     setDoctorDetails: (state, action) => {
-      const { doctor_name, speciality, degree, work } = action.payload;
-      if (doctor_name !== undefined)
-        state.doctorDetails.doctor_name = doctor_name;
-      if (speciality !== undefined) state.doctorDetails.speciality = speciality;
-      if (degree !== undefined) state.doctorDetails.degree = degree;
-      if (work !== undefined) state.doctorDetails.work = work;
+      state.doctorDetails = action.payload;
+    },
+    setUpdateDoctorValues: (state, action) => {
+      const { selectedKey, item } = action.payload;
+      state.doctorDetails[selectedKey] = { ...state.doctorDetails[selectedKey], ...item };
     },
     addHeader: (state) => {
-      state.headerDetails.push({ title: "" });
+      state.headerDetails.push({ title: "", color: "#000", size: "14px", font: "sans-serif", weight: "100" });
     },
     updateHeader: (state, action) => {
-      const { index, value } = action.payload;
+      const { index, title } = action.payload;
       if (index >= 0 && index < state.headerDetails.length) {
-        state.headerDetails[index].title = value;
+        state.headerDetails[index] = { ...state.headerDetails[index], ...title };
       }
+    },
+    updateAllHeader: (state, action) => { 
+      state.headerDetails = action.payload
+
     },
     addMain: (state) => {
-      state.mainDetails.push({ title: "" });
+      state.mainDetails.push({ title: "", color: "#000", size: "18px", font: "sans-serif", weight: "100" });
     },
     updateMain: (state, action) => {
-      const { index, value } = action.payload;
+      const { index, title } = action.payload;
       if (index >= 0 && index < state.mainDetails.length) {
-        state.mainDetails[index].title = value;
+        state.mainDetails[index] = { ...state.mainDetails[index], ...title };
       }
+    },
+    updateAllMain: (state, action) => { 
+      state.mainDetails = action.payload
+
     },
   },
 });
@@ -71,11 +128,15 @@ export const prescriptionSlice = createSlice({
 export const {
   setClinicLogo,
   setClinicDetails,
+  setUpdateClinicValues,
   setDoctorDetails,
+  setUpdateDoctorValues,
   addHeader,
   updateHeader,
   addMain,
   updateMain,
+  updateAllMain,
+  updateAllHeader
 } = prescriptionSlice.actions;
 
 export default prescriptionSlice.reducer;

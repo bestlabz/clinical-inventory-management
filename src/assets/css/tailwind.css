@@ -348,12 +348,11 @@
 }
 
 .prescription-left-top {
-  @apply border-[2px] border-[#d3d3d3a5] p-4 rounded-t-2xl text-[20px] font-semibold
+  @apply  p-4 text-[20px] font-semibold
 }
 
-.prescription-preview-text {
-  @apply text-[13px] flex items-center whitespace-normal break-all
-}
+
+
 
 
 

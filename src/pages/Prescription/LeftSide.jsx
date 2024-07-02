@@ -1,5 +1,7 @@
 import dayjs from "dayjs";
 import React from "react";
+import { FiPhone } from "react-icons/fi";
+import { useSelector } from "react-redux";
 
 const LeftSide = ({
   values,
@@ -8,100 +10,167 @@ const LeftSide = ({
   Image1,
   Signature,
   gender,
-  base64Image
+  base64Image,
 }) => {
+  const {
+    clinicLogo,
+    clinicDetails,
+    doctorDetails,
+    headerDetails,
+    mainDetails,
+  } = useSelector((state) => state.PrescriptionDetails);
+
   return (
     <>
       <h1 className="prescription-left-top ">Preview</h1>
-      <div className="flex items-center justify-between pt-3 px-3 border-b-[2px] gap-3">
-        <div className="flex flex-col gap-3 w-[40%]">
-          <h1 className=" 2xl:text-[24px] xl:text-[24px] lg:text-[24px] md:text-[24px] sm:text-[16px] xs:text-[16px] mobile:text-[16px] xss:text-[16px] font-semibold">
-            Mayo clinic
-          </h1>
-          <h1 className=" text-[12px]">Date:{dayjs().format("DD/MM/YYYY")}</h1>
+      <div className="prescription-top-container flex items-start w-full px-3">
+        <div className="prescription-top-container-left-side w-[50%] border-r-[3px] flex items-start space-x-2">
+          <div className="felx flex-col space-y-2 w-[40%] pt-1">
+            <div className="w-[90px] h-[90px] mx-auto rounded-full border-[3px] border-green_light "></div>
+            <p className="text-center font-semibold py-2  break-words">
+              {clinicLogo.title}
+            </p>
+          </div>
+          <div className="w-full">
+            <p
+              style={{
+                color: clinicDetails.name.color,
+                fontSize: clinicDetails.name.size,
+                fontWeight: clinicDetails.name.weight,
+                fontFamily: clinicDetails.name.font,
+              }}
+              className="text-[18px] font-semibold"
+            >
+              {clinicDetails.name.value}
+            </p>
+            <p
+              style={{
+                color: clinicDetails.address.color,
+                fontSize: clinicDetails.address.size,
+                fontWeight: clinicDetails.address.weight,
+                fontFamily: clinicDetails.address.font,
+              }}
+              className="text-[14px] py-1 break-words text-secondary_text"
+            >
+              {clinicDetails.address.value}
+            </p>
+            <p
+              style={{
+                color: clinicDetails.contact_number.color,
+                fontSize: clinicDetails.contact_number.size,
+                fontWeight: clinicDetails.contact_number.weight,
+                fontFamily: clinicDetails.contact_number.font,
+              }}
+              className="text-[14px] pt-1 break-words text-secondary_text flex items-center gap-2"
+            >
+              <FiPhone size={14} /> {clinicDetails.contact_number.value}
+            </p>
+            <p
+              style={{
+                color: clinicDetails.gst_no.color,
+                fontSize: clinicDetails.gst_no.size,
+                fontWeight: clinicDetails.gst_no.weight,
+                fontFamily: clinicDetails.gst_no.font,
+              }}
+              className="text-[14px] break-words text-secondary_text"
+            >
+              License No: {clinicDetails.gst_no.value}
+            </p>
+          </div>
         </div>
-        <div className="  2xl:w-[20%] xl:w-[80px] lg:w-[80px] md:w-[80px] sm:w-[80px] xs:w-[60px] mobile:w-[60px] xss:w-[60px] 2xl:h-[20%] xl:h-[80px] lg:h-[80px] md:h-[80px] sm:h-[80px] xs:h-[60px] mobile:h-[60px] xss:h-[60px] flex items-center justify-center rounded-full overflow-hidden">
-          <img src={Img} alt="" className=" h-[80%] w-[80%] object-contain" />
-        </div>
-        <div className="flex flex-col gap-2 items-end w-[40%]">
-          <h1 className="2xl:text-[16px] xl:text-[16px] lg:text-[16px] md:text-[16px] sm:text-[12px] xs:text-[12px] mobile:text-[12px] xss:text-[12px] font-semibold">
-            Dr. George
-          </h1>
-          <h1 className="2xl:text-[14px] xl:text-[14px] lg:text-[14px] md:text-[10px] sm:text-[10px] xs:text-[10px] mobile:text-[10px] xss:text-[10px] -mt-2 whitespace-normal break-all ">
-            {values.speciality}
-          </h1>
-          <h1 className="2xl:text-[10px] xl:text-[10px] lg:text-[10px] md:text-[8px] sm:text-[8px] xs:text-[8px] mobile:text-[8px] xss:text-[8px] text-gray-400 whitespace-normal break-all">
-            License No: {values.license_number}
-          </h1>
-        </div>
-      </div>
-      <div className=" grid  p-3 pt-5 gap-6 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1 mobile:grid-cols-1 xss:grid-cols-1">
-        <h1 className=" prescription-preview-text">
-          Name: {values.patient_name}
-        </h1>
-        <h1 className=" prescription-preview-text">
-          {TranslateJson.prescription.step2.label.label2}: {values.age}
-        </h1>
-        <h1 className="prescription-preview-text">
-          {TranslateJson.prescription.step2.label.label3}: {gender?.value || ""}
-        </h1>
-        <h1 className="prescription-preview-text">
-          {TranslateJson.prescription.step2.label.label4}:{" "}
-          {values.patient_phone_number}
-        </h1>
-      </div>
-      <div>
-        <h1 style={{ border: "0px" }} className="prescription-left-top">
-          Prescription Details
-        </h1>
-        <div className=" grid  p-3 pt-5 gap-6 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1 mobile:grid-cols-1 xss:grid-cols-1">
-          <h1 className=" prescription-preview-text">
-            {TranslateJson.prescription.step3.label.label1} :{" "}
-            {values.medicine_name}
-          </h1>
-          <h1 className=" prescription-preview-text">
-            {TranslateJson.prescription.step3.label.label2} : {values.dosage}
-          </h1>
-          <h1 className="prescription-preview-text">
-            {TranslateJson.prescription.step3.label.label3} : {values.frequency}
-          </h1>
-          <h1 className="prescription-preview-text">
-            {TranslateJson.prescription.step3.label.label4} : {values.duration}
-          </h1>
-          <h1 className="prescription-preview-text">
-            Instruction : {values.instruction}
-          </h1>
-          <h1 className="prescription-preview-text">
-            {TranslateJson.prescription.step4.label.label1} : {values.diagnosis}
-          </h1>
+
+        <div className="prescription-top-container-right-side text-end  w-[50%]">
+          <p
+            style={{
+              color: doctorDetails.doctor_name.color,
+              fontSize: doctorDetails.doctor_name.size,
+              fontWeight: doctorDetails.doctor_name.weight,
+              fontFamily: doctorDetails.doctor_name.font,
+            }}
+          >
+            {doctorDetails.doctor_name.value}{" "}
+            <span
+              style={{
+                color: doctorDetails.degree.color,
+                fontSize: doctorDetails.degree.size,
+                fontWeight: doctorDetails.degree.weight,
+                fontFamily: doctorDetails.degree.font,
+              }}
+            >
+              {doctorDetails.degree.value}
+            </span>
+          </p>
+          <p
+            style={{
+              color: doctorDetails.speciality.color,
+              fontSize: doctorDetails.speciality.size,
+              fontWeight: doctorDetails.speciality.weight,
+              fontFamily: doctorDetails.speciality.font,
+            }}
+            className="text-[16px] font-semibold"
+          >
+            ({doctorDetails.speciality.value})
+          </p>
+          <p
+            style={{
+              color: doctorDetails.work.color,
+              fontSize: doctorDetails.work.size,
+              fontWeight: doctorDetails.work.weight,
+              fontFamily: doctorDetails.work.font,
+            }}
+            className=" text-[14px] text-secondary_text"
+          >
+            {doctorDetails.work.value}
+          </p>
         </div>
       </div>
 
-      <div className="w-full h-full">
-        <h1 style={{ border: "0px" }} className="prescription-left-top">
-          Additional Notes
-        </h1>
-        <div className="w-full min-h-[200px] border-b-[2px] border-gray-300 relative">
-          <div className="w-full h-[135px] overflow-auto">
-            {
-              base64Image &&
-            <img src={base64Image} className="object-cover w-full" />
-            }
-          </div>
-
-          <div className=" absolute bottom-1 right-3">
-            <p className="text-[14px]">Doctor Signature</p>
-            <div className="flex items-center justify-center py-1 my-1">
-              <img src={Signature} className="object-contain" />
-            </div>
-          </div>
-        </div>
-        <div className=" text-[13px] pt-2 text-gray-400">
-          <p>12, United States of America, Washington DC,</p>
-          <p>+1 12343345233</p>
-          <p>mayclinic@gmail.com</p>
-        </div>
+      <div className="mt-3 py-3 border-t-[1px] border-b-[1px] border-gray-300 grid grid-cols-6">
+        {headerDetails.map((i, index) => (
+          <p
+            style={{
+              color: i.color,
+              fontSize: i.size,
+              fontWeight: i.weight,
+              fontFamily: i.font,
+            }}
+            className={`${index === 0 ? "col-span-3" : "col-span-1"}`}
+          >
+            {i.title}:
+          </p>
+        ))}
       </div>
+
+      <div className="w-full flex items-end justify-end my-3">
+        <p
+          style={{
+            color: headerDetails?.[0]?.color,
+            fontSize: headerDetails?.[0]?.size,
+            fontWeight: headerDetails?.[0]?.weight,
+            fontFamily: headerDetails?.[0]?.font,
+          }}
+          className="text-start   w-[25%] max-w-[40%]"
+        >
+          Date: {dayjs().format("DD/MM/YYYY")}
+        </p>
+      </div>
+
+      {mainDetails.map((i, index) => (
+        <div key={index} className=" min-h-[150px] mt-3 flex flex-col gap-2">
+          <p
+            style={{
+              color: i.color,
+              fontSize: i.size,
+              fontWeight: i.weight,
+              fontFamily: i.font,
+            }}
+            className=""
+          >
+            {i.title}:
+          </p>
+          <p className="pl-1"></p>
+        </div>
+      ))}
     </>
   );
 };

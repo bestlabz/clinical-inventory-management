@@ -15,12 +15,18 @@ const Input = ({
   errtop="100%",
   label,
   disabled=false,
+  color="#000",
+  size,
+  font,
+  weight,
+  selectKey
 }) => {
   return (
     <div className="input-container">
         <label className="input-label">{label}</label>
       <div className={`input-box`}>
         <input
+        style={{color, fontSize: size, fontFamily: font, fontWeight: weight}}
           id={id}
           name={name}
           className={`input ${err ? "err-border" : "border-gray-300"}`}
@@ -31,6 +37,7 @@ const Input = ({
           onChange={setValue}
           defaultValue={def}
           disabled={disabled}
+          onClick={selectKey}
         />
         {length && showLength && (
           <span className="input-length">
