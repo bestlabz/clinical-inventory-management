@@ -17,7 +17,7 @@ const menuConfig = [
     items: [
       {
         path: "/dashboard",
-        name: "Dashboard",
+        name: "Home",
         icon: <GridSvgComponent />,
         activeName: "dashboard",
       },

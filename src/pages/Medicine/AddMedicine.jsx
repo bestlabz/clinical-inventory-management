@@ -9,7 +9,6 @@ import { FaArrowLeft } from "react-icons/fa6";
 import Input from "../../Components/Properites/Inputs/Input";
 import Input1 from "../../Components/Properites/Inputs/Input1";
 
-
 //Hooks
 import Addmedicine from "../../hooks/Medicine/Addmedicine";
 import ModelPopup from "../../Components/Properites/ModelPopup/ModelPopup";
@@ -34,7 +33,7 @@ const AddMedicine = () => {
     selectedItem,
     setSelectedItem,
     selectedItem1,
-    setSelectedItem1
+    setSelectedItem1,
   } = Addmedicine();
 
   return (
@@ -73,42 +72,58 @@ const AddMedicine = () => {
                 SelectedValue={setSelectedItem}
                 value={selectedItem}
               />
-            {validateErr && selectedItem === null && <span className="err-txt absolute mt-[1px]">Required Dasage Form</span>}
+              {validateErr && selectedItem === null && (
+                <span className="err-txt absolute mt-[1px]">
+                  Required Dasage Form
+                </span>
+              )}
             </div>
-           
           </div>
           <div className="add-medicine-body-content">
             <label>{TranslateJson.add_medicine.label.dasage_strength}</label>
-            <div className={`flex items-end border-[1px] ${!validateErr ? "border-gray-300" : "border-red-500"} rounded-xl`}>
+            <div
+              className={`flex items-end border-[1px] ${
+                !validateErr ? "border-gray-300" : "border-red-500"
+              } rounded-xl`}
+            >
               <div className=" flex-1 items-center">
-            <Input1
-              placeholder={
-                TranslateJson.add_medicine.placeholder.dasage_strength
-              }
-              id="dasage_strength"
-              name="dasage_strength"
-              errtop="140%"
-              setValue={handleChange}
-              value={values.dasage_strength}
-              err={validateErr && errors.dasage_strength}
-            />
-
+                <Input1
+                  placeholder={
+                    TranslateJson.add_medicine.placeholder.dasage_strength
+                  }
+                  id="dasage_strength"
+                  name="dasage_strength"
+                  errtop="140%"
+                  setValue={(e) => {
+                    if (!/^\d*$/.test(e.target.value)) {
+                      return; // If not a digit, return without updating the state
+                    }
+                    handleChange(e);
+                  }}
+                  value={values.dasage_strength}
+                  err={validateErr && errors.dasage_strength}
+                />
               </div>
               <div className=" 2xl:w-[25%] xl:w-[25%] lg:w-[25%] md:w-[30%] sm:w-[30%] xs:w-[50%] mobile:w-[60%] xss:w-[50%]">
-              <div className="relative">
-              <Select
-                styles={style1}
-                options={dosageUnitOptions}
-                placeholder={TranslateJson.add_medicine.placeholder.dasage_unit}
-                SelectedValue={setSelectedItem1}
-                value={selectedItem1}
-              />
-            {validateErr && selectedItem1 === null && <span className="err-txt absolute mt-[1px]">Required Dasage Form</span>}
-            </div>
+                <div className="relative">
+                  <Select
+                    styles={style1}
+                    options={dosageUnitOptions}
+                    placeholder={
+                      TranslateJson.add_medicine.placeholder.dasage_unit
+                    }
+                    SelectedValue={setSelectedItem1}
+                    value={selectedItem1}
+                  />
+                  {validateErr && selectedItem1 === null && (
+                    <span className="err-txt absolute mt-[1px]">
+                      Required Dasage Form
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        
         </div>
 
         <div className="add-medicine-footer">

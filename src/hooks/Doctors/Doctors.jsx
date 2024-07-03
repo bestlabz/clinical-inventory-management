@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 //Api
 import ApiRequest from "../../services/httpService";
 import { setDoctorTable } from "../../Redux/Slice/TableDatas";
+import toast from "react-hot-toast";
 
 const Doctors = () => {
   const navigate = useNavigate();
@@ -25,30 +26,39 @@ const Doctors = () => {
 
   useEffect(() => {
     const API = async () => {
-      const { success, doctorAvailability, totalDoctorsCount, availableDoctorsCount, unavailableDoctorsCount } = await ApiRequest.get(
-        `/doctersby_clinic/${userDetails._id}?appointment_date=${selectedDate}`
-      );
-
-      if (success) {
-        setCardValue({
-          total_doctor: totalDoctorsCount,
-          available_doctor: availableDoctorsCount,
-          leave_doctor: unavailableDoctorsCount
-        })
-        const tableData = doctorAvailability.map((i) => {
-          return {
-            id: i?.doctor?._id,
-            doctor_name: i?.doctor?.name || "",
-            specialist: i?.doctor?.specilaist || "",
-            availability: i?.availability === "unavailable" ? false : true,
-            status: i?.doctor.block,
-            doctor_image: i?.doctor?.profile || null,
-          };
-        });
+      try {
+        const { success, doctorAvailability, totalDoctorsCount, availableDoctorsCount, unavailableDoctorsCount } = await ApiRequest.get(
+          `/doctersby_clinic/${userDetails._id}?appointment_date=${selectedDate}`
+        );
+  
+        if (success) {
+          setCardValue({
+            total_doctor: totalDoctorsCount,
+            available_doctor: availableDoctorsCount,
+            leave_doctor: unavailableDoctorsCount
+          })
+          const tableData = doctorAvailability.map((i) => {
+            return {
+              id: i?.doctor?._id,
+              doctor_name: i?.doctor?.name || "",
+              specialist: i?.doctor?.specilaist || "",
+              availability: i?.availability === "unavailable" ? false : true,
+              status: i?.doctor.block,
+              doctor_image: i?.doctor?.profile || null,
+            };
+          });
+          setPrimaryLoader(false)
+          dispatch(setDoctorTable(tableData))
+          return 
+        } else {
+          setPrimaryLoader(false)
+  
+        }
+      } catch (error) {
         setPrimaryLoader(false)
-        dispatch(setDoctorTable(tableData))
-        return 
+        toast.error(error.response.data.error)
       }
+     
     };
     API();
   }, [selectedDate, model]);
@@ -62,6 +72,7 @@ const Doctors = () => {
 
     if(success) {
       setClear(true)
+      toast.success("Doctor status updated successfully")
     }
 
   }

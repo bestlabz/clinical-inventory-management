@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ApiRequest from "../../services/httpService";
 import { useDispatch } from "react-redux";
 import { setMedicineTable } from "../../Redux/Slice/TableDatas";
+import toast from "react-hot-toast";
 
 const Medicine = () => {
   const navigate = useNavigate();
@@ -17,7 +18,8 @@ const Medicine = () => {
 
   useEffect(() => {
     const API = async () => {
-      const { success, medicines } = await ApiRequest.get("/medicines");
+      try {
+        const { success, medicines } = await ApiRequest.get("/medicines");
 
       if (success) {
         const tableData = medicines.map((i) => {
@@ -33,6 +35,13 @@ const Medicine = () => {
         dispatch(setMedicineTable(tableData));
         return;
       }
+      } catch (error) {
+        setPrimaryLoader(false);
+        toast.error(error.response.data.message)
+
+        
+      }
+      
     };
     API();
   }, []);

@@ -27,6 +27,7 @@ const Login = () => {
   const [error, setError] = useState(false);
   const [number, setNumber] = useState(null);
   const [phone_number, setPhone_number] = useState("")
+  const [loader, setLoader] = useState(false)
 
   const { otpValue } = useSelector((state) => state.otpValue);
 
@@ -41,9 +42,11 @@ const Login = () => {
       mobile_number: values.phone_number
     }
     setPhone_number(values.phone_number)
+    setLoader(true)
    const {success, message} = await ApiRequest.post("/sendotp", bodyData)
 
    if (success) {
+    setLoader(false)
      return setStep((step) => step + 1);
 
    } else {
@@ -70,7 +73,9 @@ const Login = () => {
         mobile_number: phone_number,
         otp: otpValue
       }
+      setLoader(true)
       const {clinic, token} = await ApiRequest.post('/verifyotp', bodyData)
+      setLoader(false)
       dispatch(setUser(clinic));
       localStorage.setItem('token', token)
       return navigate("/dashboard");
@@ -109,6 +114,7 @@ const Login = () => {
     values,
     navigateSignup,
     otpValue,
+    loader
   };
 };
 

@@ -4,8 +4,7 @@ const Card = ({ title = "", count = "", bg, textColor }) => {
   return (
     <div
       style={{
-        boxShadow:
-          "0 5px 9px -8px rgba(0, 0, 0, .9), 0 2px 9px -3px rgba(0, 0, 0, .9)",
+       border: "3px solid #E8E8E8",
         background: bg ? bg : "transparent",
         color: textColor,
       }}

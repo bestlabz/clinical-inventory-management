@@ -15,9 +15,11 @@ import {
 } from "../../utils/Validation/Signup";
 
 //Hooks
-import { setUserDetails } from "../../Redux/Slice/SignupUser";
+import { clearUserDetails, setUserDetails } from "../../Redux/Slice/SignupUser";
 import { setOTP } from "../../Redux/Slice/Otp";
-import ApiRequest from '../../services/httpService'
+import ApiRequest from "../../services/httpService";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -28,14 +30,15 @@ const Signup = () => {
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState(false);
   const [validationError, setValidationError] = useState(false);
-
+  const [phone_number, setPhone_number] = useState("");
+  const [id, setID] = useState(null);
   const { newuser } = useSelector((state) => state.Signup);
   const { otpValue } = useSelector((state) => state.otpValue);
 
   useEffect(() => {
-      setTimeout(() => {
-        setError(false);
-      }, 2000);
+    setTimeout(() => {
+      setError(false);
+    }, 2000);
   }, [error]);
 
   const initialvalue = () => {
@@ -72,33 +75,57 @@ const Signup = () => {
 
   const onSubmit = async (values, actions) => {
     if (step === 1) {
+      setLoader(true);
       dispatch(setUserDetails({ phone_number: values.phone_number }));
-      // const {} = await ApiRequest.post('/sendotp', {mobile_number: values.phone_number})
-      return setStep((step) => step + 1);
+      const { success } = await ApiRequest.post("/sendotp", {
+        mobile_number: values.phone_number,
+      });
+      if (success) {
+        setLoader(false);
+        setPhone_number(values.phone_number);
+        return setStep((step) => step + 1);
+      }
     }
     if (step === 3) {
       const storeDetails = {
         name: values.name,
         clinic_name: values.clinic_name,
         email: values.email,
-        trems_condition: true,
-        ...newuser,
+        agree: true,
       };
       dispatch(setUserDetails(storeDetails));
-
       return setStep((step) => step + 1);
     }
     if (step === 4) {
       const storeDetails = {
         ...newuser,
-        file: values.file,
+        certificate: values.file,
       };
-      dispatch(setUserDetails(storeDetails));
-      setLoader(true);
-      setTimeout(() => {
-        setLoader(false);
-        return navigate("/login");
-      }, 2000);
+
+      const formData = new FormData();
+
+      for (const key in storeDetails) {
+        if (storeDetails.hasOwnProperty(key)) {
+          formData.append(key, storeDetails[key]);
+        }
+      }
+
+      if (id) {
+        const baseURL = import.meta.env.VITE_APP_API_BASE_URL
+        setLoader(true);
+        const { data } = await axios.put(`${baseURL}/clinics/${id}`, formData);
+        if (data.success) {
+          setLoader(false);
+          dispatch(clearUserDetails());
+          return navigate("/login");
+        }
+      } else {
+        toast.error("Invalid ID");
+        setTimeout(() => {
+          setLoader(false);
+          return navigate("/login");
+        }, 2000);
+      }
     }
   };
 
@@ -130,17 +157,24 @@ const Signup = () => {
     }
   }, [values.file, step]);
 
-  const handelClickOTP = () => {
-    if (step !== 4) {
-      if (!otpValue) {
-        return setError(true);
-      }
-      if (otpValue?.length < 6) {
-        setError(true);
+  const handelClickOTP = async () => {
+    if (!otpValue) {
+      return setError(true);
+    }
+    if (otpValue?.length < 6) {
+      return setError(true);
+    } else {
+      setError(false);
 
-        return;
-      } else {
-        setError(false);
+      const bodyData = {
+        mobile_number: phone_number,
+        otp: otpValue,
+      };
+      setLoader(true);
+      const { clinic, token } = await ApiRequest.post("/verifyotp", bodyData);
+      if (token) {
+        setLoader(false);
+        setID(clinic?._id || null);
         return setStep((step) => step + 1);
       }
     }

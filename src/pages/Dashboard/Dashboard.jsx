@@ -35,7 +35,7 @@ const Dashboard = () => {
   const { sidebarStatus } = useSelector((state) => state.sidebarInfo);
 
   return (
-    <div className=" w-full h-full px-3 pb-[1px] overflow-auto">
+    <div className=" w-full h-[90%] px-3 py-[6px] overflow-auto">
       {primaryLoader ? (
         <ThemeSuspense />
       ) : (

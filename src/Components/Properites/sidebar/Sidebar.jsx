@@ -25,8 +25,6 @@ const Sidebar = ({ children }) => {
   const { sidebarStatus } = useSelector((state) => state.sidebarInfo);
   const { userDetails } = useSelector((state) => state.userinfo);
 
-  console.log('userDetails', userDetails);
-
   return (
     <div className="sidebar-container">
       <div
@@ -101,8 +99,12 @@ const Sidebar = ({ children }) => {
                   alt="profile"
                 />
                 <div className="profile-details">
-                  <span className="profile-details-name">{userDetails?.name || ""}</span>
-                  <span className="profile-details-id">{userDetails?.mobile_number || ""}</span>
+                  <span className="profile-details-name">
+                    {userDetails?.name || ""}
+                  </span>
+                  <span className="profile-details-id">
+                    {userDetails?.mobile_number || ""}
+                  </span>
                 </div>
               </div>
             )}
@@ -126,7 +128,17 @@ const Sidebar = ({ children }) => {
       <div className=" flex flex-col 2xl:w-full xl:w-full lg:w-full w-screen  h-screen overflow-auto">
         {/* <Navbar /> */}
 
-        <main className="py-2 h-screen overflow-auto">{children}</main>
+        {/* {!userDetails.adminVerified ? (
+          <div className="w-full h-full flex items-center justify-center">
+            <h1 className="text-[18px] font-semibold">
+              Admin not verified your account{" "}
+            </h1>
+          </div>
+        ) : (
+          <main className="py-2 h-screen overflow-auto">{children}</main>
+        )} */}
+          <main className="py-2 h-screen overflow-auto">{children}</main>
+
       </div>
       {modalpopup && (
         <>

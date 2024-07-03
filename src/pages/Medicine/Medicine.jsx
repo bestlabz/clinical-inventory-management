@@ -45,7 +45,7 @@ const Medicine = () => {
     });
 
   return (
-    <div className=" w-full h-full pt-0 p-3 overflow-auto">
+    <div className=" w-full h-[90%] px-3 py-[6px] overflow-auto">
       {primaryLoader ? (
         <ThemeSuspense />
       ) : (

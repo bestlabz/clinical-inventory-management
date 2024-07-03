@@ -79,7 +79,7 @@
 }
 
 .sidebar {
-  @apply bg-navbar_color text-white h-screen overflow-auto rounded-3xl flex flex-col;
+  @apply bg-navbar_color text-white h-[90%] rounded-3xl flex flex-col;
 }
 
 .top_sectiom {

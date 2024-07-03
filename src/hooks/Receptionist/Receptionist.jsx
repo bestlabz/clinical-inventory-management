@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 //Api
 import ApiRequest from "../../services/httpService";
 import { setReceptionistTable } from "../../Redux/Slice/TableDatas";
+import toast from "react-hot-toast";
 
 const Doctors = () => {
   const navigate = useNavigate();
@@ -19,25 +20,33 @@ const Doctors = () => {
 
   useEffect(() => {
     const API = async () => {
-      const { success, receptionists } = await ApiRequest.get(
-        `/receptionist/clinic/${userDetails._id}`
-      );
-
-      if (success) {
-        const tableData = receptionists.map((i) => {
-          return {
-            id: i._id,
-            receptionist_name: i?.name || "",
-            availability:
-              i?.availability === "unavailable" ? false : true || false,
-            receptionist_image: i?.profile || null,
-            status: i?.block,
-          };
-        });
+      try {
+        const { success, receptionists } = await ApiRequest.get(
+          `/receptionist/clinic/${userDetails._id}`
+        );
+  
+        if (success) {
+          const tableData = receptionists.map((i) => {
+            return {
+              id: i._id,
+              receptionist_name: i?.name || "",
+              availability:
+                i?.availability === "unavailable" ? false : true || false,
+              receptionist_image: i?.profile || null,
+              status: i?.block,
+            };
+          });
+          setPrimaryLoader(false);
+          dispatch(setReceptionistTable(tableData));
+          return;
+        }
+      } catch (error) {
+        console.log('ee', error)
         setPrimaryLoader(false);
-        dispatch(setReceptionistTable(tableData));
-        return;
+        toast.error(error.response.data.message)
+        
       }
+     
     };
     API();
   }, [model, selectedDate]);
@@ -66,6 +75,7 @@ const Doctors = () => {
     });
 
     if (success) {
+      toast.success("Doctor status updated successfully")
       return setClear(true);
       ;
     }

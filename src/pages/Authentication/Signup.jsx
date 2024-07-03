@@ -3,10 +3,9 @@ import React from "react";
 //Third party libraries
 import { ClipLoader } from "react-spinners";
 
-
 //Translate
-import Translate from '../../Components/translateSpan/TranslateSpan'
-import TranslateJson from "../../utils/translation/en.json"
+import Translate from "../../Components/translateSpan/TranslateSpan";
+import TranslateJson from "../../utils/translation/en.json";
 
 //Components
 import Input from "../../Components/Properites/Inputs/Input";
@@ -34,10 +33,9 @@ const Signup = () => {
     validationError,
     validationCheck,
     handelChange,
-    otpValue
+    otpValue,
   } = SignupFunction();
   const { count, formatTime, setTime } = CountDown();
-
 
   return (
     <div className="public-route">
@@ -57,21 +55,32 @@ const Signup = () => {
                 id="phone_number"
                 name="phone_number"
                 value={values.phone_number}
-                setValue={handleChange}
+                setValue={(e) => {
+                  if (!/^\d*$/.test(e.target.value)) {
+                    return; // If not a digit, return without updating the state
+                  }
+                  handleChange(e);
+                }}
                 length={10}
                 label={TranslateJson.signup.step1.label}
                 placeholder={TranslateJson.signup.step1.placeholder}
                 err={validationError && errors.phone_number}
               />
-              <button
-                type="submit"
-                onClick={validationCheck}
-                className="login-button"
-              >
-                {TranslateJson.signup.step1.button}
-              </button>
+              {loader ? (
+                <button type="button" className="login-button">
+                  <ClipLoader color="#fff" size={20} />
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  onClick={validationCheck}
+                  className="login-button"
+                >
+                  {TranslateJson.signup.step1.button}
+                </button>
+              )}
               <p className=" w-full text-center mt-3 font-semibold">
-               {TranslateJson.signup.step1.bottom_text.text1}
+                {TranslateJson.signup.step1.bottom_text.text1}
               </p>
               <p
                 onClick={navigateLogin}
@@ -99,9 +108,15 @@ const Signup = () => {
                 </span>
                 {formatTime(count)}
               </p>
-              <button className="login-button-otp" onClick={handelClickOTP}>
-                {TranslateJson.signup.step2.button}
-              </button>
+              {loader ? (
+                <button type="button" className="login-button-otp">
+                  <ClipLoader color="#fff" size={20} />
+                </button>
+              ) : (
+                <button className="login-button-otp" onClick={handelClickOTP}>
+                  {TranslateJson.signup.step2.button}
+                </button>
+              )}
               <div className=" w-full flex items-center gap-3 flex-col">
                 <p className=" text-center mt-3 font-semibold">
                   {TranslateJson.signup.step2.bottom_text.text1}
@@ -121,7 +136,9 @@ const Signup = () => {
               className="login-form"
               onSubmit={handleSubmit}
             >
-              <h1 className="sub-text">{TranslateJson.signup.step3.subtitle}</h1>
+              <h1 className="sub-text">
+                {TranslateJson.signup.step3.subtitle}
+              </h1>
               <Input
                 id="name"
                 name="name"
@@ -173,7 +190,9 @@ const Signup = () => {
               onSubmit={handleSubmit}
               className="flex flex-col  gap-6 w-full 2xl:items-start xl:items-start lg:items-start md:items-center sm:items-center xs:items-center xss:items-center mobile:items-center"
             >
-              <h1 className="sub-text">{TranslateJson.signup.step4.subtitle}</h1>
+              <h1 className="sub-text">
+                {TranslateJson.signup.step4.subtitle}
+              </h1>
               <div className=" relative 2xl:w-[89%] xl:w-[89%] lg:w-[100%] md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%]">
                 <ImageInput
                   base64Image={base64Image}
