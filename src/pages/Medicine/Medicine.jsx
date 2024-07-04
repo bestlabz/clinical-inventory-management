@@ -73,6 +73,7 @@ const Medicine = () => {
               </div>
               <div className="table-box-top-right-1">
                 <div className="table-box-top-right-grid-1">
+                  
                   {/* <div className="table-box-top-right-content-date-1">
                     <DatePicker
                       date={selectedDate}
