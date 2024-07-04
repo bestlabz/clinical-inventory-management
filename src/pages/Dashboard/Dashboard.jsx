@@ -67,12 +67,11 @@ const Dashboard = () => {
 
           <div
             style={{
-              boxShadow:
-                "0 5px 9px -8px rgba(0, 0, 0, .9), 0 2px 9px -3px rgba(0, 0, 0, .9)",
+                border: "3px solid #e8e8e8"
             }}
             className="table-box "
           >
-            <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[30%] xss:h-[30%] mobile:h-[30%]">
+            <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
               <div className="table-box-top-left">
                 <TableHeaderTitle
                   title={TranslateJson.dashboard.title}

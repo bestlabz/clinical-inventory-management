@@ -8,15 +8,30 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const Dashboard = () => {
-  const [selectedDate, setselectedDate] = useState(new Date());
+  const [selectedDate, setselectedDate] = useState();
   const [primaryLoader, setPrimaryLoader] = useState(true);
   const dispatch = useDispatch();
+
+  console.log('selectedDate', selectedDate);
 
 
   useEffect(() => {
     const API = async () => {
       try {
-        const { success, patients } = await ApiRequest.get("/patients");
+
+        let formattedDate
+
+        if (selectedDate) {
+          const date = new Date(selectedDate);
+          const day = String(date.getDate()).padStart(2, "0");
+          const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+          const year = date.getFullYear();
+           formattedDate = `${day}-${month}-${year}`;
+        } else {
+          formattedDate = ""
+        }
+        
+        const { success, patients } = await ApiRequest.get(`/patients?appointment_date=${formattedDate}`);
 
         if (success) {
           const tableData = patients.map((i) => {
@@ -41,35 +56,7 @@ const Dashboard = () => {
     
     };
     API();
-  }, []);
-
-  // useEffect(() => {
-  //   const API = async () => {
-  //     const baseURL = import.meta.env.VITE_APP_API_BASE_URL
-
-  //     const { data } = await axios.get(`${baseURL}/patients`, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       },
-  //     });
-
-  //     if (data.success) {
-  //       const tableData = data.patients.map((i) => {
-  //         return {
-  //           name: i?.name || "",
-  //           doctor_image: i?.appointment_history?.[0]?.doctor?.profile || null,
-  //           doctor_name: i?.appointment_history?.[0]?.doctor?.name || "",
-  //           specialist: i?.appointment_history?.[0]?.doctor?.specilaist || "",
-  //           appointment_time: i?.appointment_history?.[0]?.time || "",
-  //         };
-  //       });
-  //       setPrimaryLoader(false);
-  //       dispatch(setPatientsTable(tableData));
-  //       return;
-  //     }
-  //   };
-  //   API();
-  // }, []);
+  }, [selectedDate]);
 
   const style = {
     width: "100%",

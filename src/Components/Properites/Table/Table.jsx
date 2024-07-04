@@ -13,6 +13,7 @@ const Table = ({
   handleChange,
   clear,
   setClear,
+  loader
 }) => {
   const [details, setDetails] = useState({
     id: "",
@@ -195,14 +196,13 @@ const Table = ({
             if (tableName === "Medicine") {
               return (
                 <tr className="border-b font-medium text-start" key={i}>
-                  {console.log("eee", item)}
                   <td className={`py-4 px-10`}>{item.medicine_name}</td>
                   <td className={`py-4 px-10`}>{item.dosage_form}</td>
                   <td className={`py-4 px-10`}>
                     {item.dosage_strength} {item.dosage_unit}
                   </td>
                   <td className={`py-4 px-10`}>
-                    {item?.status ? (
+                    {item?.status === "Available" ? (
                       <p className="text-green_dark border-[2px] border-green-100 bg-green-50 rounded-full text-[14px] w-[100px] h-[25px] flex items-center justify-center">
                         Available
                       </p>
@@ -234,6 +234,7 @@ const Table = ({
           details={details}
           clear={clear}
           setClear={setClear}
+          loader={loader}
         />
     </>
   );

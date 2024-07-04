@@ -35,7 +35,10 @@ const Receptionist = () => {
     handleChange,
     model,
     setModel,
-    setClear
+    setClear,
+    selectedFilter,
+    setselectedFilter,
+    loader
   } = ReceptionistFunction();
 
   const { receptionistTable } = useSelector((state) => state.TableDatas);
@@ -53,9 +56,8 @@ const Receptionist = () => {
         <>
           <div
             style={{
-              boxShadow:
-                "0 5px 9px -8px rgba(0, 0, 0, .9), 0 2px 9px -3px rgba(0, 0, 0, .9)",
-            }}
+              border: "3px solid #e8e8e8"
+          }}
             className="table-box "
           >
             <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
@@ -67,17 +69,19 @@ const Receptionist = () => {
               </div>
               <div className="table-box-top-right-1">
                 <div className="table-box-top-right-grid-1">
-                  <div className="table-box-top-right-content-date-1">
+                  {/* <div className="table-box-top-right-content-date-1">
                     <DatePicker
                       date={selectedDate}
                       handleDateSelect={setselectedDate}
                     />
-                  </div>
+                  </div> */}
                   <div className="table-box-top-right-content-filter-1">
                     <Select
                       options={Options}
                       styles={style}
                       placeholder="Filter"
+                      SelectedValue={setselectedFilter}
+                      value={selectedFilter}
                     />
                   </div>
                   <div className="table-box-top-right-content-filter-1">
@@ -106,6 +110,7 @@ const Receptionist = () => {
                 handleChange={handleChange}
                 clear={clear}
                 setClear={setClear}
+                loader={loader}
               />
             </div>
             <div className=" w-full  h-[10%] flex items-end pt-4 overflow-x-auto relative ">

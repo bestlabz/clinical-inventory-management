@@ -1,7 +1,7 @@
 import React from 'react'
 import OTP from './OTP'
 
-const OTPResponsive1 = ({setOTP, otp}) => {
+const OTPResponsive1 = ({setOTP, otp, err}) => {
   return (
     <>
      <div className=" 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden">
@@ -14,6 +14,7 @@ const OTPResponsive1 = ({setOTP, otp}) => {
                 length={4}
                 textColor="#069B56"
                 gap="10px"
+                error={err}
               />
             </div>
 
@@ -26,6 +27,7 @@ const OTPResponsive1 = ({setOTP, otp}) => {
                 width="40px"
                 length={4}
                 textColor="#069B56"
+                error={err}
                 gap="10px"
               />
             </div>
@@ -39,6 +41,7 @@ const OTPResponsive1 = ({setOTP, otp}) => {
                 width="30px"
                 length={4}
                 textColor="#069B56"
+                error={err}
                 gap="10px"
               />
             </div>

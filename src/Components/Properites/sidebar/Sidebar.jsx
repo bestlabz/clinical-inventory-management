@@ -128,7 +128,7 @@ const Sidebar = ({ children }) => {
       <div className=" flex flex-col 2xl:w-full xl:w-full lg:w-full w-screen  h-screen overflow-auto">
         {/* <Navbar /> */}
 
-        {/* {!userDetails.adminVerified ? (
+        {!userDetails.adminVerified ? (
           <div className="w-full h-full flex items-center justify-center">
             <h1 className="text-[18px] font-semibold">
               Admin not verified your account{" "}
@@ -136,8 +136,8 @@ const Sidebar = ({ children }) => {
           </div>
         ) : (
           <main className="py-2 h-screen overflow-auto">{children}</main>
-        )} */}
-          <main className="py-2 h-screen overflow-auto">{children}</main>
+        )}
+          {/* <main className="py-2 h-screen overflow-auto">{children}</main> */}
 
       </div>
       {modalpopup && (

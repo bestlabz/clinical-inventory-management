@@ -4,6 +4,7 @@ import { IoClose } from "react-icons/io5";
 
 //Translate
 import TranslateJson from "../../../utils/translation/en.json";
+import { ClipLoader } from "react-spinners";
 
 const ModelResponsive = ({
   modalpopup,
@@ -12,6 +13,7 @@ const ModelResponsive = ({
   details,
   clear,
   setClear,
+  loader = false,
 }) => {
   const [reason, setReason] = useState("");
 
@@ -19,7 +21,6 @@ const ModelResponsive = ({
 
   useEffect(() => {
     if (clear && setClear) {
-
       setReason("");
       setClear(false);
       openModal(false);
@@ -64,20 +65,26 @@ const ModelResponsive = ({
               >
                 {TranslateJson.toggel.buttons.cancel}
               </button>
-              <button
-                onClick={() => {
-                  if (trigger) {
-                    if (reason !== "") {
-                      return trigger(details.id, details.value, reason);
-                    } else {
-                      return setErr(true);
+              {loader ? (
+                <button className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
+                  <ClipLoader size={15} />
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    if (trigger) {
+                      if (reason !== "") {
+                        return trigger(details.id, details.value, reason);
+                      } else {
+                        return setErr(true);
+                      }
                     }
-                  }
-                }}
-                className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
-              >
-                {TranslateJson.toggel.buttons.Submit}
-              </button>
+                  }}
+                  className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
+                >
+                  {TranslateJson.toggel.buttons.Submit}
+                </button>
+              )}
             </div>
           </div>
         </ModelPopup>
@@ -120,20 +127,26 @@ const ModelResponsive = ({
               >
                 {TranslateJson.toggel.buttons.cancel}
               </button>
-              <button
-                onClick={() => {
-                  if (trigger) {
-                    if (reason !== "") {
-                      return trigger(details.id, details.value, reason);
-                    } else {
-                      return setErr(true);
+              {loader ? (
+                <button className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
+                  <ClipLoader size={15} />
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    if (trigger) {
+                      if (reason !== "") {
+                        return trigger(details.id, details.value, reason);
+                      } else {
+                        return setErr(true);
+                      }
                     }
-                  }
-                }}
-                className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
-              >
-                {TranslateJson.toggel.buttons.Submit}
-              </button>
+                  }}
+                  className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
+                >
+                  {TranslateJson.toggel.buttons.Submit}
+                </button>
+              )}
             </div>
           </div>
         </ModelPopup>
@@ -176,20 +189,26 @@ const ModelResponsive = ({
               >
                 {TranslateJson.toggel.buttons.cancel}
               </button>
-              <button
-                onClick={() => {
-                  if (trigger) {
-                    if (reason !== "") {
-                      return trigger(details.id, details.value, reason);
-                    } else {
-                      return setErr(true);
+              {loader ? (
+                <button className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
+                  <ClipLoader size={15} />
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    if (trigger) {
+                      if (reason !== "") {
+                        return trigger(details.id, details.value, reason);
+                      } else {
+                        return setErr(true);
+                      }
                     }
-                  }
-                }}
-                className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
-              >
-                {TranslateJson.toggel.buttons.Submit}
-              </button>
+                  }}
+                  className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
+                >
+                  {TranslateJson.toggel.buttons.Submit}
+                </button>
+              )}
             </div>
           </div>
         </ModelPopup>
@@ -232,20 +251,26 @@ const ModelResponsive = ({
               >
                 {TranslateJson.toggel.buttons.cancel}
               </button>
-              <button
-                onClick={() => {
-                  if (trigger) {
-                    if (reason !== "") {
-                      return trigger(details.id, details.value, reason);
-                    } else {
-                      return setErr(true);
+              {loader ? (
+                <button className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
+                  <ClipLoader size={15} />
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    if (trigger) {
+                      if (reason !== "") {
+                        return trigger(details.id, details.value, reason);
+                      } else {
+                        return setErr(true);
+                      }
                     }
-                  }
-                }}
-                className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
-              >
-                {TranslateJson.toggel.buttons.Submit}
-              </button>
+                  }}
+                  className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
+                >
+                  {TranslateJson.toggel.buttons.Submit}
+                </button>
+              )}
             </div>
           </div>
         </ModelPopup>
@@ -288,20 +313,26 @@ const ModelResponsive = ({
               >
                 {TranslateJson.toggel.buttons.cancel}
               </button>
-              <button
-                onClick={() => {
-                  if (trigger) {
-                    if (reason !== "") {
-                      return trigger(details.id, details.value, reason);
-                    } else {
-                      return setErr(true);
+              {loader ? (
+                <button className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
+                  <ClipLoader size={15} />
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    if (trigger) {
+                      if (reason !== "") {
+                        return trigger(details.id, details.value, reason);
+                      } else {
+                        return setErr(true);
+                      }
                     }
-                  }
-                }}
-                className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
-              >
-                {TranslateJson.toggel.buttons.Submit}
-              </button>
+                  }}
+                  className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
+                >
+                  {TranslateJson.toggel.buttons.Submit}
+                </button>
+              )}
             </div>
           </div>
         </ModelPopup>

@@ -15,6 +15,7 @@ import ModelPopup from "../../Components/Properites/ModelPopup/ModelPopup";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 import ResponsiveSuccessmodal from "../../Components/Properites/ResponsiveSuccessmodal/ResponsiveSuccessmodal";
 import Select from "../../Components/Properites/Select/Select";
+import { ClipLoader } from "react-spinners";
 
 const AddMedicine = () => {
   const {
@@ -34,6 +35,7 @@ const AddMedicine = () => {
     setSelectedItem,
     selectedItem1,
     setSelectedItem1,
+    loader,
   } = Addmedicine();
 
   return (
@@ -127,13 +129,23 @@ const AddMedicine = () => {
         </div>
 
         <div className="add-medicine-footer">
-          <button
-            type="submit"
-            className="add-medicine-footer-button"
-            onClick={handelClick}
-          >
-            {TranslateJson.add_medicine.button}
-          </button>
+          {loader ? (
+            <button
+              type="submit"
+              className="add-medicine-footer-button"
+              onClick={handelClick}
+            >
+              <ClipLoader color="#fff" size={20} />
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="add-medicine-footer-button"
+              onClick={handelClick}
+            >
+              {TranslateJson.add_medicine.button}
+            </button>
+          )}
         </div>
       </form>
 

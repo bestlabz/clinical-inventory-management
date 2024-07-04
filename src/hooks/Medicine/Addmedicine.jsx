@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 //API
 import ApiRequest from "../../services/httpService";
+import toast from "react-hot-toast";
 
 const Addmedicine = () => {
   const navigate = useNavigate();
@@ -20,6 +21,8 @@ const Addmedicine = () => {
 
   const [dosageFormsOptions, setDosageFormsOptions] = useState([]);
   const [dosageUnitOptions, setDosageUnitOptions] = useState([]);
+
+  const [loader, setLoader] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,18 +69,28 @@ const Addmedicine = () => {
       dosage_form: selectedItem.label,
       dosage_unit: selectedItem1.label,
     };
-    const { success } = await ApiRequest.post("/medicines", bodyData);
 
-    if (success) {
-      setModalPopup(true);
-      setSelectedItem(null);
-      setSelectedItem1(null);
-      setTimeout(() => {
-        setModalPopup(false);
-        actions.resetForm();
-      }, 3000);
-      return;
+    try {
+      setLoader(true)
+      const { success } = await ApiRequest.post("/medicines", bodyData);
+
+      if (success) {
+        setLoader(false)
+        setModalPopup(true);
+        setSelectedItem(null);
+        setSelectedItem1(null);
+        setTimeout(() => {
+          setModalPopup(false);
+          actions.resetForm();
+        }, 3000);
+        return;
+      }
+      
+    } catch (error) {
+      setLoader(false)
+      toast.error(error.response.data.error);
     }
+   
   };
 
   const { errors, handleChange, handleSubmit, values, resetForm } = FormHandel({
@@ -132,7 +145,8 @@ const Addmedicine = () => {
     selectedItem,
     setSelectedItem1,
     selectedItem1,
-    style1
+    style1,
+    loader
   };
 };
 

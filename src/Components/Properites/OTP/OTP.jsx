@@ -19,7 +19,7 @@ const OTP = ({value, setValue, length=4, width="40px", height="40px", textColor=
       inputStyle={{
         width: width,
         height: height,
-        border: `1px solid ${error ? "#F83005" : "#d3d3d3"}`,
+        border: `2px solid ${error ? "#F83005" : "#d3d3d3"}`,
         margin: `0 ${gap}`,
         borderRadius: "5px",
         outlineColor: "#0073EE",

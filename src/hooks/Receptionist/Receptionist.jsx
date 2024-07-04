@@ -15,14 +15,18 @@ const Doctors = () => {
   const [primaryLoader, setPrimaryLoader] = useState(true);
   const [clear, setClear] = useState(false);
   const [model, setModel] = useState(false);
+  const [selectedFilter, setselectedFilter] = useState(null)
+  const [loader, setLoader] = useState(false)
+
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
   useEffect(() => {
-    const API = async () => {
+    const fetchData = async (filter) => {
       try {
+        const filterQuery = filter ? `?${filter}=true` : "";
         const { success, receptionists } = await ApiRequest.get(
-          `/receptionist/clinic/${userDetails._id}`
+          `/receptionist/clinic/${userDetails._id}${filterQuery}`
         );
   
         if (success) {
@@ -39,17 +43,27 @@ const Doctors = () => {
           setPrimaryLoader(false);
           dispatch(setReceptionistTable(tableData));
           return;
+        } else {
+          setPrimaryLoader(false);
         }
       } catch (error) {
-        console.log('ee', error)
         setPrimaryLoader(false);
-        toast.error(error.response.data.message)
-        
+        toast.error(error.response.data.message);
       }
-     
     };
+  
+    const API = async () => {
+      if (!selectedFilter || selectedFilter?.value === "") {
+        await fetchData();
+      } else if (selectedFilter?.value === "onleave") {
+        await fetchData("onleave");
+      } else if (selectedFilter?.value === "recently_joined") {
+        await fetchData("recently_joined");
+      }
+    };
+  
     API();
-  }, [model, selectedDate]);
+  }, [selectedFilter, model]);
 
   const style = {
     width: "100%",
@@ -60,25 +74,36 @@ const Doctors = () => {
   };
 
   const Options = [
-    { label: "Recently joined", value: "Recently_joined" },
-    { label: "Receptionist on leave", value: "Receptionist_on_leave" },
+    { label: "All", value: "" },    
+    { label: "Recently joined", value: "recently_joined" },
+    { label: "Receptionist on leave", value: "onleave" },
   ];
+
 
   const navigateAddRecptionistPage = () => {
     return navigate("/add-recptionist");
   };
 
   const handleChange = async (id, value, reason) => {
-    const { success } = await ApiRequest.post(`/receptionist/${id}`, {
-      block: value,
-      reason,
-    });
 
-    if (success) {
-      toast.success("Doctor status updated successfully")
-      return setClear(true);
-      ;
+    try {
+      setLoader(true)
+      const { success } = await ApiRequest.post(`/receptionist/${id}`, {
+        block: value,
+        reason,
+      });
+  
+      if (success) {
+        setLoader(false)
+        toast.success("Receptionist status updated successfully")
+        return setClear(true);
+        ;
+      }
+    } catch (error) {
+      setLoader(false)
+      toast.error(error.response.data.error);
     }
+    
   };
 
   return {
@@ -92,7 +117,10 @@ const Doctors = () => {
     model,
     handleChange,
     clear,
-    setClear
+    setClear,
+    setselectedFilter,
+    selectedFilter,
+    loader
   };
 };
 

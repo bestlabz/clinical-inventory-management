@@ -1,8 +1,8 @@
 import React from "react";
 
 //Translate
-import Translate from '../../Components/translateSpan/TranslateSpan'
-import TranslateJson from "../../utils/translation/en.json"
+import Translate from "../../Components/translateSpan/TranslateSpan";
+import TranslateJson from "../../utils/translation/en.json";
 
 //Assets
 import ReloadIcon from "../../assets/Svg/Reloadicon";
@@ -18,10 +18,23 @@ import ModalPopup from "../../Components/Properites/ModelPopup/ModelPopup";
 //Hooks
 import AddDoctorFunction from "../../hooks/Doctors/AddDoctor";
 import ResponsiveSuccessmodal from "../../Components/Properites/ResponsiveSuccessmodal/ResponsiveSuccessmodal";
+import { ClipLoader } from "react-spinners";
 
 const AddDoctor = () => {
-  const { goBack, next, pre, step, otp, setOTP, modalPopup, setValue, value } =
-    AddDoctorFunction();
+  const {
+    goBack,
+    next,
+    pre,
+    step,
+    otp,
+    setOTP,
+    modalPopup,
+    setValue,
+    value,
+    errorValidate,
+    setErrorValidate,
+    loader,
+  } = AddDoctorFunction();
 
   return (
     <div
@@ -43,7 +56,9 @@ const AddDoctor = () => {
           }}
           className=" cursor-pointer"
         />
-        <p className="add-doctor-top-title">{TranslateJson.add_doctor.navigate_content}</p>
+        <p className="add-doctor-top-title">
+          {TranslateJson.add_doctor.navigate_content}
+        </p>
       </div>
 
       <div className="add-doctor-content">
@@ -52,11 +67,24 @@ const AddDoctor = () => {
             <p className="add-doctor-content-header">
               {TranslateJson.add_doctor.step1.title}
             </p>
-            <PhoneNumber setValue={setValue} value={value} />
+            <PhoneNumber
+              setValue={(e) => {
+                setValue(e);
+                setErrorValidate(false);
+              }}
+              value={value}
+              err={errorValidate}
+            />
 
-            <button onClick={next} className="add-doctor-content-phonenumber">
-              {TranslateJson.add_doctor.step1.button}
-            </button>
+            {loader ? (
+              <button className="add-doctor-content-phonenumber">
+                <ClipLoader color="#fff" size={20} />
+              </button>
+            ) : (
+              <button onClick={next} className="add-doctor-content-phonenumber">
+                {TranslateJson.add_doctor.step1.button}
+              </button>
+            )}
           </>
         )}
         {step === 2 && (
@@ -67,16 +95,29 @@ const AddDoctor = () => {
             <p className=" text-gray-500">
               {TranslateJson.add_doctor.step2.subtext}
             </p>
-            <OTPResponsive1 otp={otp} setOTP={setOTP} />
+            <OTPResponsive1
+              otp={otp}
+              setOTP={(e) => {
+                setOTP(e);
+                setErrorValidate(false);
+              }}
+              err={errorValidate}
+            />
 
             <p className=" flex items-center gap-3 cursor-pointer">
               {" "}
               <ReloadIcon /> {TranslateJson.add_doctor.step2.resend_text}
             </p>
 
-            <button onClick={next} className="add-doctor-content-phonenumber">
-              {TranslateJson.add_doctor.step2.button}
-            </button>
+            {loader ? (
+              <button className="add-doctor-content-phonenumber">
+                <ClipLoader color="#fff" size={20} />
+              </button>
+            ) : (
+              <button onClick={next} className="add-doctor-content-phonenumber">
+                {TranslateJson.add_doctor.step2.button}
+              </button>
+            )}
           </>
         )}
 

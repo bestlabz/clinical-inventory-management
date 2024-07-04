@@ -12,72 +12,91 @@ const Doctors = () => {
   const dispatch = useDispatch();
 
   const [selectedDate, setselectedDate] = useState();
-  const [primaryLoader, setPrimaryLoader] = useState(true)  
+  const [primaryLoader, setPrimaryLoader] = useState(true);
   const [cardValue, setCardValue] = useState({
     total_doctor: "",
     available_doctor: "",
-    leave_doctor: ""
-  })
-  const [model, setModel] = useState(false)
-  const [clear, setClear] = useState(false)
-  
+    leave_doctor: "",
+  });
+  const [model, setModel] = useState(false);
+  const [clear, setClear] = useState(false);
+  const [selectedFilter, setselectedFilter] = useState(null);
+  const [loader, setLoader] = useState(false);
+
   const { userDetails } = useSelector((state) => state.userinfo);
 
-
   useEffect(() => {
-    const API = async () => {
+    const fetchData = async (filter) => {
       try {
-        const { success, doctorAvailability, totalDoctorsCount, availableDoctorsCount, unavailableDoctorsCount } = await ApiRequest.get(
-          `/doctersby_clinic/${userDetails._id}?appointment_date=${selectedDate}`
+        const filterQuery = filter ? `?${filter}=true` : "";
+        const {
+          success,
+          doctorAvailability,
+          totalDoctorsCount,
+          availableDoctorsCount,
+          unavailableDoctorsCount,
+        } = await ApiRequest.get(
+          `/doctersby_clinic/${userDetails._id}${filterQuery}`
         );
-  
+
         if (success) {
           setCardValue({
             total_doctor: totalDoctorsCount,
             available_doctor: availableDoctorsCount,
-            leave_doctor: unavailableDoctorsCount
-          })
-          const tableData = doctorAvailability.map((i) => {
-            return {
-              id: i?.doctor?._id,
-              doctor_name: i?.doctor?.name || "",
-              specialist: i?.doctor?.specilaist || "",
-              availability: i?.availability === "unavailable" ? false : true,
-              status: i?.doctor.block,
-              doctor_image: i?.doctor?.profile || null,
-            };
+            leave_doctor: unavailableDoctorsCount,
           });
-          setPrimaryLoader(false)
-          dispatch(setDoctorTable(tableData))
-          return 
+
+          const tableData = doctorAvailability.map((i) => ({
+            id: i?.doctor?._id,
+            doctor_name: i?.doctor?.name || "",
+            specialist: i?.doctor?.specialist || "",
+            availability: i?.availability !== "unavailable",
+            status: i?.doctor.block,
+            doctor_image: i?.doctor?.profile || null,
+          }));
+
+          setPrimaryLoader(false);
+          dispatch(setDoctorTable(tableData));
         } else {
-          setPrimaryLoader(false)
-  
+          setPrimaryLoader(false);
         }
       } catch (error) {
-        setPrimaryLoader(false)
-        toast.error(error.response.data.error)
+        setPrimaryLoader(false);
+        toast.error(error.response.data.error);
       }
-     
     };
+
+    const API = async () => {
+      if (!selectedFilter || selectedFilter?.value === "") {
+        await fetchData();
+      } else if (selectedFilter?.value === "onleave") {
+        await fetchData("onleave");
+      } else if (selectedFilter?.value === "recently_joined") {
+        await fetchData("recently_joined");
+      }
+    };
+
     API();
-  }, [selectedDate, model]);
+  }, [selectedFilter, model]);
 
   const handleChange = async (id, value, reason) => {
+    try {
+      setLoader(true);
+      const { success } = await ApiRequest.post(`/doctor/${id}`, {
+        block: value,
+        reason,
+      });
 
-    const { success } = await ApiRequest.post(`/doctor/${id}`, {
-      block: value,
-      reason
-    });
-
-    if(success) {
-      setClear(true)
-      toast.success("Doctor status updated successfully")
+      if (success) {
+        setLoader(false);
+        setClear(true);
+        toast.success("Doctor status updated successfully");
+      }
+    } catch (error) {
+      setLoader(false);
+      toast.error(error.response.data.error);
     }
-
-  }
-
- 
+  };
 
   const style = {
     width: "100%",
@@ -88,8 +107,9 @@ const Doctors = () => {
   };
 
   const Options = [
-    { label: "Recently joined", value: "Recently_joined" },
-    { label: "Doctors on leave", value: "Doctors_on_leave" },
+    { label: "All", value: "" },
+    { label: "Recently joined", value: "recently_joined" },
+    { label: "Doctors on leave", value: "onleave" },
   ];
 
   const navigateAddDoctorPage = () => {
@@ -108,7 +128,10 @@ const Doctors = () => {
     model,
     handleChange,
     clear,
-    setClear
+    setClear,
+    setselectedFilter,
+    selectedFilter,
+    loader,
   };
 };
 

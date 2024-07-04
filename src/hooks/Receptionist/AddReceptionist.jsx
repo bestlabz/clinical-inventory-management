@@ -1,64 +1,96 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 //Thired party library
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 //Api Call
 import ApiRequest from "../../services/httpService";
+import toast from "react-hot-toast";
 
 const AddDoctor = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
-    const [step, setStep] = useState(1)
-    const [otp, setOTP] = useState("")
-    const [modalPopup, setModalPopup] = useState(false)
-    const [value, setValue] = useState("");
+  const [step, setStep] = useState(1);
+  const [otp, setOTP] = useState("");
+  const [modalPopup, setModalPopup] = useState(false);
+  const [value, setValue] = useState("");
+  const [errorValidate, setErrorValidate] = useState(false);
+  const [loader, setLoader] = useState(false);
 
-    const { userDetails } = useSelector((state) => state.userinfo);
+  const { userDetails } = useSelector((state) => state.userinfo);
 
-    useEffect(() => {
-      if(step === 3) {
-        setModalPopup(true)
+  useEffect(() => {
+    if (errorValidate) {
+      setTimeout(() => {
+        setErrorValidate(false);
+      }, 3000);
+    }
+  }, [errorValidate]);
 
-        setTimeout(() => {
-          setModalPopup(false)
-          setValue("")
-          setOTP("");
-          setStep(1)
-        }, 3000)
-      }
+  useEffect(() => {
+    if (step === 3) {
+      setModalPopup(true);
 
-    }, [step])
+      setTimeout(() => {
+        setModalPopup(false);
+        setValue("");
+        setOTP("");
+        setStep(1);
+      }, 3000);
+    }
+  }, [step]);
 
+  const goBack = () => {
+    navigate(-1); // -1 means go back one page
+  };
 
-    const goBack = () => {
-        navigate(-1); // -1 means go back one page
-      };
+  const pre = () => {
+    if (step !== 1) {
+      setStep((step) => step - 1);
+    }
+  };
+  const next = async () => {
+    if (step === 1) {
+      if (value.trim() !== "" && value.length >= 10) {
+        setLoader(true);
+        const { success } = await ApiRequest.post("/sendotp/receptionist", {
+          mobile_number: value,
+          clinicId: userDetails._id,
+        });
 
-      const pre = () => {
-        if (step !== 1) {
-            setStep((step) => step - 1);
+        if (success) {
+          setLoader(false);
+          return setStep((step) => step + 1);
         }
+      } else {
+        return setErrorValidate(true);
       }
-      const next = async () => {
-        if (step === 1) {
-          const { success } = await ApiRequest.post("/sendotp/receptionist", {mobile_number: value, clinicId: userDetails._id});
-    
+    }
+
+    if (step === 2) {
+      if (value !== "" && otp.length !== 4) {
+        setErrorValidate(true);
+        return;
+      } else {
+        try {
+          setLoader(true);
+          const { success } = await ApiRequest.post("/verifyotp/receptionist", {
+            mobile_number: value,
+            otp,
+          });
+
           if (success) {
+            setLoader(false);
             return setStep((step) => step + 1);
           }
+        } catch (error) {
+          setLoader(false);
+          toast.error(error.response.data.error);
         }
-    
-        if (step === 2) {
-          const { success } = await ApiRequest.post("/verifyotp/receptionist", {mobile_number: value, otp});
-    
-          if (success) {
-            return setStep((step) => step + 1);
-          }
-        }
-    
-      };
+      }
+    }
+  };
   return {
     goBack,
     step,
@@ -68,8 +100,11 @@ const AddDoctor = () => {
     otp,
     modalPopup,
     setValue,
-    value
-  }
-}
+    value,
+    setErrorValidate,
+    errorValidate,
+    loader,
+  };
+};
 
-export default AddDoctor
+export default AddDoctor;
