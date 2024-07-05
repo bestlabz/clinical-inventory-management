@@ -143,7 +143,13 @@ const Signup = () => {
                 id="name"
                 name="name"
                 value={values.name}
-                setValue={handleChange}
+                setValue={(e) => {
+                  if (!/^[A-Za-z]*$/.test(e.target.value)) {
+                    return; // If not a character, return without updating the state
+                  } else {
+                    return handleChange(e);
+                  }
+                }}
                 err={validationError && errors.name}
                 label={TranslateJson.signup.step3.label.name}
                 placeholder={TranslateJson.signup.step3.placeholder.name}
@@ -152,7 +158,13 @@ const Signup = () => {
                 id="clinic_name"
                 name="clinic_name"
                 value={values.clinic_name}
-                setValue={handleChange}
+                setValue={(e) => {
+                  if (!/^[A-Za-z]*$/.test(e.target.value)) {
+                    return; // If not a character, return without updating the state
+                  } else {
+                    return handleChange(e);
+                  }
+                }}
                 err={validationError && errors.clinic_name}
                 label={TranslateJson.signup.step3.label.clinic_name}
                 placeholder={TranslateJson.signup.step3.placeholder.clinic_name}
@@ -211,7 +223,11 @@ const Signup = () => {
                   <ClipLoader color="#fff" size={20} />
                 </button>
               ) : (
-                <button type="submit" className="login-button">
+                <button
+                  onClick={validationCheck}
+                  type="submit"
+                  className="login-button"
+                >
                   {TranslateJson.signup.step4.button}
                 </button>
               )}

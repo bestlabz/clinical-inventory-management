@@ -77,14 +77,20 @@ const Signup = () => {
     if (step === 1) {
       setLoader(true);
       dispatch(setUserDetails({ phone_number: values.phone_number }));
-      const { success } = await ApiRequest.post("/sendotp", {
-        mobile_number: values.phone_number,
-      });
-      if (success) {
-        setLoader(false);
-        setPhone_number(values.phone_number);
-        return setStep((step) => step + 1);
+      try {
+        const { success } = await ApiRequest.post("/sendotp", {
+          mobile_number: values.phone_number,
+        });
+        if (success) {
+          setLoader(false);
+          setPhone_number(values.phone_number);
+          return setStep((step) => step + 1);
+        }
+      } catch (error) {
+        setLoader(false)
+        toast.error(error.response.data.message)
       }
+     
     }
     if (step === 3) {
       const storeDetails = {
@@ -171,12 +177,19 @@ const Signup = () => {
         otp: otpValue,
       };
       setLoader(true);
-      const { clinic, token } = await ApiRequest.post("/verifyotp", bodyData);
-      if (token) {
+      try {
+        const { clinic, token } = await ApiRequest.post("/verifyotp", bodyData);
+        if (token) {
+          setLoader(false);
+          setID(clinic?._id || null);
+          dispatch(clearOTP());
+          return setStep((step) => step + 1);
+        }
+      } catch (error) {
         setLoader(false);
-        setID(clinic?._id || null);
-        return setStep((step) => step + 1);
+        toast.error(error.response.data.error)
       }
+    
     }
   };
 

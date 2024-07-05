@@ -17,20 +17,23 @@ import Paginitation from "../../Components/Properites/Paginitation/Paginitation"
 import DashboardFunction from "../../hooks/Dashboard/Dashboard";
 import Select from "../../Components/Properites/Select/Select";
 import Table from "../../Components/Properites/Table/Table";
-import PaginationFunction from "../../hooks/Paginitation/Paginitation";
 import ThemeSuspense from "../../Components/theme/ThemeSuspense";
 
 const Dashboard = () => {
-  const { selectedDate, setselectedDate, Options, style, primaryLoader } =
-    DashboardFunction();
+  const {
+    selectedDate,
+    setselectedDate,
+    Options,
+    style,
+    primaryLoader,
+    currentPages,
+    next,
+    pre,
+    pageNumbers,
+    paginationCount,
+  } = DashboardFunction();
 
   const { patientsTable } = useSelector((state) => state.TableDatas);
-
-
-  const { PrePage, changePage, currentpage, nextPage, tableDats, pageCount } =
-    PaginationFunction({
-      datas: patientsTable,
-    });
 
   const { sidebarStatus } = useSelector((state) => state.sidebarInfo);
 
@@ -67,7 +70,7 @@ const Dashboard = () => {
 
           <div
             style={{
-                border: "3px solid #e8e8e8"
+              border: "3px solid #e8e8e8",
             }}
             className="table-box "
           >
@@ -75,7 +78,7 @@ const Dashboard = () => {
               <div className="table-box-top-left">
                 <TableHeaderTitle
                   title={TranslateJson.dashboard.title}
-                  subContent={`${tableDats.length} ${TranslateJson.dashboard.subText}`}
+                  subContent={`${patientsTable.length} ${TranslateJson.dashboard.subText}`}
                 />
               </div>
               <div className="table-box-top-right">
@@ -106,18 +109,17 @@ const Dashboard = () => {
                   { title: "Appointment time" },
                   { title: "View" },
                 ]}
-                tableBody={tableDats}
+                tableBody={patientsTable}
                 tableName="Patients"
-
               />
             </div>
-            <div className=" w-full h-[10%] flex items-end pt-4  overflow-x-auto relative">
+            <div className=" w-full h-[10%] flex items-end justify-end px-3 pt-4  overflow-x-auto relative">
               <Paginitation
-                PrePage={PrePage}
-                currentpage={currentpage}
-                nextPage={nextPage}
-                pageCount={pageCount.length}
-                changePage={changePage}
+                currentpage={currentPages}
+                PrePage={pre}
+                nextPage={next}
+                pageNumbers={pageNumbers}
+                paginationCount={paginationCount}
               />
             </div>
           </div>

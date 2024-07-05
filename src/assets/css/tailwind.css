@@ -198,7 +198,7 @@
   @apply 2xl:w-[23%] xl:w-[23%] lg:w-[40%] md:w-[95%] sm:w-[95%] xs:w-full mobile:w-full xss:w-full h-[50px] flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col gap-3;
 }
 .table-box-top-right-grid-1 {
-  @apply grid 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1 xss:grid-cols-1 mobile:grid-cols-1 gap-3 w-full ;
+  @apply grid 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1 xss:grid-cols-1 mobile:grid-cols-1 gap-3 w-full;
 }
 
 .table-box-top-right-content-date-1 {
@@ -262,99 +262,83 @@
 }
 
 .prescription-container {
-  @apply flex items-start w-full h-full 2xl:flex-row xl:flex-row lg:flex-col md:flex-col sm:flex-col xs:flex-col mobile:flex-col xss:flex-col overflow-auto
+  @apply flex items-start w-full h-full 2xl:flex-row xl:flex-row lg:flex-col md:flex-col sm:flex-col xs:flex-col mobile:flex-col xss:flex-col overflow-auto;
 }
 
 .prescription-right-container {
-  @apply  h-full flex flex-col gap-4 mx-1 2xl:w-[60%] xl:w-[60%] lg:w-[100%] md:w-[100%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] 
+  @apply h-full flex flex-col gap-4 mx-1 2xl:w-[60%] xl:w-[60%] lg:w-[100%] md:w-[100%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%];
 }
 .prescription-right {
-  @apply  w-full h-full gap-6 overflow-auto px-3;
+  @apply w-full h-full gap-6 overflow-auto px-3;
 }
-
 
 .add-prescription-top {
   @apply w-full h-[12%] rounded-lg  flex items-center gap-6 px-3;
 }
 
-
 .prescription-right-top {
-  @apply w-full
+  @apply w-full;
 }
 
 .prescription-right-top-inside {
-  @apply flex flex-col items-center justify-center w-full py-6 gap-4
+  @apply flex flex-col items-center justify-center w-full py-6 gap-4;
 }
 
 .prescription-right-top-inside-image {
-  @apply w-[100px] h-[100px] border-[3px] border-green_light rounded-full relative
-} 
+  @apply w-[100px] h-[100px] border-[3px] border-green_light rounded-full relative;
+}
 
 .prescription-right-top-inside-image-edit-button {
-
-  @apply absolute -bottom-1 -right-2 bg-white text-primary_color rounded-full flex items-center justify-center w-[25px] h-[25px]
-
+  @apply absolute -bottom-1 -right-2 bg-white text-primary_color rounded-full flex items-center justify-center w-[25px] h-[25px];
 }
 
 .prescription-right-top-input {
-  @apply outline-none border-b-[1px] border-gray-300 px-2
+  @apply outline-none border-b-[1px] border-gray-300 px-2;
 }
 
 .prescription-right-content-container {
-  @apply p-2 my-6
+  @apply p-2 my-6;
 }
 
 .prescription-right-content-container-header {
-  @apply flex items-center justify-between
+  @apply flex items-center justify-between;
 }
 
 .prescription-right-content-container-header-text {
-  @apply text-[20px] font-semibold
+  @apply text-[20px] font-semibold;
 }
 
 .prescription-right-content-container-header-button {
-  @apply flex items-center gap-3 border-[1px] rounded-lg border-primary_color py-1 px-3 text-primary_color
+  @apply flex items-center gap-3 border-[1px] rounded-lg border-primary_color py-1 px-3 text-primary_color;
 }
 
 .prescription-right-content-container-header-button-text {
-  @apply mt-1 text-[16px]
+  @apply mt-1 text-[16px];
 }
 
 .prescription-right-content-container-input {
-  @apply grid 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 mobile:grid-cols-1 xss:grid-cols-1 place-content-start gap-4
+  @apply grid 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 mobile:grid-cols-1 xss:grid-cols-1 place-content-start gap-4;
 }
 
 .prescription-right-content-container-add-new-button {
-  @apply flex items-center gap-3 border-[1px] border-primary_color text-primary_color px-3 py-1 mt-6 rounded-md
+  @apply flex items-center gap-3 border-[1px] border-primary_color text-primary_color px-3 py-1 mt-6 rounded-md;
 }
 
 .prescription-right-content-container-input1 {
-  @apply grid grid-cols-1 gap-4 place-content-start
+  @apply grid grid-cols-1 gap-4 place-content-start;
 }
 
 .prescription-right-content-container-input1-container {
-  @apply flex items-center gap-3 2xl:w-[60%] xl:w-[60%] lg:w-[80%] md:w-[100%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%]
+  @apply flex items-center gap-3 2xl:w-[60%] xl:w-[60%] lg:w-[80%] md:w-[100%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%];
 }
-
-
-
-
-
-
-
 
 .prescription-left {
   @apply min-h-full 2xl:w-[40%] xl:w-[40%] lg:w-[100%] md:w-[100%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%];
 }
 
 .prescription-left-top {
-  @apply  p-4 text-[20px] font-semibold
+  @apply p-4 text-[20px] font-semibold;
 }
-
-
-
-
-
 
 .input-container1 {
   @apply 2xl:w-[100%] xl:w-[100%] lg:w-[100%] md:w-[100%] sm:w-[100%] xs:w-[100%] xss:w-[80%] mobile:w-[80%] my-3 flex flex-col gap-1 relative;
@@ -370,4 +354,89 @@
 
 .input1 {
   @apply w-full h-full py-[3px] rounded-xl  p-2  outline-none;
+}
+
+
+
+
+
+.View-page-top {
+  @apply w-full h-[14%] border-[3px] border-[#e8e8e8] rounded-xl;
+}
+
+.view-page-top-text {
+  @apply flex items-center text-[24px] font-bold h-full px-6;
+}
+
+.view-page-button-container {
+  @apply w-full py-3 flex items-center justify-end;
+}
+.view-page-button {
+  @apply w-[170px] text-[16px] py-3 rounded-lg text-red-400 border-[1px] border-red-400 flex items-center justify-center gap-4;
+}
+
+.view-page-button1 {
+  @apply w-[170px] text-[16px] py-3 rounded-lg text-white border-[1px] border-primary_color flex items-center justify-center gap-4 bg-primary_color;
+}
+
+.view-page-personal-details-container {
+  @apply grid  py-4 mb-4 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 mobile:grid-cols-1 xss:grid-cols-1
+}
+
+.view-page-personal-details-container-body {
+  @apply flex  items-center flex-col gap-6 mb-6; 
+}
+
+.view-page-personal-details-container-body-details-key {
+  @apply flex items-center justify-between w-[30%] text-[16px] font-medium text-gray_text;
+}
+
+.view-page-personal-details-container-body-details-value {
+  @apply  text-[16px] font-medium 2xl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[50%] sm:w-[50%] xs:w-[70%] mobile:w-[70%] xss:w-[70%];
+}
+
+.view-page-personal-details-container-body1 {
+  @apply flex  items-center flex-col gap-6 py-4 mt-4 mb-4 2xl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[90%] sm:w-[90%] xs:w-[100%] mobile:w-[100%] xss:w-[100%]
+}
+
+
+.view-page-certificate-container {
+  @apply flex items-center gap-6  justify-between overflow-auto 2xl:w-[40%] xl:w-[40%] lg:w-[60%] md:w-[80%] sm:w-[80%] xs:w-[100%] mobile:w-[100%] xss:w-[100%]
+}
+
+.view-page-certificate-container-image {
+  @apply flex flex-col gap-3 2xl:w-[33%] xl:w-[33%] lg:w-[44%] md:w-[45%] sm:w-[45%] xs:w-[100%] mobile:w-[100%] xss:w-[100%]
+}
+
+.view-page-certificate-container-image-view {
+  @apply object-fill  rounded-lg overflow-hidden min-h-[250px] max-h-[250px] bg-gray-100
+}
+
+.view-page-certificate-container-image-name-container {
+  @apply flex items-center  border-[2px] border-[#e8e8e8] rounded-lg  gap-3 py-1 px-3;
+}
+
+.view-page-certificate-container-image-name {
+  @apply flex flex-col gap-1;
+}
+
+.certificate-verify-button-container {
+  @apply flex items-center justify-end my-3 gap-6 2xl:w-[40%] xl:w-[40%] lg:w-[60%] md:w-[80%] sm:w-[80%] xs:w-[100%] mobile:w-[100%] xss:w-[100%]
+}
+
+.certificate-verify-button {
+  @apply w-[150px] py-[8px] border-[1px] border-primary_color text-primary_color rounded-lg mt-3;
+}
+
+.certificate-verify-button2 {
+  @apply w-[150px] py-[8px] bg-primary_color text-white rounded-lg  mt-3;
+}
+
+.view-page-time-slot-container {
+  @apply flex items-center gap-4  my-3 flex-wrap
+}
+
+
+.view-page-time-slot {
+  @apply px-6 py-3 my-3 border-[1px] border-gray_text rounded-lg
 }

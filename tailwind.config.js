@@ -42,7 +42,8 @@ const config = {
        pagination_text_color: "#344054",
        orange_light: "#F9DBAF",
        orange_dark: "#F79009",
-       secondary_text: "#8A8A8A"
+       secondary_text: "#8A8A8A",
+       gray_text: "#ACACAC"
        
       },
     },

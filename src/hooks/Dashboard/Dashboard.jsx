@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 //Api
 import ApiRequest from "../../services/httpService";
 import { setPatientsTable } from "../../Redux/Slice/TableDatas";
-import axios from "axios";
 import toast from "react-hot-toast";
+import { setCurrentPage, setTotalCount } from "../../Redux/Slice/Pagination";
 
 const Dashboard = () => {
   const [selectedDate, setselectedDate] = useState();
   const [primaryLoader, setPrimaryLoader] = useState(true);
   const dispatch = useDispatch();
 
-  console.log('selectedDate', selectedDate);
+  const { currentPage: currentPages, totalCount: paginationCount } =
+    useSelector((state) => state.Pagination);
 
 
   useEffect(() => {
@@ -31,15 +32,17 @@ const Dashboard = () => {
           formattedDate = ""
         }
         
-        const { success, patients } = await ApiRequest.get(`/patients?appointment_date=${formattedDate}`);
+        const { success, patients,currentPage, totalPages } = await ApiRequest.get(`/patients?appointment_date=${formattedDate}&page=${currentPages}`);
 
         if (success) {
+          dispatch(setCurrentPage(currentPage));
+          dispatch(setTotalCount(totalPages));
           const tableData = patients.map((i) => {
             return {
               name: i?.name || "",
               doctor_image: i?.appointment_history?.[0]?.doctor?.profile || null,
               doctor_name: i?.appointment_history?.[0]?.doctor?.name || "",
-              specialist: i?.appointment_history?.[0]?.doctor?.specilaist || "",
+              specialist: i?.appointment_history?.[0]?.doctor?.specialist || "",
               appointment_time: i?.appointment_history?.[0]?.time || "",
             };
           });
@@ -56,7 +59,7 @@ const Dashboard = () => {
     
     };
     API();
-  }, [selectedDate]);
+  }, [selectedDate, currentPages]);
 
   const style = {
     width: "100%",
@@ -73,12 +76,56 @@ const Dashboard = () => {
     { label: "This Week", value: "this_week" },
   ];
 
+
+  const next = () => {
+    if(  currentPages !== pageNumbers[pageNumbers.length - 1]) {
+      return dispatch(setNextPage());
+
+    }
+  };
+
+  const pre = () => {
+    return dispatch(setPrePage());
+  };
+
+  const getPagesCut = ({ pagesCutCount = 2 }) => {
+    const ceiling = Math.ceil(pagesCutCount / 2);
+    const floor = Math.floor(pagesCutCount / 2);
+
+    if (paginationCount <= pagesCutCount) {
+      return { start: 1, end: Number(paginationCount) };
+    } else if (Number(currentPages) <= ceiling) {
+      return { start: 1, end: pagesCutCount };
+    } else if (Number(currentPages) + floor >= Number(paginationCount)) {
+      return {
+        start: Number(paginationCount) - Number(pagesCutCount) + 1,
+        end: Number(paginationCount),
+      };
+    } else {
+      return {
+        start: Number(currentPages) - ceiling + 1,
+        end: Number(currentPages) + floor,
+      };
+    }
+  };
+
+  const { start, end } = getPagesCut({ pagesCutCount: 3 }); // Adjust pagesCutCount as needed
+  const pageNumbers = Array.from(
+    { length: end - start + 1 },
+    (_, i) => start + i
+  );
+
   return {
     setselectedDate,
     selectedDate,
     style,
     Options,
     primaryLoader,
+    paginationCount,
+    currentPages,
+    pageNumbers,
+    next,
+    pre,
   };
 };
 

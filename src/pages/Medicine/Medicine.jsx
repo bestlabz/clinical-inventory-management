@@ -32,15 +32,15 @@ const Medicine = () => {
     navigateAddMedicinePage,
     primaryLoader,
     setselectedFilter,
-    selectedFilter
+    selectedFilter,
+    currentPages,
+    next,
+    pre,
+    pageNumbers,
+    paginationCount,
   } = MedicineFunction();
 
   const { medicineTable } = useSelector((state) => state.TableDatas);
-
-  const { PrePage, changePage, currentpage, nextPage, tableDats, pageCount } =
-    PaginationFunction({
-      datas: medicineTable,
-    });
 
   return (
     <div className=" w-full h-[90%] px-3 py-[6px] overflow-auto">
@@ -50,15 +50,15 @@ const Medicine = () => {
         <>
           <div
             style={{
-              border: "3px solid #e8e8e8"
-          }}
+              border: "3px solid #e8e8e8",
+            }}
             className="table-box"
           >
             <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
               <div className="table-box-top-left">
                 <TableHeaderTitle
                   title={TranslateJson.medicine.title}
-                  subContent={`${tableDats.length} ${TranslateJson.medicine.subText}`}
+                  subContent={`${medicineTable.length} ${TranslateJson.medicine.subText}`}
                 />
                 <div className=" w-[80%] h-[80%]  items-center justify-end relative 2xl:flex xl:flex lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden ">
                   <input
@@ -73,7 +73,6 @@ const Medicine = () => {
               </div>
               <div className="table-box-top-right-1">
                 <div className="table-box-top-right-grid-1">
-                  
                   {/* <div className="table-box-top-right-content-date-1">
                     <DatePicker
                       date={selectedDate}
@@ -112,18 +111,17 @@ const Medicine = () => {
                   { title: "Status" },
                   { title: "" },
                 ]}
-                tableBody={tableDats}
+                tableBody={medicineTable}
                 tableName="Medicine"
-               
               />
             </div>
-            <div className=" w-full pt-4 mx-auto  h-[10%] flex items-end justify-center overflow-x-auto relative  ">
+            <div className=" w-full pt-4 mx-auto  h-[10%] flex items-end justify-end px-3 overflow-x-auto relative  ">
               <Paginitation
-                PrePage={PrePage}
-                currentpage={currentpage}
-                nextPage={nextPage}
-                pageCount={pageCount.length}
-                changePage={changePage}
+                currentpage={currentPages}
+                PrePage={pre}
+                nextPage={next}
+                pageNumbers={pageNumbers}
+                paginationCount={paginationCount}
               />
             </div>
           </div>

@@ -8,6 +8,9 @@ import Signup from "./Slice/SignupUser";
 import TableDatas from "./Slice/TableDatas";
 
 import PrescriptionDetails from "./Slice/Prescription"; // Add this import statement
+import Pagination from "./Slice/Pagination";
+import DetailsPage from "./Slice/DetailsPage";
+
 
 const store = configureStore({
   reducer: {
@@ -16,7 +19,9 @@ const store = configureStore({
     otpValue: OTP,
     Signup: Signup,
     TableDatas,
-    PrescriptionDetails
+    PrescriptionDetails,
+    Pagination,
+    DetailsPage
   },
 });
 

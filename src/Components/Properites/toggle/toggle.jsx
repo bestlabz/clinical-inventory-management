@@ -1,7 +1,6 @@
 import React from "react";
 
 const Toggle = ({ checked, onChange }) => {
-  console.log('checked', checked);
   return (
     <div>
       <label className="inline-flex items-center cursor-pointer">

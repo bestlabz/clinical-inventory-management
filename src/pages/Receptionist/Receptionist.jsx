@@ -22,6 +22,7 @@ import PaginationFunction from "../../hooks/Paginitation/Paginitation";
 import Select from "../../Components/Properites/Select/Select";
 import Table from "../../Components/Properites/Table/Table";
 import ThemeSuspense from "../../Components/theme/ThemeSuspense";
+import ViewPage from "../../Components/Properites/ViewPage/ViewPage";
 
 const Receptionist = () => {
   const {
@@ -38,15 +39,20 @@ const Receptionist = () => {
     setClear,
     selectedFilter,
     setselectedFilter,
-    loader
+    loader,
+    viewPage,
+    setviewPage,
+    currentPages,
+    next,
+    pre,
+    pageNumbers,
+    paginationCount,
+    receptionistID,
+    setReceptionistID
   } = ReceptionistFunction();
 
   const { receptionistTable } = useSelector((state) => state.TableDatas);
 
-  const { PrePage, changePage, currentpage, nextPage, tableDats, pageCount } =
-    PaginationFunction({
-      datas: receptionistTable,
-    });
 
   return (
     <div className=" w-full h-[90%] px-3 py-[6px] overflow-auto">
@@ -54,75 +60,89 @@ const Receptionist = () => {
         <ThemeSuspense />
       ) : (
         <>
-          <div
-            style={{
-              border: "3px solid #e8e8e8"
-          }}
-            className="table-box "
-          >
-            <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
-              <div className="table-box-top-left">
-                <TableHeaderTitle
-                  title={TranslateJson.receptionist.title}
-                  subContent={`${tableDats.length} ${TranslateJson.receptionist.subText}`}
-                />
-              </div>
-              <div className="table-box-top-right-1">
-                <div className="table-box-top-right-grid-1">
-                  {/* <div className="table-box-top-right-content-date-1">
-                    <DatePicker
-                      date={selectedDate}
-                      handleDateSelect={setselectedDate}
-                    />
-                  </div> */}
-                  <div className="table-box-top-right-content-filter-1">
-                    <Select
-                      options={Options}
-                      styles={style}
-                      placeholder="Filter"
-                      SelectedValue={setselectedFilter}
-                      value={selectedFilter}
-                    />
-                  </div>
-                  <div className="table-box-top-right-content-filter-1">
-                    <button
-                      onClick={navigateAddRecptionistPage}
-                      className="table-box-top-right-content-button-1 "
-                    >
-                      <AddIcon /> Invite
-                    </button>
+          {viewPage ? (
+            <ViewPage
+              timeSlot={false}
+              setviewPage={setviewPage}
+              headerText="View Receptionist Details"
+              category="receptionist"
+              id={receptionistID}
+            />
+          ) : (
+            <div
+              style={{
+                border: "3px solid #e8e8e8",
+              }}
+              className="table-box "
+            >
+              <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
+                <div className="table-box-top-left">
+                  <TableHeaderTitle
+                    title={TranslateJson.receptionist.title}
+                    subContent={`${receptionistTable.length} ${TranslateJson.receptionist.subText}`}
+                  />
+                </div>
+                <div className="table-box-top-right-1">
+                  <div className="table-box-top-right-grid-1">
+                    {/* <div className="table-box-top-right-content-date-1">
+                  <DatePicker
+                    date={selectedDate}
+                    handleDateSelect={setselectedDate}
+                  />
+                </div> */}
+                    <div className="table-box-top-right-content-filter-1">
+                      <Select
+                        options={Options}
+                        styles={style}
+                        placeholder="Filter"
+                        SelectedValue={setselectedFilter}
+                        value={selectedFilter}
+                      />
+                    </div>
+                    <div className="table-box-top-right-content-filter-1">
+                      <button
+                        onClick={navigateAddRecptionistPage}
+                        className="table-box-top-right-content-button-1 "
+                      >
+                        <AddIcon /> Invite
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className=" mt-3 pb-3 overflow-auto w-full 2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[43%] xss:h-[43%] mobile:h-[43%]">
-              <Table
-                headers={[
-                  { title: "S.No" },
-                  { title: "Receptionist name" },
-                  { title: "Status" },
-                  { title: "" },
-                ]}
-                tableBody={tableDats}
-                tableName="Receptionist"
-                model={model}
-                setModel={setModel}
-                handleChange={handleChange}
-                clear={clear}
-                setClear={setClear}
-                loader={loader}
-              />
-            </div>
-            <div className=" w-full  h-[10%] flex items-end pt-4 overflow-x-auto relative ">
+              <div className=" mt-3 pb-3 overflow-auto w-full 2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[43%] xss:h-[43%] mobile:h-[43%]">
+                <Table
+                  headers={[
+                    { title: "S.No" },
+                    { title: "Receptionist name" },
+                    { title: "Status" },
+                    { title: "Action" },
+                    { title: "View" },
+
+                  ]}
+                  tableBody={receptionistTable}
+                  tableName="Receptionist"
+                  model={model}
+                  setModel={setModel}
+                  handleChange={handleChange}
+                  clear={clear}
+                  setClear={setClear}
+                  loader={loader}
+                  setviewPage={setviewPage}
+                  id={setReceptionistID}
+                />
+              </div>
+              <div className=" w-full  h-[10%] flex items-end justify-end pt-4 px-3  overflow-x-auto relative ">
               <Paginitation
-                PrePage={PrePage}
-                currentpage={currentpage}
-                nextPage={nextPage}
-                pageCount={pageCount.length}
-                changePage={changePage}
-              />
+                    currentpage={currentPages}
+                    PrePage={pre}
+                    nextPage={next}
+                    pageNumbers={pageNumbers}
+                    paginationCount={paginationCount}
+                  />
+              </div>
             </div>
-          </div>
+          )}
         </>
       )}
     </div>

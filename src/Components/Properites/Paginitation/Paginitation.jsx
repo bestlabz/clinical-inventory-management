@@ -1,74 +1,66 @@
 import React from "react";
+
+//Third party libraries
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
 
-import ReactPaginate from "react-paginate";
-
-const Pagination = ({
-  PrePage,
-  pageCount,
-  currentpage,
-  nextPage,
-  changePage,
-}) => {
-  // const getPagesCut = ({ pagesCutCount = 2 }) => {
-  //   const ceiling = Math.ceil(pagesCutCount / 2);
-  //   const floor = Math.floor(pagesCutCount / 2);
-
-  //   if (pageCount <= pagesCutCount) {
-  //     return { start: 1, end: Number(pageCount) };
-  //   } else if (Number(currentpage) <= ceiling) {
-  //     return { start: 1, end: pagesCutCount };
-  //   } else if (Number(currentpage) + floor >= Number(pageCount)) {
-  //     return {
-  //       start: Number(pageCount) - Number(pagesCutCount) + 1,
-  //       end: Number(pageCount),
-  //     };
-  //   } else {
-  //     return {
-  //       start: Number(currentpage) - ceiling + 1,
-  //       end: Number(currentpage) + floor,
-  //     };
-  //   }
-  // };
-
-  // const { start, end } = getPagesCut({ pagesCutCount: 3 }); // Adjust pagesCutCount as needed
-
-  // const pageNumbers = Array.from(
-  //   { length: end - start + 1 },
-  //   (_, i) => start + i
-  // );
-
-  const handlePageClick = ({ selected }) => {
-    return changePage({ id: selected + 1 });
-  };
+const Paginitation = ({ currentpage, PrePage, nextPage, pageNumbers }) => {
   return (
     <>
-
-      <ReactPaginate
-        breakLabel={
-          <span className="flex items-center justify-center px-4 py-2">...</span>
-        }
-        nextLabel={
-          <span className="  flex items-center h-full gap-2">
-            Next <FaAngleRight />
+      <button
+        onClick={PrePage}
+        className={`flex items-center justify-center  h-[30px] ${
+          currentpage !== 1 ? "text-balck" : " text-gray-300"
+        }   text-center cursor-pointer `}
+      >
+        <FaAngleLeft
+          className={`${
+            currentpage !== 1 ? "text-balck" : " text-gray-300"
+          }`}
+        />
+        Previous
+      </button>
+      {pageNumbers &&
+        pageNumbers?.map((items) => (
+          <span
+            key={items}
+            // onClick={() => changePage({ id: items })}
+            className={`${
+              currentpage === items
+                ? "bg-primary_color text-white transition-all duration-200 mx-2"
+                : "bg-transparent text-navigationColor"
+            } cursor-pointer rounded-md   items-center justify-center w-[30px] h-[30px] font-bold text-base 2xl:flex xl:flex lg:flex md:flex sm:hidden xs:hidden xss:hidden mobile:hidden`}
+          >
+            {items}
           </span>
-        }
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel={
-          <span className="  flex items-center h-full gap-2">
-            <FaAngleLeft /> Previous
-          </span>
-        }
-        className="w-full flex item-center justify-end px-3 overflow-x-auto space-x-3 "
-        pageClassName=" w-[35px] h-[35px] flex items-center justify-center rounded-lg hover:bg-primary_color hover:text-white"
-        activeClassName="bg-primary_color text-white"
-        // previousClassName=" absolute left-5"
-        // nextClassName="absolute right-5"
-      />
+        ))}
+      {pageNumbers && (
+        <span
+          className={`bg-primary_color mx-2 text-white transition-all duration-200 cursor-pointer rounded-md w-[30px] h-[30px] font-bold text-base 2xl:hidden xl:hidden lg:hidden md:hidden sm:block xs:block xss:block mobile:block`}
+        >
+          <h1 className=" w-full h-full flex items-center justify-center">
+            {currentpage}
+          </h1>
+        </span>
+      )}
+      <button
+        onClick={nextPage}
+        className={`flex items-center justify-center   h-[30px]  ${
+          currentpage === pageNumbers[pageNumbers.length - 1]
+            ? "text-gray-300"
+            : "text-balck"
+        }   text-center cursor-pointer `}
+      >
+        next
+        <FaAngleRight
+          className={`${
+            currentpage === pageNumbers[pageNumbers.length - 1]
+              ? ""
+              : "text-balck"
+          } `}
+        />
+      </button>
     </>
   );
 };
 
-export default Pagination;
+export default Paginitation;

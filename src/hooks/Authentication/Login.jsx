@@ -13,10 +13,10 @@ import { LoginSchema } from "../../utils/Validation/Login";
 
 //Hooks
 import { setToken, setUser } from "../../Redux/Slice/User";
-import { setOTP } from "../../Redux/Slice/Otp";
+import { setOTP, clearOTP } from "../../Redux/Slice/Otp";
 
 //Api Call
-import ApiRequest from '../../services/httpService'
+import ApiRequest from "../../services/httpService";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,8 +26,8 @@ const Login = () => {
   const [otp, setOtp] = useState(new Array(otpCount).fill(""));
   const [error, setError] = useState(false);
   const [number, setNumber] = useState(null);
-  const [phone_number, setPhone_number] = useState("")
-  const [loader, setLoader] = useState(false)
+  const [phone_number, setPhone_number] = useState("");
+  const [loader, setLoader] = useState(false);
 
   const { otpValue } = useSelector((state) => state.otpValue);
 
@@ -39,19 +39,23 @@ const Login = () => {
 
   const onSubmit = async (values, actions) => {
     const bodyData = {
-      mobile_number: values.phone_number
+      mobile_number: values.phone_number,
+    };
+    setPhone_number(values.phone_number);
+    try {
+      setLoader(true);
+      const { success, message } = await ApiRequest.put("/login", bodyData);
+
+      if (success) {
+        setLoader(false);
+        return setStep((step) => step + 1);
+      } else {
+        return toast.error(message);
+      }
+    } catch (error) {
+      setLoader(false);
+      toast.error(error.response.data.message);
     }
-    setPhone_number(values.phone_number)
-    setLoader(true)
-   const {success, message} = await ApiRequest.post("/sendotp", bodyData)
-
-   if (success) {
-    setLoader(false)
-     return setStep((step) => step + 1);
-
-   } else {
-    return toast.error(message);
-   }
   };
 
   const { errors, handleChange, handleSubmit, values } = FormHandel({
@@ -68,17 +72,23 @@ const Login = () => {
       return setError(true);
     } else {
       setError(false);
-      
+
       const bodyData = {
         mobile_number: phone_number,
-        otp: otpValue
+        otp: otpValue,
+      };
+      try {
+        setLoader(true);
+        const { clinic, token } = await ApiRequest.post("/verifyotp", bodyData);
+        setLoader(false);
+        dispatch(setUser(clinic));
+        localStorage.setItem("token", token);
+        dispatch(clearOTP());
+        return navigate("/dashboard");
+      } catch (error) {
+        setLoader(false);
+        toast.error(error.response.data.error);
       }
-      setLoader(true)
-      const {clinic, token} = await ApiRequest.post('/verifyotp', bodyData)
-      setLoader(false)
-      dispatch(setUser(clinic));
-      localStorage.setItem('token', token)
-      return navigate("/dashboard");
     }
   };
 
@@ -114,7 +124,7 @@ const Login = () => {
     values,
     navigateSignup,
     otpValue,
-    loader
+    loader,
   };
 };
 

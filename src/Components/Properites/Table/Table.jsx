@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { MdOutlineModeEdit } from "react-icons/md";
 import { TbEye } from "react-icons/tb";
 import Toggle from "../toggle/toggle";
 import ModelResponsive from "./ModelResponsive";
@@ -13,17 +12,20 @@ const Table = ({
   handleChange,
   clear,
   setClear,
-  loader
+  loader,
+  setviewPage,
+  id,
 }) => {
   const [details, setDetails] = useState({
     id: "",
     value: "",
   });
 
+  console.log("tableBody", tableBody);
   return (
     <>
       <table className="relative text-sm font-medium text-nowrap border-collapse font-poppins w-full ">
-        <thead className=" text-[16px] font-semibold border-b-[2px] border-t-[2px] h-[10%] sticky top-0 bg-white">
+        <thead className=" text-[16px] font-semibold border-b-[2px] border-t-[2px] h-[10%] sticky z-30 top-0 bg-white">
           <tr>
             {headers?.map((head, i) => (
               <td key={i} className={` text-start py-2 px-10`}>
@@ -125,7 +127,13 @@ const Table = ({
                     </div>
                   </td>
                   <td className={`py-2 px-10`}>
-                    <div className="flex items-center justify-start gap-6">
+                    <div
+                      onClick={() => {
+                        id(item.id);
+                        setviewPage(true);
+                      }}
+                      className="flex items-center justify-start gap-6"
+                    >
                       <TbEye
                         size={30}
                         className="text-gray-300 hover:text-blue-400 cursor-pointer"
@@ -183,7 +191,13 @@ const Table = ({
                     </div>
                   </td>
                   <td className={`py-2 px-10`}>
-                    <div className="flex items-center justify-start gap-6">
+                    <div
+                      onClick={() => {
+                        id(item.id);
+                        setviewPage(true);
+                      }}
+                      className="flex items-center justify-start gap-6"
+                    >
                       <TbEye
                         size={30}
                         className="text-gray-300 hover:text-blue-400 cursor-pointer"
@@ -227,15 +241,15 @@ const Table = ({
         </tbody>
       </table>
 
-        <ModelResponsive
-          modalpopup={model}
-          openModal={setModel}
-          trigger={handleChange}
-          details={details}
-          clear={clear}
-          setClear={setClear}
-          loader={loader}
-        />
+      <ModelResponsive
+        modalpopup={model}
+        openModal={setModel}
+        trigger={handleChange}
+        details={details}
+        clear={clear}
+        setClear={setClear}
+        loader={loader}
+      />
     </>
   );
 };

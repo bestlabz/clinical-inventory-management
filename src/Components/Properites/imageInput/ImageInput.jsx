@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import UploadFileImage from "../../../assets/Svg/UploadFileImage";
 import { IoClose } from "react-icons/io5";
 import { LuUploadCloud } from "react-icons/lu";
-
+import toast from "react-hot-toast";
+import { BiSolidFilePdf } from "react-icons/bi";
 
 const ImageInput = ({
   file,
@@ -13,6 +14,8 @@ const ImageInput = ({
 }) => {
   const fileInputRef = useRef(null);
 
+  const [imageType, setimageType] = useState(null);
+
   const handleFileInputClick = () => {
     fileInputRef.current.click();
   };
@@ -20,13 +23,43 @@ const ImageInput = ({
   const handleFileInputChange = (event) => {
     event.preventDefault();
     const file = event.target.files[0];
-    setFieldValue("file", file);
+    const fileType = file.type;
+    const fileSize = file.size;
+
+    if (
+      (fileType.startsWith("image/") || fileType === "application/pdf") &&
+      fileSize <= 5 * 1024 * 1024
+    ) {
+      setimageType(fileType);
+      setFieldValue("file", file);
+    } else {
+      if (fileSize > 5 * 1024 * 1024) {
+        toast.error("File size exceeds the limit of 5 MB.");
+      } else {
+        toast.error("Only image files (png, jpg, etc.) and PDFs are allowed.");
+      }
+    }
   };
 
   const handleDrop = (e) => {
     e.preventDefault();
-    const file = e.dataTransfer.files[0]
-    setFieldValue("file", file);
+    const file = e.dataTransfer.files[0];
+    const fileType = file.type;
+    const fileSize = file.size;
+
+    if (
+      (fileType.startsWith("image/") || fileType === "application/pdf") &&
+      fileSize <= 5 * 1024 * 1024
+    ) {
+      setimageType(fileType);
+      setFieldValue("file", file);
+    } else {
+      if (fileSize > 5 * 1024 * 1024) {
+        toast.error("File size exceeds the limit of 5 MB.");
+      } else {
+        toast.error("Only image files (png, jpg, etc.) and PDFs are allowed.");
+      }
+    }
   };
 
   const handleDrag = (e) => {
@@ -52,15 +85,19 @@ const ImageInput = ({
           ref={fileInputRef}
           type="file"
           className="hidden"
+          accept="image/*, application/pdf"
           onChange={handleFileInputChange} // Handle file selection change event
         />
         <div className=" p-2 border-2 rounded-lg mb-3 ">
-         <LuUploadCloud size={30} className=" text-secondary_text" />
+          <LuUploadCloud size={30} className=" text-secondary_text" />
         </div>
         <div className="flex flex-col gap-0.5 items-center">
-          <span  className="text-[16px] font-bold text-secondary_text" >
+          <span className="text-[16px] font-bold text-secondary_text">
             Click to Upload
-            <span className="text-md text-center font-medium"> or drag and drop</span>{" "}
+            <span className="text-md text-center font-medium">
+              {" "}
+              or drag and drop
+            </span>{" "}
           </span>
         </div>
         <div>
@@ -85,10 +122,13 @@ const ImageInput = ({
                 <CiImageOn />
               </span> */}
               <div className=" w-[80px] h-[40px] overflow-hidden rounded-md ">
-                <img
+                {
+                  imageType === "application/pdf" ? <div className=" flex items-center h-full"><BiSolidFilePdf color="#FF2D00" size={30} /></div> :  <img
                   src={base64Image && base64Image}
                   className="object-contain"
                 />
+                }
+               
               </div>
               <div className=" flex items-center justify-end w-full  gap-3">
                 <span className="text-sm">

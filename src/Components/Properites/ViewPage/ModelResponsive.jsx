@@ -101,7 +101,7 @@ const ModelResponsive = ({
               />{" "}
             </div>
             <p className="text-[22px] font-semibold text-center w-[80%]">
-              {details.value ? TranslateJson.toggel.block : TranslateJson.toggel.unBlock}
+            {details.value ? TranslateJson.toggel.block : TranslateJson.toggel.unBlock}
             </p>
             <div className="w-[80%] flex flex-col gap-3">
               <p className=" text-start w-[80%] font-medium text-[18px]">
@@ -163,7 +163,7 @@ const ModelResponsive = ({
               />{" "}
             </div>
             <p className="text-[22px] font-semibold text-center w-[80%]">
-              {details.value ? TranslateJson.toggel.block : TranslateJson.toggel.unBlock}
+            {details.value ? TranslateJson.toggel.block : TranslateJson.toggel.unBlock}
             </p>
             <div className="w-[80%] flex flex-col gap-3">
               <p className=" text-start w-[80%] font-medium text-[18px]">
@@ -225,7 +225,7 @@ const ModelResponsive = ({
               />{" "}
             </div>
             <p className="text-[18px] font-semibold text-center w-[80%]">
-              {details.value ? TranslateJson.toggel.block : TranslateJson.toggel.unBlock}
+            {details.value ? TranslateJson.toggel.block : TranslateJson.toggel.unBlock}
             </p>
             <div className="w-[80%] flex flex-col gap-3">
               <p className=" text-start w-[80%] font-medium text-[18px]">
@@ -287,7 +287,7 @@ const ModelResponsive = ({
               />{" "}
             </div>
             <p className="text-[18px] font-semibold text-center w-[90%]">
-              {details.value ? TranslateJson.toggel.block : TranslateJson.toggel.unBlock}
+            {details.value ? TranslateJson.toggel.block : TranslateJson.toggel.unBlock}
             </p>
             <div className="w-[90%] flex flex-col gap-3">
               <p className=" text-start w-[80%] font-medium text-[18px]">

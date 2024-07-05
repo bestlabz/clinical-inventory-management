@@ -6,6 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import ApiRequest from "../../services/httpService";
 import { setDoctorTable } from "../../Redux/Slice/TableDatas";
 import toast from "react-hot-toast";
+import {
+  setCurrentPage,
+  setNextPage,
+  setPrePage,
+  setTotalCount,
+} from "../../Redux/Slice/Pagination";
 
 const Doctors = () => {
   const navigate = useNavigate();
@@ -22,24 +28,36 @@ const Doctors = () => {
   const [clear, setClear] = useState(false);
   const [selectedFilter, setselectedFilter] = useState(null);
   const [loader, setLoader] = useState(false);
+  const [viewPage, setviewPage] = useState(false);
+  const [dotorId, setDotorId] = useState(null)
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
+  const { currentPage: currentPages, totalCount: paginationCount } =
+    useSelector((state) => state.Pagination);
+
   useEffect(() => {
-    const fetchData = async (filter) => {
+    const fetchData = async ({ filter, page }) => {
       try {
-        const filterQuery = filter ? `?${filter}=true` : "";
+        const filterQuery = filter
+          ? `?${filter}=true&page=${page}`
+          : `?page=${page}`;
+
         const {
           success,
           doctorAvailability,
           totalDoctorsCount,
           availableDoctorsCount,
           unavailableDoctorsCount,
+          currentPage,
+          totalPages,
         } = await ApiRequest.get(
           `/doctersby_clinic/${userDetails._id}${filterQuery}`
         );
 
         if (success) {
+          dispatch(setCurrentPage(currentPage));
+          dispatch(setTotalCount(totalPages));
           setCardValue({
             total_doctor: totalDoctorsCount,
             available_doctor: availableDoctorsCount,
@@ -68,16 +86,16 @@ const Doctors = () => {
 
     const API = async () => {
       if (!selectedFilter || selectedFilter?.value === "") {
-        await fetchData();
+        await fetchData({ page: currentPages });
       } else if (selectedFilter?.value === "onleave") {
-        await fetchData("onleave");
+        await fetchData({ filter: "onleave", page: currentPages });
       } else if (selectedFilter?.value === "recently_joined") {
-        await fetchData("recently_joined");
+        await fetchData({ filter: "recently_joined", page: currentPages });
       }
     };
 
     API();
-  }, [selectedFilter, model]);
+  }, [selectedFilter, model, currentPages]);
 
   const handleChange = async (id, value, reason) => {
     try {
@@ -116,6 +134,44 @@ const Doctors = () => {
     return navigate("/add-doctor");
   };
 
+  const next = () => {
+    if(  currentPages !== pageNumbers[pageNumbers.length - 1]) {
+      return dispatch(setNextPage());
+
+    }
+  };
+
+  const pre = () => {
+    return dispatch(setPrePage());
+  };
+
+  const getPagesCut = ({ pagesCutCount = 2 }) => {
+    const ceiling = Math.ceil(pagesCutCount / 2);
+    const floor = Math.floor(pagesCutCount / 2);
+
+    if (paginationCount <= pagesCutCount) {
+      return { start: 1, end: Number(paginationCount) };
+    } else if (Number(currentPages) <= ceiling) {
+      return { start: 1, end: pagesCutCount };
+    } else if (Number(currentPages) + floor >= Number(paginationCount)) {
+      return {
+        start: Number(paginationCount) - Number(pagesCutCount) + 1,
+        end: Number(paginationCount),
+      };
+    } else {
+      return {
+        start: Number(currentPages) - ceiling + 1,
+        end: Number(currentPages) + floor,
+      };
+    }
+  };
+
+  const { start, end } = getPagesCut({ pagesCutCount: 3 }); // Adjust pagesCutCount as needed
+  const pageNumbers = Array.from(
+    { length: end - start + 1 },
+    (_, i) => start + i
+  );
+
   return {
     setselectedDate,
     selectedDate,
@@ -132,6 +188,15 @@ const Doctors = () => {
     setselectedFilter,
     selectedFilter,
     loader,
+    setviewPage,
+    viewPage,
+    paginationCount,
+    currentPages,
+    pageNumbers,
+    next,
+    pre,
+    setDotorId,
+    dotorId
   };
 };
 

@@ -151,7 +151,7 @@ const LeftSide = ({
           }}
           className="text-start   w-[25%] max-w-[40%]"
         >
-          Date: {dayjs().format("DD/MM/YYYY")}
+          Date: 
         </p>
       </div>
 

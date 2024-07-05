@@ -14,7 +14,6 @@ import NotificationIcon from "../../../assets/Svg/NotificationIcon";
 import { FiLogOut } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 
-import ModelPopup from "../ModelPopup/ModelPopup";
 import LogOutModalResponsive from "./LogOutModalResponsive";
 
 const Sidebar = ({ children }) => {

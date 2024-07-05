@@ -22,6 +22,7 @@ import PaginationFunction from "../../hooks/Paginitation/Paginitation";
 import Select from "../../Components/Properites/Select/Select";
 import Table from "../../Components/Properites/Table/Table";
 import ThemeSuspense from "../../Components/theme/ThemeSuspense";
+import ViewPage from "../../Components/Properites/ViewPage/ViewPage";
 
 const Doctors = () => {
   const {
@@ -39,16 +40,19 @@ const Doctors = () => {
     setClear,
     selectedFilter,
     setselectedFilter,
-    loader
+    loader,
+    viewPage,
+    setviewPage,
+    currentPages,
+    next,
+    pre,
+    pageNumbers,
+    paginationCount,
+    dotorId,
+    setDotorId
   } = DoctorsFunction();
 
   const { doctorTable } = useSelector((state) => state.TableDatas);
-
-
-  const { PrePage, changePage, currentpage, nextPage, tableDats, pageCount } =
-    PaginationFunction({
-      datas: doctorTable,
-    });
 
   const { sidebarStatus } = useSelector((state) => state.sidebarInfo);
 
@@ -58,103 +62,115 @@ const Doctors = () => {
         <ThemeSuspense />
       ) : (
         <>
-          <div
-            className={`grid  gap-4 min-h-[100px] ${
-              sidebarStatus
-                ? "2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 xss:grid-cols-1 mobile:grid-cols-1"
-                : "2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 xs:grid-cols-1 xss:grid-cols-1 mobile:grid-cols-1"
-            } `}
-          >
-            <Card
-              title={TranslateJson.doctors.card.text1}
-              count={cardValue?.total_doctor}
-              bg="#0073EE"
-              textColor="#fff"
+          {viewPage ? (
+            <ViewPage
+              setviewPage={setviewPage}
+              headerText="View Doctor Details"
+              id={dotorId}
+              category="doctor"
             />
-            <Card
-              title={TranslateJson.doctors.card.text2}
-              count={cardValue?.available_doctor}
-              textColor="#000"
-            />
-            <Card
-              title={TranslateJson.doctors.card.text3}
-              count={cardValue?.leave_doctor}
-              textColor="#000"
-            />
-          </div>
-
-          <div
-             style={{
-              border: "3px solid #e8e8e8"
-          }}
-            className="table-box "
-          >
-            <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
-              <div className="table-box-top-left">
-                <TableHeaderTitle
-                  title={TranslateJson.doctors.title}
-                  subContent={`${tableDats.length} ${TranslateJson.doctors.subText}`}
+          ) : (
+            <>
+              <div
+                className={`grid  gap-4 min-h-[100px] ${
+                  sidebarStatus
+                    ? "2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 xss:grid-cols-1 mobile:grid-cols-1"
+                    : "2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 xs:grid-cols-1 xss:grid-cols-1 mobile:grid-cols-1"
+                } `}
+              >
+                <Card
+                  title={TranslateJson.doctors.card.text1}
+                  count={cardValue?.total_doctor}
+                  bg="#0073EE"
+                  textColor="#fff"
+                />
+                <Card
+                  title={TranslateJson.doctors.card.text2}
+                  count={cardValue?.available_doctor}
+                  textColor="#000"
+                />
+                <Card
+                  title={TranslateJson.doctors.card.text3}
+                  count={cardValue?.leave_doctor}
+                  textColor="#000"
                 />
               </div>
-              <div className="table-box-top-right-1">
-                <div className="table-box-top-right-grid-1">
-                  {/* <div className="table-box-top-right-content-date-1">
+
+              <div
+                style={{
+                  border: "3px solid #e8e8e8",
+                }}
+                className="table-box "
+              >
+                <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
+                  <div className="table-box-top-left">
+                    <TableHeaderTitle
+                      title={TranslateJson.doctors.title}
+                      subContent={`${doctorTable.length} ${TranslateJson.doctors.subText}`}
+                    />
+                  </div>
+                  <div className="table-box-top-right-1">
+                    <div className="table-box-top-right-grid-1">
+                      {/* <div className="table-box-top-right-content-date-1">
                     <DatePicker
                       date={selectedDate}
                       handleDateSelect={setselectedDate}
                     />
                   </div> */}
-                  <div className="table-box-top-right-content-filter-1">
-                    <Select
-                      options={Options}
-                      styles={style}
-                      placeholder="Filter"
-                      SelectedValue={setselectedFilter}
-                      value={selectedFilter}
-                    />
-                  </div>
-                  <div className="table-box-top-right-content-filter-1">
-                    <button
-                      onClick={navigateAddDoctorPage}
-                      className="table-box-top-right-content-button-1 "
-                    >
-                      <AddIcon /> Invite
-                    </button>
+                      <div className="table-box-top-right-content-filter-1">
+                        <Select
+                          options={Options}
+                          styles={style}
+                          placeholder="Filter"
+                          SelectedValue={setselectedFilter}
+                          value={selectedFilter}
+                        />
+                      </div>
+                      <div className="table-box-top-right-content-filter-1">
+                        <button
+                          onClick={navigateAddDoctorPage}
+                          className="table-box-top-right-content-button-1 "
+                        >
+                          <AddIcon /> Invite
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
+                <div className=" mt-3 pb-3 overflow-auto w-full 2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[43%] xss:h-[43%] mobile:h-[43%]">
+                  <Table
+                    headers={[
+                      { title: "S.No" },
+                      { title: "Doctor name" },
+                      { title: "Specialist" },
+                      { title: "Status" },
+                      { title: "Action" },
+                      { title: "View" },
+                    ]}
+                    tableBody={doctorTable}
+                    tableName="Doctor"
+                    model={model}
+                    setModel={setModel}
+                    handleChange={handleChange}
+                    clear={clear}
+                    setClear={setClear}
+                    loader={loader}
+                    setviewPage={setviewPage}
+                    id={setDotorId}
+                  />
+                </div>
+                <div className=" w-full h-[10%] flex items-end justify-end pt-4 px-3 overflow-x-auto relative">
+                  <Paginitation
+                    currentpage={currentPages}
+                    PrePage={pre}
+                    nextPage={next}
+                    pageNumbers={pageNumbers}
+                    paginationCount={paginationCount}
+                  />
+                </div>
               </div>
-            </div>
-            <div className=" mt-3 pb-3 overflow-auto w-full 2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[43%] xss:h-[43%] mobile:h-[43%]">
-              <Table
-                headers={[
-                  { title: "S.No" },
-                  { title: "Doctor name" },
-                  { title: "Specialist" },
-                  { title: "Status" },
-                  { title: "" },
-                  { title: "View" },
-                ]}
-                tableBody={tableDats}
-                tableName="Doctor"
-                model={model}
-                setModel={setModel}
-                handleChange={handleChange}
-                clear={clear}
-                setClear={setClear}
-                loader={loader}
-
-              />
-            </div>
-            <div className=" w-full h-[10%] flex items-end pt-4  overflow-x-auto relative">
-              <Paginitation
-                PrePage={PrePage}
-                currentpage={currentpage}
-                nextPage={nextPage}
-                pageCount={pageCount.length}
-                changePage={changePage}
-              />
-            </div>
-          </div>
+            </>
+          )}
         </>
       )}
     </div>
