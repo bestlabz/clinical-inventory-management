@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
 
 import ModelResponsive from "./ModelResponsive";
+import Select from "../Select/Select";
 
 const ViewPage = ({
   timeSlot = true,
@@ -17,8 +18,24 @@ const ViewPage = ({
   id,
   category,
 }) => {
-  const { loader, clear, handleChange, setModel, loader1, model, setClear } =
-    ViewPageFunction({ category, id });
+  const {
+    loader,
+    clear,
+    handleChange,
+    setModel,
+    loader1,
+    model,
+    setClear,
+    setVerifyCertificate,
+    verifyCertificate,
+    setVerifyDoctor,
+    verifyDoctor,
+    style,
+    Options,
+    selectedDay,
+    setSelectedDay,
+    TimeSlotsResult,
+  } = ViewPageFunction({ category, id });
 
   const { details } = useSelector((state) => state.DetailsPage);
 
@@ -171,56 +188,134 @@ const ViewPage = ({
           <h1 className="text-[24px] font-bold mb-2">Certificate</h1>
 
           <div className="view-page-certificate-container mb-6">
-            <div className="view-page-certificate-container-image">
-              <img
-                src={details?.postgraduate_certificate || ""}
-                className="view-page-certificate-container-image-view"
-              />
-              <div className="view-page-certificate-container-image-name-container">
-                <BiSolidFilePdf color="#FF2D00" size={40} />
-                <p className="view-page-certificate-container-image-name">
-                  <span className="text-[13px] ">certificate1.pdf</span>
-                  {/* <span className="text-[12px] text-gray-400 ">200KB</span> */}
-                </p>
-              </div>
-            </div>
-            <div className="view-page-certificate-container-image">
-              <img
-                src={details?.undergraduate_certificate || ""}
-                className="view-page-certificate-container-image-view"
-              />
-              <div className="view-page-certificate-container-image-name-container">
-                <BiSolidFilePdf color="#FF2D00" size={40} />
-                <p className="view-page-certificate-container-image-name">
-                  <span className="text-[13px] ">certificate2.pdf</span>
-                  {/* <span className="text-[12px] text-gray-400 ">200KB</span> */}
-                </p>
-              </div>
-            </div>
+            {category === "doctor" ? (
+              <>
+                <div className="view-page-certificate-container-image">
+                  <img
+                    src={details?.postgraduate_certificate || ""}
+                    className="view-page-certificate-container-image-view"
+                  />
+                  <div className="view-page-certificate-container-image-name-container">
+                    <BiSolidFilePdf color="#FF2D00" size={40} />
+                    <p className="view-page-certificate-container-image-name">
+                      <span className="text-[13px] ">certificate1.pdf</span>
+                      {/* <span className="text-[12px] text-gray-400 ">200KB</span> */}
+                    </p>
+                  </div>
+                </div>
+                <div className="view-page-certificate-container-image">
+                  <img
+                    src={details?.undergraduate_certificate || ""}
+                    className="view-page-certificate-container-image-view"
+                  />
+                  <div className="view-page-certificate-container-image-name-container">
+                    <BiSolidFilePdf color="#FF2D00" size={40} />
+                    <p className="view-page-certificate-container-image-name">
+                      <span className="text-[13px] ">certificate2.pdf</span>
+                      {/* <span className="text-[12px] text-gray-400 ">200KB</span> */}
+                    </p>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="view-page-certificate-container-image">
+                  <img
+                    src={details?.certificate || ""}
+                    className="view-page-certificate-container-image-view"
+                  />
+                  <div className="view-page-certificate-container-image-name-container">
+                    <BiSolidFilePdf color="#FF2D00" size={40} />
+                    <p className="view-page-certificate-container-image-name">
+                      <span className="text-[13px] ">certificate2.pdf</span>
+                      {/* <span className="text-[12px] text-gray-400 ">200KB</span> */}
+                    </p>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
 
-          {/* <div className="certificate-verify-button-container">
-        <button className="certificate-verify-button">Reject</button>
-        <button className="certificate-verify-button2">Verify</button>
-      </div> */}
-          {timeSlot && (
+          {category === "doctor" &&
+            !details?.postgraduate_certificate_verify &&
+            !details?.undergraduate_certificate_verify && (
+              <div className="certificate-verify-button-container">
+                {/* <button className="certificate-verify-button">Reject</button> */}
+                {verifyCertificate ? (
+                  <button className="certificate-verify-button2">
+                    <ClipLoader color="#fff" size={20} />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setVerifyCertificate(true)}
+                    className="certificate-verify-button2"
+                  >
+                    Verify
+                  </button>
+                )}
+              </div>
+            )}
+
+          {category === "receptionist" && !details?.certificate_verify && (
+            <div className="certificate-verify-button-container">
+              {/* <button className="certificate-verify-button">Reject</button> */}
+              {verifyCertificate ? (
+                <button className="certificate-verify-button2">
+                  <ClipLoader color="#fff" size={20} />
+                </button>
+              ) : (
+                <button
+                  onClick={() => setVerifyCertificate(true)}
+                  className="certificate-verify-button2"
+                >
+                  Verify
+                </button>
+              )}
+            </div>
+          )}
+          {category === "doctor" && (
             <>
-              <h1 className="text-[24px] font-bold mb-2">Schedule</h1>
+              <div className="flex items-start justify-start mt-6 mb-2 2xl:w-[40%] xl:w-[40%] lg:w-[80%] md:w-[80%] sm:w-[80%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col 2xl:space-x-16 xl:space-x-16  lg:space-x-16  md:space-x-16  sm:space-x-16 xs:space-x-0  mobile:space-x-0  xss:space-x-0 ">
+                <h1 className="text-[24px] font-bold ">Schedule</h1>
+
+                <Select
+                  styles={style}
+                  options={Options}
+                  placeholder="Select"
+                  SelectedValue={setSelectedDay}
+                  value={selectedDay}
+                  />
+              </div>
 
               <div className="view-page-time-slot-container">
-                <p className="view-page-time-slot">9 AM - 10 AM</p>
-                <p className="view-page-time-slot">9 AM - 10 AM</p>
-                <p className="view-page-time-slot">9 AM - 10 AM</p>
-                <p className="view-page-time-slot">9 AM - 10 AM</p>
+                {TimeSlotsResult?.[0]?.slots?.map((item, index) => (
+                  <p key={index} className="view-page-time-slot">
+                    {item?.timeSlot}
+                  </p>
+                ))}
               </div>
             </>
           )}
 
-          <div className="flex items-center justify-center mt-16">
-            <button className="bg-primary_color text-white w-[300px] py-3 rounded-lg">
-              Verify
-            </button>
-          </div>
+          {!details?.verify && (
+            <div className="flex items-center justify-center mt-16">
+              {verifyDoctor ? (
+                <button
+                  onClick={setVerifyDoctor}
+                  className="bg-primary_color text-white w-[300px] py-3 rounded-lg"
+                >
+                  <ClipLoader color="#fff" size={20} />
+                </button>
+              ) : (
+                <button
+                  onClick={setVerifyDoctor}
+                  className="bg-primary_color text-white w-[300px] py-3 rounded-lg"
+                >
+                  Verify
+                </button>
+              )}
+            </div>
+          )}
         </>
       )}
 

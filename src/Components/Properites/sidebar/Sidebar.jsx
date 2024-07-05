@@ -15,6 +15,7 @@ import { FiLogOut } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 
 import LogOutModalResponsive from "./LogOutModalResponsive";
+import AdminNotVerify from "../ErrorPage/AdminNotVerify";
 
 const Sidebar = ({ children }) => {
   const navigate = useNavigate();
@@ -129,9 +130,7 @@ const Sidebar = ({ children }) => {
 
         {!userDetails.adminVerified ? (
           <div className="w-full h-full flex items-center justify-center">
-            <h1 className="text-[18px] font-semibold">
-              Admin not verified your account{" "}
-            </h1>
+            <AdminNotVerify />
           </div>
         ) : (
           <main className="py-2 h-screen overflow-auto">{children}</main>

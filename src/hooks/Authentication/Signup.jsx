@@ -16,7 +16,7 @@ import {
 
 //Hooks
 import { clearUserDetails, setUserDetails } from "../../Redux/Slice/SignupUser";
-import { setOTP } from "../../Redux/Slice/Otp";
+import { clearOTP, setOTP } from "../../Redux/Slice/Otp";
 import ApiRequest from "../../services/httpService";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -178,15 +178,16 @@ const Signup = () => {
       };
       setLoader(true);
       try {
-        const { clinic, token } = await ApiRequest.post("/verifyotp", bodyData);
-        if (token) {
+        const { clinic, success } = await ApiRequest.post("/verifyotp", bodyData);
+        if (success) {
           setLoader(false);
-          setID(clinic?._id || null);
+          setID(clinic?._id)
           dispatch(clearOTP());
           return setStep((step) => step + 1);
         }
       } catch (error) {
         setLoader(false);
+        console.log(error);
         toast.error(error.response.data.error)
       }
     

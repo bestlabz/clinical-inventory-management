@@ -53,15 +53,20 @@ const AddDoctor = () => {
   const next = async () => {
     if (step === 1) {
       if (value.trim() !== "" && value.length >= 10) {
-        setLoader(true);
-        const { success } = await ApiRequest.post("/sendotp/receptionist", {
-          mobile_number: value,
-          clinicId: userDetails._id,
-        });
+        try {
+          setLoader(true);
+          const { success } = await ApiRequest.post("/sendotp/receptionist", {
+            mobile_number: value,
+            clinicId: userDetails._id,
+          });
 
-        if (success) {
+          if (success) {
+            setLoader(false);
+            return setStep((step) => step + 1);
+          }
+        } catch (error) {
           setLoader(false);
-          return setStep((step) => step + 1);
+          toast.error(error.response.data.message);
         }
       } else {
         return setErrorValidate(true);

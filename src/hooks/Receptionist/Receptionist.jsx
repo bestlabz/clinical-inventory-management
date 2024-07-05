@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ApiRequest from "../../services/httpService";
 import { setReceptionistTable } from "../../Redux/Slice/TableDatas";
 import toast from "react-hot-toast";
-import { setCurrentPage, setTotalCount } from "../../Redux/Slice/Pagination";
+import { setReceptionistsCurrentPage, setReceptionistsNextPage, setReceptionistsPrePage, setReceptionistsTotalCount } from "../../Redux/Slice/Pagination";
 
 const Doctors = () => {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const Doctors = () => {
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
-  const { currentPage: currentPages, totalCount: paginationCount } =
+  const { receptionistcurrentPage: currentPages, receptionisttotalCount: paginationCount } =
     useSelector((state) => state.Pagination);
 
 
@@ -42,8 +42,8 @@ const Doctors = () => {
         );
   
         if (success) {
-          dispatch(setCurrentPage(currentPage));
-          dispatch(setTotalCount(totalPages));
+          dispatch(setReceptionistsCurrentPage(currentPage));
+          dispatch(setReceptionistsTotalCount(totalPages));
           const tableData = receptionists.map((i) => {
             return {
               id: i._id,
@@ -120,18 +120,6 @@ const Doctors = () => {
     
   };
 
-
-  const next = () => {
-    if(  currentPages !== pageNumbers[pageNumbers.length - 1]) {
-      return dispatch(setNextPage());
-
-    }
-  };
-
-  const pre = () => {
-    return dispatch(setPrePage());
-  };
-
   const getPagesCut = ({ pagesCutCount = 2 }) => {
     const ceiling = Math.ceil(pagesCutCount / 2);
     const floor = Math.floor(pagesCutCount / 2);
@@ -153,11 +141,29 @@ const Doctors = () => {
     }
   };
 
+
   const { start, end } = getPagesCut({ pagesCutCount: 3 }); // Adjust pagesCutCount as needed
+
+
   const pageNumbers = Array.from(
     { length: end - start + 1 },
     (_, i) => start + i
   );
+
+
+  const next = () => {
+    if( currentPages !== pageNumbers[pageNumbers.length - 1]) {
+      return dispatch(setReceptionistsNextPage());
+
+    }
+  };
+
+  const pre = () => {
+    return dispatch(setReceptionistsPrePage());
+  };
+
+
+
 
   return {
     setselectedDate,

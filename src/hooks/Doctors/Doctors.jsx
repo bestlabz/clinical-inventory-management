@@ -7,10 +7,11 @@ import ApiRequest from "../../services/httpService";
 import { setDoctorTable } from "../../Redux/Slice/TableDatas";
 import toast from "react-hot-toast";
 import {
-  setCurrentPage,
-  setNextPage,
-  setPrePage,
-  setTotalCount,
+  setDoctorsCurrentPage,
+  setDoctorsNextPage,
+  setDoctorsPrePage,
+  setDoctorsTotalCount,
+
 } from "../../Redux/Slice/Pagination";
 
 const Doctors = () => {
@@ -33,7 +34,7 @@ const Doctors = () => {
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
-  const { currentPage: currentPages, totalCount: paginationCount } =
+  const { doctorscurrentPage: currentPages, doctorstotalCount: paginationCount } =
     useSelector((state) => state.Pagination);
 
   useEffect(() => {
@@ -56,8 +57,8 @@ const Doctors = () => {
         );
 
         if (success) {
-          dispatch(setCurrentPage(currentPage));
-          dispatch(setTotalCount(totalPages));
+          dispatch(setDoctorsCurrentPage(currentPage));
+          dispatch(setDoctorsTotalCount(totalPages));
           setCardValue({
             total_doctor: totalDoctorsCount,
             available_doctor: availableDoctorsCount,
@@ -136,13 +137,13 @@ const Doctors = () => {
 
   const next = () => {
     if(  currentPages !== pageNumbers[pageNumbers.length - 1]) {
-      return dispatch(setNextPage());
+      return dispatch(setDoctorsNextPage());
 
     }
   };
 
   const pre = () => {
-    return dispatch(setPrePage());
+    return dispatch(setDoctorsPrePage());
   };
 
   const getPagesCut = ({ pagesCutCount = 2 }) => {

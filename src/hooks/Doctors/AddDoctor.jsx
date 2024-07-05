@@ -54,16 +54,22 @@ const AddDoctor = () => {
     if (step === 1) {
       if (value.trim() !== "" && value.length >= 10) {
         setLoader(true);
-        const { success } = await ApiRequest.post("/sendotp/doctor", {
-          mobile_number: value,
-          clinicId: userDetails._id,
-        });
-
-        if (success) {
+        try {
+          const { success } = await ApiRequest.post("/sendotp/doctor", {
+            mobile_number: value,
+            clinicId: userDetails._id,
+          });
+  
+          if (success) {
+            setLoader(false);
+  
+            return setStep((step) => step + 1);
+          }
+        } catch (error) {
           setLoader(false);
-
-          return setStep((step) => step + 1);
+          toast.error(error.response.data.message);
         }
+      
       } else {
         setErrorValidate(true);
       }

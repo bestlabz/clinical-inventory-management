@@ -13,6 +13,7 @@ const PhoneNumber = ({ country = "in", value, setValue, err }) => {
           paddingLeft: "70px",
           width: "100%",
         }}
+        
         containerStyle={{
           display: "block",
           flexDirection: "column",
@@ -22,6 +23,7 @@ const PhoneNumber = ({ country = "in", value, setValue, err }) => {
         country={country}
         value={value}
         onChange={setValue}
+        enableSearch={true}
       />
 
 

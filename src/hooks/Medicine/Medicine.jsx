@@ -6,7 +6,7 @@ import ApiRequest from "../../services/httpService";
 import { useDispatch, useSelector } from "react-redux";
 import { setMedicineTable } from "../../Redux/Slice/TableDatas";
 import toast from "react-hot-toast";
-import { setCurrentPage, setTotalCount } from "../../Redux/Slice/Pagination";
+import { setMedicineCurrentPage, setMedicineNextPage, setMedicinePrePage, setMedicineTotalCount } from "../../Redux/Slice/Pagination";
 
 const Medicine = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Medicine = () => {
   const [dosageFormsOptions, setDosageFormsOptions] = useState([]);
   const [selectedFilter, setselectedFilter] = useState(null);
 
-  const { currentPage: currentPages, totalCount: paginationCount } =
+  const { medicinescurrentPage: currentPages, medicinestotalCount: paginationCount } =
     useSelector((state) => state.Pagination);
 
   useEffect(() => {
@@ -53,8 +53,8 @@ const Medicine = () => {
           await ApiRequest.get(`/medicines${filterQuery}`);
 
         if (success) {
-          dispatch(setCurrentPage(currentPage));
-          dispatch(setTotalCount(totalPages));
+          dispatch(setMedicineCurrentPage(currentPage));
+          dispatch(setMedicineTotalCount(totalPages));
           const tableData = medicines.map((i) => {
             return {
               medicine_name: i?.medicine_name || "",
@@ -117,12 +117,12 @@ const Medicine = () => {
 
   const next = () => {
     if (currentPages !== pageNumbers[pageNumbers.length - 1]) {
-      return dispatch(setNextPage());
+      return dispatch(setMedicineNextPage());
     }
   };
 
   const pre = () => {
-    return dispatch(setPrePage());
+    return dispatch(setMedicinePrePage());
   };
 
   const getPagesCut = ({ pagesCutCount = 2 }) => {

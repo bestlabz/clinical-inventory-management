@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import ApiRequest from "../../services/httpService";
 import { setPatientsTable } from "../../Redux/Slice/TableDatas";
 import toast from "react-hot-toast";
-import { setCurrentPage, setTotalCount } from "../../Redux/Slice/Pagination";
+import { setPatientsCurrentPage, setPatientsNextPage, setPatientsPrePage, setPatientsTotalCount } from "../../Redux/Slice/Pagination";
 
 const Dashboard = () => {
   const [selectedDate, setselectedDate] = useState();
   const [primaryLoader, setPrimaryLoader] = useState(true);
   const dispatch = useDispatch();
 
-  const { currentPage: currentPages, totalCount: paginationCount } =
+  const { patientscurrentPage: currentPages, patientstotalCount: paginationCount } =
     useSelector((state) => state.Pagination);
 
 
@@ -35,8 +35,8 @@ const Dashboard = () => {
         const { success, patients,currentPage, totalPages } = await ApiRequest.get(`/patients?appointment_date=${formattedDate}&page=${currentPages}`);
 
         if (success) {
-          dispatch(setCurrentPage(currentPage));
-          dispatch(setTotalCount(totalPages));
+          dispatch(setPatientsCurrentPage(currentPage));
+          dispatch(setPatientsTotalCount(totalPages));
           const tableData = patients.map((i) => {
             return {
               name: i?.name || "",
@@ -79,13 +79,13 @@ const Dashboard = () => {
 
   const next = () => {
     if(  currentPages !== pageNumbers[pageNumbers.length - 1]) {
-      return dispatch(setNextPage());
+      return dispatch(setPatientsNextPage());
 
     }
   };
 
   const pre = () => {
-    return dispatch(setPrePage());
+    return dispatch(setPatientsPrePage());
   };
 
   const getPagesCut = ({ pagesCutCount = 2 }) => {
