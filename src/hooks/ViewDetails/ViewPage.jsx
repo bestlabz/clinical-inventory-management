@@ -38,9 +38,7 @@ const ViewPage = ({ category, id }) => {
             );
 
             if (availability.success) {
-              return setTimeSlots(
-                availability.availabilities?.[0].availabilities
-              );
+              setTimeSlots(availability.availabilities?.[0].availabilities);
             }
 
             return dispatch(setDetails(doctors));
@@ -220,7 +218,9 @@ const ViewPage = ({ category, id }) => {
     { label: "Friday", value: "Friday" },
   ];
 
-  const filteredData = timeSlots?.filter((item) => item?.day === selectedDay?.value);
+  const filteredData = timeSlots?.filter(
+    (item) => item?.day === selectedDay?.value
+  );
 
   const result = filteredData?.reduce((acc, current) => {
     if (!acc.has(current?.day)) {
@@ -229,10 +229,11 @@ const ViewPage = ({ category, id }) => {
     acc.get(current?.day).push(...current?.slots);
     return acc;
   }, new Map());
-  
-  const TimeSlotsResult = Array.from(result?.entries()).map(([day, slots]) => ({ day, slots }));
-  
-  
+
+  const TimeSlotsResult = Array.from(result?.entries()).map(([day, slots]) => ({
+    day,
+    slots,
+  }));
 
   return {
     loader,
@@ -250,7 +251,7 @@ const ViewPage = ({ category, id }) => {
     Options,
     TimeSlotsResult,
     setSelectedDay,
-    selectedDay
+    selectedDay,
   };
 };
 

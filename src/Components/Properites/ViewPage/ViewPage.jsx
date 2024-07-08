@@ -39,6 +39,8 @@ const ViewPage = ({
 
   const { details } = useSelector((state) => state.DetailsPage);
 
+  console.log('details', details);
+
   const [detailsAction, setDetailsAction] = useState({
     id: "",
     value: "",

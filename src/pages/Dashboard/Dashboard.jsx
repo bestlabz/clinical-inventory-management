@@ -89,13 +89,6 @@ const Dashboard = () => {
                       handleDateSelect={setselectedDate}
                     />
                   </div>
-                  <div className="table-box-top-right-content-filter">
-                    <Select
-                      options={Options}
-                      styles={style}
-                      placeholder="Filter"
-                    />
-                  </div>
                 </div>
               </div>
             </div>
