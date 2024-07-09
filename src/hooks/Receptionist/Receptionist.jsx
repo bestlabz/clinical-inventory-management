@@ -88,9 +88,8 @@ const Doctors = () => {
   };
 
   const Options = [
-    { label: "All", value: "" },    
     { label: "Recently joined", value: "recently_joined" },
-    { label: "Receptionist on leave", value: "onleave" },
+    // { label: "Receptionist on leave", value: "onleave" },
   ];
 
 

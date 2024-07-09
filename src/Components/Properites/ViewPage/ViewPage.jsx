@@ -18,6 +18,7 @@ const ViewPage = ({
   id,
   category,
 }) => {
+
   const {
     loader,
     clear,
@@ -39,7 +40,7 @@ const ViewPage = ({
 
   const { details } = useSelector((state) => state.DetailsPage);
 
-  console.log('details', details);
+  const { userDetails } = useSelector((state) => state.userinfo);
 
   const [detailsAction, setDetailsAction] = useState({
     id: "",
@@ -286,7 +287,7 @@ const ViewPage = ({
                   placeholder="Select"
                   SelectedValue={setSelectedDay}
                   value={selectedDay}
-                  />
+                />
               </div>
 
               <div className="view-page-time-slot-container">
@@ -299,13 +300,40 @@ const ViewPage = ({
             </>
           )}
 
-          {!details?.verify && (
+          {category === "doctor" && (
+            <>
+              {details?.clinics
+                .filter((clinic) => clinic?.clinicId._id === userDetails?._id)
+                .map((item, index) => {
+                  return (
+                    !item?.verified && (
+                      <div
+                        className="flex items-center justify-center mt-16"
+                        key={index}
+                      >
+                        {verifyDoctor ? (
+                          <button className="bg-primary_color text-white w-[300px] py-3 rounded-lg">
+                            <ClipLoader color="#fff" size={20} />
+                          </button>
+                        ) : (
+                          <button
+                            onClick={setVerifyDoctor}
+                            className="bg-primary_color text-white w-[300px] py-3 rounded-lg"
+                          >
+                            Verify
+                          </button>
+                        )}
+                      </div>
+                    )
+                  );
+                })}
+            </>
+          )}
+
+          {category === "receptionist" && !details?.verify && (
             <div className="flex items-center justify-center mt-16">
               {verifyDoctor ? (
-                <button
-                  onClick={setVerifyDoctor}
-                  className="bg-primary_color text-white w-[300px] py-3 rounded-lg"
-                >
+                <button className="bg-primary_color text-white w-[300px] py-3 rounded-lg">
                   <ClipLoader color="#fff" size={20} />
                 </button>
               ) : (

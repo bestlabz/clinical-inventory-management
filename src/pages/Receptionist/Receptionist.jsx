@@ -97,6 +97,7 @@ const Receptionist = () => {
                         placeholder="Filter"
                         SelectedValue={setselectedFilter}
                         value={selectedFilter}
+                        clear={true}
                       />
                     </div>
                     <div className="table-box-top-right-content-filter-1">

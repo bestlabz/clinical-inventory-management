@@ -126,9 +126,8 @@ const Doctors = () => {
   };
 
   const Options = [
-    { label: "All", value: "" },
     { label: "Recently joined", value: "recently_joined" },
-    { label: "Doctors on leave", value: "onleave" },
+    // { label: "Verified", value: "verified" },
   ];
 
   const navigateAddDoctorPage = () => {

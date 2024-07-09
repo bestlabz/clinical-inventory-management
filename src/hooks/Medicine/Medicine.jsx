@@ -106,7 +106,7 @@ const Medicine = () => {
   };
 
   const Options = [
-    { label: "All", value: "" },
+    // { label: "All", value: "" },
     ...dosageFormsOptions,
     { label: "Out of stock", value: "OutOfStock" },
   ];

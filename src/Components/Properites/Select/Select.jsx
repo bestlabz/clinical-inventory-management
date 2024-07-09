@@ -1,7 +1,7 @@
 import React from "react";
 import Dropdown from "react-select";
 
-const Select = ({ options, value, SelectedValue, placeholder, styles, clear=true }) => {
+const Select = ({ options, value, SelectedValue, placeholder, styles, clear=false }) => {
   return (
     <>
       
@@ -18,6 +18,7 @@ const Select = ({ options, value, SelectedValue, placeholder, styles, clear=true
         onChange={SelectedValue}
         options={options}
         placeholder={placeholder}
+        isClearable={clear}
       />
     </>
   );

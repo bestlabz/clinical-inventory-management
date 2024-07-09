@@ -401,15 +401,15 @@
 
 
 .view-page-certificate-container {
-  @apply flex items-center gap-6  justify-between overflow-auto 2xl:w-[40%] xl:w-[40%] lg:w-[60%] md:w-[80%] sm:w-[80%] xs:w-[100%] mobile:w-[100%] xss:w-[100%]
+  @apply flex items-center gap-6  justify-around overflow-auto 2xl:w-[40%] xl:w-[40%] lg:w-[60%] md:w-[80%] sm:w-[80%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] 
 }
 
 .view-page-certificate-container-image {
-  @apply flex flex-col gap-3 2xl:w-[33%] xl:w-[33%] lg:w-[44%] md:w-[45%] sm:w-[45%] xs:w-[100%] mobile:w-[100%] xss:w-[100%]
+  @apply flex flex-col gap-3 2xl:w-[33%] xl:w-[33%] lg:w-[44%] md:w-[45%] sm:w-[45%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] 
 }
 
 .view-page-certificate-container-image-view {
-  @apply object-fill  rounded-lg overflow-hidden min-h-[250px] max-h-[250px] bg-gray-100
+  @apply object-fill  rounded-lg overflow-hidden min-h-[250px] max-h-[250px] bg-gray-200
 }
 
 .view-page-certificate-container-image-name-container {

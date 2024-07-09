@@ -36,12 +36,12 @@ const ViewPage = ({ category, id }) => {
             const availability = await ApiRequest.get(
               `/get/availability?clinicId=${userDetails._id}&doctorId=${id}`
             );
+            dispatch(setDetails(doctors));
 
             if (availability.success) {
               setTimeSlots(availability.availabilities?.[0].availabilities);
             }
-
-            return dispatch(setDetails(doctors));
+            return;
           }
         } catch (error) {
           setLoader(false);
@@ -121,6 +121,7 @@ const ViewPage = ({ category, id }) => {
       if (verifyDoctor) {
         if (category === "doctor" && id) {
           try {
+            console.log("userDetails?._id", userDetails?._id, id);
             const { success, message } = await ApiRequest.put(
               `/doctors/verify/clinic`,
               {
