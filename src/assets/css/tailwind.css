@@ -401,7 +401,7 @@
 
 
 .view-page-certificate-container {
-  @apply flex items-center gap-6  justify-around overflow-auto 2xl:w-[40%] xl:w-[40%] lg:w-[60%] md:w-[80%] sm:w-[80%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] 
+  @apply flex items-center gap-6  justify-between overflow-auto 2xl:w-[40%] xl:w-[40%] lg:w-[60%] md:w-[80%] sm:w-[80%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] 
 }
 
 .view-page-certificate-container-image {

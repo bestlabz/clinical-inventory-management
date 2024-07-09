@@ -48,11 +48,10 @@ const Receptionist = () => {
     pageNumbers,
     paginationCount,
     receptionistID,
-    setReceptionistID
+    setReceptionistID,
   } = ReceptionistFunction();
 
   const { receptionistTable } = useSelector((state) => state.TableDatas);
-
 
   return (
     <div className=" w-full h-[90%] px-3 py-[6px] overflow-auto">
@@ -113,14 +112,23 @@ const Receptionist = () => {
               </div>
               <div className=" mt-3 pb-3 overflow-auto w-full 2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[43%] xss:h-[43%] mobile:h-[43%]">
                 <Table
-                  headers={[
-                    { title: "S.No" },
-                    { title: "Receptionist name" },
-                    { title: "Status" },
-                    { title: "Action" },
-                    { title: "View" },
-
-                  ]}
+                  headers={() => {
+                    if (selectedFilter?.value === "recently_joined") {
+                      return [
+                        { title: "S.No" },
+                        { title: "Mobile Number" },
+                        { title: "Action" },
+                      ];
+                    } else {
+                      return [
+                        { title: "S.No" },
+                        { title: "Receptionist name" },
+                        { title: "Status" },
+                        { title: "Action" },
+                        { title: "View" },
+                      ];
+                    }
+                  }}
                   tableBody={receptionistTable}
                   tableName="Receptionist"
                   model={model}
@@ -131,16 +139,17 @@ const Receptionist = () => {
                   loader={loader}
                   setviewPage={setviewPage}
                   id={setReceptionistID}
+                  filtervalue={selectedFilter?.value}
                 />
               </div>
               <div className=" w-full  h-[10%] flex items-end justify-end pt-4 px-3  overflow-x-auto relative ">
-              <Paginitation
-                    currentpage={currentPages}
-                    PrePage={pre}
-                    nextPage={next}
-                    pageNumbers={pageNumbers}
-                    paginationCount={paginationCount}
-                  />
+                <Paginitation
+                  currentpage={currentPages}
+                  PrePage={pre}
+                  nextPage={next}
+                  pageNumbers={pageNumbers}
+                  paginationCount={paginationCount}
+                />
               </div>
             </div>
           )}

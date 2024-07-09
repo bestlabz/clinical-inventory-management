@@ -65,6 +65,7 @@ const Doctors = () => {
             leave_doctor: unavailableDoctorsCount,
           });
 
+
           const tableData = doctorAvailability.map((i) => ({
             id: i?.doctor?._id,
             doctor_name: i?.doctor?.name || "",
@@ -72,6 +73,7 @@ const Doctors = () => {
             availability: i?.availability !== "unavailable",
             status: i?.doctor.block,
             doctor_image: i?.doctor?.profile || null,
+            mobile_number: i?.doctor?.mobile_number
           }));
 
           setPrimaryLoader(false);

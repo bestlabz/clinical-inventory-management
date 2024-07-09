@@ -15,23 +15,36 @@ const Table = ({
   loader,
   setviewPage,
   id,
+  filtervalue
 }) => {
   const [details, setDetails] = useState({
     id: "",
     value: "",
   });
 
-  console.log("tableBody", tableBody);
+
+
   return (
     <>
       <table className="relative text-sm font-medium text-nowrap border-collapse font-poppins w-full ">
         <thead className=" text-[16px] font-semibold border-b-[2px] border-t-[2px] h-[10%] sticky z-30 top-0 bg-white">
           <tr>
-            {headers?.map((head, i) => (
+            {
+              tableName === "Doctor" ||  tableName === "Receptionist" ? <>
+               {headers()?.map((head, i) => (
               <td key={i} className={` text-start py-2 px-10`}>
                 {head?.title}
               </td>
             ))}
+              </> : <>
+              {headers?.map((head, i) => (
+              <td key={i} className={` text-start py-2 px-10`}>
+                {head?.title}
+              </td>
+            ))}
+              </>
+            }
+           
           </tr>
         </thead>
 
@@ -73,139 +86,210 @@ const Table = ({
               );
             }
             if (tableName === "Doctor") {
-              return (
-                <tr className="border-b font-medium text-start" key={i}>
-                  <td className={`py-2 px-10`}>{i + 1}</td>
-                  <td
-                    className={`py-2 px-10 flex items-center justify-start gap-3`}
-                  >
-                    <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
-                      {item.doctor_image && (
-                        <img
-                          src={item?.doctor_image}
-                          className="w-full h-full object-cover "
+              if(filtervalue === "recently_joined") { 
+                return (
+                  <tr className="border-b font-medium text-start" key={i}>
+                    <td className={`py-2 px-10`}>{i + 1}</td>
+                    <td
+                      className={`py-2 px-10 flex items-center justify-start gap-3`}
+                    >                      
+                      {item.mobile_number}
+                    </td>
+                    <td className={`py-2 `}>
+                      <div className=" flex items-center space-x-4">
+                        <p
+                          className={`${
+                            !item.status ? "text-red-400" : "text-gray-300"
+                          } font-semibold w-[60px] text-end`}
+                        >
+                          {item.status ? "UnBlock" : "Block"}
+                        </p>
+                        <Toggle
+                          checked={item.status}
+                          onChange={(e) => {
+                            setDetails({
+                              id: item.id,
+                              value: e,
+                            });
+                            setModel(!model);
+                          }}
                         />
-                      )}
-                    </div>
-                    {item.doctor_name}
-                  </td>
-                  <td className={`py-2 px-10 `}>
-                    <p className="text-dark_purple border-[2px] border-[#dfc5fd] bg-[#f0e5fd] rounded-full w-[100px] h-[25px] flex items-center justify-center">
-                      {item?.specialist}
-                    </p>
-                  </td>
-                  <td className={`py-2 px-10`}>
-                    {item?.availability ? (
-                      <p className="text-green_dark border-[2px] border-green-100 bg-green-50 rounded-full text-[14px] w-[80px] h-[25px] flex items-center justify-center">
-                        Available
-                      </p>
-                    ) : (
-                      <p className="text-orange_dark border-[1px] border-orange-200 bg-orange-100 rounded-full w-[80px] h-[25px] text-[14px] flex items-center justify-center">
-                        On leave
-                      </p>
-                    )}
-                  </td>
-                  <td className={`py-2 px-10`}>
-                    <div className=" flex items-center space-x-4">
-                      <p
-                        className={`${
-                          !item.status ? "text-red-400" : "text-gray-300"
-                        } font-semibold w-[60px] text-end`}
-                      >
-                        {item.status ? "UnBlock" : "Block"}
-                      </p>
-                      <Toggle
-                        checked={item.status}
-                        onChange={(e) => {
-                          setDetails({
-                            id: item.id,
-                            value: e,
-                          });
-                          setModel(!model);
-                        }}
-                      />
-                    </div>
-                  </td>
-                  <td className={`py-2 px-10`}>
-                    <div
-                      onClick={() => {
-                        id(item.id);
-                        setviewPage(true);
-                      }}
-                      className="flex items-center justify-start gap-6"
+                      </div>
+                    </td>
+                  </tr>
+                );
+              } else {
+                return (
+                  <tr className="border-b font-medium text-start" key={i}>
+                    <td className={`py-2 px-10`}>{i + 1}</td>
+                    <td
+                      className={`py-2 px-10 flex items-center justify-start gap-3`}
                     >
-                      <TbEye
-                        size={30}
-                        className="text-gray-300 hover:text-blue-400 cursor-pointer"
-                      />
-                    </div>
-                  </td>
-                </tr>
-              );
+                      <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
+                        {item.doctor_image && (
+                          <img
+                            src={item?.doctor_image}
+                            className="w-full h-full object-cover "
+                          />
+                        )}
+                      </div>
+                      {item.doctor_name}
+                    </td>
+                    <td className={`py-2 px-10 `}>
+                      <p className="text-dark_purple border-[2px] border-[#dfc5fd] bg-[#f0e5fd] rounded-full w-[100px] h-[25px] flex items-center justify-center">
+                        {item?.specialist}
+                      </p>
+                    </td>
+                    <td className={`py-2 px-10`}>
+                      {item?.availability ? (
+                        <p className="text-green_dark border-[2px] border-green-100 bg-green-50 rounded-full text-[14px] w-[80px] h-[25px] flex items-center justify-center">
+                          Available
+                        </p>
+                      ) : (
+                        <p className="text-orange_dark border-[1px] border-orange-200 bg-orange-100 rounded-full w-[80px] h-[25px] text-[14px] flex items-center justify-center">
+                          On leave
+                        </p>
+                      )}
+                    </td>
+                    <td className={`py-2 `}>
+                      <div className=" flex items-center space-x-4">
+                        <p
+                          className={`${
+                            !item.status ? "text-red-400" : "text-gray-300"
+                          } font-semibold w-[60px] text-end`}
+                        >
+                          {item.status ? "UnBlock" : "Block"}
+                        </p>
+                        <Toggle
+                          checked={item.status}
+                          onChange={(e) => {
+                            setDetails({
+                              id: item.id,
+                              value: e,
+                            });
+                            setModel(!model);
+                          }}
+                        />
+                      </div>
+                    </td>
+                    <td className={`py-2 px-10`}>
+                      <div
+                        onClick={() => {
+                          id(item.id);
+                          setviewPage(true);
+                        }}
+                        className="flex items-center justify-start gap-6"
+                      >
+                        <TbEye
+                          size={30}
+                          className="text-gray-300 hover:text-blue-400 cursor-pointer"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                );
+              }
+             
             }
             if (tableName === "Receptionist") {
-              return (
-                <tr className="border-b font-medium text-start" key={i}>
-                  <td className={`py-2 px-10`}>{i + 1}</td>
-                  <td
-                    className={`py-2 px-10 flex items-center justify-start gap-3`}
-                  >
-                    <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
-                      <img
-                        src={item?.receptionist_image}
-                        className="w-full h-full object-cover "
-                      />
-                    </div>
-                    {item.receptionist_name}
-                  </td>
-                  <td className={`py-2 px-10`}>
-                    {item?.availability ? (
-                      <p className="text-green_dark border-[2px] border-green-100 bg-green-50 rounded-full text-[14px] w-[80px] h-[25px] flex items-center justify-center">
-                        Available
-                      </p>
-                    ) : (
-                      <p className="text-orange_dark border-[1px] border-orange-200 bg-orange-100 rounded-full w-[80px] h-[25px] text-[14px] flex items-center justify-center">
-                        On leave
-                      </p>
-                    )}
-                  </td>
-                  <td className={`py-2 px-10`}>
-                    <div className=" flex items-center space-x-4">
-                      <p
-                        className={`${
-                          !item.status ? "text-red-400" : "text-gray-300"
-                        } font-semibold w-[60px] text-end`}
-                      >
-                        {item.status ? "UnBlock" : "Block"}
-                      </p>
-                      <Toggle
-                        checked={item.status}
-                        onChange={(e) => {
-                          setDetails({
-                            id: item.id,
-                            value: e,
-                          });
-                          setModel(!model);
-                        }}
-                      />
-                    </div>
-                  </td>
-                  <td className={`py-2 px-10`}>
-                    <div
-                      onClick={() => {
-                        id(item.id);
-                        setviewPage(true);
-                      }}
-                      className="flex items-center justify-start gap-6"
+              if(filtervalue === "recently_joined") {
+                return (
+                  <tr className="border-b font-medium text-start" key={i}>
+                    <td className={`py-2 px-10`}>{i + 1}</td>
+                    <td
+                      className={`py-2 px-10 flex items-center justify-start gap-3`}
+                    >                     
+                      {item.mobile_number}
+                    </td>
+                   
+                    <td className={`py-2`}>
+                      <div className=" flex items-center space-x-4">
+                        <p
+                          className={`${
+                            !item.status ? "text-red-400" : "text-gray-300"
+                          } font-semibold w-[60px] text-end`}
+                        >
+                          {item.status ? "UnBlock" : "Block"}
+                        </p>
+                        <Toggle
+                          checked={item.status}
+                          onChange={(e) => {
+                            setDetails({
+                              id: item.id,
+                              value: e,
+                            });
+                            setModel(!model);
+                          }}
+                        />
+                      </div>
+                    </td>                    
+                  </tr>
+                );
+              } else {
+                return (
+                  <tr className="border-b font-medium text-start" key={i}>
+                    <td className={`py-2 px-10`}>{i + 1}</td>
+                    <td
+                      className={`py-2 px-10 flex items-center justify-start gap-3`}
                     >
-                      <TbEye
-                        size={30}
-                        className="text-gray-300 hover:text-blue-400 cursor-pointer"
-                      />
-                    </div>
-                  </td>
-                </tr>
-              );
+                      <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
+                        <img
+                          src={item?.receptionist_image}
+                          className="w-full h-full object-cover "
+                        />
+                      </div>
+                      {item.receptionist_name}
+                    </td>
+                    <td className={`py-2 px-10`}>
+                      {item?.availability ? (
+                        <p className="text-green_dark border-[2px] border-green-100 bg-green-50 rounded-full text-[14px] w-[80px] h-[25px] flex items-center justify-center">
+                          Available
+                        </p>
+                      ) : (
+                        <p className="text-orange_dark border-[1px] border-orange-200 bg-orange-100 rounded-full w-[80px] h-[25px] text-[14px] flex items-center justify-center">
+                          On leave
+                        </p>
+                      )}
+                    </td>
+                    <td className={`py-2`}>
+                      <div className=" flex items-center space-x-4">
+                        <p
+                          className={`${
+                            !item.status ? "text-red-400" : "text-gray-300"
+                          } font-semibold w-[60px] text-end`}
+                        >
+                          {item.status ? "UnBlock" : "Block"}
+                        </p>
+                        <Toggle
+                          checked={item.status}
+                          onChange={(e) => {
+                            setDetails({
+                              id: item.id,
+                              value: e,
+                            });
+                            setModel(!model);
+                          }}
+                        />
+                      </div>
+                    </td>
+                    <td className={`py-2 px-10`}>
+                      <div
+                        onClick={() => {
+                          id(item.id);
+                          setviewPage(true);
+                        }}
+                        className="flex items-center justify-start gap-6"
+                      >
+                        <TbEye
+                          size={30}
+                          className="text-gray-300 hover:text-blue-400 cursor-pointer"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                );
+              }
+              
             }
             if (tableName === "Medicine") {
               return (

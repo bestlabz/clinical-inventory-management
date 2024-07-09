@@ -140,14 +140,25 @@ const Doctors = () => {
                 </div>
                 <div className=" mt-3 pb-3 overflow-auto w-full 2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[43%] xss:h-[43%] mobile:h-[43%]">
                   <Table
-                    headers={[
-                      { title: "S.No" },
-                      { title: "Doctor name" },
-                      { title: "Specialist" },
-                      { title: "Status" },
-                      { title: "Action" },
-                      { title: "View" },
-                    ]}
+                    headers={() => {
+                      if(selectedFilter?.value === "recently_joined") { 
+                        return [
+                          { title: "S.No" },
+                          { title: "Mobile Number" },
+                          { title: "Action" },
+                          
+                        ]
+                      } else {
+                        return [
+                          { title: "S.No" },
+                          { title: "Doctor name" },
+                          { title: "Specialist" },
+                          { title: "Status" },
+                          { title: "Action" },
+                          { title: "View" },
+                        ]
+                      }
+                    }}
                     tableBody={doctorTable}
                     tableName="Doctor"
                     model={model}
@@ -158,6 +169,7 @@ const Doctors = () => {
                     loader={loader}
                     setviewPage={setviewPage}
                     id={setDotorId}
+                    filtervalue={selectedFilter?.value}
                   />
                 </div>
                 <div className=" w-full h-[10%] flex items-end justify-end pt-4 px-3 overflow-x-auto relative">

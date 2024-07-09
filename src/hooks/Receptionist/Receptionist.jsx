@@ -52,6 +52,7 @@ const Doctors = () => {
                 i?.availability === "unavailable" ? false : true || false,
               receptionist_image: i?.profile || null,
               status: i?.block,
+              mobile_number: i?.mobile_number
             };
           });
           setPrimaryLoader(false);
