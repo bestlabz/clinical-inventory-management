@@ -145,7 +145,7 @@ const Doctors = () => {
                         return [
                           { title: "S.No" },
                           { title: "Mobile Number" },
-                          { title: "Action" },
+                          { title: "View" },
                           
                         ]
                       } else {

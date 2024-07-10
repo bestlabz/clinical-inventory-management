@@ -28,13 +28,13 @@ const Doctors = () => {
   const { receptionistcurrentPage: currentPages, receptionisttotalCount: paginationCount } =
     useSelector((state) => state.Pagination);
 
-
   useEffect(() => {
     const fetchData = async ({filter, page}) => {
       try {
+        dispatch(setReceptionistTable([]));
         const filterQuery = filter
         ? `?${filter}=true&page=${page}`
-        : `?page=${page}`;
+        : `?page=${page}&verify=true`;
 
         const { success, receptionists,  currentPage,
           totalPages, } = await ApiRequest.get(
@@ -54,7 +54,7 @@ const Doctors = () => {
               status: i?.block,
               mobile_number: i?.mobile_number
             };
-          });
+          })
           setPrimaryLoader(false);
           dispatch(setReceptionistTable(tableData));
           return;
@@ -63,6 +63,7 @@ const Doctors = () => {
         }
       } catch (error) {
         setPrimaryLoader(false);
+        dispatch(setReceptionistTable([]));
         toast.error(error.response.data.message);
       }
     };
@@ -70,8 +71,8 @@ const Doctors = () => {
     const API = async () => {
       if (!selectedFilter || selectedFilter?.value === "") {
         await fetchData({ page: currentPages });
-      } else if (selectedFilter?.value === "onleave") {
-        await fetchData({ filter: "onleave", page: currentPages });
+      } else if (selectedFilter?.value === "verify") {
+        await fetchData({ filter: "verify", page: currentPages });
       } else if (selectedFilter?.value === "recently_joined") {
         await fetchData({ filter: "recently_joined", page: currentPages });
       }
@@ -90,7 +91,7 @@ const Doctors = () => {
 
   const Options = [
     { label: "Recently joined", value: "recently_joined" },
-    // { label: "Receptionist on leave", value: "onleave" },
+    { label: "Verified", value: "verify" },
   ];
 
 

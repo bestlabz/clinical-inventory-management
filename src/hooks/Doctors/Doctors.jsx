@@ -40,9 +40,10 @@ const Doctors = () => {
   useEffect(() => {
     const fetchData = async ({ filter, page }) => {
       try {
+        dispatch(setDoctorTable([]));
         const filterQuery = filter
           ? `?${filter}=true&page=${page}`
-          : `?page=${page}`;
+          : `?page=${page}&verify=true`;
 
         const {
           success,
@@ -83,6 +84,7 @@ const Doctors = () => {
         }
       } catch (error) {
         setPrimaryLoader(false);
+        dispatch(setDoctorTable([]));
         toast.error(error.response.data.error);
       }
     };
@@ -90,8 +92,8 @@ const Doctors = () => {
     const API = async () => {
       if (!selectedFilter || selectedFilter?.value === "") {
         await fetchData({ page: currentPages });
-      } else if (selectedFilter?.value === "onleave") {
-        await fetchData({ filter: "onleave", page: currentPages });
+      } else if (selectedFilter?.value === "verify") {
+        await fetchData({ filter: "verify", page: currentPages });
       } else if (selectedFilter?.value === "recently_joined") {
         await fetchData({ filter: "recently_joined", page: currentPages });
       }
@@ -129,7 +131,7 @@ const Doctors = () => {
 
   const Options = [
     { label: "Recently joined", value: "recently_joined" },
-    // { label: "Verified", value: "verified" },
+    { label: "Verified", value: "verify" },
   ];
 
   const navigateAddDoctorPage = () => {

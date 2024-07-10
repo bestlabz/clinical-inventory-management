@@ -7,7 +7,7 @@ const config = {
     extend: {
       backgroundImage: {
         'custom-bg': "url('/BackgroundFrame.png')", 
-        'clinic-bg': "url('/ClinicImage.png')", 
+        'clinic-bg': "url('/logo.jpg')", 
 
       },
 

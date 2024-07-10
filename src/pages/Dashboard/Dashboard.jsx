@@ -52,18 +52,18 @@ const Dashboard = () => {
           >
             <Card
               title={TranslateJson.dashboard.card.text1}
-              count="104"
+              count="0"
               bg="#0073EE"
               textColor="#fff"
             />
             <Card
               title={TranslateJson.dashboard.card.text2}
-              count="24"
+              count="0"
               textColor="#000"
             />
             <Card
               title={TranslateJson.dashboard.card.text3}
-              count="24"
+              count="0"
               textColor="#000"
             />
           </div>
@@ -100,7 +100,7 @@ const Dashboard = () => {
                   { title: "Doctor name" },
                   { title: "Specialist" },
                   { title: "Appointment time" },
-                  { title: "View" },
+                  // { title: "View" },
                 ]}
                 tableBody={patientsTable}
                 tableName="Patients"

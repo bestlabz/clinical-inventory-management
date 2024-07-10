@@ -7,6 +7,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import ViewPageFunction from "../../../hooks/ViewDetails/ViewPage";
 import { useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
+import { FaFileImage } from "react-icons/fa";
 
 import ModelResponsive from "./ModelResponsive";
 import Select from "../Select/Select";
@@ -18,7 +19,6 @@ const ViewPage = ({
   id,
   category,
 }) => {
-
   const {
     loader,
     clear,
@@ -31,10 +31,6 @@ const ViewPage = ({
     verifyCertificate,
     setVerifyDoctor,
     verifyDoctor,
-    style,
-    Options,
-    selectedDay,
-    setSelectedDay,
     TimeSlotsResult,
   } = ViewPageFunction({ category, id });
 
@@ -195,26 +191,73 @@ const ViewPage = ({
               <>
                 <div className="view-page-certificate-container-image">
                   <img
+                    onClick={() =>
+                      window.open(details?.postgraduate_certificate, "_blank")
+                    }
                     src={details?.postgraduate_certificate || ""}
                     className="view-page-certificate-container-image-view"
                   />
-                  <div className="view-page-certificate-container-image-name-container">
-                    <BiSolidFilePdf color="#FF2D00" size={40} />
-                    <p className="view-page-certificate-container-image-name">
-                      <span className="text-[13px] ">certificate1.pdf</span>
-                      {/* <span className="text-[12px] text-gray-400 ">200KB</span> */}
-                    </p>
+                  <div
+                    onClick={() =>
+                      window.open(details?.postgraduate_certificate, "_blank")
+                    }
+                    className="view-page-certificate-container-image-name-container"
+                  >
+                    {details?.postgraduate_certificate?.split(".")?.pop() ===
+                    "pdf" ? (
+                      <BiSolidFilePdf color="#d8d8d8" size={40} />
+                    ) : (
+                      <FaFileImage color="#d8d8d8" size={40} />
+                    )}
+                    <span className="text-[13px] ">
+                      {details?.postgraduate_certificate &&
+                      details.postgraduate_certificate.split("/").pop().length >
+                        10
+                        ? details.postgraduate_certificate
+                            .split("/")
+                            .pop()
+                            .substring(0, 15) +
+                          "." +
+                          details?.postgraduate_certificate?.split(".")?.pop()
+                        : details?.postgraduate_certificate.split("/").pop()}
+                    </span>
                   </div>
                 </div>
                 <div className="view-page-certificate-container-image">
                   <img
+                    onClick={() =>
+                      window.open(details?.undergraduate_certificate, "_blank")
+                    }
                     src={details?.undergraduate_certificate || ""}
                     className="view-page-certificate-container-image-view"
                   />
-                  <div className="view-page-certificate-container-image-name-container">
-                    <BiSolidFilePdf color="#FF2D00" size={40} />
+                  <div
+                    onClick={() =>
+                      window.open(details?.undergraduate_certificate, "_blank")
+                    }
+                    className="view-page-certificate-container-image-name-container"
+                  >
+                    {details?.undergraduate_certificate?.split(".")?.pop() ===
+                    "pdf" ? (
+                      <BiSolidFilePdf color="#d8d8d8" size={40} />
+                    ) : (
+                      <FaFileImage color="#d8d8d8" size={40} />
+                    )}
                     <p className="view-page-certificate-container-image-name">
-                      <span className="text-[13px] ">certificate2.pdf</span>
+                      <span className="text-[13px] ">
+                        {details?.undergraduate_certificate &&
+                        details.undergraduate_certificate.split("/").pop()
+                          .length > 10
+                          ? details.undergraduate_certificate
+                              .split("/")
+                              .pop()
+                              .substring(0, 15) +
+                            "." +
+                            details?.undergraduate_certificate
+                              ?.split(".")
+                              ?.pop()
+                          : details?.undergraduate_certificate.split("/").pop()}
+                      </span>
                       {/* <span className="text-[12px] text-gray-400 ">200KB</span> */}
                     </p>
                   </div>
@@ -223,14 +266,42 @@ const ViewPage = ({
             ) : (
               <>
                 <div className="view-page-certificate-container-image">
-                  <img
-                    src={details?.certificate || ""}
-                    className="view-page-certificate-container-image-view"
-                  />
-                  <div className="view-page-certificate-container-image-name-container">
-                    <BiSolidFilePdf color="#FF2D00" size={40} />
+                  {details?.certificate?.split(".")?.pop() === "pdf" ? (
+                    <div onClick={() =>
+                      window.open(details?.certificate, "_blank")
+                    } className="view-page-certificate-container-image-view flex items-center justify-center">
+                      <BiSolidFilePdf color="#FF2D00" size={60} />
+                    </div>
+                  ) : (
+                    <img
+                      onClick={() =>
+                        window.open(details?.certificate, "_blank")
+                      }
+                      src={details?.certificate || ""}
+                      className="view-page-certificate-container-image-view"
+                    />
+                  )}
+                  <div
+                    onClick={() => window.open(details?.certificate, "_blank")}
+                    className="view-page-certificate-container-image-name-container"
+                  >
+                    {details?.certificate?.split(".")?.pop() === "pdf" ? (
+                      <BiSolidFilePdf color="#d8d8d8" size={40} />
+                    ) : (
+                      <FaFileImage color="#d8d8d8" size={40} />
+                    )}
                     <p className="view-page-certificate-container-image-name">
-                      <span className="text-[13px] ">certificate2.pdf</span>
+                      <span className="text-[13px] ">
+                        {details?.certificate &&
+                        details.certificate.split("/").pop().length > 10
+                          ? details.certificate
+                              .split("/")
+                              .pop()
+                              .substring(0, 15) +
+                            "." +
+                            details?.certificate?.split(".")?.pop()
+                          : details?.certificate.split("/").pop()}
+                      </span>
                       {/* <span className="text-[12px] text-gray-400 ">200KB</span> */}
                     </p>
                   </div>
@@ -239,27 +310,7 @@ const ViewPage = ({
             )}
           </div>
 
-          {category === "doctor" &&
-            !details?.postgraduate_certificate_verify &&
-            !details?.undergraduate_certificate_verify && (
-              <div className="certificate-verify-button-container">
-                {/* <button className="certificate-verify-button">Reject</button> */}
-                {verifyCertificate ? (
-                  <button className="certificate-verify-button2">
-                    <ClipLoader color="#fff" size={20} />
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => setVerifyCertificate(true)}
-                    className="certificate-verify-button2"
-                  >
-                    Verify
-                  </button>
-                )}
-              </div>
-            )}
-
-          {category === "receptionist" && !details?.certificate_verify && (
+          {category === "doctor" && (
             <div className="certificate-verify-button-container">
               {/* <button className="certificate-verify-button">Reject</button> */}
               {verifyCertificate ? (
@@ -268,28 +319,61 @@ const ViewPage = ({
                 </button>
               ) : (
                 <button
-                  onClick={() => setVerifyCertificate(true)}
-                  className="certificate-verify-button2"
+                  onClick={() =>
+                    !details?.postgraduate_certificate_verify &&
+                    !details?.undergraduate_certificate_verify &&
+                    setVerifyCertificate(true)
+                  }
+                  className={`certificate-verify-button2 ${
+                    !details?.postgraduate_certificate_verify &&
+                    !details?.undergraduate_certificate_verify
+                      ? "bg-primary_color"
+                      : "bg-gray-400"
+                  }`}
+                  disabled={
+                    !details?.postgraduate_certificate_verify &&
+                    !details?.undergraduate_certificate_verify
+                      ? false
+                      : true
+                  }
                 >
-                  Verify
+                  {!details?.postgraduate_certificate_verify &&
+                  !details?.undergraduate_certificate_verify
+                    ? "Verify"
+                    : "Verified"}
                 </button>
               )}
             </div>
           )}
+
+          {category === "receptionist" && (
+            <div className="certificate-verify-button-container">
+              {/* <button className="certificate-verify-button">Reject</button> */}
+              {verifyCertificate ? (
+                <button className="certificate-verify-button2">
+                  <ClipLoader color="#fff" size={20} />
+                </button>
+              ) : (
+                <button
+                  onClick={() =>
+                    !details?.certificate_verify && setVerifyCertificate(true)
+                  }
+                  className={`certificate-verify-button2 ${
+                    !details?.certificate_verify
+                      ? "bg-primary_color"
+                      : "bg-gray-400"
+                  }`}
+                  disabled={!details?.certificate_verify ? false : true}
+                >
+                  {!details?.certificate_verify ? "Verify" : "Verified"}
+                </button>
+              )}
+            </div>
+          )}
+
           {category === "doctor" && (
             <>
-              <div className="flex items-start justify-start mt-6 mb-2 2xl:w-[40%] xl:w-[40%] lg:w-[80%] md:w-[80%] sm:w-[80%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col 2xl:space-x-16 xl:space-x-16  lg:space-x-16  md:space-x-16  sm:space-x-16 xs:space-x-0  mobile:space-x-0  xss:space-x-0 ">
-                <h1 className="text-[24px] font-bold ">Schedule</h1>
-
-                <Select
-                  styles={style}
-                  options={Options}
-                  placeholder="Select"
-                  SelectedValue={setSelectedDay}
-                  value={selectedDay}
-                />
-              </div>
-
+              <h1 className="text-[24px] font-bold ">Schedule</h1>
               <div className="view-page-time-slot-container">
                 {TimeSlotsResult?.[0]?.slots?.map((item, index) => (
                   <p key={index} className="view-page-time-slot">
@@ -303,34 +387,50 @@ const ViewPage = ({
           {category === "doctor" && (
             <>
               {details?.clinics
-                .filter((clinic) => clinic?.clinicId._id === userDetails?._id)
+                ?.filter((clinic) => clinic?.clinicId._id === userDetails?._id)
                 .map((item, index) => {
                   return (
-                    !item?.verified && (
-                      <div
-                        className="flex items-center justify-center mt-16"
-                        key={index}
-                      >
-                        {verifyDoctor ? (
-                          <button className="bg-primary_color text-white w-[300px] py-3 rounded-lg">
-                            <ClipLoader color="#fff" size={20} />
-                          </button>
-                        ) : (
-                          <button
-                            onClick={setVerifyDoctor}
-                            className="bg-primary_color text-white w-[300px] py-3 rounded-lg"
-                          >
-                            Verify
-                          </button>
-                        )}
-                      </div>
-                    )
+                    <div
+                      className="flex items-center justify-center mt-16"
+                      key={index}
+                    >
+                      {verifyDoctor ? (
+                        <button className="bg-primary_color text-white w-[300px] py-3 rounded-lg">
+                          <ClipLoader color="#fff" size={20} />
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() =>
+                            details?.postgraduate_certificate_verify &&
+                            details?.undergraduate_certificate_verify &&
+                            !item?.verified &&
+                            setVerifyDoctor(true)
+                          }
+                          className={`${
+                            details?.postgraduate_certificate_verify &&
+                            details?.undergraduate_certificate_verify &&
+                            !item?.verified
+                              ? "bg-primary_color"
+                              : "bg-gray-400"
+                          } text-white w-[300px] py-3 rounded-lg`}
+                          disabled={
+                            details?.postgraduate_certificate_verify &&
+                            details?.undergraduate_certificate_verify &&
+                            !item?.verified
+                              ? false
+                              : true
+                          }
+                        >
+                          {!item?.verified ? "Verify" : "Verified"}
+                        </button>
+                      )}
+                    </div>
                   );
                 })}
             </>
           )}
-
-          {category === "receptionist" && !details?.verify && (
+          {/* !details?.verify */}
+          {category === "receptionist" && (
             <div className="flex items-center justify-center mt-16">
               {verifyDoctor ? (
                 <button className="bg-primary_color text-white w-[300px] py-3 rounded-lg">
@@ -338,10 +438,25 @@ const ViewPage = ({
                 </button>
               ) : (
                 <button
-                  onClick={setVerifyDoctor}
-                  className="bg-primary_color text-white w-[300px] py-3 rounded-lg"
+                  onClick={() =>
+                    details?.certificate_verify &&
+                    !details?.verify &&
+                    setVerifyDoctor(true)
+                  }
+                  className={`${
+                    details?.certificate_verify && !details?.verify
+                      ? "bg-primary_color"
+                      : "bg-gray-400"
+                  } text-white w-[300px] py-3 rounded-lg`}
+                  disabled={
+                    details?.certificate_verify && !details?.verify
+                      ? false
+                      : true
+                  }
                 >
-                  Verify
+                  {details?.certificate_verify && !details?.verify
+                    ? "Verify"
+                    : "Verified"}
                 </button>
               )}
             </div>

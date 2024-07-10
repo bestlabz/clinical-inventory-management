@@ -17,10 +17,6 @@ const ViewPage = ({ category, id }) => {
   const [verifyCertificate, setVerifyCertificate] = useState(false);
   const [verifyDoctor, setVerifyDoctor] = useState(false);
   const [timeSlots, setTimeSlots] = useState([]);
-  const [selectedDay, setSelectedDay] = useState({
-    label: "Monday",
-    value: "Monday",
-  });
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
@@ -39,7 +35,12 @@ const ViewPage = ({ category, id }) => {
             dispatch(setDetails(doctors));
 
             if (availability.success) {
-              setTimeSlots(availability.availabilities?.[0].availabilities);
+              const availabilityDatas = [...availability.availabilities?.[0].availabilities]
+
+              const today = new Date().toISOString().split('T')[0];
+              const filteredData = availabilityDatas.filter(item => item.date.startsWith(today));
+
+              setTimeSlots(filteredData);
             }
             return;
           }
@@ -219,23 +220,7 @@ const ViewPage = ({ category, id }) => {
     { label: "Friday", value: "Friday" },
   ];
 
-  const filteredData = timeSlots?.filter(
-    (item) => item?.day === selectedDay?.value
-  );
-
-  const result = filteredData?.reduce((acc, current) => {
-    if (!acc.has(current?.day)) {
-      acc.set(current?.day, []);
-    }
-    acc.get(current?.day).push(...current?.slots);
-    return acc;
-  }, new Map());
-
-  const TimeSlotsResult = Array.from(result?.entries()).map(([day, slots]) => ({
-    day,
-    slots,
-  }));
-
+  
   return {
     loader,
     model,
@@ -250,9 +235,7 @@ const ViewPage = ({ category, id }) => {
     verifyDoctor,
     style,
     Options,
-    TimeSlotsResult,
-    setSelectedDay,
-    selectedDay,
+    TimeSlotsResult: timeSlots,
   };
 };
 

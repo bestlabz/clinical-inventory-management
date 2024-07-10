@@ -93,11 +93,17 @@ const Sidebar = ({ children }) => {
           <div className="profile">
             {sidebarStatus && (
               <div className="profile-content 2xl:flex xl:flex lg:flex md:flex sm:flex xs:hidden xss:hidden mobile:hidden">
+               <div className="w-[35px] h-[35px] rounded-full overflow-hidden border-[1px] border-white">
+                {
+                  userDetails?.profile &&
                 <img
-                  className="w-[35px] h-[35px] rounded-full object-cover 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREoRGyXmHy_6aIgXYqWHdOT3KjfmnuSyxypw&s"
+                  className=" w-full h-full object-cover 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden"
+                  src=""
                   alt="profile"
-                />
+                  />
+                }
+
+                  </div>
                 <div className="profile-details">
                   <span className="profile-details-name">
                     {userDetails?.name || ""}

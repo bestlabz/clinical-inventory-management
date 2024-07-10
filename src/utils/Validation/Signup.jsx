@@ -27,10 +27,10 @@ export const SignupDetails = yup.object().shape({
       .mixed()
       .nullable()
       .required("Document is required")
-      .test("fileFormat", "Only image files are allowed", (value) => {
+      .test("fileFormat", "Only image or PDF files are allowed", (value) => {
         if (value) {
           const fileType = value.type.split("/")[0];
-          return fileType === "image";
+          return fileType === "image"  || fileType === "application";
         }
         return true;
       })

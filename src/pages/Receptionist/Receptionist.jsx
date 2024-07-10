@@ -117,7 +117,7 @@ const Receptionist = () => {
                       return [
                         { title: "S.No" },
                         { title: "Mobile Number" },
-                        { title: "Action" },
+                        { title: "View" },
                       ];
                     } else {
                       return [

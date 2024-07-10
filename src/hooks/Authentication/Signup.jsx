@@ -119,12 +119,19 @@ const Signup = () => {
       if (id) {
         const baseURL = import.meta.env.VITE_APP_API_BASE_URL
         setLoader(true);
-        const { data } = await axios.put(`${baseURL}/clinics/${id}`, formData);
-        if (data.success) {
+        try {
+          const { data } = await axios.put(`${baseURL}/clinics/${id}`, formData);
+          if (data.success) {
+            setLoader(false);
+            dispatch(clearUserDetails());
+            return navigate("/login");
+          }
+        } catch (error) {
           setLoader(false);
-          dispatch(clearUserDetails());
-          return navigate("/login");
+          console.log('error', error);
+          toast.error(error.response.data.message);
         }
+      
       } else {
         toast.error("Invalid ID");
         setTimeout(() => {
