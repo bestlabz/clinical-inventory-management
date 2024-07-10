@@ -66,7 +66,7 @@ const AddDoctor = () => {
           }
         } catch (error) {
           setLoader(false);
-          toast.error(error.response.data.message);
+          toast.error(error.response.data.error);
         }
       } else {
         return setErrorValidate(true);

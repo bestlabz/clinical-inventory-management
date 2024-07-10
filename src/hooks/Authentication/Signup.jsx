@@ -88,7 +88,7 @@ const Signup = () => {
         }
       } catch (error) {
         setLoader(false)
-        toast.error(error.response.data.message)
+        toast.error(error.response.data.error)
       }
      
     }
@@ -129,7 +129,7 @@ const Signup = () => {
         } catch (error) {
           setLoader(false);
           console.log('error', error);
-          toast.error(error.response.data.message);
+          toast.error(error.response.data.error);
         }
       
       } else {
