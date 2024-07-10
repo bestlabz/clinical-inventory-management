@@ -211,15 +211,15 @@ const ViewPage = ({
                     )}
                     <span className="text-[13px] ">
                       {details?.postgraduate_certificate &&
-                      details.postgraduate_certificate.split("/").pop().length >
-                        10
-                        ? details.postgraduate_certificate
+                      details?.postgraduate_certificate?.split("/").pop()
+                        .length > 10
+                        ? details?.postgraduate_certificate
                             .split("/")
                             .pop()
                             .substring(0, 15) +
                           "." +
                           details?.postgraduate_certificate?.split(".")?.pop()
-                        : details?.postgraduate_certificate.split("/").pop()}
+                        : details?.postgraduate_certificate?.split("/").pop()}
                     </span>
                   </div>
                 </div>
@@ -246,17 +246,19 @@ const ViewPage = ({
                     <p className="view-page-certificate-container-image-name">
                       <span className="text-[13px] ">
                         {details?.undergraduate_certificate &&
-                        details.undergraduate_certificate.split("/").pop()
+                        details?.undergraduate_certificate?.split("/").pop()
                           .length > 10
-                          ? details.undergraduate_certificate
-                              .split("/")
+                          ? details?.undergraduate_certificate
+                              ?.split("/")
                               .pop()
                               .substring(0, 15) +
                             "." +
                             details?.undergraduate_certificate
                               ?.split(".")
                               ?.pop()
-                          : details?.undergraduate_certificate.split("/").pop()}
+                          : details?.undergraduate_certificate
+                              ?.split("/")
+                              .pop()}
                       </span>
                       {/* <span className="text-[12px] text-gray-400 ">200KB</span> */}
                     </p>
@@ -267,9 +269,12 @@ const ViewPage = ({
               <>
                 <div className="view-page-certificate-container-image">
                   {details?.certificate?.split(".")?.pop() === "pdf" ? (
-                    <div onClick={() =>
-                      window.open(details?.certificate, "_blank")
-                    } className="view-page-certificate-container-image-view flex items-center justify-center">
+                    <div
+                      onClick={() =>
+                        window.open(details?.certificate, "_blank")
+                      }
+                      className="view-page-certificate-container-image-view flex items-center justify-center"
+                    >
                       <BiSolidFilePdf color="#FF2D00" size={60} />
                     </div>
                   ) : (
@@ -293,14 +298,13 @@ const ViewPage = ({
                     <p className="view-page-certificate-container-image-name">
                       <span className="text-[13px] ">
                         {details?.certificate &&
-                        details.certificate.split("/").pop().length > 10
-                          ? details.certificate
-                              .split("/")
+                        details?.certificate?.split("/").pop().length > 10
+                          ? details?.certificate?.split("/")
                               .pop()
                               .substring(0, 15) +
                             "." +
                             details?.certificate?.split(".")?.pop()
-                          : details?.certificate.split("/").pop()}
+                          : details?.certificate?.split("/").pop()}
                       </span>
                       {/* <span className="text-[12px] text-gray-400 ">200KB</span> */}
                     </p>
@@ -320,17 +324,20 @@ const ViewPage = ({
               ) : (
                 <button
                   onClick={() =>
+                    details?.details &&
                     !details?.postgraduate_certificate_verify &&
                     !details?.undergraduate_certificate_verify &&
                     setVerifyCertificate(true)
                   }
                   className={`certificate-verify-button2 ${
+                    details?.details &&
                     !details?.postgraduate_certificate_verify &&
                     !details?.undergraduate_certificate_verify
                       ? "bg-primary_color"
                       : "bg-gray-400"
                   }`}
                   disabled={
+                    details?.details &&
                     !details?.postgraduate_certificate_verify &&
                     !details?.undergraduate_certificate_verify
                       ? false
@@ -356,14 +363,20 @@ const ViewPage = ({
               ) : (
                 <button
                   onClick={() =>
-                    !details?.certificate_verify && setVerifyCertificate(true)
+                    details?.details &&
+                    !details?.certificate_verify &&
+                    setVerifyCertificate(true)
                   }
                   className={`certificate-verify-button2 ${
-                    !details?.certificate_verify
+                    details?.details && !details?.certificate_verify
                       ? "bg-primary_color"
                       : "bg-gray-400"
                   }`}
-                  disabled={!details?.certificate_verify ? false : true}
+                  disabled={
+                    details?.details && !details?.certificate_verify
+                      ? false
+                      : true
+                  }
                 >
                   {!details?.certificate_verify ? "Verify" : "Verified"}
                 </button>
