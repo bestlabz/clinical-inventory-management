@@ -58,8 +58,10 @@ const Signup = () => {
                 setValue={(e) => {
                   if (!/^\d*$/.test(e.target.value)) {
                     return; // If not a digit, return without updating the state
+                  } else {
+                    handleChange(e);
+
                   }
-                  handleChange(e);
                 }}
                 length={10}
                 label={TranslateJson.signup.step1.label}

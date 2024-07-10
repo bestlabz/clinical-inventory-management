@@ -54,8 +54,10 @@ const Login = () => {
                 setValue={(e) => {
                   if (!/^\d*$/.test(e.target.value)) {
                     return; // If not a digit, return without updating the state
+                  }else {
+                    handleChange(e);
+
                   }
-                  handleChange(e);
                 }}
                 err={errors.phone_number}
                 length={10}

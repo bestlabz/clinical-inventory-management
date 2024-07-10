@@ -102,7 +102,7 @@ const ImageInput = ({
         </div>
         <div>
           <span className="text-xs text-secondary_text font-medium">
-            SVG, PNG and JPG
+            SVG, PNG, JPG and PDF
           </span>
         </div>
       </div>
