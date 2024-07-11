@@ -51,7 +51,6 @@ const Dashboard = () => {
           return;
         }
       } catch (error) {
-        console.log('ee', error)
         setPrimaryLoader(false);
         toast.error(error.response.data.message)
         

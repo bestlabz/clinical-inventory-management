@@ -1,22 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addHeader,
-  addMain,
+  setAddHeader,
+  setAddMain,
   setClinicDetails,
   setClinicLogo,
   setDoctorDetails,
-  setUpdateClinicValues,
-  setUpdateDoctorValues,
-  updateAllHeader,
-  updateAllMain,
-  updateHeader,
-  updateMain,
+  setUpdateFeild,
 } from "../../Redux/Slice/Prescription";
+import toast from "react-hot-toast";
 
-const rightSide = () => {
+import axios from "axios";
+
+const rightSide = ({ setReFetch }) => {
   const ImageInputRef = useRef(null);
-  const disatch = useDispatch();
+  const dispatch = useDispatch();
   // const [base64Image, setBase64Image] = useState(null);
   const [colorChange, setColorChange] = useState("");
   const [colorOptions, setcolorOptions] = useState([
@@ -32,288 +30,278 @@ const rightSide = () => {
     "#BDFF00",
   ]);
   const [selectedColor, setSelectedColor] = useState("");
-
   const [openModel, setOpenModel] = useState(false);
-
-  const [updates, setUpdates] = useState(null);
   const [selectedKey, setselectedKey] = useState("");
   const [selectedFont, setselectedFont] = useState(null);
   const [selectedweight, setselectedWeight] = useState(null);
   const [selectedsize, setselectedSize] = useState(null);
-  const [change, setchange] = useState(null);
-  const [change1, setchange1] = useState(null);
-  const [change2, setchange2] = useState(null);
+  const [updateValue, setUpdateValue] = useState("");
+  const [oldData, setOldData] = useState(null);
+  const [loader, setLoader] = useState(false);
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageLoader, setImageLoader] = useState(false)
+
 
   const { clinicDetails, doctorDetails, headerDetails, mainDetails } =
     useSelector((state) => state.PrescriptionDetails);
 
+  const { userDetails } = useSelector((state) => state.userinfo);
+
   useEffect(() => {
-    if (colorChange) {
-      if (colorChange === "clinicDetails") {
-        setselectedKey(Object.keys(clinicDetails)[0]);
-        return setUpdates(clinicDetails);
-      }
-      if (colorChange === "doctorDetails") {
-        setselectedKey(Object.keys(doctorDetails)[0]);
-        return setUpdates(doctorDetails);
-      }
-      if (colorChange === "headerDetails") {
-        setselectedKey(Object.keys(headerDetails)[0]);
-        return setUpdates([...headerDetails]);
-      }
-      if (colorChange === "mainDetails") {
-        setselectedKey(Object.keys(mainDetails)[0]);
-        return setUpdates([...mainDetails]);
-      }
+    switch (colorChange) {
+      case "clinic details":
+        setOldData(clinicDetails);
+        break;
+      case "doctor details":
+        setOldData(doctorDetails);
+        break;
+      case "header":
+        setOldData(headerDetails);
+        break;
+      case "main":
+        setOldData(mainDetails);
+        break;
+      default:
+        break;
     }
   }, [colorChange]);
 
+  const updateData = (data, name, key, newValue) => {
+    return data.map((item) => {
+      if (item.name === name) {
+        return {
+          ...item,
+          styles: {
+            ...item.styles,
+            [key]: newValue,
+          },
+        };
+      }
+      return item;
+    });
+  };
+
+  const updateDataValue = (data, name, key, newValue) => {
+    return data.map((item) => {
+      if (item.name === name) {
+        return {
+          ...item,
+          [key]: newValue,
+        };
+      }
+      return item;
+    });
+  };
+
   useEffect(() => {
-    if (selectedColor !== "") {
-      if (colorChange === "clinicDetails") {
-        setUpdates((pre) => ({
-          ...pre,
-          [selectedKey]: {
-            ...pre[selectedKey],
-            color: selectedColor,
-          },
-        }));
-      }
-      if (colorChange === "doctorDetails") {
-        setUpdates((pre) => ({
-          ...pre,
-          [selectedKey]: {
-            ...pre[selectedKey],
-            color: selectedColor,
-          },
-        }));
-      }
-      if (colorChange === "headerDetails") {
-        // Ensure selectedKey is within bounds
-        if (selectedKey >= 0 && selectedKey < updates.length) {
-          // Create a new updates array with the updated item
-          const newUpdates = updates.map((item, index) =>
-            index === Number(selectedKey)
-              ? { ...item, color: selectedColor }
-              : item
+    const API = async () => {
+      if (imageUpload) {
+        try {
+
+          const bodyData = {
+            clinicId: userDetails._id,
+            logo: imageUpload,
+          };
+          const formData = new FormData();
+
+          for (const key in bodyData) {
+            if (bodyData.hasOwnProperty(key)) {
+              formData.append(key, bodyData[key]);
+            }
+          }
+          const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
+          setImageLoader(true)
+          const {data } = await axios.post(
+            `${baseURL}/update_logo`, formData
           );
-          // Update the state with the new array
-          return setUpdates(newUpdates);
-        } else {
-          console.error("selectedKey is out of bounds");
+
+          if(data.success){
+            setImageLoader(false)
+            toast.success(data.message)
+            dispatch(setClinicLogo({logo: data.template?.logo }))
+            setImageUpload(null)
+            return
+          }
+        } catch (error) {
+          setImageLoader(false)
+          toast.error(error.response?.data?.message || "An error occurred");
         }
       }
-      if (colorChange === "mainDetails") {
-        if (selectedKey >= 0 && selectedKey < updates.length) {
-          // Create a new updates array with the updated item
-          const newUpdates = updates.map((item, index) =>
-            index === Number(selectedKey)
-              ? { ...item, color: selectedColor }
-              : item
-          );
-          // Update the state with the new array
-          return setUpdates(newUpdates);
-        } else {
-          console.error("selectedKey is out of bounds");
-        }
+    };
+    API();
+  }, [imageUpload]);
+
+  useEffect(() => {
+    if (updateValue) {
+      const updatedData = updateDataValue(
+        colorChange === "clinic details"
+          ? clinicDetails
+          : colorChange === "doctor details"
+          ? doctorDetails
+          : colorChange === "header"
+          ? headerDetails
+          : mainDetails,
+        selectedKey,
+        "value",
+        updateValue
+      );
+      switch (colorChange) {
+        case "clinic details":
+          dispatch(setClinicDetails(updatedData));
+          break;
+        case "doctor details":
+          dispatch(setDoctorDetails(updatedData));
+          break;
+        case "header":
+          dispatch(setAddHeader(updatedData));
+          break;
+        case "main":
+          dispatch(setAddMain(updatedData));
+          break;
+        default:
+          break;
+      }
+    }
+  }, [updateValue]);
+
+  useEffect(() => {
+    if (selectedColor) {
+      const updatedData = updateData(
+        colorChange === "clinic details"
+          ? clinicDetails
+          : colorChange === "doctor details"
+          ? doctorDetails
+          : colorChange === "header"
+          ? headerDetails
+          : mainDetails,
+        selectedKey,
+        "color",
+        selectedColor
+      );
+      switch (colorChange) {
+        case "clinic details":
+          dispatch(setClinicDetails(updatedData));
+          break;
+        case "doctor details":
+          dispatch(setDoctorDetails(updatedData));
+          break;
+        case "header":
+          dispatch(setAddHeader(updatedData));
+          break;
+        case "main":
+          dispatch(setAddMain(updatedData));
+          break;
+        default:
+          break;
       }
     }
   }, [selectedColor]);
 
   useEffect(() => {
-    if (selectedFont && change) {
-      if (colorChange === "clinicDetails" && change) {
-        setUpdates((pre) => ({
-          ...pre,
-          [selectedKey]: {
-            ...pre[selectedKey],
-            font: selectedFont.value,
-          },
-        }));
-        return setchange(null);
-      }
-      if (colorChange === "doctorDetails" && change) {
-        setUpdates((pre) => ({
-          ...pre,
-          [selectedKey]: {
-            ...pre[selectedKey],
-            font: selectedFont.value,
-          },
-        }));
-        returnsetchange(null);
-      }
-      if (colorChange === "headerDetails") {
-        // Ensure selectedKey is within bounds
-        if (selectedKey >= 0 && selectedKey < updates.length) {
-          // Create a new updates array with the updated item
-          const newUpdates = updates.map((item, index) =>
-            index === Number(selectedKey)
-              ? { ...item, font: selectedFont.value }
-              : item
-          );
-          // Update the state with the new array
-          return setUpdates(newUpdates);
-        } else {
-          console.error("selectedKey is out of bounds");
-        }
-      }
-      if (colorChange === "mainDetails") {
-        if (selectedKey >= 0 && selectedKey < updates.length) {
-          // Create a new updates array with the updated item
-          const newUpdates = updates.map((item, index) =>
-            index === Number(selectedKey)
-              ? { ...item, font: selectedFont.value }
-              : item
-          );
-          // Update the state with the new array
-          return setUpdates(newUpdates);
-        } else {
-          console.error("selectedKey is out of bounds");
-        }
+    if (selectedFont) {
+      const updatedData = updateData(
+        colorChange === "clinic details"
+          ? clinicDetails
+          : colorChange === "doctor details"
+          ? doctorDetails
+          : colorChange === "header"
+          ? headerDetails
+          : mainDetails,
+        selectedKey,
+        "font",
+        selectedFont.value
+      );
+      switch (colorChange) {
+        case "clinic details":
+          dispatch(setClinicDetails(updatedData));
+          break;
+        case "doctor details":
+          dispatch(setDoctorDetails(updatedData));
+          break;
+        case "header":
+          dispatch(setAddHeader(updatedData));
+          break;
+        case "main":
+          dispatch(setAddMain(updatedData));
+          break;
+        default:
+          break;
       }
     }
-  }, [selectedFont, change]);
+  }, [selectedFont]);
 
   useEffect(() => {
-    if (selectedweight && change1) {
-      if (colorChange === "clinicDetails" && change1) {
-        setUpdates((pre) => ({
-          ...pre,
-          [selectedKey]: {
-            ...pre[selectedKey],
-            weight: selectedweight.value,
-          },
-        }));
-        return setchange1(null);
-      }
-      if (colorChange === "doctorDetails" && change1) {
-        setUpdates((pre) => ({
-          ...pre,
-          [selectedKey]: {
-            ...pre[selectedKey],
-            weight: selectedweight.value,
-          },
-        }));
-        return setchange1(null);
-      }
-      if (colorChange === "headerDetails") {
-        // Ensure selectedKey is within bounds
-        if (selectedKey >= 0 && selectedKey < updates.length) {
-          // Create a new updates array with the updated item
-          const newUpdates = updates.map((item, index) =>
-            index === Number(selectedKey)
-              ? { ...item, weight: selectedweight.value }
-              : item
-          );
-          // Update the state with the new array
-          return setUpdates(newUpdates);
-        } else {
-          console.error("selectedKey is out of bounds");
-        }
-      }
-      if (colorChange === "mainDetails") {
-        if (selectedKey >= 0 && selectedKey < updates.length) {
-          // Create a new updates array with the updated item
-          const newUpdates = updates.map((item, index) =>
-            index === Number(selectedKey)
-              ? { ...item, weight: selectedweight.value }
-              : item
-          );
-          // Update the state with the new array
-          return setUpdates(newUpdates);
-        } else {
-          console.error("selectedKey is out of bounds");
-        }
+    if (selectedweight) {
+      const updatedData = updateData(
+        colorChange === "clinic details"
+          ? clinicDetails
+          : colorChange === "doctor details"
+          ? doctorDetails
+          : colorChange === "header"
+          ? headerDetails
+          : mainDetails,
+        selectedKey,
+        "font_weight",
+        selectedweight.value
+      );
+      switch (colorChange) {
+        case "clinic details":
+          dispatch(setClinicDetails(updatedData));
+          break;
+        case "doctor details":
+          dispatch(setDoctorDetails(updatedData));
+          break;
+        case "header":
+          dispatch(setAddHeader(updatedData));
+          break;
+        case "main":
+          dispatch(setAddMain(updatedData));
+          break;
+        default:
+          break;
       }
     }
-  }, [selectedweight, change1]);
+  }, [selectedweight]);
 
   useEffect(() => {
-    if (selectedsize && change2) {
-      if (colorChange === "clinicDetails" && change2) {
-        setUpdates((pre) => ({
-          ...pre,
-          [selectedKey]: {
-            ...pre[selectedKey],
-            size: selectedsize.value,
-          },
-        }));
-        return setchange2(null);
-      }
-      if (colorChange === "doctorDetails" && change2) {
-        setUpdates((pre) => ({
-          ...pre,
-          [selectedKey]: {
-            ...pre[selectedKey],
-            size: selectedsize.value,
-          },
-        }));
-        return setchange2(null);
-      }
-      if (colorChange === "headerDetails") {
-        // Ensure selectedKey is within bounds
-        if (selectedKey >= 0 && selectedKey < updates.length) {
-          // Create a new updates array with the updated item
-          const newUpdates = updates.map((item, index) =>
-            index === Number(selectedKey)
-              ? { ...item, size: selectedsize.value }
-              : item
-          );
-          // Update the state with the new array
-          return setUpdates(newUpdates);
-        } else {
-          console.error("selectedKey is out of bounds");
-        }
-      }
-      if (colorChange === "mainDetails") {
-        if (selectedKey >= 0 && selectedKey < updates.length) {
-          // Create a new updates array with the updated item
-          const newUpdates = updates.map((item, index) =>
-            index === Number(selectedKey)
-              ? { ...item, size: selectedsize.value }
-              : item
-          );
-          // Update the state with the new array
-          return setUpdates(newUpdates);
-        } else {
-          console.error("selectedKey is out of bounds");
-        }
+    if (selectedsize) {
+      const updatedData = updateData(
+        colorChange === "clinic details"
+          ? clinicDetails
+          : colorChange === "doctor details"
+          ? doctorDetails
+          : colorChange === "header"
+          ? headerDetails
+          : mainDetails,
+        selectedKey,
+        "size",
+        selectedsize.value
+      );
+      switch (colorChange) {
+        case "clinic details":
+          dispatch(setClinicDetails(updatedData));
+          break;
+        case "doctor details":
+          dispatch(setDoctorDetails(updatedData));
+          break;
+        case "header":
+          dispatch(setAddHeader(updatedData));
+          break;
+        case "main":
+          dispatch(setAddMain(updatedData));
+          break;
+        default:
+          break;
       }
     }
-  }, [selectedsize, change2]);
+  }, [selectedsize]);
 
   const handleFileInputClick = () => {
     ImageInputRef.current.click();
   };
 
   const clinicLogoupdate = (item) => {
-    return disatch(setClinicLogo(item));
-  };
-
-  const clinicalDetailsUpdate = (item) => {
-    disatch(setUpdateClinicValues({ selectedKey, item }));
-    return;
-  };
-
-  const doctorDetailsUpdate = (item) => {
-    disatch(setUpdateDoctorValues({ selectedKey, item }));
-    return;
-  };
-
-  const headerUpdate = (index, title) => {
-    return disatch(updateHeader({ index, title }));
-  };
-
-  const headerAdd = (item) => {
-    return disatch(addHeader(item));
-  };
-
-  const mainUpdate = (index, title) => {
-    return disatch(updateMain({ index, title }));
-  };
-
-  const mainAdd = (item) => {
-    return disatch(addMain(item));
+    return dispatch(setClinicLogo(item));
   };
 
   const modelHandel = () => {
@@ -372,99 +360,121 @@ const rightSide = () => {
     value: `${i.toString()}px`,
   }));
 
-  const updateInputStyles = (items) => {
-    if (colorChange === "headerDetails") {
-      // Ensure selectedKey is within bounds
-      if (selectedKey >= 0 && selectedKey < updates.length) {
-        // Create a new updates array with the updated item
-        const newUpdates = updates.map((item, index) =>
-          index === Number(selectedKey) ? { ...item, title: items } : item
-        );
-        console.log("newUpdates", newUpdates);
-        // Update the state with the new array
-        return setUpdates(newUpdates);
-      } else {
-        console.error("selectedKey is out of bounds");
-      }
-    }
-
-    if (colorChange === "mainDetails") {
-      // Ensure selectedKey is within bounds
-      if (selectedKey >= 0 && selectedKey < updates.length) {
-        // Create a new updates array with the updated item
-        const newUpdates = updates.map((item, index) =>
-          index === Number(selectedKey) ? { ...item, title: items } : item
-        );
-        // Update the state with the new array
-        return setUpdates(newUpdates);
-      } else {
-        console.error("selectedKey is out of bounds");
-      }
-    }
-
-    setUpdates((pre) => ({
-      ...pre,
-      [selectedKey]: {
-        ...pre[selectedKey],
-        ...items,
-      },
-    }));
-  };
-
-  const updateState = () => {
-    if (colorChange === "clinicDetails") {
-      disatch(setClinicDetails(updates));
-      setOpenModel(false);
-      setselectedKey("");
-      setColorChange("");
-      return;
-    }
-    if (colorChange === "doctorDetails") {
-      disatch(setDoctorDetails(updates));
-      setOpenModel(false);
-      setselectedKey("");
-      setColorChange("");
-      return;
-    }
-    if (colorChange === "headerDetails") {
-      disatch(updateAllHeader(updates));
-      setOpenModel(false);
-      setselectedKey("");
-      setColorChange("");
-      return;
-    }
-    if (colorChange === "mainDetails") {
-      disatch(updateAllMain(updates));
-      setOpenModel(false);
-      setselectedKey("");
-      setColorChange("");
-      return;
-    }
-  };
-
   useEffect(() => {
-    if (updates && selectedKey) {
-      const fill = updates[selectedKey];
-      const filterFont = option.filter((i) => i?.value === fill?.font);
-      const filterWeight = option1.filter((i) => i?.value === fill?.weight);
-      const filterSize = option2.filter((i) => i?.value === fill?.size);
+    const updateStyles = (details) => {
+      const fill = details.find((item) => item.name === selectedKey);
+      if (fill) {
+        const { styles } = fill;
+        const {
+          font: selectedFontValue,
+          font_weight: selectedWeightValue,
+          size: selectedSizeValue,
+          color,
+        } = styles;
 
-      setselectedFont(filterFont);
-      setselectedWeight(filterWeight);
-      setselectedSize(filterSize);
+        setSelectedColor(color);
+        setselectedFont(option.find((i) => i.value === selectedFontValue));
+        setselectedWeight(option1.find((i) => i.value === selectedWeightValue));
+        setselectedSize(
+          option2.find((i) => i.value === (selectedSizeValue || "14px"))
+        );
+      }
+    };
+
+    if (selectedKey) {
+      switch (colorChange) {
+        case "clinic details":
+          if (clinicDetails) updateStyles(clinicDetails);
+          break;
+        case "doctor details":
+          if (doctorDetails) updateStyles(doctorDetails);
+          break;
+        case "header":
+          if (headerDetails) updateStyles(headerDetails);
+          break;
+        case "main":
+          if (mainDetails) updateStyles(mainDetails);
+          break;
+        default:
+          break;
+      }
     }
   }, [selectedKey]);
+
+  const closePopup = () => {
+    switch (colorChange) {
+      case "clinic details":
+        dispatch(setClinicDetails(oldData));
+        break;
+      case "doctor details":
+        dispatch(setDoctorDetails(oldData));
+        break;
+      case "header":
+        dispatch(setAddHeader(oldData));
+        break;
+      case "main":
+        dispatch(setAddMain(oldData));
+        break;
+      default:
+        break;
+    }
+  };
+
+  const update = async () => {
+    const getBodyData = (details) => ({
+      clinicId: userDetails?._id,
+      dynamicFields: [...details],
+    });
+
+    const updateField = async (bodyData) => {
+      try {
+        setLoader(true);
+        setReFetch(true);
+        const { success, message } = await ApiRequest.post(
+          "/update_field",
+          bodyData
+        );
+        if (success) {
+          setReFetch(false);
+          setLoader(false);
+          setSelectedColor("");
+          setselectedFont(null);
+          setselectedWeight(null);
+          setselectedSize(null);
+          toast.success(message);
+          setOpenModel(false);
+          return;
+        }
+      } catch (error) {
+        setReFetch(false);
+        setLoader(false);
+        toast.error(error.response.data.error);
+        return;
+      }
+    };
+
+    switch (colorChange) {
+      case "clinic details":
+        await updateField(getBodyData(clinicDetails));
+        break;
+      case "doctor details":
+        await updateField(getBodyData(doctorDetails));
+        break;
+      case "header":
+        await updateField(getBodyData(headerDetails));
+        break;
+      case "main":
+        await updateField(getBodyData(mainDetails));
+        break;
+      default:
+        break;
+    }
+  };
 
   return {
     handelImage: handleFileInputClick,
     ImageInputRef,
     clinicLogoupdate,
-    clinicalDetailsUpdate,
-    doctorDetailsUpdate,
-    headerUpdate,
-    headerAdd,
-    mainUpdate,
-    mainAdd,
     setColorChange,
     colorChange,
     styles,
@@ -478,8 +488,6 @@ const rightSide = () => {
     setSelectedColor,
     modelHandel,
     openModel,
-    updateInputStyles,
-    updates,
     setselectedKey,
     selectedFont,
     setselectedFont,
@@ -487,10 +495,13 @@ const rightSide = () => {
     setselectedWeight,
     selectedsize,
     setselectedSize,
-    updateState,
-    setchange,
-    setchange1,
-    setchange2,
+    setUpdateValue,
+    closePopup,
+    update,
+    loader,
+    setImageUpload,
+    imageLoader,
+    setImageLoader
   };
 };
 

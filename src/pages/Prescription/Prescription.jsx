@@ -20,20 +20,14 @@ import PrescriptionFunction from "../../hooks/Prescription/Prescription";
 
 const Prescription = () => {
   const {
-    Options,
-    style,
-    base64Image,
-    errors,
-    handleChange,
-    handleDeleteFile,
-    handleSubmit,
-    setFieldValue,
-    values,
-    SelectGender,
+    goBack,
     validationCheck,
     validationError,
-    gender,
-    goBack,
+    addDynamicFeild,
+    headerLoader,
+    mainLoader,
+    removeDynamicFeild,
+    setReFetch
   } = PrescriptionFunction();
   return (
     <div className="prescription-container">
@@ -51,48 +45,20 @@ const Prescription = () => {
           </p>
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          autoComplete="off"
-          className="prescription-right"
-        >
+        <div className="prescription-right">
           <RightSide
-            Options={Options}
-            TranslateJson={TranslateJson}
-            errors={errors}
-            gender={gender}
-            handleChange={handleChange}
-            style={style}
             validationError={validationError}
-            values={values}
-            base64Image={base64Image}
-            handleDeleteFile={handleDeleteFile}
-            setFieldValue={setFieldValue}
-            SelectGender={SelectGender}
+            addDynamicFeild={addDynamicFeild}
+            headerLoader={headerLoader}
+            mainLoader={mainLoader}
+            removeDynamicFeild={removeDynamicFeild}
+            setReFetch={setReFetch}
           />
-          <div className="col-span-2 place-content-center py-3">
-            <div className="w-full flex items-center justify-center">
-              <button
-                type="submit"
-                onClick={validationCheck}
-                className="bg-primary_color text-white  2xl:w-[30%] xl:w-[30%] lg:w-[30%] md:w-[40%] sm:w-[40%] xs:w-[80%] mobile:w-[80%] xss:w-[90%] py-[10px] rounded-lg "
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
 
       <div className="prescription-left">
         <LeftSide
-          values={values}
-          Image1={Image1}
-          Img={Img}
-          Signature={Signature}
-          TranslateJson={TranslateJson}
-          gender={gender}
-          base64Image={base64Image}
         />
       </div>
     </div>

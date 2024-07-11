@@ -46,7 +46,7 @@ const ViewPage = ({ category, id }) => {
           }
         } catch (error) {
           setLoader(false);
-          console.log("ee", error);
+          toast.error(error.response.data.error);
         }
       }
 
@@ -63,7 +63,7 @@ const ViewPage = ({ category, id }) => {
           }
         } catch (error) {
           setLoader(false);
-          console.log("ee", error);
+          toast.error(error.response.data.error);
         }
       }
     };
@@ -90,8 +90,8 @@ const ViewPage = ({ category, id }) => {
               return;
             }
           } catch (error) {
-            setVerifyCertificate(false);
-            console.log("err");
+            setVerifyCertificate(false);            
+            toast.error(error.response.data.error)
           }
         }
 
@@ -109,7 +109,7 @@ const ViewPage = ({ category, id }) => {
             }
           } catch (error) {
             setVerifyCertificate(false);
-            console.log("err");
+            toast.error(error.response.data.error)
           }
         }
       }
@@ -121,8 +121,7 @@ const ViewPage = ({ category, id }) => {
     const API = async () => {
       if (verifyDoctor) {
         if (category === "doctor" && id) {
-          try {
-            console.log("userDetails?._id", userDetails?._id, id);
+          try {           
             const { success, message } = await ApiRequest.put(
               `/doctors/verify/clinic`,
               {
@@ -139,7 +138,7 @@ const ViewPage = ({ category, id }) => {
             }
           } catch (error) {
             setVerifyCertificate(false);
-            console.log("err");
+            toast.error(error.response.data.error)
           }
         }
 
@@ -157,7 +156,7 @@ const ViewPage = ({ category, id }) => {
             }
           } catch (error) {
             setVerifyCertificate(false);
-            console.log("err");
+            toast.error(error.response.data.error)
           }
         }
       }

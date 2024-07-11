@@ -39,7 +39,11 @@
 }
 
 .input-box {
-  @apply w-full;
+  @apply w-full
+}
+
+.input-box1 {
+  @apply w-[90%] flex items-center space-x-3;
 }
 
 .input {
@@ -266,7 +270,7 @@
 }
 
 .prescription-right-container {
-  @apply h-full flex flex-col gap-4 mx-1 2xl:w-[60%] xl:w-[60%] lg:w-[100%] md:w-[100%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%];
+  @apply h-[90%] flex flex-col gap-4 mx-1 2xl:w-[60%] xl:w-[60%] lg:w-[100%] md:w-[100%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%];
 }
 .prescription-right {
   @apply w-full h-full gap-6 overflow-auto px-3;
@@ -286,6 +290,9 @@
 
 .prescription-right-top-inside-image {
   @apply w-[100px] h-[100px] border-[3px] border-green_light rounded-full relative;
+}
+.prescription-right-top-inside-image1 {
+  @apply w-[100px] h-[100px] rounded-full relative;
 }
 
 .prescription-right-top-inside-image-edit-button {

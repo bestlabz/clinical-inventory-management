@@ -128,7 +128,6 @@ const Signup = () => {
           }
         } catch (error) {
           setLoader(false);
-          console.log('error', error);
           toast.error(error.response.data.error);
         }
       
@@ -194,7 +193,6 @@ const Signup = () => {
         }
       } catch (error) {
         setLoader(false);
-        console.log(error);
         toast.error(error.response.data.error)
       }
     
