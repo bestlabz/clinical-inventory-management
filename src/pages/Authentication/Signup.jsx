@@ -60,7 +60,6 @@ const Signup = () => {
                     return; // If not a digit, return without updating the state
                   } else {
                     handleChange(e);
-
                   }
                 }}
                 length={10}
@@ -146,9 +145,8 @@ const Signup = () => {
                 name="name"
                 value={values.name}
                 setValue={(e) => {
-                  if (/^[A-Za-z]*$/.test(e.target.value)) {
-                    handleChange(e); // Update the state only if the input value matches the regex
-                  }
+                  if (!/^[A-Za-z]*$/.test(e.target.value)) return;
+                  handleChange(e); // Update the state only if the input value matches the regex
                 }}
                 err={validationError && errors.name}
                 label={TranslateJson.signup.step3.label.name}
@@ -159,9 +157,8 @@ const Signup = () => {
                 name="clinic_name"
                 value={values.clinic_name}
                 setValue={(e) => {
-                  if (/^[A-Za-z]*$/.test(e.target.value)) {
-                    handleChange(e); // Update the state only if the input value matches the regex
-                  }
+                  if (!/^[A-Za-z]*$/.test(e.target.value)) return;
+                  handleChange(e); // Update the state only if the input value matches the regex
                 }}
                 err={validationError && errors.clinic_name}
                 label={TranslateJson.signup.step3.label.clinic_name}

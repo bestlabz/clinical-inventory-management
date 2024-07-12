@@ -38,10 +38,10 @@ const Prescription = () => {
             dispatch(setUpdateFeild(false))
             dispatch(setClinicLogo({logo: templates?.[0]?.logo }))
             const FilterCliniDetails = templates?.[0]?.dynamicFields?.filter(
-              (item) => item?.section === "clinic details"
+              (item) => item?.section === "clinicDetails"
             );
             const FilterDoctorDetails = templates?.[0]?.dynamicFields?.filter(
-              (item) => item?.section === "doctor details"
+              (item) => item?.section === "doctorDetails"
             );
             const FilterHeaderDetails = templates?.[0]?.dynamicFields?.filter(
               (item) => item?.section === "header"

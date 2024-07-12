@@ -155,9 +155,9 @@
   "navigate_content": "Add Medicine",
  "label": {
   "name": "Medicine Name",
-  "dasage_form": "Dasage Form",
-  "dasage_strength": "Dasage Strength",
-  "dasage_unit": "Dasage Strength"
+  "dasage_form": "Dosage Form",
+  "dasage_strength": "Dosage Strength",
+  "dasage_unit": "Dosage Strength"
 
  },
  "placeholder": {

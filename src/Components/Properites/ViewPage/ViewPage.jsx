@@ -184,7 +184,7 @@ const ViewPage = ({
             )}
           </div>
 
-          <h1 className="text-[24px] font-bold mb-2">Certificate</h1>
+          <h1 className="text-[24px] font-bold mb-2">Certificates</h1>
 
           <div className="view-page-certificate-container mb-6">
             {category === "doctor" ? (

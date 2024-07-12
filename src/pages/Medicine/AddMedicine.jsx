@@ -119,7 +119,7 @@ const AddMedicine = () => {
                   />
                   {validateErr && selectedItem1 === null && (
                     <span className="err-txt absolute mt-[1px]">
-                      Required Dasage Form
+                      Required Dosage Form
                     </span>
                   )}
                 </div>

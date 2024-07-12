@@ -12,6 +12,9 @@ import toast from "react-hot-toast";
 
 import axios from "axios";
 
+import ApiRequest from "../../services/httpService";
+
+
 const rightSide = ({ setReFetch }) => {
   const ImageInputRef = useRef(null);
   const dispatch = useDispatch();
@@ -49,10 +52,10 @@ const rightSide = ({ setReFetch }) => {
 
   useEffect(() => {
     switch (colorChange) {
-      case "clinic details":
+      case "clinicDetails":
         setOldData(clinicDetails);
         break;
-      case "doctor details":
+      case "doctorDetails":
         setOldData(doctorDetails);
         break;
       case "header":
@@ -134,9 +137,9 @@ const rightSide = ({ setReFetch }) => {
   useEffect(() => {
     if (updateValue) {
       const updatedData = updateDataValue(
-        colorChange === "clinic details"
+        colorChange === "clinicDetails"
           ? clinicDetails
-          : colorChange === "doctor details"
+          : colorChange === "doctorDetails"
           ? doctorDetails
           : colorChange === "header"
           ? headerDetails
@@ -146,10 +149,10 @@ const rightSide = ({ setReFetch }) => {
         updateValue
       );
       switch (colorChange) {
-        case "clinic details":
+        case "clinicDetails":
           dispatch(setClinicDetails(updatedData));
           break;
-        case "doctor details":
+        case "doctorDetails":
           dispatch(setDoctorDetails(updatedData));
           break;
         case "header":
@@ -167,9 +170,9 @@ const rightSide = ({ setReFetch }) => {
   useEffect(() => {
     if (selectedColor) {
       const updatedData = updateData(
-        colorChange === "clinic details"
+        colorChange === "clinicDetails"
           ? clinicDetails
-          : colorChange === "doctor details"
+          : colorChange === "doctorDetails"
           ? doctorDetails
           : colorChange === "header"
           ? headerDetails
@@ -179,10 +182,10 @@ const rightSide = ({ setReFetch }) => {
         selectedColor
       );
       switch (colorChange) {
-        case "clinic details":
+        case "clinicDetails":
           dispatch(setClinicDetails(updatedData));
           break;
-        case "doctor details":
+        case "doctorDetails":
           dispatch(setDoctorDetails(updatedData));
           break;
         case "header":
@@ -200,9 +203,9 @@ const rightSide = ({ setReFetch }) => {
   useEffect(() => {
     if (selectedFont) {
       const updatedData = updateData(
-        colorChange === "clinic details"
+        colorChange === "clinicDetails"
           ? clinicDetails
-          : colorChange === "doctor details"
+          : colorChange === "doctorDetails"
           ? doctorDetails
           : colorChange === "header"
           ? headerDetails
@@ -212,10 +215,10 @@ const rightSide = ({ setReFetch }) => {
         selectedFont.value
       );
       switch (colorChange) {
-        case "clinic details":
+        case "clinicDetails":
           dispatch(setClinicDetails(updatedData));
           break;
-        case "doctor details":
+        case "doctorDetails":
           dispatch(setDoctorDetails(updatedData));
           break;
         case "header":
@@ -233,9 +236,9 @@ const rightSide = ({ setReFetch }) => {
   useEffect(() => {
     if (selectedweight) {
       const updatedData = updateData(
-        colorChange === "clinic details"
+        colorChange === "clinicDetails"
           ? clinicDetails
-          : colorChange === "doctor details"
+          : colorChange === "doctorDetails"
           ? doctorDetails
           : colorChange === "header"
           ? headerDetails
@@ -245,10 +248,10 @@ const rightSide = ({ setReFetch }) => {
         selectedweight.value
       );
       switch (colorChange) {
-        case "clinic details":
+        case "clinicDetails":
           dispatch(setClinicDetails(updatedData));
           break;
-        case "doctor details":
+        case "doctorDetails":
           dispatch(setDoctorDetails(updatedData));
           break;
         case "header":
@@ -266,9 +269,9 @@ const rightSide = ({ setReFetch }) => {
   useEffect(() => {
     if (selectedsize) {
       const updatedData = updateData(
-        colorChange === "clinic details"
+        colorChange === "clinicDetails"
           ? clinicDetails
-          : colorChange === "doctor details"
+          : colorChange === "doctorDetails"
           ? doctorDetails
           : colorChange === "header"
           ? headerDetails
@@ -278,10 +281,10 @@ const rightSide = ({ setReFetch }) => {
         selectedsize.value
       );
       switch (colorChange) {
-        case "clinic details":
+        case "clinicDetails":
           dispatch(setClinicDetails(updatedData));
           break;
-        case "doctor details":
+        case "doctorDetails":
           dispatch(setDoctorDetails(updatedData));
           break;
         case "header":
@@ -383,10 +386,10 @@ const rightSide = ({ setReFetch }) => {
 
     if (selectedKey) {
       switch (colorChange) {
-        case "clinic details":
+        case "clinicDetails":
           if (clinicDetails) updateStyles(clinicDetails);
           break;
-        case "doctor details":
+        case "doctorDetails":
           if (doctorDetails) updateStyles(doctorDetails);
           break;
         case "header":
@@ -403,10 +406,10 @@ const rightSide = ({ setReFetch }) => {
 
   const closePopup = () => {
     switch (colorChange) {
-      case "clinic details":
+      case "clinicDetails":
         dispatch(setClinicDetails(oldData));
         break;
-      case "doctor details":
+      case "doctorDetails":
         dispatch(setDoctorDetails(oldData));
         break;
       case "header":
@@ -454,10 +457,10 @@ const rightSide = ({ setReFetch }) => {
     };
 
     switch (colorChange) {
-      case "clinic details":
+      case "clinicDetails":
         await updateField(getBodyData(clinicDetails));
         break;
-      case "doctor details":
+      case "doctorDetails":
         await updateField(getBodyData(doctorDetails));
         break;
       case "header":

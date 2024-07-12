@@ -56,6 +56,7 @@ const RightSide = ({
     setImageUpload,
   } = RightSideFunction({ setReFetch });
 
+
   const {
     clinicLogo,
     clinicDetails,
@@ -63,6 +64,9 @@ const RightSide = ({
     headerDetails,
     mainDetails,
   } = useSelector((state) => state.PrescriptionDetails);
+
+
+
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
@@ -122,7 +126,7 @@ const RightSide = ({
           </h1>
           <button
             onClick={() => {
-              setColorChange("clinic details");
+              setColorChange("clinicDetails");
               modelHandel();
             }}
             className="prescription-right-content-container-header-button"
@@ -181,7 +185,7 @@ const RightSide = ({
           </h1>
           <button
             onClick={() => {
-              setColorChange("doctor details");
+              setColorChange("doctorDetails");
               modelHandel();
             }}
             className="prescription-right-content-container-header-button"
@@ -278,6 +282,7 @@ const RightSide = ({
                     clinicId: userDetails._id,
                     fieldName: `HeaderIndex${headerDetails.length + 1}`,
                     section: "header",
+                    value: ""
                   })
                 }
                 className="prescription-right-content-container-add-new-button"
@@ -353,6 +358,7 @@ const RightSide = ({
                 clinicId: userDetails._id,
                 fieldName: `MainIndex${mainDetails.length + 1}`,
                 section: "main",
+                value: ""
               })
             }
             className="prescription-right-content-container-add-new-button"
@@ -377,8 +383,8 @@ const RightSide = ({
             <div className=" w-[60%] h-full overflow-auto border-r-[2px] border-gray-200 ">
               <p className="text-[24px] font-semibold p-4">
                 {colorChange === "clinic details"
-                  ? "Clinic Details"
-                  : colorChange === "doctor details"
+                  ? "ClinicDetails"
+                  : colorChange === "doctorDetails"
                   ? "Doctor Details"
                   : colorChange === "header"
                   ? "Header Details"
@@ -387,7 +393,7 @@ const RightSide = ({
                   : ""}
               </p>
 
-              {colorChange === "clinic details" && (
+              {colorChange === "clinicDetails" && (
                 <div className=" w-[80%] px-4 space-y-4">
                   {clinicDetails?.map((i, index) => {
                     return (
@@ -440,7 +446,7 @@ const RightSide = ({
                 </div>
               )}
 
-              {colorChange === "doctor details" && (
+              {colorChange === "doctorDetails" && (
                 <div className=" w-[80%] px-4 space-y-4">
                   {doctorDetails?.map((i, index) => {
                     return (
