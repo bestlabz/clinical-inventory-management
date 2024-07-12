@@ -97,10 +97,8 @@ const AddMedicine = () => {
                   name="dasage_strength"
                   errtop="140%"
                   setValue={(e) => {
-                    if (!/^\d*$/.test(e.target.value)) {
-                      return; // If not a digit, return without updating the state
-                    }
-                    handleChange(e);
+                    if (!/^\d*$/.test(e.target.value)) return
+                    else handleChange(e);
                   }}
                   value={values.dasage_strength}
                   err={validateErr && errors.dasage_strength}

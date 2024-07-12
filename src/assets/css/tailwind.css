@@ -179,7 +179,7 @@
 }
 
 .header-container-right {
-  @apply text-[12px] text-dark_purple border-[1px] border-[#dfc5fd] bg-light_purple w-[80px] mobile:w-[100px] xss:w-[100px] p-[2px] text-center rounded-full;
+  @apply text-[12px] text-dark_purple border-[1px] border-[#dfc5fd] bg-light_purple w-[150px] mobile:w-[150px] xss:w-[150px] p-[2px] text-center rounded-full;
 }
 
 .table-box-top-right {
@@ -210,7 +210,7 @@
 }
 
 .table-box-top-right-content-filter-1 {
-  @apply w-full h-full flex items-end;
+  @apply w-full h-full flex items-end ;
 }
 
 .table-box-top-right-content-button-1 {

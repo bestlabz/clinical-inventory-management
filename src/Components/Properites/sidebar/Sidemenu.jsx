@@ -8,12 +8,20 @@ import Receptionist from "../../../assets/Svg/Receptionist";
 import Medicine from "../../../assets/Svg/Medicine";
 import Prescription from "../../../assets/Svg/Prescription";
 
-
-
-
 const menuConfig = [
   {
-    paths: ["/dashboard", "/doctors", "/receptionist", "/medicine", "/add-doctor", "/add-recptionist", "/add-medicine", "/prescription"],
+    paths: [
+      "/dashboard",
+      "/doctors",
+      "/receptionist",
+      "/medicine",
+      "/add-doctor",
+      "/add-recptionist",
+      "/add-medicine",
+      "/prescription",
+      "/dosage-form",
+      "/dosage-unit",
+    ],
     items: [
       {
         path: "/dashboard",
@@ -45,8 +53,18 @@ const menuConfig = [
         icon: <Prescription />,
         activeName: "prescription",
       },
-      
-      
+      {
+        path: "/dosage-form",
+        name: "Dosage Form",
+        icon: <Medicine />,
+        activeName: "Dosage Form",
+      },
+      {
+        path: "/dosage-unit",
+        name: "Dosage Unit",
+        icon: <Medicine />,
+        activeName: "Dosage Unit",
+      },
     ],
   },
   // {
@@ -96,7 +114,7 @@ const Sidemenu = () => {
             icon: <RiMenuUnfold4Line size={35} className="" />,
             activeName: "menu",
           },
-          
+
           ...config.items.map((item) => ({
             ...item,
             // path: item.path.replace(":id", ID),

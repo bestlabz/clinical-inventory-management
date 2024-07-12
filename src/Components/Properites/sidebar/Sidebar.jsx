@@ -34,7 +34,7 @@ const Sidebar = ({ children }) => {
             : " w-[90px] 2xl:p-4 xl:p-4 lg:p-4 md:p-4 sm:p-2 xs:p-2 xss:p-2 mobile:p-2"
         }`}
       >
-        <div className="flex-1">
+        <div className="flex-1 overflow-y-auto">
           {MenuItem().map((item, index) => {
             const isActive =
               location.pathname.replace(/[\/\d]/g, "") === item.activeName;

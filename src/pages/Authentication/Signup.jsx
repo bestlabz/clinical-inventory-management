@@ -146,7 +146,7 @@ const Signup = () => {
                 value={values.name}
                 setValue={(e) => {
                   if (!/^[A-Za-z]*$/.test(e.target.value)) return;
-                  handleChange(e); // Update the state only if the input value matches the regex
+                  else handleChange(e); // Update the state only if the input value matches the regex
                 }}
                 err={validationError && errors.name}
                 label={TranslateJson.signup.step3.label.name}
@@ -158,7 +158,7 @@ const Signup = () => {
                 value={values.clinic_name}
                 setValue={(e) => {
                   if (!/^[A-Za-z]*$/.test(e.target.value)) return;
-                  handleChange(e); // Update the state only if the input value matches the regex
+                  else handleChange(e); // Update the state only if the input value matches the regex
                 }}
                 err={validationError && errors.clinic_name}
                 label={TranslateJson.signup.step3.label.clinic_name}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TbEye } from "react-icons/tb";
 import Toggle from "../toggle/toggle";
 import ModelResponsive from "./ModelResponsive";
+import { FaTrashAlt } from "react-icons/fa";
 
 const Table = ({
   headers,
@@ -15,36 +16,36 @@ const Table = ({
   loader,
   setviewPage,
   id,
-  filtervalue
+  filtervalue,
 }) => {
   const [details, setDetails] = useState({
     id: "",
     value: "",
   });
-
-
+  const [popUpModel, setPopUpModel] = useState("");
 
   return (
     <>
       <table className="relative text-sm font-medium text-nowrap border-collapse font-poppins w-full ">
         <thead className=" text-[16px] font-semibold border-b-[2px] border-t-[2px] h-[10%] sticky z-30 top-0 bg-white">
           <tr>
-            {
-              tableName === "Doctor" ||  tableName === "Receptionist" ? <>
-               {headers()?.map((head, i) => (
-              <td key={i} className={` text-start py-2 px-10`}>
-                {head?.title}
-              </td>
-            ))}
-              </> : <>
-              {headers?.map((head, i) => (
-              <td key={i} className={` text-start py-2 px-10`}>
-                {head?.title}
-              </td>
-            ))}
+            {tableName === "Doctor" || tableName === "Receptionist" ? (
+              <>
+                {headers()?.map((head, i) => (
+                  <td key={i} className={` text-start py-2 px-10`}>
+                    {head?.title}
+                  </td>
+                ))}
               </>
-            }
-           
+            ) : (
+              <>
+                {headers?.map((head, i) => (
+                  <td key={i} className={` text-start py-2 px-10`}>
+                    {head?.title}
+                  </td>
+                ))}
+              </>
+            )}
           </tr>
         </thead>
 
@@ -86,13 +87,13 @@ const Table = ({
               );
             }
             if (tableName === "Doctor") {
-              if(filtervalue === "recently_joined") { 
+              if (filtervalue === "recently_joined") {
                 return (
                   <tr className="border-b font-medium text-start" key={i}>
                     <td className={`py-2 px-10`}>{i + 1}</td>
                     <td
                       className={`py-2 px-10 flex items-center justify-start gap-3`}
-                    >                      
+                    >
                       {item.mobile_number}
                     </td>
                     <td className={`py-2 px-10`}>
@@ -182,19 +183,18 @@ const Table = ({
                   </tr>
                 );
               }
-             
             }
             if (tableName === "Receptionist") {
-              if(filtervalue === "recently_joined") {
+              if (filtervalue === "recently_joined") {
                 return (
                   <tr className="border-b font-medium text-start" key={i}>
                     <td className={`py-2 px-10`}>{i + 1}</td>
                     <td
                       className={`py-2 px-10 flex items-center justify-start gap-3`}
-                    >                     
+                    >
                       {item.mobile_number}
                     </td>
-                   
+
                     <td className={`py-2 px-10`}>
                       <div
                         onClick={() => {
@@ -208,7 +208,7 @@ const Table = ({
                           className="text-gray-300 hover:text-blue-400 cursor-pointer"
                         />
                       </div>
-                    </td>            
+                    </td>
                   </tr>
                 );
               } else {
@@ -275,7 +275,6 @@ const Table = ({
                   </tr>
                 );
               }
-              
             }
             if (tableName === "Medicine") {
               return (
@@ -307,11 +306,60 @@ const Table = ({
                 </tr>
               );
             }
+            if (tableName === "DosageForm") {
+              return (
+                <tr className="border-b font-medium text-start" key={i}>
+                  <td className={`py-4 px-10`}>{i + 1}</td>
+                  <td className={`py-4 px-10`}>{item.form_name}</td>
+                  <td className={`py-4 px-10`}>
+                    <p className=" text-primary_color cursor-pointer font-medium">
+                      Edit
+                    </p>
+                  </td>
+                  <td className={`py-4 px-10`}>
+                    <FaTrashAlt
+                      onClick={() => {
+                        setPopUpModel("DosageForm");
+                        setModel(true);
+                        setDetails({ id: item?._id, value: item?.form_name });
+                      }}
+                      size={20}
+                      className="text-gray-400 cursor-pointer hover:text-red-500"
+                    />
+                  </td>
+                </tr>
+              );
+            }
+            if (tableName === "DosageStrength") {
+              return (
+                <tr className="border-b font-medium text-start" key={i}>
+                  <td className={`py-4 px-10`}>{i + 1}</td>
+                  <td className={`py-4 px-10`}>{item.unit_name}</td>
+                  <td className={`py-4 px-10`}>
+                    <p className=" text-primary_color cursor-pointer font-medium">
+                      Edit
+                    </p>
+                  </td>
+                  <td className={`py-4 px-10`}>
+                    <FaTrashAlt
+                      onClick={() => {
+                        setPopUpModel("DosageStrength");
+                        setModel(true);
+                        setDetails({ id: item?._id, value: item?.unit_name });
+                      }}
+                      size={20}
+                      className="text-gray-400 cursor-pointer hover:text-red-500"
+                    />
+                  </td>
+                </tr>
+              );
+            }
           })}
         </tbody>
       </table>
 
       <ModelResponsive
+        popUpModel={popUpModel}
         modalpopup={model}
         openModal={setModel}
         trigger={handleChange}

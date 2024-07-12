@@ -10,6 +10,8 @@ import TableDatas from "./Slice/TableDatas";
 import PrescriptionDetails from "./Slice/Prescription"; // Add this import statement
 import Pagination from "./Slice/Pagination";
 import DetailsPage from "./Slice/DetailsPage";
+import Dosage from "./Slice/Dosage";
+
 
 
 const store = configureStore({
@@ -21,7 +23,8 @@ const store = configureStore({
     TableDatas,
     PrescriptionDetails,
     Pagination,
-    DetailsPage
+    DetailsPage,
+    dosage: Dosage
   },
 });
 

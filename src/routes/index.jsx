@@ -9,6 +9,9 @@ const Receptionist = lazy(() => import("../pages/Receptionist/Receptionist"));
 const Medicine = lazy(() => import("../pages/Medicine/Medicine"));
 const AddMedicine = lazy(() => import("../pages/Medicine/AddMedicine"));
 const Prescription = lazy(() => import("../pages/Prescription/Prescription"));
+const DosageForm = lazy(() => import("../pages/DosageForm/DosageForm"));
+const DosageStrength = lazy(() => import("../pages/DosageStrength/DosageStrength"));
+
 
 
 
@@ -56,6 +59,14 @@ const routes = [
   {
     path: "/prescription",
     component: Prescription,
+  },
+  {
+    path: "/dosage-form",
+    component: DosageForm,
+  },
+  {
+    path: "/dosage-unit",
+    component: DosageStrength,
   }
 ];
 
