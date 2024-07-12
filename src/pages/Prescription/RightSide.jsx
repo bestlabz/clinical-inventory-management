@@ -56,7 +56,6 @@ const RightSide = ({
     setImageUpload,
   } = RightSideFunction({ setReFetch });
 
-
   const {
     clinicLogo,
     clinicDetails,
@@ -64,9 +63,6 @@ const RightSide = ({
     headerDetails,
     mainDetails,
   } = useSelector((state) => state.PrescriptionDetails);
-
-
-
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
@@ -203,10 +199,10 @@ const RightSide = ({
                 <Input
                   label={i.name}
                   placeholder={`Enter ${i.name}`}
-                  color={i?.style?.color}
-                  size={i?.style?.size}
-                  font={i?.style?.font}
-                  weight={i?.style?.font_weight}
+                  color={i?.styles?.color}
+                  size={i?.styles?.size}
+                  font={i?.styles?.font}
+                  weight={i?.styles?.font_weight}
                   selectKey={() => setselectedKey(i?.name)}
                   disabled={true}
                   value={i?.value}
@@ -282,7 +278,7 @@ const RightSide = ({
                     clinicId: userDetails._id,
                     fieldName: `HeaderIndex${headerDetails.length + 1}`,
                     section: "header",
-                    value: ""
+                    value: "",
                   })
                 }
                 className="prescription-right-content-container-add-new-button"
@@ -358,7 +354,7 @@ const RightSide = ({
                 clinicId: userDetails._id,
                 fieldName: `MainIndex${mainDetails.length + 1}`,
                 section: "main",
-                value: ""
+                value: "",
               })
             }
             className="prescription-right-content-container-add-new-button"
@@ -382,7 +378,7 @@ const RightSide = ({
 
             <div className=" w-[60%] h-full overflow-auto border-r-[2px] border-gray-200 ">
               <p className="text-[24px] font-semibold p-4">
-                {colorChange === "clinic details"
+                {colorChange === "clinicDetails"
                   ? "ClinicDetails"
                   : colorChange === "doctorDetails"
                   ? "Doctor Details"
@@ -604,7 +600,7 @@ const RightSide = ({
         </ModelPopup>
       </div>
 
-      {/* <div className=" 2xl:hidden xl:hidden lg:block md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
+      <div className=" 2xl:hidden xl:hidden lg:block md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
         <ModelPopup height="95%" width="70%" showDrawer={openModel}>
           <div className="flex w-full h-full relative">
             <IoClose
@@ -619,190 +615,128 @@ const RightSide = ({
                   ? "Clinic Details"
                   : colorChange === "doctorDetails"
                   ? "Doctor Details"
-                  : colorChange === "headerDetails"
+                  : colorChange === "header"
                   ? "Header Details"
-                  : colorChange === "mainDetails"
+                  : colorChange === "main"
                   ? "Main Details"
                   : ""}
               </p>
               {colorChange === "clinicDetails" && (
                 <div className=" w-[80%] px-4 space-y-4">
-                  <Input
-                    label="Clinic Name"
-                    id="clinic_name"
-                    name="clinic_name"
-                    placeholder="Enter Clinic Name"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.name?.value}
-                    color={updates?.name?.color}
-                    size={updates?.name?.size}
-                    font={updates?.name?.font}
-                    weight={updates?.name?.weight}
-                    selectKey={() => setselectedKey("name")}
-                  />
-                  <Input
-                    label="Phone"
-                    id="phone"
-                    name="phone"
-                    placeholder="Enter Phone"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.contact_number?.value}
-                    color={updates?.contact_number?.color}
-                    size={updates?.contact_number?.size}
-                    font={updates?.contact_number?.font}
-                    weight={updates?.contact_number?.weight}
-                    selectKey={() => setselectedKey("contact_number")}
-                  />
-
-                  <div className=" flex flex-col gap-1">
-                    <label className="mt-2">Address</label>
-                    <textarea
-                      style={{
-                        color: updates?.address?.color,
-                        fontWeight: updates?.address?.weight,
-                        fontSize: updates?.address?.size,
-                        fontFamily: updates?.address?.font,
-                      }}
-                      id="address"
-                      name="address"
-                      rows={3}
-                      onClick={() => setselectedKey("address")}
-                      placeholder="Enter Address"
-                      className=" resize-none outline-none p-2 border-[1px] border-gray-300 rounded-xl"
-                      onChange={(e) =>
-                        updateInputStyles({ value: e.target.value })
-                      }
-                      value={updates?.address?.value}
-                    />
-                  </div>
-                  <Input
-                    label="GST No"
-                    id="gst_no"
-                    name="gst_no"
-                    placeholder="Enter GST number"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.gst_no?.value}
-                    color={updates?.gst_no?.color}
-                    size={updates?.gst_no?.size}
-                    font={updates?.gst_no?.font}
-                    weight={updates?.gst_no?.weight}
-                    selectKey={() => setselectedKey("gst_no")}
-                  />
+                  {clinicDetails?.map((i, index) => {
+                    return (
+                      <div key={index}>
+                        {i?.name === "Address" ? (
+                          <div className="flex flex-col gap-1">
+                            <label className="mt-2">{i?.name}</label>
+                            <textarea
+                              style={{
+                                color: i?.styles?.color,
+                                fontFamily: i?.styles?.font,
+                                fontSize: i?.styles?.size,
+                                fontWeight: i?.styles?.font_weight,
+                              }}
+                              rows={4}
+                              placeholder={`Enter ${i?.name}`}
+                              className="resize-none outline-none p-2 border-[1px] border-gray-300 rounded-xl"
+                              onClick={() => setselectedKey(i?.name)}
+                              onChange={(e) => setUpdateValue(e.target.value)}
+                              value={i?.value}
+                            />
+                          </div>
+                        ) : (
+                          <Input
+                            label={i?.name}
+                            placeholder={`Enter ${i?.name}`}
+                            color={i?.styles?.color}
+                            size={i?.styles?.size}
+                            font={i?.styles?.font}
+                            weight={i?.styles?.font_weight}
+                            selectKey={() => setselectedKey(i?.name)}
+                            setValue={(e) => {
+                              if (i?.name === "Contact Number") {
+                                if (!/^\d*$/.test(e.target.value)) {
+                                  return; // If not a digit, return without updating the state
+                                } else {
+                                  setUpdateValue(e.target.value);
+                                }
+                              } else {
+                                setUpdateValue(e.target.value);
+                              }
+                            }}
+                            value={i?.value}
+                            length={i?.name === "Contact Number" && 10}
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
               {colorChange === "doctorDetails" && (
                 <div className="w-[80%] px-4 space-y-4">
-                  <Input
-                    label="Doctor Name"
-                    id="doctor_name"
-                    name="doctor_name"
-                    placeholder="Enter Doctor name"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.doctor_name?.value}
-                    color={updates?.doctor_name?.color}
-                    size={updates?.doctor_name?.size}
-                    font={updates?.doctor_name?.font}
-                    weight={updates?.doctor_name?.weight}
-                    selectKey={() => setselectedKey("doctor_name")}
-                  />
-                  <Input
-                    label="Speciality"
-                    id="speciality"
-                    name="speciality"
-                    placeholder="Enter Speciality"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.speciality?.value}
-                    color={updates?.speciality?.color}
-                    size={updates?.speciality?.size}
-                    font={updates?.speciality?.font}
-                    weight={updates?.speciality?.weight}
-                    selectKey={() => setselectedKey("speciality")}
-                  />
-                  <Input
-                    label="Degree"
-                    id="degree"
-                    name="degree"
-                    placeholder="Enter degree"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.degree?.value}
-                    color={updates?.degree?.color}
-                    size={updates?.degree?.size}
-                    font={updates?.degree?.font}
-                    weight={updates?.degree?.weight}
-                    selectKey={() => setselectedKey("degree")}
-                  />
-                  <Input
-                    label="Work"
-                    id="work"
-                    name="work"
-                    placeholder="Enter Work"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.work?.value}
-                    color={updates?.work?.color}
-                    size={updates?.work?.size}
-                    font={updates?.work?.font}
-                    weight={updates?.work?.weight}
-                    selectKey={() => setselectedKey("work")}
-                  />
+                  {doctorDetails?.map((i, index) => {
+                    return (
+                      <div key={index}>
+                        <Input
+                          label={i?.name}
+                          placeholder={`Enter ${i?.name}`}
+                          color={i?.styles?.color}
+                          size={i?.styles?.size}
+                          font={i?.styles?.font}
+                          weight={i?.styles?.font_weight}
+                          selectKey={() => setselectedKey(i?.name)}
+                          setValue={(e) => setUpdateValue(e.target.value)}
+                          value={i?.value}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
-              {colorChange === "headerDetails" && (
+              {colorChange === "header" && (
                 <div className=" w-[80%] px-4 space-y-4">
-                  {updates &&
-                    updates.map((i, index) => (
-                      <Input
-                        key={index}
-                        label="Title Name"
-                        id="title_name"
-                        name="title_name"
-                        placeholder="Enter Title name"
-                        setValue={(e) => updateInputStyles(e.target.value)}
-                        value={i?.title}
-                        color={i?.color}
-                        size={i?.size}
-                        font={i?.font}
-                        weight={i?.weight}
-                        selectKey={() => setselectedKey(index)}
-                      />
-                    ))}
+                  {headerDetails?.map((i, index) => {
+                    return (
+                      <div key={index}>
+                        <Input
+                          label={i?.name}
+                          placeholder={`Enter ${i?.name}`}
+                          color={i?.styles?.color}
+                          size={i?.styles?.size}
+                          font={i?.styles?.font}
+                          weight={i?.styles?.font_weight}
+                          selectKey={() => setselectedKey(i?.name)}
+                          setValue={(e) => setUpdateValue(e.target.value)}
+                          value={i?.value}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
-              {colorChange === "mainDetails" && (
+              {colorChange === "main" && (
                 <div className=" w-[80%] px-4 space-y-4">
-                  {updates &&
-                    updates.map((i, index) => (
-                      <Input
-                        key={index}
-                        label="Title Name"
-                        id="title_name"
-                        name="title_name"
-                        placeholder="Enter Title name"
-                        setValue={(e) => updateInputStyles(e.target.value)}
-                        value={i?.title}
-                        color={i?.color}
-                        size={i?.size}
-                        font={i?.font}
-                        weight={i?.weight}
-                        selectKey={() => setselectedKey(index)}
-                      />
-                    ))}
+                  {mainDetails?.map((i, index) => {
+                    return (
+                      <div key={index}>
+                        <Input
+                          label={i?.name}
+                          placeholder={`Enter ${i?.name}`}
+                          color={i?.styles?.color}
+                          size={i?.styles?.size}
+                          font={i?.styles?.font}
+                          weight={i?.styles?.font_weight}
+                          selectKey={() => setselectedKey(i?.name)}
+                          setValue={(e) => setUpdateValue(e.target.value)}
+                          value={i?.value}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -816,7 +750,6 @@ const RightSide = ({
                   value={selectedFont}
                   SelectedValue={(e) => {
                     setselectedFont(e);
-                    setchange("change");
                   }}
                 />
               </div>
@@ -828,7 +761,6 @@ const RightSide = ({
                     value={selectedweight}
                     SelectedValue={(e) => {
                       setselectedWeight(e);
-                      setchange1("change");
                     }}
                     placeholder="Select"
                   />
@@ -840,7 +772,6 @@ const RightSide = ({
                     value={selectedsize}
                     SelectedValue={(e) => {
                       setselectedSize(e);
-                      setchange2("change");
                     }}
                     placeholder="Select"
                   />
@@ -878,7 +809,7 @@ const RightSide = ({
                   Cancel
                 </button>
                 <button
-                  onClick={updateState}
+                  onClick={update}
                   className="ml-3 w-[100px] bg-primary_color text-white h-[35px] rounded-md"
                 >
                   Update
@@ -904,190 +835,128 @@ const RightSide = ({
                   ? "Clinic Details"
                   : colorChange === "doctorDetails"
                   ? "Doctor Details"
-                  : colorChange === "headerDetails"
+                  : colorChange === "header"
                   ? "Header Details"
-                  : colorChange === "mainDetails"
+                  : colorChange === "main"
                   ? "Main Details"
                   : ""}
               </p>
               {colorChange === "clinicDetails" && (
                 <div className=" w-[80%] px-4 space-y-4">
-                  <Input
-                    label="Clinic Name"
-                    id="clinic_name"
-                    name="clinic_name"
-                    placeholder="Enter Clinic Name"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.name?.value}
-                    color={updates?.name?.color}
-                    size={updates?.name?.size}
-                    font={updates?.name?.font}
-                    weight={updates?.name?.weight}
-                    selectKey={() => setselectedKey("name")}
-                  />
-                  <Input
-                    label="Phone"
-                    id="phone"
-                    name="phone"
-                    placeholder="Enter Phone"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.contact_number?.value}
-                    color={updates?.contact_number?.color}
-                    size={updates?.contact_number?.size}
-                    font={updates?.contact_number?.font}
-                    weight={updates?.contact_number?.weight}
-                    selectKey={() => setselectedKey("contact_number")}
-                  />
-
-                  <div className=" flex flex-col gap-1">
-                    <label className="mt-2">Address</label>
-                    <textarea
-                      style={{
-                        color: updates?.address?.color,
-                        fontWeight: updates?.address?.weight,
-                        fontSize: updates?.address?.size,
-                        fontFamily: updates?.address?.font,
-                      }}
-                      id="address"
-                      name="address"
-                      rows={3}
-                      onClick={() => setselectedKey("address")}
-                      placeholder="Enter Address"
-                      className=" resize-none outline-none p-2 border-[1px] border-gray-300 rounded-xl"
-                      onChange={(e) =>
-                        updateInputStyles({ value: e.target.value })
-                      }
-                      value={updates?.address?.value}
-                    />
-                  </div>
-                  <Input
-                    label="GST No"
-                    id="gst_no"
-                    name="gst_no"
-                    placeholder="Enter GST number"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.gst_no?.value}
-                    color={updates?.gst_no?.color}
-                    size={updates?.gst_no?.size}
-                    font={updates?.gst_no?.font}
-                    weight={updates?.gst_no?.weight}
-                    selectKey={() => setselectedKey("gst_no")}
-                  />
+                  {clinicDetails?.map((i, index) => {
+                    return (
+                      <div key={index}>
+                        {i?.name === "Address" ? (
+                          <div className="flex flex-col gap-1">
+                            <label className="mt-2">{i?.name}</label>
+                            <textarea
+                              style={{
+                                color: i?.styles?.color,
+                                fontFamily: i?.styles?.font,
+                                fontSize: i?.styles?.size,
+                                fontWeight: i?.styles?.font_weight,
+                              }}
+                              rows={4}
+                              placeholder={`Enter ${i?.name}`}
+                              className="resize-none outline-none p-2 border-[1px] border-gray-300 rounded-xl"
+                              onClick={() => setselectedKey(i?.name)}
+                              onChange={(e) => setUpdateValue(e.target.value)}
+                              value={i?.value}
+                            />
+                          </div>
+                        ) : (
+                          <Input
+                            label={i?.name}
+                            placeholder={`Enter ${i?.name}`}
+                            color={i?.styles?.color}
+                            size={i?.styles?.size}
+                            font={i?.styles?.font}
+                            weight={i?.styles?.font_weight}
+                            selectKey={() => setselectedKey(i?.name)}
+                            setValue={(e) => {
+                              if (i?.name === "Contact Number") {
+                                if (!/^\d*$/.test(e.target.value)) {
+                                  return; // If not a digit, return without updating the state
+                                } else {
+                                  setUpdateValue(e.target.value);
+                                }
+                              } else {
+                                setUpdateValue(e.target.value);
+                              }
+                            }}
+                            value={i?.value}
+                            length={i?.name === "Contact Number" && 10}
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
               {colorChange === "doctorDetails" && (
                 <div className="w-[80%] px-4 space-y-4">
-                  <Input
-                    label="Doctor Name"
-                    id="doctor_name"
-                    name="doctor_name"
-                    placeholder="Enter Doctor name"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.doctor_name?.value}
-                    color={updates?.doctor_name?.color}
-                    size={updates?.doctor_name?.size}
-                    font={updates?.doctor_name?.font}
-                    weight={updates?.doctor_name?.weight}
-                    selectKey={() => setselectedKey("doctor_name")}
-                  />
-                  <Input
-                    label="Speciality"
-                    id="speciality"
-                    name="speciality"
-                    placeholder="Enter Speciality"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.speciality?.value}
-                    color={updates?.speciality?.color}
-                    size={updates?.speciality?.size}
-                    font={updates?.speciality?.font}
-                    weight={updates?.speciality?.weight}
-                    selectKey={() => setselectedKey("speciality")}
-                  />
-                  <Input
-                    label="Degree"
-                    id="degree"
-                    name="degree"
-                    placeholder="Enter degree"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.degree?.value}
-                    color={updates?.degree?.color}
-                    size={updates?.degree?.size}
-                    font={updates?.degree?.font}
-                    weight={updates?.degree?.weight}
-                    selectKey={() => setselectedKey("degree")}
-                  />
-                  <Input
-                    label="Work"
-                    id="work"
-                    name="work"
-                    placeholder="Enter Work"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.work?.value}
-                    color={updates?.work?.color}
-                    size={updates?.work?.size}
-                    font={updates?.work?.font}
-                    weight={updates?.work?.weight}
-                    selectKey={() => setselectedKey("work")}
-                  />
+                  {doctorDetails?.map((i, index) => {
+                    return (
+                      <div key={index}>
+                        <Input
+                          label={i?.name}
+                          placeholder={`Enter ${i?.name}`}
+                          color={i?.styles?.color}
+                          size={i?.styles?.size}
+                          font={i?.styles?.font}
+                          weight={i?.styles?.font_weight}
+                          selectKey={() => setselectedKey(i?.name)}
+                          setValue={(e) => setUpdateValue(e.target.value)}
+                          value={i?.value}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
-              {colorChange === "headerDetails" && (
+              {colorChange === "header" && (
                 <div className=" w-[80%] px-4 space-y-4">
-                  {updates &&
-                    updates.map((i, index) => (
-                      <Input
-                        key={index}
-                        label="Title Name"
-                        id="title_name"
-                        name="title_name"
-                        placeholder="Enter Title name"
-                        setValue={(e) => updateInputStyles(e.target.value)}
-                        value={i?.title}
-                        color={i?.color}
-                        size={i?.size}
-                        font={i?.font}
-                        weight={i?.weight}
-                        selectKey={() => setselectedKey(index)}
-                      />
-                    ))}
+                  {headerDetails?.map((i, index) => {
+                    return (
+                      <div key={index}>
+                        <Input
+                          label={i?.name}
+                          placeholder={`Enter ${i?.name}`}
+                          color={i?.styles?.color}
+                          size={i?.styles?.size}
+                          font={i?.styles?.font}
+                          weight={i?.styles?.font_weight}
+                          selectKey={() => setselectedKey(i?.name)}
+                          setValue={(e) => setUpdateValue(e.target.value)}
+                          value={i?.value}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
-              {colorChange === "mainDetails" && (
+              {colorChange === "main" && (
                 <div className=" w-[80%] px-4 space-y-4">
-                  {updates &&
-                    updates.map((i, index) => (
-                      <Input
-                        key={index}
-                        label="Title Name"
-                        id="title_name"
-                        name="title_name"
-                        placeholder="Enter Title name"
-                        setValue={(e) => updateInputStyles(e.target.value)}
-                        value={i?.title}
-                        color={i?.color}
-                        size={i?.size}
-                        font={i?.font}
-                        weight={i?.weight}
-                        selectKey={() => setselectedKey(index)}
-                      />
-                    ))}
+                  {mainDetails?.map((i, index) => {
+                    return (
+                      <div key={index}>
+                        <Input
+                          label={i?.name}
+                          placeholder={`Enter ${i?.name}`}
+                          color={i?.styles?.color}
+                          size={i?.styles?.size}
+                          font={i?.styles?.font}
+                          weight={i?.styles?.font_weight}
+                          selectKey={() => setselectedKey(i?.name)}
+                          setValue={(e) => setUpdateValue(e.target.value)}
+                          value={i?.value}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -1101,7 +970,6 @@ const RightSide = ({
                   value={selectedFont}
                   SelectedValue={(e) => {
                     setselectedFont(e);
-                    setchange("change");
                   }}
                 />
               </div>
@@ -1112,8 +980,7 @@ const RightSide = ({
                     options={option1}
                     value={selectedweight}
                     SelectedValue={(e) => {
-                      setselectedWeight1(e);
-                      setchange("change");
+                      setselectedWeight(e);
                     }}
                     placeholder="Select"
                   />
@@ -1125,7 +992,6 @@ const RightSide = ({
                     value={selectedsize}
                     SelectedValue={(e) => {
                       setselectedSize(e);
-                      setchange2("change");
                     }}
                     placeholder="Select"
                   />
@@ -1163,7 +1029,7 @@ const RightSide = ({
                   Cancel
                 </button>
                 <button
-                  onClick={updateState}
+                  onClick={update}
                   className="ml-3 w-[100px] bg-primary_color text-white h-[35px] rounded-md"
                 >
                   Update
@@ -1189,190 +1055,128 @@ const RightSide = ({
                   ? "Clinic Details"
                   : colorChange === "doctorDetails"
                   ? "Doctor Details"
-                  : colorChange === "headerDetails"
+                  : colorChange === "header"
                   ? "Header Details"
-                  : colorChange === "mainDetails"
+                  : colorChange === "main"
                   ? "Main Details"
                   : ""}
               </p>
               {colorChange === "clinicDetails" && (
                 <div className=" w-[80%] px-4 space-y-4">
-                  <Input
-                    label="Clinic Name"
-                    id="clinic_name"
-                    name="clinic_name"
-                    placeholder="Enter Clinic Name"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.name?.value}
-                    color={updates?.name?.color}
-                    size={updates?.name?.size}
-                    font={updates?.name?.font}
-                    weight={updates?.name?.weight}
-                    selectKey={() => setselectedKey("name")}
-                  />
-                  <Input
-                    label="Phone"
-                    id="phone"
-                    name="phone"
-                    placeholder="Enter Phone"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.contact_number?.value}
-                    color={updates?.contact_number?.color}
-                    size={updates?.contact_number?.size}
-                    font={updates?.contact_number?.font}
-                    weight={updates?.contact_number?.weight}
-                    selectKey={() => setselectedKey("contact_number")}
-                  />
-
-                  <div className=" flex flex-col gap-1">
-                    <label className="mt-2">Address</label>
-                    <textarea
-                      style={{
-                        color: updates?.address?.color,
-                        fontWeight: updates?.address?.weight,
-                        fontSize: updates?.address?.size,
-                        fontFamily: updates?.address?.font,
-                      }}
-                      id="address"
-                      name="address"
-                      rows={3}
-                      onClick={() => setselectedKey("address")}
-                      placeholder="Enter Address"
-                      className=" resize-none outline-none p-2 border-[1px] border-gray-300 rounded-xl"
-                      onChange={(e) =>
-                        updateInputStyles({ value: e.target.value })
-                      }
-                      value={updates?.address?.value}
-                    />
-                  </div>
-                  <Input
-                    label="GST No"
-                    id="gst_no"
-                    name="gst_no"
-                    placeholder="Enter GST number"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.gst_no?.value}
-                    color={updates?.gst_no?.color}
-                    size={updates?.gst_no?.size}
-                    font={updates?.gst_no?.font}
-                    weight={updates?.gst_no?.weight}
-                    selectKey={() => setselectedKey("gst_no")}
-                  />
+                  {clinicDetails?.map((i, index) => {
+                    return (
+                      <div key={index}>
+                        {i?.name === "Address" ? (
+                          <div className="flex flex-col gap-1">
+                            <label className="mt-2">{i?.name}</label>
+                            <textarea
+                              style={{
+                                color: i?.styles?.color,
+                                fontFamily: i?.styles?.font,
+                                fontSize: i?.styles?.size,
+                                fontWeight: i?.styles?.font_weight,
+                              }}
+                              rows={4}
+                              placeholder={`Enter ${i?.name}`}
+                              className="resize-none outline-none p-2 border-[1px] border-gray-300 rounded-xl"
+                              onClick={() => setselectedKey(i?.name)}
+                              onChange={(e) => setUpdateValue(e.target.value)}
+                              value={i?.value}
+                            />
+                          </div>
+                        ) : (
+                          <Input
+                            label={i?.name}
+                            placeholder={`Enter ${i?.name}`}
+                            color={i?.styles?.color}
+                            size={i?.styles?.size}
+                            font={i?.styles?.font}
+                            weight={i?.styles?.font_weight}
+                            selectKey={() => setselectedKey(i?.name)}
+                            setValue={(e) => {
+                              if (i?.name === "Contact Number") {
+                                if (!/^\d*$/.test(e.target.value)) {
+                                  return; // If not a digit, return without updating the state
+                                } else {
+                                  setUpdateValue(e.target.value);
+                                }
+                              } else {
+                                setUpdateValue(e.target.value);
+                              }
+                            }}
+                            value={i?.value}
+                            length={i?.name === "Contact Number" && 10}
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
               {colorChange === "doctorDetails" && (
                 <div className="w-[80%] px-4 space-y-4">
-                  <Input
-                    label="Doctor Name"
-                    id="doctor_name"
-                    name="doctor_name"
-                    placeholder="Enter Doctor name"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.doctor_name?.value}
-                    color={updates?.doctor_name?.color}
-                    size={updates?.doctor_name?.size}
-                    font={updates?.doctor_name?.font}
-                    weight={updates?.doctor_name?.weight}
-                    selectKey={() => setselectedKey("doctor_name")}
-                  />
-                  <Input
-                    label="Speciality"
-                    id="speciality"
-                    name="speciality"
-                    placeholder="Enter Speciality"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.speciality?.value}
-                    color={updates?.speciality?.color}
-                    size={updates?.speciality?.size}
-                    font={updates?.speciality?.font}
-                    weight={updates?.speciality?.weight}
-                    selectKey={() => setselectedKey("speciality")}
-                  />
-                  <Input
-                    label="Degree"
-                    id="degree"
-                    name="degree"
-                    placeholder="Enter degree"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.degree?.value}
-                    color={updates?.degree?.color}
-                    size={updates?.degree?.size}
-                    font={updates?.degree?.font}
-                    weight={updates?.degree?.weight}
-                    selectKey={() => setselectedKey("degree")}
-                  />
-                  <Input
-                    label="Work"
-                    id="work"
-                    name="work"
-                    placeholder="Enter Work"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.work?.value}
-                    color={updates?.work?.color}
-                    size={updates?.work?.size}
-                    font={updates?.work?.font}
-                    weight={updates?.work?.weight}
-                    selectKey={() => setselectedKey("work")}
-                  />
+                  {doctorDetails?.map((i, index) => {
+                    return (
+                      <div key={index}>
+                        <Input
+                          label={i?.name}
+                          placeholder={`Enter ${i?.name}`}
+                          color={i?.styles?.color}
+                          size={i?.styles?.size}
+                          font={i?.styles?.font}
+                          weight={i?.styles?.font_weight}
+                          selectKey={() => setselectedKey(i?.name)}
+                          setValue={(e) => setUpdateValue(e.target.value)}
+                          value={i?.value}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
-              {colorChange === "headerDetails" && (
+              {colorChange === "header" && (
                 <div className=" w-[80%] px-4 space-y-4">
-                  {updates &&
-                    updates.map((i, index) => (
-                      <Input
-                        key={index}
-                        label="Title Name"
-                        id="title_name"
-                        name="title_name"
-                        placeholder="Enter Title name"
-                        setValue={(e) => updateInputStyles(e.target.value)}
-                        value={i?.title}
-                        color={i?.color}
-                        size={i?.size}
-                        font={i?.font}
-                        weight={i?.weight}
-                        selectKey={() => setselectedKey(index)}
-                      />
-                    ))}
+                  {headerDetails?.map((i, index) => {
+                    return (
+                      <div key={index}>
+                        <Input
+                          label={i?.name}
+                          placeholder={`Enter ${i?.name}`}
+                          color={i?.styles?.color}
+                          size={i?.styles?.size}
+                          font={i?.styles?.font}
+                          weight={i?.styles?.font_weight}
+                          selectKey={() => setselectedKey(i?.name)}
+                          setValue={(e) => setUpdateValue(e.target.value)}
+                          value={i?.value}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
-              {colorChange === "mainDetails" && (
+              {colorChange === "main" && (
                 <div className=" w-[80%] px-4 space-y-4">
-                  {updates &&
-                    updates.map((i, index) => (
-                      <Input
-                        key={index}
-                        label="Title Name"
-                        id="title_name"
-                        name="title_name"
-                        placeholder="Enter Title name"
-                        setValue={(e) => updateInputStyles(e.target.value)}
-                        value={i?.title}
-                        color={i?.color}
-                        size={i?.size}
-                        font={i?.font}
-                        weight={i?.weight}
-                        selectKey={() => setselectedKey(index)}
-                      />
-                    ))}
+                  {mainDetails?.map((i, index) => {
+                    return (
+                      <div key={index}>
+                        <Input
+                          label={i?.name}
+                          placeholder={`Enter ${i?.name}`}
+                          color={i?.styles?.color}
+                          size={i?.styles?.size}
+                          font={i?.styles?.font}
+                          weight={i?.styles?.font_weight}
+                          selectKey={() => setselectedKey(i?.name)}
+                          setValue={(e) => setUpdateValue(e.target.value)}
+                          value={i?.value}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -1386,7 +1190,6 @@ const RightSide = ({
                   value={selectedFont}
                   SelectedValue={(e) => {
                     setselectedFont(e);
-                    setchange("change");
                   }}
                 />
               </div>
@@ -1398,7 +1201,6 @@ const RightSide = ({
                     value={selectedweight}
                     SelectedValue={(e) => {
                       setselectedWeight(e);
-                      setchange1("change");
                     }}
                     placeholder="Select"
                   />
@@ -1410,7 +1212,6 @@ const RightSide = ({
                     value={selectedsize}
                     SelectedValue={(e) => {
                       setselectedSize(e);
-                      setchange2("change");
                     }}
                     placeholder="Select"
                   />
@@ -1448,7 +1249,7 @@ const RightSide = ({
                   Cancel
                 </button>
                 <button
-                  onClick={updateState}
+                  onClick={update}
                   className="ml-3 w-[100px] bg-primary_color text-white h-[35px] rounded-md"
                 >
                   Update
@@ -1474,190 +1275,128 @@ const RightSide = ({
                   ? "Clinic Details"
                   : colorChange === "doctorDetails"
                   ? "Doctor Details"
-                  : colorChange === "headerDetails"
+                  : colorChange === "header"
                   ? "Header Details"
-                  : colorChange === "mainDetails"
+                  : colorChange === "main"
                   ? "Main Details"
                   : ""}
               </p>
               {colorChange === "clinicDetails" && (
                 <div className=" w-[80%] px-4 space-y-4">
-                  <Input
-                    label="Clinic Name"
-                    id="clinic_name"
-                    name="clinic_name"
-                    placeholder="Enter Clinic Name"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.name?.value}
-                    color={updates?.name?.color}
-                    size={updates?.name?.size}
-                    font={updates?.name?.font}
-                    weight={updates?.name?.weight}
-                    selectKey={() => setselectedKey("name")}
-                  />
-                  <Input
-                    label="Phone"
-                    id="phone"
-                    name="phone"
-                    placeholder="Enter Phone"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.contact_number?.value}
-                    color={updates?.contact_number?.color}
-                    size={updates?.contact_number?.size}
-                    font={updates?.contact_number?.font}
-                    weight={updates?.contact_number?.weight}
-                    selectKey={() => setselectedKey("contact_number")}
-                  />
-
-                  <div className=" flex flex-col gap-1">
-                    <label className="mt-2">Address</label>
-                    <textarea
-                      style={{
-                        color: updates?.address?.color,
-                        fontWeight: updates?.address?.weight,
-                        fontSize: updates?.address?.size,
-                        fontFamily: updates?.address?.font,
-                      }}
-                      id="address"
-                      name="address"
-                      rows={3}
-                      onClick={() => setselectedKey("address")}
-                      placeholder="Enter Address"
-                      className=" resize-none outline-none p-2 border-[1px] border-gray-300 rounded-xl"
-                      onChange={(e) =>
-                        updateInputStyles({ value: e.target.value })
-                      }
-                      value={updates?.address?.value}
-                    />
-                  </div>
-                  <Input
-                    label="GST No"
-                    id="gst_no"
-                    name="gst_no"
-                    placeholder="Enter GST number"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.gst_no?.value}
-                    color={updates?.gst_no?.color}
-                    size={updates?.gst_no?.size}
-                    font={updates?.gst_no?.font}
-                    weight={updates?.gst_no?.weight}
-                    selectKey={() => setselectedKey("gst_no")}
-                  />
+                  {clinicDetails?.map((i, index) => {
+                    return (
+                      <div key={index}>
+                        {i?.name === "Address" ? (
+                          <div className="flex flex-col gap-1">
+                            <label className="mt-2">{i?.name}</label>
+                            <textarea
+                              style={{
+                                color: i?.styles?.color,
+                                fontFamily: i?.styles?.font,
+                                fontSize: i?.styles?.size,
+                                fontWeight: i?.styles?.font_weight,
+                              }}
+                              rows={4}
+                              placeholder={`Enter ${i?.name}`}
+                              className="resize-none outline-none p-2 border-[1px] border-gray-300 rounded-xl"
+                              onClick={() => setselectedKey(i?.name)}
+                              onChange={(e) => setUpdateValue(e.target.value)}
+                              value={i?.value}
+                            />
+                          </div>
+                        ) : (
+                          <Input
+                            label={i?.name}
+                            placeholder={`Enter ${i?.name}`}
+                            color={i?.styles?.color}
+                            size={i?.styles?.size}
+                            font={i?.styles?.font}
+                            weight={i?.styles?.font_weight}
+                            selectKey={() => setselectedKey(i?.name)}
+                            setValue={(e) => {
+                              if (i?.name === "Contact Number") {
+                                if (!/^\d*$/.test(e.target.value)) {
+                                  return; // If not a digit, return without updating the state
+                                } else {
+                                  setUpdateValue(e.target.value);
+                                }
+                              } else {
+                                setUpdateValue(e.target.value);
+                              }
+                            }}
+                            value={i?.value}
+                            length={i?.name === "Contact Number" && 10}
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
               {colorChange === "doctorDetails" && (
                 <div className="w-[80%] px-4 space-y-4">
-                  <Input
-                    label="Doctor Name"
-                    id="doctor_name"
-                    name="doctor_name"
-                    placeholder="Enter Doctor name"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.doctor_name?.value}
-                    color={updates?.doctor_name?.color}
-                    size={updates?.doctor_name?.size}
-                    font={updates?.doctor_name?.font}
-                    weight={updates?.doctor_name?.weight}
-                    selectKey={() => setselectedKey("doctor_name")}
-                  />
-                  <Input
-                    label="Speciality"
-                    id="speciality"
-                    name="speciality"
-                    placeholder="Enter Speciality"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.speciality?.value}
-                    color={updates?.speciality?.color}
-                    size={updates?.speciality?.size}
-                    font={updates?.speciality?.font}
-                    weight={updates?.speciality?.weight}
-                    selectKey={() => setselectedKey("speciality")}
-                  />
-                  <Input
-                    label="Degree"
-                    id="degree"
-                    name="degree"
-                    placeholder="Enter degree"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.degree?.value}
-                    color={updates?.degree?.color}
-                    size={updates?.degree?.size}
-                    font={updates?.degree?.font}
-                    weight={updates?.degree?.weight}
-                    selectKey={() => setselectedKey("degree")}
-                  />
-                  <Input
-                    label="Work"
-                    id="work"
-                    name="work"
-                    placeholder="Enter Work"
-                    setValue={(e) =>
-                      updateInputStyles({ value: e.target.value })
-                    }
-                    value={updates?.work?.value}
-                    color={updates?.work?.color}
-                    size={updates?.work?.size}
-                    font={updates?.work?.font}
-                    weight={updates?.work?.weight}
-                    selectKey={() => setselectedKey("work")}
-                  />
+                  {doctorDetails?.map((i, index) => {
+                    return (
+                      <div key={index}>
+                        <Input
+                          label={i?.name}
+                          placeholder={`Enter ${i?.name}`}
+                          color={i?.styles?.color}
+                          size={i?.styles?.size}
+                          font={i?.styles?.font}
+                          weight={i?.styles?.font_weight}
+                          selectKey={() => setselectedKey(i?.name)}
+                          setValue={(e) => setUpdateValue(e.target.value)}
+                          value={i?.value}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
-              {colorChange === "headerDetails" && (
+              {colorChange === "header" && (
                 <div className=" w-[80%] px-4 space-y-4">
-                  {updates &&
-                    updates.map((i, index) => (
-                      <Input
-                        key={index}
-                        label="Title Name"
-                        id="title_name"
-                        name="title_name"
-                        placeholder="Enter Title name"
-                        setValue={(e) => updateInputStyles(e.target.value)}
-                        value={i?.title}
-                        color={i?.color}
-                        size={i?.size}
-                        font={i?.font}
-                        weight={i?.weight}
-                        selectKey={() => setselectedKey(index)}
-                      />
-                    ))}
+                  {headerDetails?.map((i, index) => {
+                    return (
+                      <div key={index}>
+                        <Input
+                          label={i?.name}
+                          placeholder={`Enter ${i?.name}`}
+                          color={i?.styles?.color}
+                          size={i?.styles?.size}
+                          font={i?.styles?.font}
+                          weight={i?.styles?.font_weight}
+                          selectKey={() => setselectedKey(i?.name)}
+                          setValue={(e) => setUpdateValue(e.target.value)}
+                          value={i?.value}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
-              {colorChange === "mainDetails" && (
+              {colorChange === "main" && (
                 <div className=" w-[80%] px-4 space-y-4">
-                  {updates &&
-                    updates.map((i, index) => (
-                      <Input
-                        key={index}
-                        label="Title Name"
-                        id="title_name"
-                        name="title_name"
-                        placeholder="Enter Title name"
-                        setValue={(e) => updateInputStyles(e.target.value)}
-                        value={i?.title}
-                        color={i?.color}
-                        size={i?.size}
-                        font={i?.font}
-                        weight={i?.weight}
-                        selectKey={() => setselectedKey(index)}
-                      />
-                    ))}
+                  {mainDetails?.map((i, index) => {
+                    return (
+                      <div key={index}>
+                        <Input
+                          label={i?.name}
+                          placeholder={`Enter ${i?.name}`}
+                          color={i?.styles?.color}
+                          size={i?.styles?.size}
+                          font={i?.styles?.font}
+                          weight={i?.styles?.font_weight}
+                          selectKey={() => setselectedKey(i?.name)}
+                          setValue={(e) => setUpdateValue(e.target.value)}
+                          value={i?.value}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -1671,7 +1410,6 @@ const RightSide = ({
                   value={selectedFont}
                   SelectedValue={(e) => {
                     setselectedFont(e);
-                    setchange("change");
                   }}
                 />
               </div>
@@ -1683,7 +1421,6 @@ const RightSide = ({
                     value={selectedweight}
                     SelectedValue={(e) => {
                       setselectedWeight(e);
-                      setchange1("change");
                     }}
                     placeholder="Select"
                   />
@@ -1695,7 +1432,6 @@ const RightSide = ({
                     value={selectedsize}
                     SelectedValue={(e) => {
                       setselectedSize(e);
-                      setchange2("change");
                     }}
                     placeholder="Select"
                   />
@@ -1733,7 +1469,7 @@ const RightSide = ({
                   Cancel
                 </button>
                 <button
-                  onClick={updateState}
+                  onClick={update}
                   className="ml-3 w-[100px] bg-primary_color text-white h-[35px] rounded-md"
                 >
                   Update
@@ -1742,7 +1478,7 @@ const RightSide = ({
             </div>
           </div>
         </ModelPopup>
-      </div> */}
+      </div>
     </>
   );
 };

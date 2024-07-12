@@ -14,7 +14,6 @@ import axios from "axios";
 
 import ApiRequest from "../../services/httpService";
 
-
 const rightSide = ({ setReFetch }) => {
   const ImageInputRef = useRef(null);
   const dispatch = useDispatch();
@@ -42,8 +41,7 @@ const rightSide = ({ setReFetch }) => {
   const [oldData, setOldData] = useState(null);
   const [loader, setLoader] = useState(false);
   const [imageUpload, setImageUpload] = useState(null);
-  const [imageLoader, setImageLoader] = useState(false)
-
+  const [imageLoader, setImageLoader] = useState(false);
 
   const { clinicDetails, doctorDetails, headerDetails, mainDetails } =
     useSelector((state) => state.PrescriptionDetails);
@@ -100,7 +98,6 @@ const rightSide = ({ setReFetch }) => {
     const API = async () => {
       if (imageUpload) {
         try {
-
           const bodyData = {
             clinicId: userDetails._id,
             logo: imageUpload,
@@ -113,20 +110,18 @@ const rightSide = ({ setReFetch }) => {
             }
           }
           const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
-          setImageLoader(true)
-          const {data } = await axios.post(
-            `${baseURL}/update_logo`, formData
-          );
+          setImageLoader(true);
+          const { data } = await axios.post(`${baseURL}/update_logo`, formData);
 
-          if(data.success){
-            setImageLoader(false)
-            toast.success(data.message)
-            dispatch(setClinicLogo({logo: data.template?.logo }))
-            setImageUpload(null)
-            return
+          if (data.success) {
+            setImageLoader(false);
+            toast.success(data.message);
+            dispatch(setClinicLogo({ logo: data.template?.logo }));
+            setImageUpload(null);
+            return;
           }
         } catch (error) {
-          setImageLoader(false)
+          setImageLoader(false);
           toast.error(error.response?.data?.message || "An error occurred");
         }
       }
@@ -134,36 +129,36 @@ const rightSide = ({ setReFetch }) => {
     API();
   }, [imageUpload]);
 
+  console.log();
+
   useEffect(() => {
-    if (updateValue) {
-      const updatedData = updateDataValue(
-        colorChange === "clinicDetails"
-          ? clinicDetails
-          : colorChange === "doctorDetails"
-          ? doctorDetails
-          : colorChange === "header"
-          ? headerDetails
-          : mainDetails,
-        selectedKey,
-        "value",
-        updateValue
-      );
-      switch (colorChange) {
-        case "clinicDetails":
-          dispatch(setClinicDetails(updatedData));
-          break;
-        case "doctorDetails":
-          dispatch(setDoctorDetails(updatedData));
-          break;
-        case "header":
-          dispatch(setAddHeader(updatedData));
-          break;
-        case "main":
-          dispatch(setAddMain(updatedData));
-          break;
-        default:
-          break;
-      }
+    const updatedData = updateDataValue(
+      colorChange === "clinicDetails"
+        ? clinicDetails
+        : colorChange === "doctorDetails"
+        ? doctorDetails
+        : colorChange === "header"
+        ? headerDetails
+        : mainDetails,
+      selectedKey,
+      "value",
+      updateValue
+    );
+    switch (colorChange) {
+      case "clinicDetails":
+        dispatch(setClinicDetails(updatedData));
+        break;
+      case "doctorDetails":
+        dispatch(setDoctorDetails(updatedData));
+        break;
+      case "header":
+        dispatch(setAddHeader(updatedData));
+        break;
+      case "main":
+        dispatch(setAddMain(updatedData));
+        break;
+      default:
+        break;
     }
   }, [updateValue]);
 
@@ -504,7 +499,7 @@ const rightSide = ({ setReFetch }) => {
     loader,
     setImageUpload,
     imageLoader,
-    setImageLoader
+    setImageLoader,
   };
 };
 
