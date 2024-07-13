@@ -72,7 +72,7 @@ const Dashboard = () => {
             style={{
               border: "3px solid #e8e8e8",
             }}
-            className="table-box "
+            className="table-box mt-4"
           >
             <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
               <div className="table-box-top-left">

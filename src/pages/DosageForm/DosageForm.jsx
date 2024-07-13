@@ -27,7 +27,7 @@ const DosageForm = () => {
     setClear
   } = DosageFormFunction();
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-[90%]">
       <div
         style={{
           border: "3px solid #e8e8e8",
@@ -96,15 +96,15 @@ const DosageForm = () => {
             setClear={setClear}
           />
         </div>
-        {/* <div className=" w-full h-[10%] flex items-end justify-end pt-4 px-3 overflow-x-auto relative">
-          <Paginitation
+        <div className=" w-full h-[10%] flex items-end justify-end pt-4 px-3 overflow-x-auto relative">
+          {/* <Paginitation
             currentpage={currentPages}
             PrePage={pre}
             nextPage={next}
             pageNumbers={pageNumbers}
             paginationCount={paginationCount}
-          />
-        </div> */}
+          /> */}
+        </div>
       </div>
     </div>
   );
