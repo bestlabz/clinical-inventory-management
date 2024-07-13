@@ -12,8 +12,10 @@ const DosageStrength = () => {
   const [dosageValue, setDosageValue] = useState("");
   const [reFetch, setReFetch] = useState(false);
   const [error, setError] = useState(false);
-  const [loader, setLoader] = useState(false)
-  const [loader1, setLoader1] = useState(false)
+  const [loader, setLoader] = useState(false);
+  const [loader1, setLoader1] = useState(false);
+  const [action, setAction] = useState("");
+  const [clear, setClear] = useState(false);
 
   const { dosageStrength } = useSelector((state) => state.dosage);
 
@@ -23,7 +25,7 @@ const DosageStrength = () => {
         try {
           const { success, dosageUnits } = await ApiRequest.get("/dosageunit");
 
-          console.log('dosageUnits', dosageUnits);
+          console.log("dosageUnits", dosageUnits);
           if (success) {
             return dispatch(setDosageStrength(dosageUnits));
           }
@@ -40,18 +42,18 @@ const DosageStrength = () => {
       try {
         setError(false);
         setReFetch(true);
-        setLoader(true)
+        setLoader(true);
         const { success, message } = await ApiRequest.post("/dosageunit", {
           unit_name: dosageValue,
         });
 
         if (success) {
-          setLoader(false)
+          setLoader(false);
           setReFetch(false);
           return toast.success(message);
         }
       } catch (error) {
-        setLoader(false)
+        setLoader(false);
         setReFetch(false);
         toast.error(error.response.data.error);
       }
@@ -63,25 +65,27 @@ const DosageStrength = () => {
     }
   };
 
-
   const deleteDosageStrength = async (id, value) => {
     if (id && value) {
       try {
         setReFetch(true);
-        setLoader1(true)
-        
-        const { success, message } = await ApiRequest.delete(`/dosageunit/${id}`, {
-          medicine_name: value,
-        });
+        setLoader1(true);
+
+        const { success, message } = await ApiRequest.delete(
+          `/dosageunit/${id}`,
+          {
+            medicine_name: value,
+          }
+        );
 
         if (success) {
-          setModel(false)
-          setLoader1(false)
+          setModel(false);
+          setLoader1(false);
           setReFetch(false);
           return toast.success(message);
         }
       } catch (error) {
-        setLoader(false)
+        setLoader(false);
         setReFetch(false);
         toast.error(error.response.data.error);
       }
@@ -90,6 +94,30 @@ const DosageStrength = () => {
       setTimeout(() => {
         setError(false);
       }, 3000);
+    }
+  };
+
+  const editDosageStrength = async (id, value, reason) => {
+    if (id && value && reason) {
+      try {
+        setReFetch(true);
+        setLoader1(true);
+
+        const { success, message } = await ApiRequest.put(`/dosageunit/${id}`, {
+          unit_name: reason,
+        });
+
+        if (success) {
+          setLoader1(false);
+          setClear(true);
+          setReFetch(false);
+          return toast.success(message);
+        }
+      } catch (error) {
+        setLoader(false);
+        setReFetch(false);
+        toast.error(error.response.data.error);
+      }
     }
   };
 
@@ -104,7 +132,12 @@ const DosageStrength = () => {
     setError,
     loader,
     deleteDosageStrength,
-    loader1
+    loader1,
+    editDosageStrength,
+    action,
+    setAction,
+    clear,
+    setClear,
   };
 };
 

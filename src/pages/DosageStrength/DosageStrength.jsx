@@ -19,7 +19,12 @@ const DosageStrength = () => {
     setDosageValue,
     setError,
     setModel,
-    tableBody
+    tableBody,
+    action,
+    clear,
+    editDosageStrength,
+    setAction,
+    setClear
   } = DosageStrengthFunction();
   return (
     <div className="w-full h-full">
@@ -84,8 +89,12 @@ const DosageStrength = () => {
             tableName="DosageStrength"
             model={model}
             setModel={setModel}
-            handleChange={deleteDosageStrength}
             loader={loader1}
+            handleChange={action === "edit" ? editDosageStrength : deleteDosageStrength}
+            setAction={setAction}
+            clear={clear}
+            setClear={setClear}
+
           />
         </div>
         {/* <div className=" w-full h-[10%] flex items-end justify-end pt-4 px-3 overflow-x-auto relative">

@@ -17,6 +17,7 @@ const Table = ({
   setviewPage,
   id,
   filtervalue,
+  setAction = "",
 }) => {
   const [details, setDetails] = useState({
     id: "",
@@ -312,7 +313,15 @@ const Table = ({
                   <td className={`py-4 px-10`}>{i + 1}</td>
                   <td className={`py-4 px-10`}>{item.form_name}</td>
                   <td className={`py-4 px-10`}>
-                    <p className=" text-primary_color cursor-pointer font-medium">
+                    <p
+                      onClick={() => {
+                        setAction("edit");
+                        setPopUpModel("edit");
+                        setModel(true);
+                        setDetails({ id: item?._id, value: item?.form_name });
+                      }}
+                      className=" text-primary_color cursor-pointer font-medium"
+                    >
                       Edit
                     </p>
                   </td>
@@ -336,7 +345,12 @@ const Table = ({
                   <td className={`py-4 px-10`}>{i + 1}</td>
                   <td className={`py-4 px-10`}>{item.unit_name}</td>
                   <td className={`py-4 px-10`}>
-                    <p className=" text-primary_color cursor-pointer font-medium">
+                    <p  onClick={() => {
+                        setAction("edit");
+                        setPopUpModel("edit");
+                        setModel(true);
+                        setDetails({ id: item?._id, value: item?.unit_name });
+                      }} className=" text-primary_color cursor-pointer font-medium">
                       Edit
                     </p>
                   </td>

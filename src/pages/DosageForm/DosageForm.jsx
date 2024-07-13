@@ -20,6 +20,11 @@ const DosageForm = () => {
     loader,
     deleteDosageForm,
     loader1,
+    action,
+    editDosageForm,
+    setAction,
+    clear,
+    setClear
   } = DosageFormFunction();
   return (
     <div className="w-full h-full">
@@ -84,8 +89,11 @@ const DosageForm = () => {
             tableName="DosageForm"
             model={model}
             setModel={setModel}
-            handleChange={deleteDosageForm}
+            handleChange={action === "edit" ? editDosageForm : deleteDosageForm}
             loader={loader1}
+            setAction={setAction}
+            clear={clear}
+            setClear={setClear}
           />
         </div>
         {/* <div className=" w-full h-[10%] flex items-end justify-end pt-4 px-3 overflow-x-auto relative">

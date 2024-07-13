@@ -12,8 +12,10 @@ const DosageForm = () => {
   const [dosageValue, setDosageValue] = useState("");
   const [reFetch, setReFetch] = useState(false);
   const [error, setError] = useState(false);
-  const [loader, setLoader] = useState(false)
-  const [loader1, setLoader1] = useState(false)
+  const [loader, setLoader] = useState(false);
+  const [loader1, setLoader1] = useState(false);
+  const [action, setAction] = useState("");
+  const [clear, setClear] = useState(false);
 
   const { dosageForm } = useSelector((state) => state.dosage);
 
@@ -39,18 +41,18 @@ const DosageForm = () => {
       try {
         setError(false);
         setReFetch(true);
-        setLoader(true)
+        setLoader(true);
         const { success, message } = await ApiRequest.post("/dosageform", {
           form_name: dosageValue,
         });
 
         if (success) {
-          setLoader(false)
+          setLoader(false);
           setReFetch(false);
           return toast.success(message);
         }
       } catch (error) {
-        setLoader(false)
+        setLoader(false);
         setReFetch(false);
         toast.error(error.response.data.error);
       }
@@ -62,25 +64,27 @@ const DosageForm = () => {
     }
   };
 
-
   const deleteDosageForm = async (id, value) => {
     if (id && value) {
       try {
         setReFetch(true);
-        setLoader1(true)
-        
-        const { success, message } = await ApiRequest.delete(`/dosageform/${id}`, {
-          form_name: value,
-        });
+        setLoader1(true);
+
+        const { success, message } = await ApiRequest.delete(
+          `/dosageform/${id}`,
+          {
+            form_name: value,
+          }
+        );
 
         if (success) {
-          setModel(false)
-          setLoader1(false)
+          setModel(false);
+          setLoader1(false);
           setReFetch(false);
           return toast.success(message);
         }
       } catch (error) {
-        setLoader(false)
+        setLoader(false);
         setReFetch(false);
         toast.error(error.response.data.error);
       }
@@ -89,6 +93,30 @@ const DosageForm = () => {
       setTimeout(() => {
         setError(false);
       }, 3000);
+    }
+  };
+
+  const editDosageForm = async (id, value, reason) => {
+    if (id && value && reason) {
+      try {
+        setReFetch(true);
+        setLoader1(true);
+
+        const { success, message } = await ApiRequest.put(`/dosageform/${id}`, {
+          form_name: reason,
+        });
+
+        if (success) {
+          setLoader1(false);
+          setClear(true);
+          setReFetch(false);
+          return toast.success(message);
+        }
+      } catch (error) {
+        setLoader(false);
+        setReFetch(false);
+        toast.error(error.response.data.error);
+      }
     }
   };
 
@@ -103,7 +131,12 @@ const DosageForm = () => {
     setError,
     loader,
     deleteDosageForm,
-    loader1
+    loader1,
+    editDosageForm,
+    action,
+    setAction,
+    clear,
+    setClear,
   };
 };
 
