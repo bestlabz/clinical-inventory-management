@@ -26,6 +26,8 @@ const DosageForm = () => {
     clear,
     setClear
   } = DosageFormFunction();
+
+  console.log('action', action);
   return (
     <div className="w-full h-[90%]">
       <div

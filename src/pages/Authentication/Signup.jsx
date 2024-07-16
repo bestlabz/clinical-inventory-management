@@ -9,7 +9,7 @@ import TranslateJson from "../../utils/translation/en.json";
 
 //Components
 import Input from "../../Components/Properites/Inputs/Input";
-import ImageInput from "../../Components/Properites/imageInput/ImageInput";
+import ImageInput from "../../Components/Properites/imageInput/multipleDocumentUpload";
 import OTPResponsive from "../../Components/Properites/OTP/OTPResponsive";
 
 //Hooks
@@ -145,8 +145,9 @@ const Signup = () => {
                 name="name"
                 value={values.name}
                 setValue={(e) => {
-                  if (!/^[A-Za-z]*$/.test(e.target.value)) return;
-                  else handleChange(e); // Update the state only if the input value matches the regex
+                  if (/^[a-zA-Z\s]*$/.test(e.target.value)) {
+                    handleChange(e); // Call handleChange if the input is valid
+                  }
                 }}
                 err={validationError && errors.name}
                 label={TranslateJson.signup.step3.label.name}
@@ -157,8 +158,9 @@ const Signup = () => {
                 name="clinic_name"
                 value={values.clinic_name}
                 setValue={(e) => {
-                  if (!/^[A-Za-z]*$/.test(e.target.value)) return;
-                  else handleChange(e); // Update the state only if the input value matches the regex
+                  if (/^[a-zA-Z\s]*$/.test(e.target.value)) {
+                    handleChange(e); // Call handleChange if the input is valid
+                  }
                 }}
                 err={validationError && errors.clinic_name}
                 label={TranslateJson.signup.step3.label.clinic_name}
@@ -203,13 +205,13 @@ const Signup = () => {
               <div className=" relative 2xl:w-[89%] xl:w-[89%] lg:w-[100%] md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%]">
                 <ImageInput
                   base64Image={base64Image}
-                  file={values.file}
+                  file={values.files}
                   handleDeleteFile={handleDeleteFile}
                   setFieldValue={setFieldValue}
                 />
-                {validationError && errors.file && (
+                {validationError && errors.files && (
                   <span className=" absolute top-[98%] left-0 err-txt ">
-                    {errors.file}
+                    {errors.files}
                   </span>
                 )}
               </div>

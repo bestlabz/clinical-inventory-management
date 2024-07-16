@@ -57,7 +57,7 @@ const Prescription = () => {
         </div>
       </div>
 
-      <div className="prescription-left">
+      <div className="prescription-left bg-gray-100">
         <LeftSide
         />
       </div>

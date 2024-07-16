@@ -69,7 +69,7 @@ const DosageStrength = () => {
                     <ClipLoader size={20} color="#fff" />
                   ) : (
                     <>
-                      <IoMdAdd size={20} /> Dosage Strength
+                      <IoMdAdd size={20} /> Dosage Unit
                     </>
                   )}
                 </button>

@@ -22,22 +22,29 @@ export const SignupDetails = yup.object().shape({
   });
   
 
-  export const SignupImage = yup.object().shape({
-    file: yup
-      .mixed()
-      .nullable()
-      .required("Document is required")
-      .test("fileFormat", "Only image or PDF files are allowed", (value) => {
-        if (value) {
-          const fileType = value.type.split("/")[0];
-          return fileType === "image"  || fileType === "application";
-        }
-        return true;
-      })
-      .test("fileSize", "File size must be less than 5MB", (value) => {
-        if (value) {
-          return value.size <= 5242880;
-        }
-        return true;
-      }),
-  });
+export const SignupImage = yup.object().shape({
+  files: yup
+    .array()
+    .of(
+      yup
+        .mixed()
+        .nullable()
+        .required("Document is required")
+        .test("fileFormat", "Only image or PDF files are allowed", (value) => {
+          if (value) {
+            const fileType = value.type.split("/")[0];
+            return fileType === "image" || value.type === "application/pdf";
+          }
+          return true;
+        })
+        .test("fileSize", "File size must be less than 5MB", (value) => {
+          if (value) {
+            return value.size <= 5242880;
+          }
+          return true;
+        })
+    )
+    .min(2, "At least two files are required")
+    .max(3, "Three files only accecpt")
+    .required("File upload is required"),
+});

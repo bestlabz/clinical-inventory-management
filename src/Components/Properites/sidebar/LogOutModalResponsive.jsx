@@ -9,7 +9,7 @@ const LogOutModalResponsive = ({ modalpopup, openModal, logout }) => {
   return (
     <>
       <div className=" 2xl:block xl:hidden lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
-        <ModelPopup showDrawer={modalpopup} width="30%" height="18%">
+        <ModelPopup showDrawer={modalpopup} width="30%" height="25%">
           <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
             <div className="absolute top-2 right-3">
               <IoClose
@@ -18,20 +18,20 @@ const LogOutModalResponsive = ({ modalpopup, openModal, logout }) => {
                 className="font-bold cursor-pointer hover:text-red-500 transition-all duration-300"
               />{" "}
             </div>
-            <p className="text-[24px] font-semibold text-center w-[80%]">
+            <p className="text-[18px] font-semibold text-center w-[80%]">
              {TranslateJson.logout.title}
             </p>
 
             <div className="flex items-center gap-4">
               <button
-                className="logout-button bg-red-500 text-white text-[24px] hover:bg-transparent hover:text-red-500 transition-all duration-300 hover:border-red-500"
+                className="logout-button bg-red-500 text-white text-[18px] hover:bg-transparent hover:text-red-500 transition-all duration-300 hover:border-red-500"
                 onClick={openModal}
               >
                 {TranslateJson.logout.buttons.cancel}
               </button>
               <button
                 onClick={logout}
-                className="logout-button text-[24px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
+                className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
               >
                 {TranslateJson.logout.buttons.Submit}
               </button>

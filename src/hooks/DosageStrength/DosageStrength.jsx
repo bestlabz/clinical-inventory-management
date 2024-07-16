@@ -49,6 +49,7 @@ const DosageStrength = () => {
 
         if (success) {
           setLoader(false);
+          setDosageValue("")
           setReFetch(false);
           return toast.success(message);
         }

@@ -25,6 +25,8 @@ const Table = ({
   });
   const [popUpModel, setPopUpModel] = useState("");
 
+  console.log('model', model);
+
   return (
     <>
       <table className="relative text-sm font-medium text-nowrap border-collapse font-poppins w-full ">

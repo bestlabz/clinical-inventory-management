@@ -47,8 +47,11 @@ const ModelResponsive = ({
               </p>
               <textarea
                 onChange={(e) => {
-                  setReason(e.target.value);
-                  setErr(false);
+                  if (/^[A-Za-z]*$/.test(e.target.value)){
+                    setReason(e.target.value);
+                    setErr(false);
+                    return
+                  }
                 }}
                 value={reason}
                 placeholder="Give the reason"
@@ -109,8 +112,12 @@ const ModelResponsive = ({
               </p>
               <textarea
                 onChange={(e) => {
-                  setReason(e.target.value);
-                  setErr(false);
+                  if (/^[A-Za-z]*$/.test(e.target.value)){
+
+                    setReason(e.target.value);
+                    setErr(false);
+                    return
+                  }
                 }}
                 value={reason}
                 placeholder="Give the reason"
@@ -171,8 +178,11 @@ const ModelResponsive = ({
               </p>
               <textarea
                 onChange={(e) => {
-                  setReason(e.target.value);
-                  setErr(false);
+                  if (/^[A-Za-z]*$/.test(e.target.value)) {
+                    setReason(e.target.value);
+                    setErr(false);
+                    return
+                  }
                 }}
                 value={reason}
                 placeholder="Give the reason"
@@ -233,8 +243,11 @@ const ModelResponsive = ({
               </p>
               <textarea
                 onChange={(e) => {
-                  setReason(e.target.value);
-                  setErr(false);
+                  if (/^[A-Za-z]*$/.test(e.target.value)) {
+                    setReason(e.target.value);
+                    setErr(false);
+                    return
+                  }
                 }}
                 value={reason}
                 placeholder="Give the reason"
@@ -295,8 +308,11 @@ const ModelResponsive = ({
               </p>
               <textarea
                 onChange={(e) => {
-                  setReason(e.target.value);
-                  setErr(false);
+                  if (/^[A-Za-z]*$/.test(e.target.value)){
+                    setReason(e.target.value);
+                    setErr(false);
+                    return
+                  }
                 }}
                 value={reason}
                 placeholder="Give the reason"

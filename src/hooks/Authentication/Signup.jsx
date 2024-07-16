@@ -26,7 +26,7 @@ const Signup = () => {
   const dispatch = useDispatch();
 
   const [step, setStep] = useState(1);
-  const [base64Image, setBase64Image] = useState(null);
+  const [base64Image, setBase64Image] = useState([]);
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState(false);
   const [validationError, setValidationError] = useState(false);
@@ -87,10 +87,9 @@ const Signup = () => {
           return setStep((step) => step + 1);
         }
       } catch (error) {
-        setLoader(false)
-        toast.error(error.response.data.message)
+        setLoader(false);
+        toast.error(error.response.data.message);
       }
-     
     }
     if (step === 3) {
       const storeDetails = {
@@ -103,10 +102,27 @@ const Signup = () => {
       return setStep((step) => step + 1);
     }
     if (step === 4) {
+      const files = () => {
+        return values?.files?.map((img, index) => {
+          if (index === 0) {
+            return {
+              certificate: img,
+            };
+          } else {
+            const file = {
+              [`certificate${index + 1}`]: img,
+            };
+
+            return file;
+          }
+        }).reduce((acc, obj) => ({ ...acc, ...obj }), {})
+      };
+
       const storeDetails = {
         ...newuser,
-        certificate: values.file,
+        ...files(),
       };
+
 
       const formData = new FormData();
 
@@ -130,7 +146,7 @@ const Signup = () => {
           setLoader(false);
           toast.error(error.response.data.error);
         }
-      
+
       } else {
         toast.error("Invalid ID");
         setTimeout(() => {
@@ -149,15 +165,21 @@ const Signup = () => {
     });
 
   useEffect(() => {
-    if (step === 4) {
-      const file = values.file;
+    if (step === 4 && values.files && values.files.length > 0) {
+      const newBase64Images = [];
 
-      if (file) {
+      for (let i = 0; i < values.files.length; i++) {
+        const file = values.files[i];
         const reader = new FileReader();
 
         reader.onload = function (event) {
           const base64String = event.target.result;
-          setBase64Image(base64String);
+          newBase64Images.push(base64String);
+
+          // Update state only after all files are processed
+          if (newBase64Images.length === values.files.length) {
+            setBase64Image(newBase64Images);
+          }
         };
 
         reader.onerror = function (error) {
@@ -167,7 +189,9 @@ const Signup = () => {
         reader.readAsDataURL(file);
       }
     }
-  }, [values.file, step]);
+  }, [values.files, step]);
+
+  console.log("base64Image", base64Image);
 
   const handelClickOTP = async () => {
     if (!otpValue) {
@@ -184,18 +208,20 @@ const Signup = () => {
       };
       setLoader(true);
       try {
-        const { clinic, success } = await ApiRequest.post("/verifyotp", bodyData);
+        const { clinic, success } = await ApiRequest.post(
+          "/verifyotp",
+          bodyData
+        );
         if (success) {
           setLoader(false);
-          setID(clinic?._id)
+          setID(clinic?._id);
           dispatch(clearOTP());
           return setStep((step) => step + 1);
         }
       } catch (error) {
         setLoader(false);
-        toast.error(error.response.data.error)
+        toast.error(error.response.data.error);
       }
-    
     }
   };
 
@@ -215,9 +241,13 @@ const Signup = () => {
     navigate("/login");
   };
 
-  const handleDeleteFile = () => {
-    setFieldValue("file", null);
-    setBase64Image(null); // Clear base64Image when deleting file
+  const handleDeleteFile = (id) => {
+    const filter = base64Image.filter((_, index) => index !== id);
+    const filters = values.files.filter((_, index) => index !== id);
+
+    setBase64Image([...filter]);
+    setFieldValue("files", [...filters]);
+    return;
   };
 
   const validationCheck = () => {

@@ -51,7 +51,7 @@
 }
 
 .login-form {
-  @apply w-full flex flex-col 2xl:items-start xl:items-start lg:items-start md:items-center xs:items-center xss:items-center mobile:items-center gap-4;
+  @apply w-[90%] flex flex-col 2xl:items-start xl:items-start lg:items-start md:items-center xs:items-center xss:items-center mobile:items-center gap-4;
 }
 
 .login-button {
@@ -83,7 +83,7 @@
 }
 
 .sidebar {
-  @apply bg-navbar_color text-white h-[90%] rounded-3xl flex flex-col;
+  @apply bg-navbar_color text-white h-[92%] rounded-3xl flex flex-col;
 }
 
 .top_sectiom {
@@ -155,7 +155,7 @@
 }
 
 .table-box {
-  @apply w-[99.5%] h-full rounded-lg overflow-hidden;
+  @apply w-[99.5%] h-full rounded-lg overflow-auto pb-4;
 }
 
 .table-box-top {
@@ -340,7 +340,7 @@
 }
 
 .prescription-left {
-  @apply min-h-full 2xl:w-[40%] xl:w-[40%] lg:w-[100%] md:w-[100%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%];
+  @apply min-h-[90%] overflow-auto rounded-md 2xl:w-[40%] xl:w-[40%] lg:w-[100%] md:w-[100%] sm:w-[100%] xs:w-[100%] mobile:w-[100%] xss:w-[100%];
 }
 
 .prescription-left-top {

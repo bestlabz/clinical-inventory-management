@@ -31,215 +31,204 @@ const ModelResponsive = ({
       setReason("");
       openModal(false);
       setClear(false);
-      return
+      return;
     }
   }, [clear]);
 
   return (
     <>
-      {popUpModel === "DosageForm" ||
-        ("DosageStrength" && (
-          <>
-            <div className=" 2xl:block xl:block lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
-              <ModelPopup showDrawer={modalpopup} width="30%" height="30%">
-                <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
-                  <div className="absolute top-2 right-3">
-                    <IoClose
-                      onClick={() => openModal(false)}
-                      size={20}
-                      className="font-bold cursor-pointer hover:text-red-500 transition-all duration-300"
-                    />{" "}
-                  </div>
-                  <p className="text-[22px] font-semibold text-center w-[80%]">
-                    Are you sure you want to Delete ?
-                  </p>
-                  <div className="flex items-center w-[80%] justify-center gap-4">
-                    <button
-                      className="logout-button bg-red-500 text-white text-[18px] hover:bg-transparent hover:text-red-500 transition-all duration-300 hover:border-red-500"
-                      onClick={() => openModal(false)}
-                    >
-                      {TranslateJson.toggel.buttons.cancel}
-                    </button>
-                    {loader ? (
-                      <button className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
-                        <ClipLoader size={15} />
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() =>
-                          trigger(details.id, details.value, reason)
-                        }
-                        className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
-                      >
-                        {TranslateJson.toggel.buttons.Submit}
-                      </button>
-                    )}
-                  </div>
+      {(popUpModel === "DosageForm" || popUpModel === "DosageStrength") && (
+        <>
+          <div className=" 2xl:block xl:block lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
+            <ModelPopup showDrawer={modalpopup} width="30%" height="30%">
+              <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
+                <div className="absolute top-2 right-3">
+                  <IoClose
+                    onClick={() => openModal(false)}
+                    size={20}
+                    className="font-bold cursor-pointer hover:text-red-500 transition-all duration-300"
+                  />{" "}
                 </div>
-              </ModelPopup>
-            </div>
-
-            <div className=" 2xl:hidden xl:hidden lg:block md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
-              <ModelPopup showDrawer={modalpopup} width="50%" height="30%">
-                <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
-                  <div className="absolute top-2 right-3">
-                    <IoClose
-                      onClick={() => openModal(false)}
-                      size={20}
-                      className="font-bold cursor-pointer hover:text-red-500 transition-all duration-300"
-                    />{" "}
-                  </div>
-                  <p className="text-[22px] font-semibold text-center w-[80%]">
-                    Are you sure you want to Delete ?
-                  </p>
-
-                  <div className="flex items-center justify-center w-[80%] gap-4">
-                    <button
-                      className="logout-button bg-red-500 text-white text-[18px] hover:bg-transparent hover:text-red-500 transition-all duration-300 hover:border-red-500"
-                      onClick={() => openModal(false)}
-                    >
-                      {TranslateJson.toggel.buttons.cancel}
+                <p className="text-[22px] font-semibold text-center w-[80%]">
+                  Are you sure you want to Delete ?
+                </p>
+                <div className="flex items-center w-[80%] justify-center gap-4">
+                  <button
+                    className="logout-button bg-red-500 text-white text-[18px] hover:bg-transparent hover:text-red-500 transition-all duration-300 hover:border-red-500"
+                    onClick={() => openModal(false)}
+                  >
+                    {TranslateJson.toggel.buttons.cancel}
+                  </button>
+                  {loader ? (
+                    <button className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
+                      <ClipLoader size={15} />
                     </button>
-                    {loader ? (
-                      <button className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
-                        <ClipLoader size={15} />
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() =>
-                          trigger(details.id, details.value, reason)
-                        }
-                        className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
-                      >
-                        {TranslateJson.toggel.buttons.Submit}
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </ModelPopup>
-            </div>
-
-            <div className=" 2xl:hidden xl:hidden lg:hidden md:block sm:block xs:hidden mobile:hidden xss:hidden">
-              <ModelPopup showDrawer={modalpopup} width="60%" height="30%">
-                <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
-                  <div className="absolute top-2 right-3">
-                    <IoClose
-                      onClick={() => openModal(false)}
-                      size={20}
-                      className="font-bold cursor-pointer hover:text-red-500 transition-all duration-300"
-                    />{" "}
-                  </div>
-                  <p className="text-[22px] font-semibold text-center w-[80%]">
-                    Are you sure you want to Delete ?
-                  </p>
-
-                  <div className="flex items-center justify-center w-[80%] gap-4">
+                  ) : (
                     <button
-                      className="logout-button bg-red-500 text-white text-[18px] hover:bg-transparent hover:text-red-500 transition-all duration-300 hover:border-red-500"
-                      onClick={() => openModal(false)}
+                      onClick={() => trigger(details.id, details.value, reason)}
+                      className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
                     >
-                      {TranslateJson.toggel.buttons.cancel}
+                      {TranslateJson.toggel.buttons.Submit}
                     </button>
-                    {loader ? (
-                      <button className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
-                        <ClipLoader size={15} />
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() =>
-                          trigger(details.id, details.value, reason)
-                        }
-                        className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
-                      >
-                        {TranslateJson.toggel.buttons.Submit}
-                      </button>
-                    )}
-                  </div>
+                  )}
                 </div>
-              </ModelPopup>
-            </div>
+              </div>
+            </ModelPopup>
+          </div>
 
-            <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:block mobile:block xss:hidden">
-              <ModelPopup showDrawer={modalpopup} width="90%" height="30%">
-                <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
-                  <div className="absolute top-2 right-3">
-                    <IoClose
-                      onClick={() => openModal(false)}
-                      size={20}
-                      className="font-bold cursor-pointer hover:text-red-500 transition-all duration-300"
-                    />{" "}
-                  </div>
-                  <p className="text-[18px] font-semibold text-center w-[80%]">
-                    Are you sure you want to Delete ?
-                  </p>
+          <div className=" 2xl:hidden xl:hidden lg:block md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
+            <ModelPopup showDrawer={modalpopup} width="50%" height="30%">
+              <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
+                <div className="absolute top-2 right-3">
+                  <IoClose
+                    onClick={() => openModal(false)}
+                    size={20}
+                    className="font-bold cursor-pointer hover:text-red-500 transition-all duration-300"
+                  />{" "}
+                </div>
+                <p className="text-[22px] font-semibold text-center w-[80%]">
+                  Are you sure you want to Delete ?
+                </p>
 
-                  <div className="flex items-center w-[80%] justify-center gap-4">
+                <div className="flex items-center justify-center w-[80%] gap-4">
+                  <button
+                    className="logout-button bg-red-500 text-white text-[18px] hover:bg-transparent hover:text-red-500 transition-all duration-300 hover:border-red-500"
+                    onClick={() => openModal(false)}
+                  >
+                    {TranslateJson.toggel.buttons.cancel}
+                  </button>
+                  {loader ? (
+                    <button className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
+                      <ClipLoader size={15} />
+                    </button>
+                  ) : (
                     <button
-                      className="logout-button bg-red-500 text-white text-[18px] hover:bg-transparent hover:text-red-500 transition-all duration-300 hover:border-red-500"
-                      onClick={() => openModal(false)}
+                      onClick={() => trigger(details.id, details.value, reason)}
+                      className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
                     >
-                      {TranslateJson.toggel.buttons.cancel}
+                      {TranslateJson.toggel.buttons.Submit}
                     </button>
-                    {loader ? (
-                      <button className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
-                        <ClipLoader size={15} />
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() =>
-                          trigger(details.id, details.value, reason)
-                        }
-                        className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
-                      >
-                        {TranslateJson.toggel.buttons.Submit}
-                      </button>
-                    )}
-                  </div>
+                  )}
                 </div>
-              </ModelPopup>
-            </div>
+              </div>
+            </ModelPopup>
+          </div>
 
-            <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:block">
-              <ModelPopup showDrawer={modalpopup} width="96%" height="30%">
-                <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
-                  <div className="absolute top-2 right-3">
-                    <IoClose
-                      onClick={() => openModal(false)}
-                      size={20}
-                      className="font-bold cursor-pointer hover:text-red-500 transition-all duration-300"
-                    />{" "}
-                  </div>
-                  <p className="text-[18px] font-semibold text-center w-[90%]">
-                    Are you sure you want to Delete ?
-                  </p>
+          <div className=" 2xl:hidden xl:hidden lg:hidden md:block sm:block xs:hidden mobile:hidden xss:hidden">
+            <ModelPopup showDrawer={modalpopup} width="60%" height="30%">
+              <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
+                <div className="absolute top-2 right-3">
+                  <IoClose
+                    onClick={() => openModal(false)}
+                    size={20}
+                    className="font-bold cursor-pointer hover:text-red-500 transition-all duration-300"
+                  />{" "}
+                </div>
+                <p className="text-[22px] font-semibold text-center w-[80%]">
+                  Are you sure you want to Delete ?
+                </p>
 
-                  <div className="flex items-center gap-4">
+                <div className="flex items-center justify-center w-[80%] gap-4">
+                  <button
+                    className="logout-button bg-red-500 text-white text-[18px] hover:bg-transparent hover:text-red-500 transition-all duration-300 hover:border-red-500"
+                    onClick={() => openModal(false)}
+                  >
+                    {TranslateJson.toggel.buttons.cancel}
+                  </button>
+                  {loader ? (
+                    <button className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
+                      <ClipLoader size={15} />
+                    </button>
+                  ) : (
                     <button
-                      className="logout-button bg-red-500 text-white text-[18px] hover:bg-transparent hover:text-red-500 transition-all duration-300 hover:border-red-500"
-                      onClick={() => openModal(false)}
+                      onClick={() => trigger(details.id, details.value, reason)}
+                      className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
                     >
-                      {TranslateJson.toggel.buttons.cancel}
+                      {TranslateJson.toggel.buttons.Submit}
                     </button>
-                    {loader ? (
-                      <button className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
-                        <ClipLoader size={15} />
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() =>
-                          trigger(details.id, details.value, reason)
-                        }
-                        className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
-                      >
-                        {TranslateJson.toggel.buttons.Submit}
-                      </button>
-                    )}
-                  </div>
+                  )}
                 </div>
-              </ModelPopup>
-            </div>
-          </>
-        ))}
+              </div>
+            </ModelPopup>
+          </div>
+
+          <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:block mobile:block xss:hidden">
+            <ModelPopup showDrawer={modalpopup} width="90%" height="30%">
+              <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
+                <div className="absolute top-2 right-3">
+                  <IoClose
+                    onClick={() => openModal(false)}
+                    size={20}
+                    className="font-bold cursor-pointer hover:text-red-500 transition-all duration-300"
+                  />{" "}
+                </div>
+                <p className="text-[18px] font-semibold text-center w-[80%]">
+                  Are you sure you want to Delete ?
+                </p>
+
+                <div className="flex items-center w-[80%] justify-center gap-4">
+                  <button
+                    className="logout-button bg-red-500 text-white text-[18px] hover:bg-transparent hover:text-red-500 transition-all duration-300 hover:border-red-500"
+                    onClick={() => openModal(false)}
+                  >
+                    {TranslateJson.toggel.buttons.cancel}
+                  </button>
+                  {loader ? (
+                    <button className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
+                      <ClipLoader size={15} />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => trigger(details.id, details.value, reason)}
+                      className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
+                    >
+                      {TranslateJson.toggel.buttons.Submit}
+                    </button>
+                  )}
+                </div>
+              </div>
+            </ModelPopup>
+          </div>
+
+          <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:block">
+            <ModelPopup showDrawer={modalpopup} width="96%" height="30%">
+              <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
+                <div className="absolute top-2 right-3">
+                  <IoClose
+                    onClick={() => openModal(false)}
+                    size={20}
+                    className="font-bold cursor-pointer hover:text-red-500 transition-all duration-300"
+                  />{" "}
+                </div>
+                <p className="text-[18px] font-semibold text-center w-[90%]">
+                  Are you sure you want to Delete ?
+                </p>
+
+                <div className="flex items-center gap-4">
+                  <button
+                    className="logout-button bg-red-500 text-white text-[18px] hover:bg-transparent hover:text-red-500 transition-all duration-300 hover:border-red-500"
+                    onClick={() => openModal(false)}
+                  >
+                    {TranslateJson.toggel.buttons.cancel}
+                  </button>
+                  {loader ? (
+                    <button className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
+                      <ClipLoader size={15} />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => trigger(details.id, details.value, reason)}
+                      className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
+                    >
+                      {TranslateJson.toggel.buttons.Submit}
+                    </button>
+                  )}
+                </div>
+              </div>
+            </ModelPopup>
+          </div>
+        </>
+      )}
       {popUpModel === "edit" && (
         <>
           <div className=" 2xl:block xl:block lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
@@ -258,8 +247,11 @@ const ModelResponsive = ({
                 <div className="w-[80%] flex flex-col gap-3">
                   <input
                     onChange={(e) => {
-                      setReason(e.target.value);
-                      setErr(false);
+                      if (/^[A-Za-z]*$/.test(e.target.value)) {
+                        setReason(e.target.value);
+                        setErr(false);
+                        return;
+                      }
                     }}
                     value={reason}
                     placeholder="Enter name value"
@@ -302,7 +294,7 @@ const ModelResponsive = ({
 
           <div className=" 2xl:hidden xl:hidden lg:block md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
             <ModelPopup showDrawer={modalpopup} width="50%" height="35%">
-            <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
+              <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
                 <div className="absolute top-2 right-3">
                   <IoClose
                     onClick={() => openModal(false)}
@@ -316,8 +308,11 @@ const ModelResponsive = ({
                 <div className="w-[80%] flex flex-col gap-3">
                   <input
                     onChange={(e) => {
-                      setReason(e.target.value);
-                      setErr(false);
+                      if (/^[A-Za-z]*$/.test(e.target.value)) {
+                        setReason(e.target.value);
+                        setErr(false);
+                        return;
+                      }
                     }}
                     value={reason}
                     placeholder="Enter name value"
@@ -360,7 +355,7 @@ const ModelResponsive = ({
 
           <div className=" 2xl:hidden xl:hidden lg:hidden md:block sm:block xs:hidden mobile:hidden xss:hidden">
             <ModelPopup showDrawer={modalpopup} width="60%" height="35%">
-            <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
+              <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
                 <div className="absolute top-2 right-3">
                   <IoClose
                     onClick={() => openModal(false)}
@@ -374,8 +369,11 @@ const ModelResponsive = ({
                 <div className="w-[80%] flex flex-col gap-3">
                   <input
                     onChange={(e) => {
-                      setReason(e.target.value);
-                      setErr(false);
+                      if (/^[A-Za-z]*$/.test(e.target.value)) {
+                        setReason(e.target.value);
+                        setErr(false);
+                        return;
+                      }
                     }}
                     value={reason}
                     placeholder="Enter name value"
@@ -418,7 +416,7 @@ const ModelResponsive = ({
 
           <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:block mobile:block xss:hidden">
             <ModelPopup showDrawer={modalpopup} width="90%" height="35%">
-            <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
+              <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
                 <div className="absolute top-2 right-3">
                   <IoClose
                     onClick={() => openModal(false)}
@@ -432,8 +430,11 @@ const ModelResponsive = ({
                 <div className="w-[80%] flex flex-col gap-3">
                   <input
                     onChange={(e) => {
-                      setReason(e.target.value);
-                      setErr(false);
+                      if (/^[A-Za-z]*$/.test(e.target.value)) {
+                        setReason(e.target.value);
+                        setErr(false);
+                        return;
+                      }
                     }}
                     value={reason}
                     placeholder="Enter name value"
@@ -476,7 +477,7 @@ const ModelResponsive = ({
 
           <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:block">
             <ModelPopup showDrawer={modalpopup} width="96%" height="35%">
-            <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
+              <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
                 <div className="absolute top-2 right-3">
                   <IoClose
                     onClick={() => openModal(false)}
@@ -490,8 +491,11 @@ const ModelResponsive = ({
                 <div className="w-[80%] flex flex-col gap-3">
                   <input
                     onChange={(e) => {
-                      setReason(e.target.value);
-                      setErr(false);
+                      if (/^[A-Za-z]*$/.test(e.target.value)) {
+                        setReason(e.target.value);
+                        setErr(false);
+                        return;
+                      }
                     }}
                     value={reason}
                     placeholder="Enter name value"
@@ -556,8 +560,11 @@ const ModelResponsive = ({
                   </p>
                   <textarea
                     onChange={(e) => {
-                      setReason(e.target.value);
-                      setErr(false);
+                      if (/^[A-Za-z]*$/.test(e.target.value)) {
+                        setReason(e.target.value);
+                        setErr(false);
+                        return;
+                      }
                     }}
                     value={reason}
                     placeholder="Give the reason"
@@ -620,8 +627,11 @@ const ModelResponsive = ({
                   </p>
                   <textarea
                     onChange={(e) => {
-                      setReason(e.target.value);
-                      setErr(false);
+                      if (/^[A-Za-z]*$/.test(e.target.value)) {
+                        setReason(e.target.value);
+                        setErr(false);
+                        return;
+                      }
                     }}
                     value={reason}
                     placeholder="Give the reason"
@@ -684,8 +694,11 @@ const ModelResponsive = ({
                   </p>
                   <textarea
                     onChange={(e) => {
-                      setReason(e.target.value);
-                      setErr(false);
+                      if (/^[A-Za-z]*$/.test(e.target.value)) {
+                        setReason(e.target.value);
+                        setErr(false);
+                        return;
+                      }
                     }}
                     value={reason}
                     placeholder="Give the reason"
@@ -748,8 +761,11 @@ const ModelResponsive = ({
                   </p>
                   <textarea
                     onChange={(e) => {
-                      setReason(e.target.value);
-                      setErr(false);
+                      if (/^[A-Za-z]*$/.test(e.target.value)) {
+                        setReason(e.target.value);
+                        setErr(false);
+                        return;
+                      }
                     }}
                     value={reason}
                     placeholder="Give the reason"
@@ -812,8 +828,12 @@ const ModelResponsive = ({
                   </p>
                   <textarea
                     onChange={(e) => {
-                      setReason(e.target.value);
-                      setErr(false);
+                      if (/^[A-Za-z]*$/.test(e.target.value)) {
+                        setReason(e.target.value);
+                        setErr(false);
+
+                        return;
+                      }
                     }}
                     value={reason}
                     placeholder="Give the reason"
