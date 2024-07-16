@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useCallback, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
@@ -14,12 +14,26 @@ import ThemeSuspense from "./Components/theme/ThemeSuspense";
 const Layout = React.lazy(() => import("./Layout/Layout"));
 
 const App = () => {
+  const location = window.location.pathname;
+
+  const fetchClinicData = useCallback(() => {
+    if (location === "/") {
+      const token = localStorage.getItem("token");
+      if (token) {
+        return (window.location.pathname = "/dashboard");
+      } else {
+        return (window.location.pathname = "/login");
+      }
+    }
+  }, [location]);
+
+  useEffect(() => {
+    fetchClinicData();
+  }, [fetchClinicData]);
+
   return (
     <div className="w-screen h-screen">
-     <Toaster
-  position="top-right"
-  reverseOrder={false}
-/>
+      <Toaster position="top-right" reverseOrder={false} />
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -27,11 +41,14 @@ const App = () => {
 
           {/* Pruvate Route */}
           <Route path="/" element={<PrivateRoute />}>
-            <Route path="*" element={
-              <Suspense fallback={<ThemeSuspense />}>
-                <Layout />
-              </Suspense>
-            } />
+            <Route
+              path="*"
+              element={
+                <Suspense fallback={<ThemeSuspense />}>
+                  <Layout />
+                </Suspense>
+              }
+            />
           </Route>
         </Routes>
       </Router>

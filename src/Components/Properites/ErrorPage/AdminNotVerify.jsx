@@ -11,14 +11,14 @@ const AdminNotVerify = () => {
     <div className="w-full h-full flex items-center justify-center flex-col space-y-8">
       <img
         src={AdminNotVerifySVG}
-        className=" w-[300px] h-[300px] object-fill"
+        className=" w-[200px] h-[200px] object-fill"
       />
       <div className="w-[40%]">
 
-        <h1 className="text-[48px] text-center font-semibold">
+        <h1 className="text-[38px] text-center font-semibold">
           Hold on! Verification Needed.
         </h1>
-        <p className=" text-gray_text text-center text-[24px]">
+        <p className=" text-gray_text text-center text-[20px]">
           We need to verify your admin account before granting access. Please
           check your email for the verification link or contact support if you
           haven't received it.
