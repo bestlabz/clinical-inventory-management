@@ -45,9 +45,13 @@ const MultipleImageUpload = ({
         return; // Stop processing if any file is invalid
       }
     }
-
     setImageTypes((prevTypes) => [...prevTypes, ...imageTypes]);
-    setFieldValue("files", validFiles); // Set the array of valid files
+    if (file) {
+      const newFile = [...file, ...validFiles];
+      setFieldValue("files", newFile); // Set the array of valid files
+    } else {
+      setFieldValue("files", validFiles); // Set the array of valid files
+    }
   };
 
   const handleDrop = (event) => {
@@ -80,7 +84,12 @@ const MultipleImageUpload = ({
     }
 
     setImageTypes((prevTypes) => [...prevTypes, ...imageTypes]);
-    setFieldValue("files", validFiles); // Set the array of valid files
+    if (file) {
+      const newFile = [...file, ...validFiles];
+       setFieldValue("files", newFile); // Set the array of valid files
+    } else {
+       setFieldValue("files", validFiles); // Set the array of valid files
+    }
   };
 
   const handleDrag = (e) => {

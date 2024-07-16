@@ -412,7 +412,7 @@
 }
 
 .view-page-certificate-container-image {
-  @apply flex flex-col gap-3 2xl:w-[33%] xl:w-[33%] lg:w-[44%] md:w-[45%] sm:w-[45%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] 
+  @apply flex flex-col gap-3 2xl:w-[43%] xl:w-[43%] lg:w-[44%] md:w-[45%] sm:w-[45%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] 
 }
 
 .view-page-certificate-container-image-view {

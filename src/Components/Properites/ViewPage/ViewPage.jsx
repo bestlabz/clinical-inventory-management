@@ -205,9 +205,9 @@ const ViewPage = ({
                   >
                     {details?.postgraduate_certificate?.split(".")?.pop() ===
                     "pdf" ? (
-                      <BiSolidFilePdf color="#d8d8d8" size={40} />
+                      <BiSolidFilePdf color="#d8d8d8" size={30} />
                     ) : (
-                      <FaFileImage color="#d8d8d8" size={40} />
+                      <FaFileImage color="#d8d8d8" size={30} />
                     )}
                     <span className="text-[13px] ">
                       {details?.postgraduate_certificate &&
@@ -239,9 +239,9 @@ const ViewPage = ({
                   >
                     {details?.undergraduate_certificate?.split(".")?.pop() ===
                     "pdf" ? (
-                      <BiSolidFilePdf color="#d8d8d8" size={40} />
+                      <BiSolidFilePdf color="#d8d8d8" size={30} />
                     ) : (
-                      <FaFileImage color="#d8d8d8" size={40} />
+                      <FaFileImage color="#d8d8d8" size={30} />
                     )}
                     <p className="view-page-certificate-container-image-name">
                       <span className="text-[13px] ">

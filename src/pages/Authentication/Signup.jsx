@@ -202,7 +202,7 @@ const Signup = () => {
               <h1 className="sub-text">
                 {TranslateJson.signup.step4.subtitle}
               </h1>
-              <div className=" relative 2xl:w-[89%] xl:w-[89%] lg:w-[100%] md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%]">
+              <div className=" relative 2xl:w-[100%] xl:w-[100%] lg:w-[100%] md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%]">
                 <ImageInput
                   base64Image={base64Image}
                   file={values.files}
