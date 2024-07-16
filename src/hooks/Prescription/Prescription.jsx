@@ -20,6 +20,7 @@ const Prescription = () => {
   const [reFetch, setReFetch] = useState(false);
   const [headerLoader, setheaderLoader] = useState(false);
   const [mainLoader, setmainLoader] = useState(false);
+  const [openPreview, setOpenPreview] = useState(false)
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -151,7 +152,9 @@ const Prescription = () => {
     headerLoader,
     mainLoader,
     removeDynamicFeild,
-    setReFetch
+    setReFetch,
+    setOpenPreview,
+    openPreview
   };
 };
 

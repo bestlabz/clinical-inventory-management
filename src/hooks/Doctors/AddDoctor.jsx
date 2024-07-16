@@ -52,7 +52,7 @@ const AddDoctor = () => {
   };
   const next = async () => {
     if (step === 1) {
-      if (value.trim() !== "" && value.length >= 10) {
+      if (value.trim() !== "" && value.length >= 12) {
         setLoader(true);
         try {
           const { success } = await ApiRequest.post("/sendotp/doctor", {

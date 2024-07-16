@@ -27,7 +27,9 @@ const Prescription = () => {
     headerLoader,
     mainLoader,
     removeDynamicFeild,
-    setReFetch
+    setReFetch,
+    openPreview,
+    setOpenPreview
   } = PrescriptionFunction();
   return (
     <div className="prescription-container">
@@ -59,6 +61,8 @@ const Prescription = () => {
 
       <div className="prescription-left bg-gray-100">
         <LeftSide
+        openPreview={openPreview}
+        setOpenPreview={setOpenPreview}
         />
       </div>
     </div>
