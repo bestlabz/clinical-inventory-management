@@ -466,7 +466,10 @@ const RightSide = ({
                           weight={i?.styles?.font_weight}
                           selectKey={() => setselectedKey(i?.name)}
                           setValue={(e) => {
-                            if (/^[a-zA-Z\s]+$/.test(e.target.value)) {
+                            if (
+                              e.target.value === "" ||
+                              /^[a-zA-Z\s]+$/.test(e.target.value)
+                            ) {
                               return setUpdateValue(e.target.value);
                             }
                           }}
@@ -492,7 +495,10 @@ const RightSide = ({
                           weight={i?.styles?.font_weight}
                           selectKey={() => setselectedKey(i?.name)}
                           setValue={(e) => {
-                            if (/^[a-zA-Z\s]+$/.test(e.target.value)) {
+                            if (
+                              e.target.value === "" ||
+                              /^[a-zA-Z\s]+$/.test(e.target.value)
+                            ) {
                               return setUpdateValue(e.target.value);
                             }
                           }}
@@ -518,7 +524,10 @@ const RightSide = ({
                           weight={i?.styles?.font_weight}
                           selectKey={() => setselectedKey(i?.name)}
                           setValue={(e) => {
-                            if (/^[a-zA-Z\s]+$/.test(e.target.value)) {
+                            if (
+                              e.target.value === "" ||
+                              /^[a-zA-Z\s]+$/.test(e.target.value)
+                            ) {
                               return setUpdateValue(e.target.value);
                             }
                           }}
@@ -676,14 +685,24 @@ const RightSide = ({
                             weight={i?.styles?.font_weight}
                             selectKey={() => setselectedKey(i?.name)}
                             setValue={(e) => {
-                              if (i?.name === "Contact Number") {
-                                if (!/^\d*$/.test(e.target.value)) {
-                                  return; // If not a digit, return without updating the state
-                                } else {
-                                  setUpdateValue(e.target.value);
+                              const value = e.target.value;
+                              if (i?.name === "Contact number") {
+                                if (
+                                  /^\d*$/.test(value) &&
+                                  (i?.name !== "Contact number" ||
+                                    value.length <= 10)
+                                ) {
+                                  return setUpdateValue(value);
+                                }
+                              } else if (i?.name === "Clinic Name") {
+                                if (
+                                  value === "" ||
+                                  /^[a-zA-Z\s]+$/.test(value)
+                                ) {
+                                  return setUpdateValue(value);
                                 }
                               } else {
-                                setUpdateValue(e.target.value);
+                                return setUpdateValue(value);
                               }
                             }}
                             value={i?.value}
@@ -709,7 +728,14 @@ const RightSide = ({
                           font={i?.styles?.font}
                           weight={i?.styles?.font_weight}
                           selectKey={() => setselectedKey(i?.name)}
-                          setValue={(e) => setUpdateValue(e.target.value)}
+                          setValue={(e) => {
+                            if (
+                              e.target.value === "" ||
+                              /^[a-zA-Z\s]+$/.test(e.target.value)
+                            ) {
+                              return setUpdateValue(e.target.value);
+                            }
+                          }}
                           value={i?.value}
                         />
                       </div>
@@ -731,7 +757,14 @@ const RightSide = ({
                           font={i?.styles?.font}
                           weight={i?.styles?.font_weight}
                           selectKey={() => setselectedKey(i?.name)}
-                          setValue={(e) => setUpdateValue(e.target.value)}
+                          setValue={(e) => {
+                            if (
+                              e.target.value === "" ||
+                              /^[a-zA-Z\s]+$/.test(e.target.value)
+                            ) {
+                              return setUpdateValue(e.target.value);
+                            }
+                          }}
                           value={i?.value}
                         />
                       </div>
@@ -753,7 +786,14 @@ const RightSide = ({
                           font={i?.styles?.font}
                           weight={i?.styles?.font_weight}
                           selectKey={() => setselectedKey(i?.name)}
-                          setValue={(e) => setUpdateValue(e.target.value)}
+                          setValue={(e) => {
+                            if (
+                              e.target.value === "" ||
+                              /^[a-zA-Z\s]+$/.test(e.target.value)
+                            ) {
+                              return setUpdateValue(e.target.value);
+                            }
+                          }}
                           value={i?.value}
                         />
                       </div>
@@ -939,7 +979,14 @@ const RightSide = ({
                           font={i?.styles?.font}
                           weight={i?.styles?.font_weight}
                           selectKey={() => setselectedKey(i?.name)}
-                          setValue={(e) => setUpdateValue(e.target.value)}
+                          setValue={(e) => {
+                            if (
+                              e.target.value === "" ||
+                              /^[a-zA-Z\s]+$/.test(e.target.value)
+                            ) {
+                              return setUpdateValue(e.target.value);
+                            }
+                          }}
                           value={i?.value}
                         />
                       </div>
@@ -961,7 +1008,14 @@ const RightSide = ({
                           font={i?.styles?.font}
                           weight={i?.styles?.font_weight}
                           selectKey={() => setselectedKey(i?.name)}
-                          setValue={(e) => setUpdateValue(e.target.value)}
+                          setValue={(e) => {
+                            if (
+                              e.target.value === "" ||
+                              /^[a-zA-Z\s]+$/.test(e.target.value)
+                            ) {
+                              return setUpdateValue(e.target.value);
+                            }
+                          }}
                           value={i?.value}
                         />
                       </div>
@@ -983,7 +1037,14 @@ const RightSide = ({
                           font={i?.styles?.font}
                           weight={i?.styles?.font_weight}
                           selectKey={() => setselectedKey(i?.name)}
-                          setValue={(e) => setUpdateValue(e.target.value)}
+                          setValue={(e) => {
+                            if (
+                              e.target.value === "" ||
+                              /^[a-zA-Z\s]+$/.test(e.target.value)
+                            ) {
+                              return setUpdateValue(e.target.value);
+                            }
+                          }}
                           value={i?.value}
                         />
                       </div>
@@ -1127,7 +1188,6 @@ const RightSide = ({
                             selectKey={() => setselectedKey(i?.name)}
                             setValue={(e) => {
                               const value = e.target.value;
-
                               if (i?.name === "Contact number") {
                                 if (
                                   /^\d*$/.test(value) &&
@@ -1170,7 +1230,14 @@ const RightSide = ({
                           font={i?.styles?.font}
                           weight={i?.styles?.font_weight}
                           selectKey={() => setselectedKey(i?.name)}
-                          setValue={(e) => setUpdateValue(e.target.value)}
+                          setValue={(e) => {
+                            if (
+                              e.target.value === "" ||
+                              /^[a-zA-Z\s]+$/.test(e.target.value)
+                            ) {
+                              return setUpdateValue(e.target.value);
+                            }
+                          }}
                           value={i?.value}
                         />
                       </div>
@@ -1192,7 +1259,14 @@ const RightSide = ({
                           font={i?.styles?.font}
                           weight={i?.styles?.font_weight}
                           selectKey={() => setselectedKey(i?.name)}
-                          setValue={(e) => setUpdateValue(e.target.value)}
+                          setValue={(e) => {
+                            if (
+                              e.target.value === "" ||
+                              /^[a-zA-Z\s]+$/.test(e.target.value)
+                            ) {
+                              return setUpdateValue(e.target.value);
+                            }
+                          }}
                           value={i?.value}
                         />
                       </div>
@@ -1214,7 +1288,14 @@ const RightSide = ({
                           font={i?.styles?.font}
                           weight={i?.styles?.font_weight}
                           selectKey={() => setselectedKey(i?.name)}
-                          setValue={(e) => setUpdateValue(e.target.value)}
+                          setValue={(e) => {
+                            if (
+                              e.target.value === "" ||
+                              /^[a-zA-Z\s]+$/.test(e.target.value)
+                            ) {
+                              return setUpdateValue(e.target.value);
+                            }
+                          }}
                           value={i?.value}
                         />
                       </div>
@@ -1358,7 +1439,6 @@ const RightSide = ({
                             selectKey={() => setselectedKey(i?.name)}
                             setValue={(e) => {
                               const value = e.target.value;
-
                               if (i?.name === "Contact number") {
                                 if (
                                   /^\d*$/.test(value) &&
@@ -1401,7 +1481,14 @@ const RightSide = ({
                           font={i?.styles?.font}
                           weight={i?.styles?.font_weight}
                           selectKey={() => setselectedKey(i?.name)}
-                          setValue={(e) => setUpdateValue(e.target.value)}
+                          setValue={(e) => {
+                            if (
+                              e.target.value === "" ||
+                              /^[a-zA-Z\s]+$/.test(e.target.value)
+                            ) {
+                              return setUpdateValue(e.target.value);
+                            }
+                          }}
                           value={i?.value}
                         />
                       </div>
@@ -1423,7 +1510,14 @@ const RightSide = ({
                           font={i?.styles?.font}
                           weight={i?.styles?.font_weight}
                           selectKey={() => setselectedKey(i?.name)}
-                          setValue={(e) => setUpdateValue(e.target.value)}
+                          setValue={(e) => {
+                            if (
+                              e.target.value === "" ||
+                              /^[a-zA-Z\s]+$/.test(e.target.value)
+                            ) {
+                              return setUpdateValue(e.target.value);
+                            }
+                          }}
                           value={i?.value}
                         />
                       </div>
@@ -1445,7 +1539,14 @@ const RightSide = ({
                           font={i?.styles?.font}
                           weight={i?.styles?.font_weight}
                           selectKey={() => setselectedKey(i?.name)}
-                          setValue={(e) => setUpdateValue(e.target.value)}
+                          setValue={(e) => {
+                            if (
+                              e.target.value === "" ||
+                              /^[a-zA-Z\s]+$/.test(e.target.value)
+                            ) {
+                              return setUpdateValue(e.target.value);
+                            }
+                          }}
                           value={i?.value}
                         />
                       </div>
