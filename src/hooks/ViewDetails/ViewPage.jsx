@@ -150,7 +150,7 @@ const ViewPage = ({ category, id }) => {
               return;
             }
           } catch (error) {
-            setVerifyCertificate(false);
+            setVerifyDoctor(false);
             toast.error(error.response.data.error);
           }
         }
@@ -168,7 +168,7 @@ const ViewPage = ({ category, id }) => {
               return;
             }
           } catch (error) {
-            setVerifyCertificate(false);
+            setVerifyDoctor(false);
             toast.error(error.response.data.error);
           }
         }
