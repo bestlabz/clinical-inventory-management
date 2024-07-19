@@ -11,7 +11,6 @@ import {
   setDoctorsNextPage,
   setDoctorsPrePage,
   setDoctorsTotalCount,
-
 } from "../../Redux/Slice/Pagination";
 
 const Doctors = () => {
@@ -30,12 +29,14 @@ const Doctors = () => {
   const [selectedFilter, setselectedFilter] = useState(null);
   const [loader, setLoader] = useState(false);
   const [viewPage, setviewPage] = useState(false);
-  const [dotorId, setDotorId] = useState(null)
+  const [dotorId, setDotorId] = useState(null);
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
-  const { doctorscurrentPage: currentPages, doctorstotalCount: paginationCount } =
-    useSelector((state) => state.Pagination);
+  const {
+    doctorscurrentPage: currentPages,
+    doctorstotalCount: paginationCount,
+  } = useSelector((state) => state.Pagination);
 
   useEffect(() => {
     const fetchData = async ({ filter, page }) => {
@@ -66,16 +67,22 @@ const Doctors = () => {
             leave_doctor: unavailableDoctorsCount,
           });
 
-
-          const tableData = doctorAvailability.map((i) => ({
-            id: i?.doctor?._id,
-            doctor_name: i?.doctor?.name || "",
-            specialist: i?.doctor?.specialist || "",
-            availability: i?.availability !== "unavailable",
-            status: i?.doctor.block,
-            doctor_image: i?.doctor?.profile || null,
-            mobile_number: i?.doctor?.mobile_number
-          }));
+          const tableData = doctorAvailability.map((i) => {
+            return {
+              id: i?.doctor?._id,
+              doctor_name: i?.doctor?.name || "",
+              specialist: i?.doctor?.specialist || "",
+              availability: i?.availability !== "unavailable",
+              status:
+                i?.doctor?.clinics?.length > 0
+                  ? i?.doctor?.clinics?.filter(
+                      (item) => item?.clinicId === userDetails?._id
+                    )[0]?.block
+                  : false,
+              doctor_image: i?.doctor?.profile || null,
+              mobile_number: i?.doctor?.mobile_number,
+            };
+          });
 
           setPrimaryLoader(false);
           dispatch(setDoctorTable(tableData));
@@ -106,6 +113,7 @@ const Doctors = () => {
     try {
       setLoader(true);
       const { success } = await ApiRequest.post(`/doctor/${id}`, {
+        clinicId: userDetails._id,
         block: value,
         reason,
       });
@@ -139,9 +147,8 @@ const Doctors = () => {
   };
 
   const next = () => {
-    if(  currentPages !== pageNumbers[pageNumbers.length - 1]) {
+    if (currentPages !== pageNumbers[pageNumbers.length - 1]) {
       return dispatch(setDoctorsNextPage());
-
     }
   };
 
@@ -200,7 +207,7 @@ const Doctors = () => {
     next,
     pre,
     setDotorId,
-    dotorId
+    dotorId,
   };
 };
 

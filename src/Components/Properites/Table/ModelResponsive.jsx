@@ -876,6 +876,198 @@ const ModelResponsive = ({
           </div>
         </>
       )}
+      {popUpModel === "medicine" && (
+        <>
+          <div className=" 2xl:block xl:block lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
+            <ModelPopup showDrawer={modalpopup} width="30%" height="25%">
+              <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
+                <div className="absolute top-2 right-3">
+                  <IoClose
+                    onClick={() => openModal(false)}
+                    size={20}
+                    className="font-bold cursor-pointer hover:text-red-500 transition-all duration-300"
+                  />{" "}
+                </div>
+                <p className="text-[22px] font-semibold text-center w-[80%]">
+                  Are you sure you want to Delete ?
+                </p>
+                <div className="flex items-center w-[80%] justify-center gap-4">
+                  <button
+                    className="logout-button bg-red-500 text-white text-[18px] hover:bg-transparent hover:text-red-500 transition-all duration-300 hover:border-red-500"
+                    onClick={() => openModal(false)}
+                  >
+                    {TranslateJson.toggel.buttons.cancel}
+                  </button>
+                  {loader ? (
+                    <button className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
+                      <ClipLoader size={15} />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => trigger(details.id, details.value, reason)}
+                      className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
+                    >
+                      {TranslateJson.toggel.buttons.Submit}
+                    </button>
+                  )}
+                </div>
+              </div>
+            </ModelPopup>
+          </div>
+
+          <div className=" 2xl:hidden xl:hidden lg:block md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
+            <ModelPopup showDrawer={modalpopup} width="50%" height="25%">
+              <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
+                <div className="absolute top-2 right-3">
+                  <IoClose
+                    onClick={() => openModal(false)}
+                    size={20}
+                    className="font-bold cursor-pointer hover:text-red-500 transition-all duration-300"
+                  />{" "}
+                </div>
+                <p className="text-[20px] font-semibold text-center w-[80%]">
+                  Are you sure you want to Delete ?
+                </p>
+
+                <div className="flex items-center justify-center w-[80%] gap-4">
+                  <button
+                    className="logout-button bg-red-500 text-white text-[16px] hover:bg-transparent hover:text-red-500 transition-all duration-300 hover:border-red-500"
+                    onClick={() => openModal(false)}
+                  >
+                    {TranslateJson.toggel.buttons.cancel}
+                  </button>
+                  {loader ? (
+                    <button className="logout-button text-[16px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
+                      <ClipLoader size={15} />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => trigger(details.id, details.value, reason)}
+                      className="logout-button text-[16px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
+                    >
+                      {TranslateJson.toggel.buttons.Submit}
+                    </button>
+                  )}
+                </div>
+              </div>
+            </ModelPopup>
+          </div>
+
+          <div className=" 2xl:hidden xl:hidden lg:hidden md:block sm:block xs:hidden mobile:hidden xss:hidden">
+            <ModelPopup showDrawer={modalpopup} width="60%" height="30%">
+              <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
+                <div className="absolute top-2 right-3">
+                  <IoClose
+                    onClick={() => openModal(false)}
+                    size={20}
+                    className="font-bold cursor-pointer hover:text-red-500 transition-all duration-300"
+                  />{" "}
+                </div>
+                <p className="text-[20px] font-semibold text-center w-[80%]">
+                  Are you sure you want to Delete ?
+                </p>
+
+                <div className="flex items-center justify-center w-[80%] gap-4">
+                  <button
+                    className="logout-button bg-red-500 text-white text-[16px] hover:bg-transparent hover:text-red-500 transition-all duration-300 hover:border-red-500"
+                    onClick={() => openModal(false)}
+                  >
+                    {TranslateJson.toggel.buttons.cancel}
+                  </button>
+                  {loader ? (
+                    <button className="logout-button text-[16px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
+                      <ClipLoader size={15} />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => trigger(details.id, details.value, reason)}
+                      className="logout-button text-[16px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
+                    >
+                      {TranslateJson.toggel.buttons.Submit}
+                    </button>
+                  )}
+                </div>
+              </div>
+            </ModelPopup>
+          </div>
+
+          <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:block mobile:block xss:hidden">
+            <ModelPopup showDrawer={modalpopup} width="90%" height="30%">
+              <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
+                <div className="absolute top-2 right-3">
+                  <IoClose
+                    onClick={() => openModal(false)}
+                    size={20}
+                    className="font-bold cursor-pointer hover:text-red-500 transition-all duration-300"
+                  />{" "}
+                </div>
+                <p className="text-[18px] font-semibold text-center w-[80%]">
+                  Are you sure you want to Delete ?
+                </p>
+
+                <div className="flex items-center w-[80%] justify-center gap-4">
+                  <button
+                    className="logout-button bg-red-500 text-white text-[18px] hover:bg-transparent hover:text-red-500 transition-all duration-300 hover:border-red-500"
+                    onClick={() => openModal(false)}
+                  >
+                    {TranslateJson.toggel.buttons.cancel}
+                  </button>
+                  {loader ? (
+                    <button className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
+                      <ClipLoader size={15} />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => trigger(details.id, details.value, reason)}
+                      className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
+                    >
+                      {TranslateJson.toggel.buttons.Submit}
+                    </button>
+                  )}
+                </div>
+              </div>
+            </ModelPopup>
+          </div>
+
+          <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:block">
+            <ModelPopup showDrawer={modalpopup} width="96%" height="30%">
+              <div className="flex flex-col gap-6 items-center justify-center w-full h-full">
+                <div className="absolute top-2 right-3">
+                  <IoClose
+                    onClick={() => openModal(false)}
+                    size={20}
+                    className="font-bold cursor-pointer hover:text-red-500 transition-all duration-300"
+                  />{" "}
+                </div>
+                <p className="text-[18px] font-semibold text-center w-[90%]">
+                  Are you sure you want to Delete ?
+                </p>
+
+                <div className="flex items-center gap-4">
+                  <button
+                    className="logout-button bg-red-500 text-white text-[16px] hover:bg-transparent hover:text-red-500 transition-all duration-300 hover:border-red-500"
+                    onClick={() => openModal(false)}
+                  >
+                    {TranslateJson.toggel.buttons.cancel}
+                  </button>
+                  {loader ? (
+                    <button className="logout-button text-[16px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300">
+                      <ClipLoader size={15} />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => trigger(details.id, details.value, reason)}
+                      className="logout-button text-[16px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
+                    >
+                      {TranslateJson.toggel.buttons.Submit}
+                    </button>
+                  )}
+                </div>
+              </div>
+            </ModelPopup>
+          </div>
+        </>
+      )}
     </>
   );
 };

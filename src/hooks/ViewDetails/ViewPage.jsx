@@ -32,13 +32,25 @@ const ViewPage = ({ category, id }) => {
             const availability = await ApiRequest.get(
               `/get/availability?clinicId=${userDetails._id}&doctorId=${id}`
             );
-            dispatch(setDetails(doctors));
+
+            const doctorDatas = {
+              ...doctors,
+              clinics: doctors?.clinics?.filter(
+                (item) => item?.clinicId?._id === userDetails?._id
+              )[0],
+            };
+
+            dispatch(setDetails(doctorDatas));
 
             if (availability.success) {
-              const availabilityDatas = [...availability.availabilities?.[0].availabilities]
+              const availabilityDatas = [
+                ...availability.availabilities?.[0].availabilities,
+              ];
 
-              const today = new Date().toISOString().split('T')[0];
-              const filteredData = availabilityDatas.filter(item => item.date.startsWith(today));
+              const today = new Date().toISOString().split("T")[0];
+              const filteredData = availabilityDatas.filter((item) =>
+                item.date.startsWith(today)
+              );
 
               setTimeSlots(filteredData);
             }
@@ -81,6 +93,7 @@ const ViewPage = ({ category, id }) => {
               {
                 undergraduate_certificate_verify: true,
                 postgraduate_certificate_verify: true,
+                clinicId: userDetails?._id,
               }
             );
 
@@ -90,8 +103,8 @@ const ViewPage = ({ category, id }) => {
               return;
             }
           } catch (error) {
-            setVerifyCertificate(false);            
-            toast.error(error.response.data.error)
+            setVerifyCertificate(false);
+            toast.error(error.response.data.error);
           }
         }
 
@@ -109,7 +122,7 @@ const ViewPage = ({ category, id }) => {
             }
           } catch (error) {
             setVerifyCertificate(false);
-            toast.error(error.response.data.error)
+            toast.error(error.response.data.error);
           }
         }
       }
@@ -121,7 +134,7 @@ const ViewPage = ({ category, id }) => {
     const API = async () => {
       if (verifyDoctor) {
         if (category === "doctor" && id) {
-          try {           
+          try {
             const { success, message } = await ApiRequest.put(
               `/doctors/verify/clinic`,
               {
@@ -138,7 +151,7 @@ const ViewPage = ({ category, id }) => {
             }
           } catch (error) {
             setVerifyCertificate(false);
-            toast.error(error.response.data.error)
+            toast.error(error.response.data.error);
           }
         }
 
@@ -156,7 +169,7 @@ const ViewPage = ({ category, id }) => {
             }
           } catch (error) {
             setVerifyCertificate(false);
-            toast.error(error.response.data.error)
+            toast.error(error.response.data.error);
           }
         }
       }
@@ -219,7 +232,6 @@ const ViewPage = ({ category, id }) => {
     { label: "Friday", value: "Friday" },
   ];
 
-  
   return {
     loader,
     model,

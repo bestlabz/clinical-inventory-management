@@ -4,8 +4,8 @@ const instance = axios.create({
   baseURL: import.meta.env.VITE_APP_API_BASE_URL,
   timeout: 50000,
   headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
+    // Accept: "application/json",
+    // "Content-Type": "application/json",
   },
 });
 

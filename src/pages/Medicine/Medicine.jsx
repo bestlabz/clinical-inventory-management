@@ -10,6 +10,7 @@ import AddMedicine from "../../assets/Svg/AddMedicine";
 //Third party libraries
 import { useSelector } from "react-redux";
 import { CiSearch } from "react-icons/ci";
+import { IoMdAdd } from "react-icons/io";
 
 //Componets
 import TableHeaderTitle from "../../Components/Properites/TableHeaderTitle/TableHeaderTitle";
@@ -38,6 +39,15 @@ const Medicine = () => {
     pre,
     pageNumbers,
     paginationCount,
+    setsearchFilter,
+    searchFilter,
+    handelModel,
+    model,
+    handleDelete,
+    loader,
+    handleInput,
+    inputRef,
+    handleExcel,
   } = MedicineFunction();
 
   const { medicineTable } = useSelector((state) => state.TableDatas);
@@ -56,17 +66,43 @@ const Medicine = () => {
           >
             <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
               <div className="table-box-top-left">
-                <TableHeaderTitle
-                  title={TranslateJson.medicine.title}
-                  subContent={`${medicineTable.length} ${TranslateJson.medicine.subText}`}
-                />
+                <div className="header-container">
+                  <p className="header-container-left">
+                    {TranslateJson.medicine.title}
+                  </p>
+                  <p
+                    onClick={handleInput}
+                    className="header-container-right cursor-pointer flex items-center justify-center"
+                  >
+                    <IoMdAdd size={18} className="mr-2" /> Upload
+                  </p>
+
+                  <input
+                    accept=".xlsx, .xls"
+                    type="file"
+                    className="hidden"
+                    ref={inputRef}
+                    onChange={(e) => handleExcel(e)}
+                  />
+                </div>
+
                 <div className=" w-[80%] h-[80%]  items-center justify-end relative 2xl:flex xl:flex lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden ">
                   <input
                     type="search"
                     placeholder="Search"
                     className=" w-full rounded-full mt-2 py-[5px] outline-none border-[1px] border-gray-400 px-3"
+                    onChange={(e) => {
+                      if (/^[a-zA-Z\s]*$/.test(e.target.value)) {
+                        return setsearchFilter(e.target.value);
+                      }
+                    }}
+                    value={searchFilter}
                   />
-                  <div className="h-full flex items-center justify-center absolute top-1 right-2">
+                  <div
+                    className={` ${
+                      searchFilter?.length > 0 ? "hidden" : "flex"
+                    } h-full  items-center justify-center absolute top-1 right-2`}
+                  >
                     <CiSearch size={20} />
                   </div>
                 </div>
@@ -110,10 +146,14 @@ const Medicine = () => {
                   { title: "Dosage form" },
                   { title: "Dosage Strength" },
                   { title: "Status" },
-                  { title: "" },
+                  { title: "Action" },
                 ]}
                 tableBody={medicineTable}
                 tableName="Medicine"
+                model={model}
+                setModel={handelModel}
+                handleChange={handleDelete}
+                loader={loader}
               />
             </div>
             <div className=" w-full pt-4 mx-auto  h-[10%] flex items-end justify-end px-3 overflow-x-auto relative  ">

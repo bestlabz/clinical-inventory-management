@@ -1,24 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import * as xlsx from "xlsx";
 
 //API
 import ApiRequest from "../../services/httpService";
-import { useDispatch, useSelector } from "react-redux";
+
+//Hooks
 import { setMedicineTable } from "../../Redux/Slice/TableDatas";
-import toast from "react-hot-toast";
-import { setMedicineCurrentPage, setMedicineNextPage, setMedicinePrePage, setMedicineTotalCount } from "../../Redux/Slice/Pagination";
+import {
+  setMedicineCurrentPage,
+  setMedicineNextPage,
+  setMedicinePrePage,
+  setMedicineTotalCount,
+} from "../../Redux/Slice/Pagination";
 
 const Medicine = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const inputRef = useRef();
 
   const [selectedDate, setselectedDate] = useState(new Date());
   const [primaryLoader, setPrimaryLoader] = useState(true);
   const [dosageFormsOptions, setDosageFormsOptions] = useState([]);
   const [selectedFilter, setselectedFilter] = useState(null);
+  const [searchFilter, setsearchFilter] = useState("");
+  const [model, setmodel] = useState(false);
+  const [loader, setLoader] = useState(false);
+  const [reFetch, setreFetch] = useState(false);
 
-  const { medicinescurrentPage: currentPages, medicinestotalCount: paginationCount } =
-    useSelector((state) => state.Pagination);
+  const {
+    medicinescurrentPage: currentPages,
+    medicinestotalCount: paginationCount,
+  } = useSelector((state) => state.Pagination);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,12 +58,12 @@ const Medicine = () => {
   }, []);
 
   useEffect(() => {
-    const fetchData = async ({ filter, value, page }) => {
+    const fetchData = async ({ filter, value, page, search }) => {
       try {
         const filterQuery =
           filter && value
-            ? `?${filter}=${value}&page=${page}`
-            : `?page=${page}`;
+            ? `?${filter}=${value}&page=${page}&medicine_name=${search}`
+            : `?page=${page}&medicine_name=${search}`;
         const { success, medicines, totalPages, currentPage } =
           await ApiRequest.get(`/medicines${filterQuery}`);
 
@@ -62,6 +77,7 @@ const Medicine = () => {
               dosage_strength: i?.dosage_strength || "",
               dosage_unit: i?.dosage_unit || "",
               status: i?.status,
+              id: i?._id,
             };
           });
           setPrimaryLoader(false);
@@ -77,25 +93,29 @@ const Medicine = () => {
     };
 
     const API = async () => {
-      if (!selectedFilter || selectedFilter?.value === "") {
-        await fetchData({ page: currentPages });
-      } else if (selectedFilter?.value === "OutOfStock") {
-        await fetchData({
-          filter: "status",
-          value: "OutOfStock",
-          page: currentPages,
-        });
-      } else if (selectedFilter?.value) {
-        await fetchData({
-          filter: "dosage_form",
-          value: selectedFilter.value,
-          page: currentPages,
-        });
+      if (!model || !reFetch) {
+        if (!selectedFilter || selectedFilter?.value === "") {
+          await fetchData({ page: currentPages, search: searchFilter });
+        } else if (selectedFilter?.value === "OutOfStock") {
+          await fetchData({
+            filter: "status",
+            value: "OutOfStock",
+            page: currentPages,
+            search: searchFilter,
+          });
+        } else if (selectedFilter?.value) {
+          await fetchData({
+            filter: "dosage_form",
+            value: selectedFilter.value,
+            page: currentPages,
+            search: searchFilter,
+          });
+        }
       }
     };
 
     API();
-  }, [selectedFilter, currentPages]);
+  }, [selectedFilter, currentPages, searchFilter, model, reFetch]);
 
   const style = {
     width: "100%",
@@ -152,6 +172,114 @@ const Medicine = () => {
     (_, i) => start + i
   );
 
+  const handelModel = () => {
+    return setmodel(!model);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      setLoader(true);
+      const { success, message } = await ApiRequest.delete(`/medicines/${id}`);
+      if (success) {
+        setLoader(false);
+        toast.success(message);
+        setmodel(false);
+        return;
+      }
+    } catch (error) {
+      setLoader(false);
+      console.log("ee", error);
+      return;
+    }
+  };
+
+  const handleExcel = async (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const validTypes = [
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/vnd.ms-excel",
+      ];
+
+      if (validTypes.includes(file.type)) {
+        try {
+          const data = await file.arrayBuffer();
+          const workbook = xlsx.read(data);
+          const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+          const jsonData = xlsx.utils.sheet_to_json(worksheet);
+
+          const requiredKeys = [
+            "medicine_name",
+            "dosage_form",
+            "dosage_strength",
+            "dosage_unit",
+          ];
+
+          let errorOccurred = false;
+
+          jsonData.forEach((item, index) => {
+            requiredKeys.forEach((key) => {
+              if (!item.hasOwnProperty(key) || !item[key]) {
+                if (!errorOccurred) {
+                  toast.error(
+                    `Alert: Field "${key}" is ${
+                      item.hasOwnProperty(key) ? "empty" : "missing"
+                    } in item at index ${index}`
+                  );
+                  errorOccurred = true;
+                }
+              }
+            });
+
+            Object.keys(item).forEach((key) => {
+              if (!requiredKeys.includes(key)) {
+                if (!errorOccurred) {
+                  toast.error(
+                    `Alert: Unexpected field "${key}" found in item at index ${index}`
+                  );
+                  errorOccurred = true;
+                }
+              }
+            });
+          });
+
+          if (!errorOccurred) {
+            const formData = new FormData();
+
+            formData.append("file", file);
+
+            try {
+              setreFetch(true);
+              const { success, message } = await ApiRequest.post(
+                "/import/medicines",
+                formData,
+                { "Content-Type": "multipart/form-data" }
+              );
+
+              if (success) {
+                setreFetch(false);
+                toast.success(message);
+                return;
+              }
+            } catch (error) {
+              console.log("ee", error);
+            }
+            // Proceed with your file handling logic here
+          }
+        } catch (error) {
+          console.error("Error processing the file:", error);
+        }
+      } else {
+        toast.error("Please upload an Excel file.");
+      }
+    }
+  };
+
+  const handleInput = () => {
+    return inputRef.current.click();
+  };
+
   return {
     setselectedDate,
     selectedDate,
@@ -166,6 +294,15 @@ const Medicine = () => {
     pageNumbers,
     next,
     pre,
+    setsearchFilter,
+    searchFilter,
+    handelModel,
+    model,
+    handleDelete,
+    loader,
+    handleExcel,
+    inputRef,
+    handleInput,
   };
 };
 

@@ -25,7 +25,7 @@ const Table = ({
   });
   const [popUpModel, setPopUpModel] = useState("");
 
-  console.log('model', model);
+  console.log("tableBody", tableBody);
 
   return (
     <>
@@ -298,14 +298,24 @@ const Table = ({
                       </p>
                     )}
                   </td>
-                  {/* <td className={`py-4 px-10`}>
-                    <div className="flex items-center justify-end gap-6">
-                      <MdOutlineModeEdit
+                  <td className={`py-4 px-10`}>
+                    <div
+                      onClick={() => {
+                        setDetails({
+                          id: item?.id,
+                          value: item?.name,
+                        });
+                        setPopUpModel("medicine");
+                        setModel();
+                      }}
+                      className="flex items-center justify-start gap-6"
+                    >
+                      <FaTrashAlt
                         size={20}
-                        className="text-primary_color hover:text-blue-400 cursor-pointer"
+                        className="text-gray-400 cursor-pointer hover:text-red-500"
                       />
                     </div>
-                  </td> */}
+                  </td>
                 </tr>
               );
             }
@@ -347,12 +357,15 @@ const Table = ({
                   <td className={`py-4 px-10`}>{i + 1}</td>
                   <td className={`py-4 px-10`}>{item.unit_name}</td>
                   <td className={`py-4 px-10`}>
-                    <p  onClick={() => {
+                    <p
+                      onClick={() => {
                         setAction("edit");
                         setPopUpModel("edit");
                         setModel(true);
                         setDetails({ id: item?._id, value: item?.unit_name });
-                      }} className=" text-primary_color cursor-pointer font-medium">
+                      }}
+                      className=" text-primary_color cursor-pointer font-medium"
+                    >
                       Edit
                     </p>
                   </td>

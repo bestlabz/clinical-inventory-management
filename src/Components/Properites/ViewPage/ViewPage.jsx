@@ -299,7 +299,8 @@ const ViewPage = ({
                       <span className="text-[13px] ">
                         {details?.certificate &&
                         details?.certificate?.split("/").pop().length > 10
-                          ? details?.certificate?.split("/")
+                          ? details?.certificate
+                              ?.split("/")
                               .pop()
                               .substring(0, 15) +
                             "." +
@@ -325,27 +326,27 @@ const ViewPage = ({
                 <button
                   onClick={() =>
                     details?.details &&
-                    !details?.postgraduate_certificate_verify &&
-                    !details?.undergraduate_certificate_verify &&
+                    !details?.clinics?.postgraduate_certificate_verify &&
+                    !details?.clinics?.undergraduate_certificate_verify &&
                     setVerifyCertificate(true)
                   }
                   className={`certificate-verify-button2 ${
                     details?.details &&
-                    !details?.postgraduate_certificate_verify &&
-                    !details?.undergraduate_certificate_verify
+                    !details?.clinics?.postgraduate_certificate_verify &&
+                    !details?.clinics?.undergraduate_certificate_verify
                       ? "bg-primary_color"
                       : "bg-gray-400"
                   }`}
                   disabled={
                     details?.details &&
-                    !details?.postgraduate_certificate_verify &&
-                    !details?.undergraduate_certificate_verify
+                    !details?.clinics?.postgraduate_certificate_verify &&
+                    !details?.clinics?.undergraduate_certificate_verify
                       ? false
                       : true
                   }
                 >
-                  {!details?.postgraduate_certificate_verify &&
-                  !details?.undergraduate_certificate_verify
+                  {!details?.clinics?.postgraduate_certificate_verify &&
+                  !details?.clinics?.undergraduate_certificate_verify
                     ? "Verify"
                     : "Verified"}
                 </button>
@@ -398,49 +399,38 @@ const ViewPage = ({
           )}
 
           {category === "doctor" && (
-            <>
-              {details?.clinics
-                ?.filter((clinic) => clinic?.clinicId._id === userDetails?._id)
-                .map((item, index) => {
-                  return (
-                    <div
-                      className="flex items-center justify-center mt-16"
-                      key={index}
-                    >
-                      {verifyDoctor ? (
-                        <button className="bg-primary_color text-white w-[300px] py-3 rounded-lg">
-                          <ClipLoader color="#fff" size={20} />
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() =>
-                            details?.postgraduate_certificate_verify &&
-                            details?.undergraduate_certificate_verify &&
-                            !item?.verified &&
-                            setVerifyDoctor(true)
-                          }
-                          className={`${
-                            details?.postgraduate_certificate_verify &&
-                            details?.undergraduate_certificate_verify &&
-                            !item?.verified
-                              ? "bg-primary_color"
-                              : "bg-gray-400"
-                          } text-white w-[300px] py-3 rounded-lg`}
-                          disabled={
-                            details?.postgraduate_certificate_verify &&
-                            details?.undergraduate_certificate_verify &&
-                            !item?.verified
-                              ? false
-                              : true
-                          }
-                        >
-                          {!item?.verified ? "Verify" : "Verified"}
-                        </button>
-                      )}
-                    </div>
-                  );
-                })}
-            </>
+            <div className="flex items-center justify-center mt-16">
+              {verifyDoctor ? (
+                <button className="bg-primary_color text-white w-[300px] py-3 rounded-lg">
+                  <ClipLoader color="#fff" size={20} />
+                </button>
+              ) : (
+                <button
+                  onClick={() =>
+                    details?.clinics?.postgraduate_certificate_verify &&
+                    details?.clinics?.undergraduate_certificate_verify &&
+                    !details?.clinics?.verified &&
+                    setVerifyDoctor(true)
+                  }
+                  className={`${
+                    details?.clinics?.postgraduate_certificate_verify &&
+                    details?.clinics?.undergraduate_certificate_verify &&
+                    !details?.clinics?.verified
+                      ? "bg-primary_color"
+                      : "bg-gray-400"
+                  } text-white w-[300px] py-3 rounded-lg`}
+                  disabled={
+                    details?.clinics?.postgraduate_certificate_verify &&
+                    details?.clinics?.undergraduate_certificate_verify &&
+                    !details?.clinics?.verified
+                      ? false
+                      : true
+                  }
+                >
+                  {!details?.clinics?.verified ? "Verify" : "Verified"}
+                </button>
+              )}
+            </div>
           )}
           {/* !details?.verify */}
           {category === "receptionist" && (
