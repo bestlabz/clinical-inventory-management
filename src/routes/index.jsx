@@ -11,6 +11,8 @@ const AddMedicine = lazy(() => import("../pages/Medicine/AddMedicine"));
 const Prescription = lazy(() => import("../pages/Prescription/Prescription"));
 const DosageForm = lazy(() => import("../pages/DosageForm/DosageForm"));
 const DosageStrength = lazy(() => import("../pages/DosageStrength/DosageStrength"));
+const Templates = lazy(() => import("../pages/Template/Templates"));
+
 
 
 
@@ -67,6 +69,10 @@ const routes = [
   {
     path: "/dosage-unit",
     component: DosageStrength,
+  },
+  {
+    path: "/templates",
+    component: Templates,
   }
 ];
 

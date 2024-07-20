@@ -5,7 +5,7 @@ import SideMenuFunction from "../../../hooks/SideMenu/SideMenu";
 // import Navbar from "../Navbar/Navbar";
 
 // import { FaAngleRight } from "react-icons/fa6";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { FiPlus } from "react-icons/fi";
 // import LogoFull from "../../../../public/logo/logo-large-roti-ghar (250 x 100 px).png";
 // import Logo from "../../../../public/logo/logo-small-roti-ghar (100 x 100 px).png";
@@ -15,23 +15,32 @@ import { FiLogOut } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 
 import LogOutModalResponsive from "./LogOutModalResponsive";
+import NotificationModalResponsive from "./NotificationModel";
+
 import AdminNotVerify from "../ErrorPage/AdminNotVerify";
+import { setVisible } from "../../../Redux/Slice/Notification";
 
 const Sidebar = ({ children }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { MenuItem } = menuItem();
   const { location, toggle, modalpopup, openModal, logout } =
     SideMenuFunction();
   const { sidebarStatus } = useSelector((state) => state.sidebarInfo);
   const { userDetails } = useSelector((state) => state.userinfo);
+  const { Notifiacation } = useSelector((state) => state.notification);
+
+  const NotificationModal = () => {
+    dispatch(setVisible());
+  };
 
   return (
     <div className="sidebar-container">
       <div
-        className={`sidebar transition-all duration-500 ${
+        className={`sidebar transition-all 2xl:duration-500 xl:duration-500 lg:duration-500 md:duration-500 sm:duration-500 duration-0 ${
           sidebarStatus
-            ? "2xl:w-[300px] xl:w-[300px] lg:w-[300px] md:w-[330px]: sm:w-[330px] xs:w-[90px] xss:w-[90px] mobile:w-[90px] 2xl:p-4 xl:p-4 lg:p-4 md:p-4 sm:p-2 xs:p-2 xss:p-2 mobile:p-2"
-            : " w-[90px] 2xl:p-4 xl:p-4 lg:p-4 md:p-4 sm:p-2 xs:p-2 xss:p-2 mobile:p-2"
+            ? "2xl:w-[300px] xl:w-[300px] lg:w-[300px] md:w-[330px]: sm:w-[330px] xs:w-[80px] xss:w-[90px] mobile:w-[90px] 2xl:p-4 xl:p-4 lg:p-4 md:p-4 sm:p-2 xs:p-2 xss:p-2 mobile:p-2"
+            : "2xl:w-[90px] xl:w-[90px] lg:w-[90px] md:w-[90px]: sm:w-[90px] xs:w-[75px] xss:w-[75px] mobile:w-[75px] 2xl:p-4 xl:p-4 lg:p-4 md:p-4 sm:p-2 xs:p-2 xss:p-2 mobile:p-2"
         }`}
       >
         <div className="flex-1 overflow-y-auto">
@@ -81,7 +90,10 @@ const Sidebar = ({ children }) => {
         </div>
 
         <div className=" bottom-section">
-          <div className=" flex items-center gap-[15px] px-3 py-3 cursor-pointer hover:bg-navbar_activate_color hover:rounded-xl">
+          <div
+            onClick={NotificationModal}
+            className=" flex items-center gap-[15px] px-3 py-3 cursor-pointer hover:bg-navbar_activate_color hover:rounded-xl"
+          >
             <NotificationIcon />
             {sidebarStatus && (
               <span className="link_text 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden">
@@ -93,17 +105,15 @@ const Sidebar = ({ children }) => {
           <div className="profile">
             {sidebarStatus && (
               <div className="profile-content 2xl:flex xl:flex lg:flex md:flex sm:flex xs:hidden xss:hidden mobile:hidden">
-               <div className="w-[35px] h-[35px] rounded-full overflow-hidden border-[1px] border-white">
-                {
-                  userDetails?.profile &&
-                <img
-                  className=" w-full h-full object-cover 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden"
-                  src=""
-                  alt="profile"
-                  />
-                }
-
-                  </div>
+                <div className="w-[35px] h-[35px] rounded-full overflow-hidden border-[1px] border-white">
+                  {userDetails?.profile && (
+                    <img
+                      className=" w-full h-full object-cover 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden"
+                      src=""
+                      alt="profile"
+                    />
+                  )}
+                </div>
                 <div className="profile-details">
                   <span className="profile-details-name">
                     {userDetails?.name || ""}
@@ -141,8 +151,7 @@ const Sidebar = ({ children }) => {
         ) : (
           <main className="py-2 h-screen overflow-auto">{children}</main>
         )}
-          {/* <main className="py-2 h-screen overflow-auto">{children}</main> */}
-
+        {/* <main className="py-2 h-screen overflow-auto">{children}</main> */}
       </div>
       {modalpopup && (
         <>
@@ -152,6 +161,10 @@ const Sidebar = ({ children }) => {
             openModal={openModal}
           />
         </>
+      )}
+
+      {Notifiacation && (
+        <NotificationModalResponsive modalpopup={Notifiacation} />
       )}
     </div>
   );

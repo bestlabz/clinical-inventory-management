@@ -39,7 +39,7 @@
 }
 
 .input-box {
-  @apply w-full
+  @apply w-full;
 }
 
 .input-box1 {
@@ -83,7 +83,7 @@
 }
 
 .sidebar {
-  @apply bg-navbar_color text-white h-[92%] rounded-3xl flex flex-col;
+  @apply bg-navbar_color text-white 2xl:h-[92%] xl:h-[92%] lg:h-[92%] md:h-[92%] sm:h-[92%] xs:h-[100%] mobile:h-[100%] xss:h-[100%]  rounded-3xl flex flex-col;
 }
 
 .top_sectiom {
@@ -183,7 +183,7 @@
 }
 
 .table-box-top-right {
-  @apply 2xl:w-[30%] xl:w-[30%] lg:w-[60%] md:w-[95%] sm:w-[95%] xs:w-full mobile:w-full xss:w-full h-[50px] flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col gap-3 z-40
+  @apply 2xl:w-[30%] xl:w-[30%] lg:w-[60%] md:w-[95%] sm:w-[95%] xs:w-full mobile:w-full xss:w-full h-[50px] flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col gap-3 z-40;
 }
 
 .table-box-top-right-grid {
@@ -199,7 +199,7 @@
 }
 
 .table-box-top-right-1 {
-  @apply 2xl:w-[30%] xl:w-[30%] lg:w-[50%] md:w-[100%] sm:w-[100%] xs:w-full mobile:w-full xss:w-full h-[50px] flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col gap-3 z-40;
+  @apply 2xl:w-[33%] xl:w-[33%] lg:w-[50%] md:w-[100%] sm:w-[100%] xs:w-full mobile:w-full xss:w-full h-[50px] flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col gap-3 z-40;
 }
 .table-box-top-right-grid-1 {
   @apply grid 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1 xss:grid-cols-1 mobile:grid-cols-1 gap-3 w-full;
@@ -210,7 +210,7 @@
 }
 
 .table-box-top-right-content-filter-1 {
-  @apply w-full h-full flex items-end ;
+  @apply w-full h-full flex items-end;
 }
 
 .table-box-top-right-content-button-1 {
@@ -348,7 +348,7 @@
 }
 
 .prescription-left-top-button {
-  @apply  text-[16px] font-semibold;
+  @apply text-[16px] font-semibold;
 }
 
 .input-container1 {
@@ -366,10 +366,6 @@
 .input1 {
   @apply w-full h-full py-[3px] rounded-xl  p-2  outline-none;
 }
-
-
-
-
 
 .View-page-top {
   @apply w-full h-[14%] border-[3px] border-[#e8e8e8] rounded-xl;
@@ -391,11 +387,11 @@
 }
 
 .view-page-personal-details-container {
-  @apply grid  py-4 mb-4 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 mobile:grid-cols-1 xss:grid-cols-1
+  @apply grid  py-4 mb-4 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 mobile:grid-cols-1 xss:grid-cols-1;
 }
 
 .view-page-personal-details-container-body {
-  @apply flex  items-center flex-col gap-6 mb-6; 
+  @apply flex  items-center flex-col gap-6 mb-6;
 }
 
 .view-page-personal-details-container-body-details-key {
@@ -403,24 +399,23 @@
 }
 
 .view-page-personal-details-container-body-details-value {
-  @apply  text-[16px] font-medium 2xl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[50%] sm:w-[50%] xs:w-[70%] mobile:w-[70%] xss:w-[70%];
+  @apply text-[16px] font-medium 2xl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[50%] sm:w-[50%] xs:w-[70%] mobile:w-[70%] xss:w-[70%];
 }
 
 .view-page-personal-details-container-body1 {
-  @apply flex  items-center flex-col gap-6 py-4 mt-4 mb-4 2xl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[90%] sm:w-[90%] xs:w-[100%] mobile:w-[100%] xss:w-[100%]
+  @apply flex  items-center flex-col gap-6 py-4 mt-4 mb-4 2xl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[90%] sm:w-[90%] xs:w-[100%] mobile:w-[100%] xss:w-[100%];
 }
 
-
 .view-page-certificate-container {
-  @apply flex items-center gap-6  justify-between overflow-auto 2xl:w-[40%] xl:w-[40%] lg:w-[60%] md:w-[80%] sm:w-[80%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] 
+  @apply flex items-center gap-6  justify-between overflow-auto 2xl:w-[40%] xl:w-[40%] lg:w-[60%] md:w-[80%] sm:w-[80%] xs:w-[100%] mobile:w-[100%] xss:w-[100%];
 }
 
 .view-page-certificate-container-image {
-  @apply flex flex-col gap-3 2xl:w-[43%] xl:w-[43%] lg:w-[44%] md:w-[45%] sm:w-[45%] xs:w-[100%] mobile:w-[100%] xss:w-[100%] 
+  @apply flex flex-col gap-3 2xl:w-[43%] xl:w-[43%] lg:w-[44%] md:w-[45%] sm:w-[45%] xs:w-[100%] mobile:w-[100%] xss:w-[100%];
 }
 
 .view-page-certificate-container-image-view {
-  @apply object-fill  rounded-lg overflow-hidden min-h-[250px] max-h-[250px] bg-gray-200 cursor-pointer
+  @apply object-fill  rounded-lg overflow-hidden min-h-[250px] max-h-[250px] bg-gray-200 cursor-pointer;
 }
 
 .view-page-certificate-container-image-name-container {
@@ -432,7 +427,7 @@
 }
 
 .certificate-verify-button-container {
-  @apply flex items-center justify-center my-3 gap-6 2xl:w-[40%] xl:w-[40%] lg:w-[60%] md:w-[80%] sm:w-[80%] xs:w-[100%] mobile:w-[100%] xss:w-[100%]
+  @apply flex items-center justify-center my-3 gap-6 2xl:w-[40%] xl:w-[40%] lg:w-[60%] md:w-[80%] sm:w-[80%] xs:w-[100%] mobile:w-[100%] xss:w-[100%];
 }
 
 .certificate-verify-button {
@@ -444,10 +439,46 @@
 }
 
 .view-page-time-slot-container {
-  @apply flex items-center gap-4  my-3 flex-wrap
+  @apply flex items-center gap-4  my-3 flex-wrap;
 }
 
-
 .view-page-time-slot {
-  @apply px-6 py-3 my-3 border-[1px] border-gray_text rounded-lg
+  @apply px-6 py-3 my-3 border-[1px] border-gray_text rounded-lg;
+}
+
+.template-container {
+  @apply grid  gap-6 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 mobile:grid-cols-1 xss:grid-cols-1;
+}
+
+.template {
+  @apply rounded-lg;
+}
+
+.template-top {
+  @apply w-full rounded-t-lg border-[1px] border-gray-300 flex items-center px-2 py-2;
+}
+
+.template-body {
+  @apply w-full border-gray-300 rounded-b-lg transition-all duration-500 overflow-hidden flex flex-col justify-start gap-2;
+}
+
+.template-body-input {
+  @apply w-[100%] h-[50%] outline-none p-3 border-[1px] resize-none;
+}
+
+.template-body-dynamic-text {
+  @apply w-[100%] px-2 h-[30%] flex items-start gap-3
+}
+
+.template-bottom {
+  @apply w-full h-[20%] flex items-center justify-end gap-3 px-3;
+}
+
+.template-btn {
+  @apply w-[100px] rounded-md py-1 border-[1px] text-[16px];
+}
+
+.container {
+  @apply w-full 2xl:h-[90%] xl:h-[90%] lg:h-[90%] md:h-[90%] sm:h-[90%] xs:h-[96%] mobile:h-[96%] xss:h-[96%] pb-3 overflow-auto
+
 }

@@ -78,14 +78,20 @@ const Table = ({
                     </p>
                   </td>
                   <td className={`py-2 px-10`}>{item?.appointment_time}</td>
-                  {/* <td className={`py-2 px-10`}>
-                    <div className="flex items-center justify-start gap-6">
+                  <td className={`py-2 px-10`}>
+                    <div
+                      onClick={() => {
+                        id(item?.id);
+                        setviewPage(true);
+                      }}
+                      className="flex items-center justify-start gap-6"
+                    >
                       <TbEye
                         size={30}
                         className="text-gray-400 hover:text-blue-400 cursor-pointer"
                       />
                     </div>
-                  </td> */}
+                  </td>
                 </tr>
               );
             }

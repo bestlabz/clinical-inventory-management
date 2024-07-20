@@ -11,6 +11,10 @@ import PrescriptionDetails from "./Slice/Prescription"; // Add this import state
 import Pagination from "./Slice/Pagination";
 import DetailsPage from "./Slice/DetailsPage";
 import Dosage from "./Slice/Dosage";
+import Notification from "./Slice/Notification";
+import Template from "./Slice/SMSTemplate";
+
+
 
 
 
@@ -24,7 +28,9 @@ const store = configureStore({
     PrescriptionDetails,
     Pagination,
     DetailsPage,
-    dosage: Dosage
+    dosage: Dosage,
+    notification: Notification,
+    template:  Template
   },
 });
 

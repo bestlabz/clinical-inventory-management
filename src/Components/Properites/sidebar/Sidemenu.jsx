@@ -1,6 +1,7 @@
 import React from "react";
 import { RiMenuUnfold4Line } from "react-icons/ri";
 import { useLocation, useNavigate } from "react-router-dom";
+import { TbTemplate } from "react-icons/tb";
 
 import GridSvgComponent from "../../../assets/Svg/Home";
 import DoctorsIcon from "../../../assets/Svg/DoctorsIcon";
@@ -21,6 +22,8 @@ const menuConfig = [
       "/prescription",
       "/dosage-form",
       "/dosage-unit",
+      "/templates",
+
     ],
     items: [
       {
@@ -64,6 +67,12 @@ const menuConfig = [
         name: "Dosage Unit",
         icon: <Medicine />,
         activeName: "Dosage Unit",
+      },
+      {
+        path: "/templates",
+        name: "Templates",
+        icon: <TbTemplate size={30} />,
+        activeName: "Templates",
       },
     ],
   },

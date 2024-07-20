@@ -57,7 +57,7 @@ const Doctors = () => {
   const { sidebarStatus } = useSelector((state) => state.sidebarInfo);
 
   return (
-    <div className=" w-full h-[90%] px-3 py-[6px] overflow-auto">
+    <div className=" container">
       {primaryLoader ? (
         <ThemeSuspense />
       ) : (

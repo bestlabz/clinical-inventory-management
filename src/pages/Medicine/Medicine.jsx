@@ -53,7 +53,7 @@ const Medicine = () => {
   const { medicineTable } = useSelector((state) => state.TableDatas);
 
   return (
-    <div className=" w-full h-[90%] px-3 py-[6px] overflow-auto">
+    <div className=" container">
       {primaryLoader ? (
         <ThemeSuspense />
       ) : (

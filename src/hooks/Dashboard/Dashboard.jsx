@@ -5,34 +5,45 @@ import { useDispatch, useSelector } from "react-redux";
 import ApiRequest from "../../services/httpService";
 import { setPatientsTable } from "../../Redux/Slice/TableDatas";
 import toast from "react-hot-toast";
-import { setPatientsCurrentPage, setPatientsNextPage, setPatientsPrePage, setPatientsTotalCount } from "../../Redux/Slice/Pagination";
+import {
+  setPatientsCurrentPage,
+  setPatientsNextPage,
+  setPatientsPrePage,
+  setPatientsTotalCount,
+} from "../../Redux/Slice/Pagination";
 
 const Dashboard = () => {
   const [selectedDate, setselectedDate] = useState();
   const [primaryLoader, setPrimaryLoader] = useState(true);
+  const [viewPage, setviewPage] = useState(false);
+  const [patientID, setPatientID] = useState(null);
+
   const dispatch = useDispatch();
 
-  const { patientscurrentPage: currentPages, patientstotalCount: paginationCount } =
-    useSelector((state) => state.Pagination);
-
+  const {
+    patientscurrentPage: currentPages,
+    patientstotalCount: paginationCount,
+  } = useSelector((state) => state.Pagination);
 
   useEffect(() => {
     const API = async () => {
       try {
-
-        let formattedDate
+        let formattedDate;
 
         if (selectedDate) {
           const date = new Date(selectedDate);
           const day = String(date.getDate()).padStart(2, "0");
           const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
           const year = date.getFullYear();
-           formattedDate = `${day}-${month}-${year}`;
+          formattedDate = `${day}-${month}-${year}`;
         } else {
-          formattedDate = ""
+          formattedDate = "";
         }
-        
-        const { success, patients,currentPage, totalPages } = await ApiRequest.get(`/patients?appointment_date=${formattedDate}&page=${currentPages}`);
+
+        const { success, patients, currentPage, totalPages } =
+          await ApiRequest.get(
+            `/patients?appointment_date=${formattedDate}&page=${currentPages}`
+          );
 
         if (success) {
           dispatch(setPatientsCurrentPage(currentPage));
@@ -40,10 +51,12 @@ const Dashboard = () => {
           const tableData = patients.map((i) => {
             return {
               name: i?.name || "",
-              doctor_image: i?.appointment_history?.[0]?.doctor?.profile || null,
+              doctor_image:
+                i?.appointment_history?.[0]?.doctor?.profile || null,
               doctor_name: i?.appointment_history?.[0]?.doctor?.name || "",
               specialist: i?.appointment_history?.[0]?.doctor?.specialist || "",
               appointment_time: i?.appointment_history?.[0]?.time || "",
+              id: i?._id,
             };
           });
           setPrimaryLoader(false);
@@ -52,10 +65,8 @@ const Dashboard = () => {
         }
       } catch (error) {
         setPrimaryLoader(false);
-        toast.error(error.response.data.message)
-        
+        toast.error(error.response.data.message);
       }
-    
     };
     API();
   }, [selectedDate, currentPages]);
@@ -75,11 +86,9 @@ const Dashboard = () => {
     { label: "This Week", value: "this_week" },
   ];
 
-
   const next = () => {
-    if(  currentPages !== pageNumbers[pageNumbers.length - 1]) {
+    if (currentPages !== pageNumbers[pageNumbers.length - 1]) {
       return dispatch(setPatientsNextPage());
-
     }
   };
 
@@ -125,6 +134,10 @@ const Dashboard = () => {
     pageNumbers,
     next,
     pre,
+    viewPage,
+    setviewPage,
+    patientID,
+    setPatientID,
   };
 };
 

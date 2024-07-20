@@ -27,9 +27,8 @@ const DosageForm = () => {
     setClear
   } = DosageFormFunction();
 
-  console.log('action', action);
   return (
-    <div className="w-full h-[90%]">
+    <div className="container">
       <div
         style={{
           border: "3px solid #e8e8e8",
