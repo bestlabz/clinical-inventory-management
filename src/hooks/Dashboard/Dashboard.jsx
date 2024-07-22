@@ -11,19 +11,21 @@ import {
   setPatientsPrePage,
   setPatientsTotalCount,
 } from "../../Redux/Slice/Pagination";
+import { setNotification } from "../../Redux/Slice/Notification";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+
   const [selectedDate, setselectedDate] = useState(new Date());
   const [primaryLoader, setPrimaryLoader] = useState(true);
   const [viewPage, setviewPage] = useState(false);
   const [patientID, setPatientID] = useState(null);
 
-  const dispatch = useDispatch();
-
   const {
     patientscurrentPage: currentPages,
     patientstotalCount: paginationCount,
   } = useSelector((state) => state.Pagination);
+
 
   useEffect(() => {
     const API = async () => {

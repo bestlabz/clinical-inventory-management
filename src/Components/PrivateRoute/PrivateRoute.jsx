@@ -7,6 +7,7 @@ import { setUser } from "../../Redux/Slice/User";
 // Api Call
 import ApiRequest from "../../services/httpService";
 import ThemeSuspense from "../theme/ThemeSuspense";
+import { setNotification } from "../../Redux/Slice/Notification";
 
 const PrivateRoute = ({ children, ...rest }) => {
   const dispatch = useDispatch();
@@ -29,6 +30,28 @@ const PrivateRoute = ({ children, ...rest }) => {
   useEffect(() => {
     fetchClinicData();
   }, [fetchClinicData]);
+
+  useEffect(() => {
+    const API = async () => {
+      if (userDetails) {
+        try {
+          const { success, notifications } = await ApiRequest.get(
+            `/getnotifications?recipientId=${userDetails?._id}`
+          );
+
+          if (success) {
+            dispatch(setNotification(notifications));
+          }
+
+          return;
+        } catch (error) {
+          console.log('ee', error)
+          // return toast.error(error.response.data.error);
+        }
+      }
+    };
+    API();
+  }, [userDetails]);
 
   if (loading) {
     return <ThemeSuspense />; // You can replace this with a spinner or some other loading indicator
