@@ -13,7 +13,7 @@ import {
 } from "../../Redux/Slice/Pagination";
 
 const Dashboard = () => {
-  const [selectedDate, setselectedDate] = useState();
+  const [selectedDate, setselectedDate] = useState(new Date());
   const [primaryLoader, setPrimaryLoader] = useState(true);
   const [viewPage, setviewPage] = useState(false);
   const [patientID, setPatientID] = useState(null);

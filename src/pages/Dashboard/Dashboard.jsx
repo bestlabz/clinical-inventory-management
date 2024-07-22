@@ -42,6 +42,8 @@ const Dashboard = () => {
 
   const { sidebarStatus } = useSelector((state) => state.sidebarInfo);
 
+  console.log("patientsTable", patientsTable.length);
+
   return (
     <div className="container">
       {primaryLoader ? (
@@ -89,49 +91,57 @@ const Dashboard = () => {
                 }}
                 className="table-box mt-4"
               >
-                <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
-                  <div className="table-box-top-left">
-                    <TableHeaderTitle
-                      title={TranslateJson.dashboard.title}
-                      subContent={`${patientsTable.length} ${TranslateJson.dashboard.subText}`}
-                    />
+                {patientsTable?.length === 0  ? (
+                  <div className=" w-full h-full flex items-center justify-center">
+                    <h1 className="text-[22px]">No record found</h1>
                   </div>
-                  <div className="table-box-top-right">
-                    <div className="table-box-top-right-grid">
-                      <div className="table-box-top-right-content-date">
-                        <DatePicker
-                          date={selectedDate}
-                          handleDateSelect={setselectedDate}
+                ) : (
+                  <>
+                    <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
+                      <div className="table-box-top-left">
+                        <TableHeaderTitle
+                          title={TranslateJson.dashboard.title}
+                          subContent={`${patientsTable.length} ${TranslateJson.dashboard.subText}`}
                         />
                       </div>
+                      <div className="table-box-top-right">
+                        <div className="table-box-top-right-grid">
+                          <div className="table-box-top-right-content-date">
+                            <DatePicker
+                              date={selectedDate}
+                              handleDateSelect={setselectedDate}
+                            />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className=" mt-3 pb-3 overflow-auto w-full  2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[53%] xss:h-[53%] mobile:h-[53%]">
-                  <Table
-                    headers={[
-                      { title: "S.No" },
-                      { title: "Patient name" },
-                      { title: "Doctor name" },
-                      { title: "Specialist" },
-                      { title: "Appointment time" },
-                      { title: "View" },
-                    ]}
-                    tableBody={patientsTable}
-                    tableName="Patients"
-                    id={setPatientID}
-                    setviewPage={setviewPage}
-                  />
-                </div>
-                <div className=" w-full h-[10%] flex items-end justify-end px-3 pt-4  overflow-x-auto relative">
-                  <Paginitation
-                    currentpage={currentPages}
-                    PrePage={pre}
-                    nextPage={next}
-                    pageNumbers={pageNumbers}
-                    paginationCount={paginationCount}
-                  />
-                </div>
+                    <div className=" mt-3 pb-3 overflow-auto w-full  2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[53%] xss:h-[53%] mobile:h-[53%]">
+                      <Table
+                        headers={[
+                          { title: "S.No" },
+                          { title: "Patient name" },
+                          { title: "Doctor name" },
+                          { title: "Specialist" },
+                          { title: "Appointment time" },
+                          { title: "View" },
+                        ]}
+                        tableBody={patientsTable}
+                        tableName="Patients"
+                        id={setPatientID}
+                        setviewPage={setviewPage}
+                      />
+                    </div>
+                    <div className=" w-full h-[10%] flex items-end justify-end px-3 pt-4  overflow-x-auto relative">
+                      <Paginitation
+                        currentpage={currentPages}
+                        PrePage={pre}
+                        nextPage={next}
+                        pageNumbers={pageNumbers}
+                        paginationCount={paginationCount}
+                      />
+                    </div>
+                  </>
+                )}
               </div>
             </>
           )}

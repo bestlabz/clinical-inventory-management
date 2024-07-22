@@ -4,6 +4,12 @@ import { setDosageForm } from "../../Redux/Slice/Dosage";
 import toast from "react-hot-toast";
 
 import ApiRequest from "../../services/httpService";
+import {
+  setDosageFormCurrentPage,
+  setDosageFormNextPage,
+  setDosageFormPrePage,
+  setDosageFormTotalCount,
+} from "../../Redux/Slice/Pagination";
 
 const DosageForm = () => {
   const dispatch = useDispatch();
@@ -19,13 +25,21 @@ const DosageForm = () => {
 
   const { dosageForm } = useSelector((state) => state.dosage);
 
+  const {
+    dosageFormcurrentPage: currentPages,
+    dosageFormtotalCount: paginationCount,
+  } = useSelector((state) => state.Pagination);
+
   useEffect(() => {
     const API = async () => {
       if (!reFetch) {
         try {
-          const { success, dosageForms } = await ApiRequest.get("/dosageform");
+          const { success, dosageForms, currentPage, totalPages } =
+            await ApiRequest.get("/dosageform");
 
           if (success) {
+            dispatch(setDosageFormCurrentPage(currentPage));
+            dispatch(setDosageFormTotalCount(totalPages));
             return dispatch(setDosageForm(dosageForms));
           }
         } catch (error) {
@@ -48,7 +62,7 @@ const DosageForm = () => {
 
         if (success) {
           setLoader(false);
-          setDosageValue("")
+          setDosageValue("");
           setReFetch(false);
           return toast.success(message);
         }
@@ -121,6 +135,43 @@ const DosageForm = () => {
     }
   };
 
+  const next = () => {
+    if (currentPages !== pageNumbers[pageNumbers.length - 1]) {
+      return dispatch(setDosageFormNextPage());
+    }
+  };
+
+  const pre = () => {
+    return dispatch(setDosageFormPrePage());
+  };
+
+  const getPagesCut = ({ pagesCutCount = 2 }) => {
+    const ceiling = Math.ceil(pagesCutCount / 2);
+    const floor = Math.floor(pagesCutCount / 2);
+
+    if (paginationCount <= pagesCutCount) {
+      return { start: 1, end: Number(paginationCount) };
+    } else if (Number(currentPages) <= ceiling) {
+      return { start: 1, end: pagesCutCount };
+    } else if (Number(currentPages) + floor >= Number(paginationCount)) {
+      return {
+        start: Number(paginationCount) - Number(pagesCutCount) + 1,
+        end: Number(paginationCount),
+      };
+    } else {
+      return {
+        start: Number(currentPages) - ceiling + 1,
+        end: Number(currentPages) + floor,
+      };
+    }
+  };
+
+  const { start, end } = getPagesCut({ pagesCutCount: 3 }); // Adjust pagesCutCount as needed
+  const pageNumbers = Array.from(
+    { length: end - start + 1 },
+    (_, i) => start + i
+  );
+
   return {
     tableBody: dosageForm,
     model,
@@ -138,6 +189,11 @@ const DosageForm = () => {
     setAction,
     clear,
     setClear,
+    paginationCount,
+    currentPages,
+    pageNumbers,
+    next,
+    pre,
   };
 };
 

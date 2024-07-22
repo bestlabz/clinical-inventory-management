@@ -182,6 +182,7 @@ const ViewPage = ({ category, id }) => {
       try {
         setLoader1(true);
         const { success } = await ApiRequest.post(`/doctor/${id}`, {
+          clinicId: userDetails._id,
           block: value,
           reason,
         });

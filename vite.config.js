@@ -10,85 +10,65 @@ import path from "path";
 dns.setDefaultResultOrder("verbatim");
 
 export default defineConfig({
-  // root: "./", // Set the root directory of your project
-  // base: "/", // Set the base URL path for your application
-
   build: {
-    outDir: "build", // Set the output directory for the build files
-    assetsDir: "@/assets", // Set the directory for the static assets
-    // sourcemap: process.env.__DEV__ === "true",
+    outDir: "build",
+    assetsDir: "assets",
+    chunkSizeWarningLimit: 10 * 1024,
     rollupOptions: {
       // Additional Rollup configuration options if needed
     },
-    chunkSizeWarningLimit: 10 * 1024,
   },
   plugins: [
     react(),
     cssInjectedByJsPlugin(),
-
     VitePWA({
       registerType: "autoUpdate",
       devOptions: {
-        // enabled: process.env.SW_DEV === "true",
         enabled: false,
-        /* when using generateSW the PWA plugin will switch to classic */
         type: "module",
         navigateFallback: "index.html",
       },
       workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,xlsx}"],
         maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
       },
-      // add this to cache all the
-      // // static assets in the public folder
-      // includeAssets: ["**/*"],
       includeAssets: [
-        "**/*",       
         "favicon.ico",
+        "**/*.xlsx"
       ],
-      manifest: [
-        {
-          theme_color: "",
-          background_color: "",
-          display: "standalone",
-          orientation: "portrait",
-          scope: ".",
-          start_url: ".",
-          id: ".",
-          short_name: "Clinical Inventory",
-          name: "Clinical Inventory Management Dashboard",
-          description:
-            "Clinical Inventory : Admin Dashboard",
-          icons: [
-            {
-              src: "favicon.ico",
-              sizes: "48x48",
-              type: "image/x-icon",
-            },
-          ],
-        },
-      ],
+      manifest: {
+        theme_color: "#ffffff",
+        background_color: "#ffffff",
+        display: "standalone",
+        orientation: "portrait",
+        scope: ".",
+        start_url: ".",
+        id: ".",
+        short_name: "Clinical Inventory",
+        name: "Clinical Inventory Management Dashboard",
+        description: "Clinical Inventory: Admin Dashboard",
+        icons: [
+          {
+            src: "favicon.ico",
+            sizes: "48x48",
+            type: "image/x-icon",
+          },
+        ],
+      },
     }),
     compression(),
   ],
 
   server: {
-    port: 3000
+    port: 3000,
   },
   define: {
     "process.env": process.env,
-    // global: {}, //enable this when running on dev/local mode
   },
-
   resolve: {
     alias: {
-      // eslint-disable-next-line no-undef
       "@": path.resolve(__dirname, "./src/"),
     },
   },
-  // test: {
-  //   global: true,
-  //   environment: "jsdom",
-  //   setupFiles: ["./src/setupTest.js"],
-  // },
+  assetsInclude: ["**/*.xlsx"],
 });

@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    Notifiacation: false   
+    Notifiacation: false,
+    NotificationData: []
 };
 
 export const notificationSlice = createSlice({
@@ -11,10 +12,13 @@ export const notificationSlice = createSlice({
         setVisible: (state, action) => {
             state.Notifiacation =  state.Notifiacation ? false : true;
         },
+        setNotification: (state, action) => { 
+            state.NotificationData = action.payload
+        }
         
     },
 });
 
 // Export actions and reducer
-export const { setVisible } = notificationSlice.actions;
+export const { setVisible, setNotification} = notificationSlice.actions;
 export default notificationSlice.reducer;

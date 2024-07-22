@@ -36,12 +36,14 @@ const ViewPage = ({
 
   const { details } = useSelector((state) => state.DetailsPage);
 
-  const { userDetails } = useSelector((state) => state.userinfo);
-
   const [detailsAction, setDetailsAction] = useState({
     id: "",
     value: "",
   });
+
+  console.log("details", details);
+
+  console.log("category", category);
 
   return (
     <div className=" w-full h-full overflow-auto ">
@@ -61,37 +63,71 @@ const ViewPage = ({
             </h1>
           </div>
 
-          <div className="view-page-button-container">
-            {details?.block ? (
-              <button
-                onClick={() => {
-                  setDetailsAction({
-                    id: id,
-                    value: false,
-                  });
-                  setModel(true);
-                }}
-                className="view-page-button1"
-              >
-                UnBlock Account
-              </button>
-            ) : (
-              <button
-                onClick={() => {
-                  setDetailsAction({
-                    id: id,
-                    value: true,
-                  });
-                  setModel(true);
-                }}
-                className="view-page-button"
-              >
-                Block Account <MdBlock size={20} />
-              </button>
-            )}
-          </div>
+          {category === "doctor" && details?.clinics?.verified && (
+            <div className="view-page-button-container">
+              {details?.clinics?.block ? (
+                <button
+                  onClick={() => {
+                    setDetailsAction({
+                      id: id,
+                      value: false,
+                    });
+                    setModel(true);
+                  }}
+                  className="view-page-button1"
+                >
+                  UnBlock Account
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setDetailsAction({
+                      id: id,
+                      value: true,
+                    });
+                    setModel(true);
+                  }}
+                  className="view-page-button"
+                >
+                  Block Account <MdBlock size={20} />
+                </button>
+              )}
+            </div>
+          )}
 
-          <h1 className="text-[24px] font-bold mb-2">Personal Details</h1>
+          {category === "receptionist" && details?.verify && (
+            <div className="view-page-button-container">
+              {details?.block ? (
+                <button
+                  onClick={() => {
+                    setDetailsAction({
+                      id: id,
+                      value: false,
+                    });
+                    setModel(true);
+                  }}
+                  className="view-page-button1"
+                >
+                  UnBlock Account
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setDetailsAction({
+                      id: id,
+                      value: true,
+                    });
+                    setModel(true);
+                  }}
+                  className="view-page-button"
+                >
+                  Block Account <MdBlock size={20} />
+                </button>
+              )}
+            </div>
+          )}
+
+          <h1 className="text-[24px] font-bold mb-2 mt-4">Personal Details</h1>
           <div className="view-page-personal-details-container">
             <div className="view-page-personal-details-container-body">
               <div className="w-full flex items-center gap-2">

@@ -9,6 +9,10 @@ const initialState = {
   receptionisttotalCount: null,
   medicinescurrentPage: 1,
   medicinestotalCount: null,
+  dosageFormcurrentPage: 1,
+  dosageFormtotalCount: null,
+  dosageUnitcurrentPage: 1,
+  dosageUnittotalCount: null,
 };
 
 export const paginationSlice = createSlice({
@@ -78,6 +82,38 @@ export const paginationSlice = createSlice({
     setMedicineTotalCount: (state, action) => {
       state.medicinestotalCount = action.payload;
     },
+
+    //DosageForm
+    setDosageFormNextPage: (state) => {
+      state.dosageFormcurrentPage += 1;
+    },
+    setDosageFormPrePage: (state) => {
+      if (state.dosageFormcurrentPage !== 1) {
+        state.dosageFormcurrentPage = state.dosageFormcurrentPage - 1;
+      }
+    },
+    setDosageFormCurrentPage: (state, action) => {
+      state.dosageFormcurrentPage = action.payload;
+    },
+    setDosageFormTotalCount: (state, action) => {
+      state.dosageFormtotalCount = action.payload;
+    },
+
+    //DosageUnit
+    setDosageUnitNextPage: (state) => {
+      state.dosageUnitcurrentPage += 1;
+    },
+    setDosageUnitPrePage: (state) => {
+      if (state.dosageUnitcurrentPage !== 1) {
+        state.dosageUnitcurrentPage = state.dosageUnitcurrentPage - 1;
+      }
+    },
+    setDosageUnitCurrentPage: (state, action) => {
+      state.dosageUnitcurrentPage = action.payload;
+    },
+    setDosageUnitTotalCount: (state, action) => {
+      state.dosageUnittotalCount = action.payload;
+    },
   },
 });
 
@@ -99,5 +135,13 @@ export const {
   setMedicinePrePage,
   setMedicineCurrentPage,
   setMedicineTotalCount,
+  setDosageFormNextPage,
+  setDosageFormPrePage,
+  setDosageFormCurrentPage,
+  setDosageFormTotalCount,
+  setDosageUnitPrePage,
+  setDosageUnitCurrentPage,
+  setDosageUnitTotalCount,
+  setDosageUnitNextPage
 } = paginationSlice.actions;
 export default paginationSlice.reducer;
