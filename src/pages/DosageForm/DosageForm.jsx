@@ -3,6 +3,7 @@ import React from "react";
 import DosageFormFunction from "../../hooks/DosageForm/DosageForm";
 import TableHeaderTitle from "../../Components/Properites/TableHeaderTitle/TableHeaderTitle";
 import Table from "../../Components/Properites/Table/Table";
+import Paginitation from "../../Components/Properites/Paginitation/Paginitation";
 
 import { IoMdAdd } from "react-icons/io";
 import { ClipLoader } from "react-spinners";
@@ -40,11 +41,6 @@ const DosageForm = () => {
         }}
         className="table-box "
       >
-        {tableBody.length === 0 ? (
-          <div className=" w-full h-full flex items-center justify-center">
-            <h1 className="text-[22px]">No record found</h1>
-          </div>
-        ) : (
           <>
             <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
               <div className="table-box-top-left">
@@ -111,16 +107,18 @@ const DosageForm = () => {
               />
             </div>
             <div className=" w-full h-[10%] flex items-end justify-end pt-4 px-3 overflow-x-auto relative">
+              {
+                tableBody.length !== 0 &&  
               <Paginitation
-            currentpage={currentPages}
-            PrePage={pre}
-            nextPage={next}
-            pageNumbers={pageNumbers}
-            paginationCount={paginationCount}
-          />
+              currentpage={currentPages}
+              PrePage={pre}
+              nextPage={next}
+              pageNumbers={pageNumbers}
+              paginationCount={paginationCount}
+              />
+            }
             </div>
           </>
-        )}
       </div>
     </div>
   );

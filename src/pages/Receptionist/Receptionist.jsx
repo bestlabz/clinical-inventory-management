@@ -143,13 +143,15 @@ const Receptionist = () => {
                 />
               </div>
               <div className=" w-full  h-[10%] flex items-end justify-end pt-4 px-3  overflow-x-auto relative ">
-                <Paginitation
-                  currentpage={currentPages}
-                  PrePage={pre}
-                  nextPage={next}
-                  pageNumbers={pageNumbers}
-                  paginationCount={paginationCount}
-                />
+                {receptionistTable.length !== 0 && (
+                  <Paginitation
+                    currentpage={currentPages}
+                    PrePage={pre}
+                    nextPage={next}
+                    pageNumbers={pageNumbers}
+                    paginationCount={paginationCount}
+                  />
+                )}
               </div>
             </div>
           )}

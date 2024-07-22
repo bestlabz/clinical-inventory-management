@@ -49,14 +49,12 @@ const Doctors = () => {
     pageNumbers,
     paginationCount,
     dotorId,
-    setDotorId
+    setDotorId,
   } = DoctorsFunction();
 
   const { doctorTable } = useSelector((state) => state.TableDatas);
 
   const { sidebarStatus } = useSelector((state) => state.sidebarInfo);
-
-
 
   return (
     <div className=" container">
@@ -104,92 +102,88 @@ const Doctors = () => {
                 }}
                 className="table-box mt-4"
               >
-                {
-                  doctorTable.length === 0 ?   <div className=" w-full h-full flex items-center justify-center">
-                  <h1 className="text-[22px]">No record found</h1>
-                </div> : <>
-                <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
-                  <div className="table-box-top-left">
-                    <TableHeaderTitle
-                      title={TranslateJson.doctors.title}
-                      subContent={`${doctorTable.length} ${TranslateJson.doctors.subText}`}
-                    />
-                  </div>
-                  <div className="table-box-top-right-1">
-                    <div className="table-box-top-right-grid-1">
-                      {/* <div className="table-box-top-right-content-date-1">
+                <>
+                  <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
+                    <div className="table-box-top-left">
+                      <TableHeaderTitle
+                        title={TranslateJson.doctors.title}
+                        subContent={`${doctorTable.length} ${TranslateJson.doctors.subText}`}
+                      />
+                    </div>
+                    <div className="table-box-top-right-1">
+                      <div className="table-box-top-right-grid-1">
+                        {/* <div className="table-box-top-right-content-date-1">
                     <DatePicker
                       date={selectedDate}
                       handleDateSelect={setselectedDate}
                     />
                   </div> */}
-                      <div className="table-box-top-right-content-filter-1">
-                        <Select
-                          options={Options}
-                          styles={style}
-                          placeholder="Filter"
-                          SelectedValue={setselectedFilter}
-                          value={selectedFilter}
-                          clear={true}
-                        />
-                      </div>
-                      <div className="table-box-top-right-content-filter-1">
-                        <button
-                          onClick={navigateAddDoctorPage}
-                          className="table-box-top-right-content-button-1 "
-                        >
-                          <AddIcon /> Invite
-                        </button>
+                        <div className="table-box-top-right-content-filter-1">
+                          <Select
+                            options={Options}
+                            styles={style}
+                            placeholder="Filter"
+                            SelectedValue={setselectedFilter}
+                            value={selectedFilter}
+                            clear={true}
+                          />
+                        </div>
+                        <div className="table-box-top-right-content-filter-1">
+                          <button
+                            onClick={navigateAddDoctorPage}
+                            className="table-box-top-right-content-button-1 "
+                          >
+                            <AddIcon /> Invite
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className=" mt-3 pb-3 overflow-auto w-full 2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[43%] xss:h-[43%] mobile:h-[43%]">
-                  <Table
-                    headers={() => {
-                      if(selectedFilter?.value === "recently_joined") { 
-                        return [
-                          { title: "S.No" },
-                          { title: "Mobile Number" },
-                          { title: "View" },
-                          
-                        ]
-                      } else {
-                        return [
-                          { title: "S.No" },
-                          { title: "Doctor name" },
-                          { title: "Specialist" },
-                          { title: "Status" },
-                          { title: "Action" },
-                          { title: "View" },
-                        ]
-                      }
-                    }}
-                    tableBody={doctorTable}
-                    tableName="Doctor"
-                    model={model}
-                    setModel={setModel}
-                    handleChange={handleChange}
-                    clear={clear}
-                    setClear={setClear}
-                    loader={loader}
-                    setviewPage={setviewPage}
-                    id={setDotorId}
-                    filtervalue={selectedFilter?.value}
-                  />
-                </div>
-                <div className=" w-full h-[10%] flex items-end justify-end pt-4 px-3 overflow-x-auto relative">
-                  <Paginitation
-                    currentpage={currentPages}
-                    PrePage={pre}
-                    nextPage={next}
-                    pageNumbers={pageNumbers}
-                    paginationCount={paginationCount}
-                  />
-                </div>
-                
+                  <div className=" mt-3 pb-3 overflow-auto w-full 2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[43%] xss:h-[43%] mobile:h-[43%]">
+                    <Table
+                      headers={() => {
+                        if (selectedFilter?.value === "recently_joined") {
+                          return [
+                            { title: "S.No" },
+                            { title: "Mobile Number" },
+                            { title: "View" },
+                          ];
+                        } else {
+                          return [
+                            { title: "S.No" },
+                            { title: "Doctor name" },
+                            { title: "Specialist" },
+                            { title: "Status" },
+                            { title: "Action" },
+                            { title: "View" },
+                          ];
+                        }
+                      }}
+                      tableBody={doctorTable}
+                      tableName="Doctor"
+                      model={model}
+                      setModel={setModel}
+                      handleChange={handleChange}
+                      clear={clear}
+                      setClear={setClear}
+                      loader={loader}
+                      setviewPage={setviewPage}
+                      id={setDotorId}
+                      filtervalue={selectedFilter?.value}
+                    />
+                  </div>
+                  <div className=" w-full h-[10%] flex items-end justify-end pt-4 px-3 overflow-x-auto relative">
+                    {doctorTable.length !== 0 && (
+                      <Paginitation
+                        currentpage={currentPages}
+                        PrePage={pre}
+                        nextPage={next}
+                        pageNumbers={pageNumbers}
+                        paginationCount={paginationCount}
+                      />
+                    )}
+                  </div>
                 </>
-                }
               </div>
             </>
           )}
