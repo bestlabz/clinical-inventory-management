@@ -1,7 +1,7 @@
 import React from "react";
 
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { IoMdTrash } from "react-icons/io";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const TemplateBox = ({
   open,
@@ -12,7 +12,8 @@ const TemplateBox = ({
   onChange,
   value,
   index,
-  dynamicText,
+  submit,
+  loader,
 }) => {
   return (
     <>
@@ -21,13 +22,13 @@ const TemplateBox = ({
           <p className=" flex-1 text-[16px] font-semibold pl-2">{title}</p>
           {open ? (
             <IoIosArrowDown
-              onClick={() => setOpen(false)}
+              onClick={() => setOpen(index)}
               size={22}
               className=" cursor-pointer"
             />
           ) : (
             <IoIosArrowUp
-              onClick={() => setOpen(true)}
+              onClick={() => setOpen(index)}
               size={22}
               className=" cursor-pointer"
             />
@@ -50,7 +51,36 @@ const TemplateBox = ({
             onChange={(e) => onChange({ index, value: e.target.value })}
             value={value}
           />
-          {/* <div className="template-body-dynamic-text">
+
+          <div className="template-bottom">
+            <button
+              onClick={() => enableEdit(index)}
+              className=" template-btn text-black border-black  hover:bg-blue-700 "
+            >
+              Edit
+            </button>
+            {loader ? (
+              <button className="template-btn border-blue bg-blue text-white">
+                <ClipLoader size={20} />
+              </button>
+            ) : (
+              <button
+                onClick={() => submit(index)}
+                className="template-btn border-blue bg-blue text-white"
+              >
+                Save
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default TemplateBox;
+{
+  /* <div className="template-body-dynamic-text">
             {dynamicText.length !== 0 && (
               <div className="w-full h-full flex flex-col flex-1 gap-2 overflow-auto py-1">
                 {dynamicText?.map((_, index) => {
@@ -70,22 +100,5 @@ const TemplateBox = ({
             <button className="bg-blue py-2 mt-1 w-[120px] text-[12px] text-white rounded-lg font-medium ">
               Add Dynamic value
             </button>
-          </div> */}
-          <div className="template-bottom">
-            <button
-              onClick={() => enableEdit(!edit)}
-              className=" template-btn text-black border-black  hover:bg-blue-700 "
-            >
-              Edit
-            </button>
-            <button className="template-btn border-blue bg-blue text-white">
-              Save
-            </button>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
-
-export default TemplateBox;
+          </div> */
+}

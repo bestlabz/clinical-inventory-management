@@ -155,21 +155,27 @@ const Medicine = () => {
                 </div>
               </div>
               <div className=" mt-3 pb-3 overflow-auto w-full 2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[43%] xss:h-[43%] mobile:h-[43%]">
-                <Table
-                  headers={[
-                    { title: "Medicine Name" },
-                    { title: "Dosage form" },
-                    { title: "Dosage Strength" },
-                    { title: "Status" },
-                    { title: "Action" },
-                  ]}
-                  tableBody={medicineTable}
-                  tableName="Medicine"
-                  model={model}
-                  setModel={handelModel}
-                  handleChange={handleDelete}
-                  loader={loader}
-                />
+                {medicineTable.length === 0 ? (
+                  <div className=" w-full h-full flex items-center justify-center">
+                    <h1 className="text-[22px]">No record found</h1>
+                  </div>
+                ) : (
+                  <Table
+                    headers={[
+                      { title: "Medicine Name" },
+                      { title: "Dosage form" },
+                      { title: "Dosage Strength" },
+                      { title: "Status" },
+                      { title: "Action" },
+                    ]}
+                    tableBody={medicineTable}
+                    tableName="Medicine"
+                    model={model}
+                    setModel={handelModel}
+                    handleChange={handleDelete}
+                    loader={loader}
+                  />
+                )}
               </div>
               <div className=" w-full pt-4 mx-auto  h-[10%] flex items-end justify-end px-3 overflow-x-auto relative">
                 {medicineTable.length !== 0 && (

@@ -97,12 +97,14 @@ const Doctors = () => {
     };
 
     const API = async () => {
-      if (!selectedFilter || selectedFilter?.value === "") {
-        await fetchData({ page: currentPages });
-      } else if (selectedFilter?.value === "verify") {
-        await fetchData({ filter: "verify", page: currentPages });
-      } else if (selectedFilter?.value === "recently_joined") {
-        await fetchData({ filter: "recently_joined", page: currentPages });
+      if (!model) {
+        if (!selectedFilter || selectedFilter?.value === "") {
+          await fetchData({ page: currentPages });
+        } else if (selectedFilter?.value === "verify") {
+          await fetchData({ filter: "verify", page: currentPages });
+        } else if (selectedFilter?.value === "recently_joined") {
+          await fetchData({ filter: "recently_joined", page: currentPages });
+        }
       }
     };
 

@@ -1,83 +1,144 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TemplateBox from "./TemplateBox";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setEditable,
-  setTemplate,
-  setTemplate2,
-  setTemplate3,
-} from "../../Redux/Slice/SMSTemplate";
+import { setTemplates, setTemplate } from "../../Redux/Slice/SMSTemplate";
+
+import ApiRequest from "../../services/httpService";
+import toast from "react-hot-toast";
 
 const Index = () => {
   const dispatch = useDispatch();
-  const {
-    template,
-    template2,
-    template3,
-    templateEdit,
-    templateEdit2,
-    templateEdit3,
-    dynamictexttemplate,
-dynamictexttemplate2,
-dynamictexttemplate3
-  } = useSelector((state) => state.template);
-  const [open, setopen] = useState(false);
-  const [open2, setopen2] = useState(false);
-  const [open3, setopen3] = useState(false);
+  const { templates } = useSelector((state) => state.template);
+  const [open, setopen] = useState(null);
+  const [editable, setEditable] = useState(null);
+  const [loader, setLoader] = useState(false);
+
+  useEffect(() => {
+    const API = async () => {
+      if (!loader) {
+        try {
+          const { success, SMSTypes } = await ApiRequest.get("/sms_type");
+
+          if (success) {
+            try {
+              const { success, smstemplates } = await ApiRequest.get(
+                "/sms_template"
+              );
+
+              if (success) {
+                const Types = SMSTypes.map((item) => {
+                  return {
+                    type_id: item._id,
+                    type_name: item.name,
+                    template: smstemplates.filter(
+                      (template) => template.smstypeId === item._id
+                    )[0].body,
+                    templateID: smstemplates.filter(
+                      (template) => template.smstypeId === item._id
+                    )[0]._id,
+                  };
+                });
+                dispatch(setTemplates(Types));
+                return;
+              }
+            } catch (error) {
+              console.log("ee", error);
+            }
+          }
+        } catch (error) {
+          console.log("ee", error);
+        }
+      }
+    };
+    API();
+  }, [loader]);
 
   const handleChange = ({ index, value }) => {
-    if (index === 1) {
-      return dispatch(setTemplate(value));
+    return dispatch(setTemplate({ index, value }));
+  };
+
+  const handleSubmit = async (index) => {
+    const getTemple = templates.filter((_, idx) => idx === index)[0];
+
+    console.log('getTemple', getTemple);
+    if (
+      getTemple.type_name === "SEND_OTP" &&
+      !getTemple?.template.includes("{{otpCode}}")
+    ) {
+      toast.error("The message is missing the {{otpCode}} placeholder.");
+      return;
     }
-    if (index === 2) {
-      return dispatch(setTemplate2(value));
+
+    if (
+      getTemple.type_name === "Create_Account" &&
+      (!getTemple?.template.includes("{{otpCode}}") ||
+        !getTemple?.template.includes("{{clinicName}}"))
+    ) {
+      toast.error(
+        "The message is missing the {{clinicName}} or {{otpCode}} placeholder."
+      );
+      return;
     }
-    if (index === 3) {
-      return dispatch(setTemplate3(value));
+
+    if (
+      getTemple.type_name === "Patients_Appoinment" &&
+      (!getTemple?.template.includes("{{clinicName}}") ||
+        !getTemple?.template.includes("{{date}}") ||
+        !getTemple?.template.includes("{{time}}") ||
+        !getTemple?.template.includes("{{name}}"))
+    ) {
+      toast.error(
+        "The message is missing the {{clinicName}}, {{date}}, {{time}}, or {{name}} placeholder."
+      );
+      return;
+    }
+
+    if (getTemple) {
+      try {
+        setLoader(true);
+        const { success, message } = await ApiRequest.put(
+          `/sms_template/${getTemple.templateID}`,
+          {
+            smstypeId: getTemple.type_id,
+            body: getTemple.template,
+          }
+        );
+
+        if (success) {
+          setLoader(false);
+          setopen(null);
+          setEditable(null);
+          return toast.success(message);
+        }
+      } catch (error) {
+        setLoader(false);
+        console.log(error);
+      }
     }
   };
 
   return (
     <div className="container">
       <div className="table-box">
-      <h1 className="text-[22px] font-semibold pb-6">Templates</h1>
+        <h1 className="text-[22px] font-semibold pb-6">Templates</h1>
 
         <div className="template-container">
-          <TemplateBox
-            open={open}
-            setOpen={setopen}
-            title="SMS Template"
-            edit={templateEdit}
-            enableEdit={() => dispatch(setEditable({ index: 1 }))}
-            onChange={handleChange}
-            value={template}
-            index={1}
-            dynamicText={dynamictexttemplate}
-          />
-          <TemplateBox
-            open={open2}
-            setOpen={setopen2}
-            title="Create Account SMS Template"
-            edit={templateEdit2}
-            enableEdit={() => dispatch(setEditable({ index: 2 }))}
-            onChange={handleChange}
-            value={template2}
-            index={2}
-            dynamicText={dynamictexttemplate2}
-
-          />
-          <TemplateBox
-            open={open3}
-            setOpen={setopen3}
-            title="Patients Appoinment SMS Template"
-            edit={templateEdit3}
-            enableEdit={() => dispatch(setEditable({ index: 3 }))}
-            onChange={handleChange}
-            value={template3}
-            index={3}
-            dynamicText={dynamictexttemplate3}
-
-          />
+          {templates?.map((item, index) => {
+            return (
+              <TemplateBox
+                open={open === index ? true : false}
+                setOpen={(e) => (e === open ? setopen(null) : setopen(e))}
+                title={`${item?.type_name} Template`}
+                edit={editable === index ? false : true}
+                enableEdit={(e) => setEditable(e)}
+                onChange={handleChange}
+                value={item?.template}
+                index={index}
+                submit={handleSubmit}
+                loader={loader}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

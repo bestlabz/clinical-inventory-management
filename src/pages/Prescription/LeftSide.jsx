@@ -59,7 +59,7 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
             <div className="felx items-center flex-col space-y-2 w-[40%] pt-1">
               <div className="w-[70px] h-[70px] mx-auto rounded-full border-[3px] border-green_light overflow-hidden ">
                 <img
-                  src={clinicLogo.logo}
+                  src={clinicLogo?.logo}
                   className="w-full h-full object-fill"
                 />
               </div>
@@ -68,7 +68,7 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
               </p> */}
             </div>
             <div className="w-full">
-              {orderedDetails.map((i, index) => {
+              {orderedDetails?.map((i, index) => {
                 return (
                   <div key={index}>
                     {i?.name === "Clinic Name" && (
@@ -133,7 +133,7 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
           </div>
 
           <div className="prescription-top-container-right-side text-end  w-[50%]">
-            {doctorDetailsArray.map((i, index) => {
+            {doctorDetailsArray?.map((i, index) => {
               return (
                 <div key={index}>
                   {i?.name === "Doctor Name" && (
@@ -194,7 +194,7 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
         </div>
 
         <div className="mt-3 py-3 px-1 border-t-[1px] border-b-[1px] border-gray-300 grid grid-cols-6">
-          {headerDetails.map((i, index) => (
+          {headerDetails?.map((i, index) => (
             <p
               key={index}
               style={{
@@ -213,10 +213,10 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
         <div className="w-full flex items-end justify-end my-3">
           <p
             style={{
-              color: headerDetails?.[0]?.styles.color,
-              fontSize: headerDetails?.[0]?.styles.size,
-              fontWeight: headerDetails?.[0]?.styles.weight,
-              fontFamily: headerDetails?.[0]?.styles.font,
+              color: headerDetails?.[0]?.styles?.color,
+              fontSize: headerDetails?.[0]?.styles?.size,
+              fontWeight: headerDetails?.[0]?.styles?.weight,
+              fontFamily: headerDetails?.[0]?.styles?.font,
             }}
             className="text-start   w-[25%] max-w-[40%]"
           >
@@ -224,7 +224,7 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
           </p>
         </div>
 
-        {mainDetails.map((i, index) => (
+        {mainDetails?.map((i, index) => (
           <div
             key={index}
             className=" min-h-[150px] mt-3 px-1 flex flex-col gap-2"
@@ -331,7 +331,7 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
             </div>
 
             <div className="prescription-top-container-right-side text-end  w-[50%]">
-              {doctorDetailsArray.map((i, index) => {
+              {doctorDetailsArray?.map((i, index) => {
                 return (
                   <div key={index}>
                     {i?.name === "Doctor Name" && (
@@ -392,7 +392,7 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
           </div>
 
           <div className="mt-3 py-3 px-1 border-t-[1px] border-b-[1px] border-gray-300 grid grid-cols-6">
-            {headerDetails.map((i, index) => (
+            {headerDetails?.map((i, index) => (
               <p
                 key={index}
                 style={{
@@ -403,7 +403,7 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
                 }}
                 className={`${index === 0 ? "col-span-3" : "col-span-1"}`}
               >
-                {i.value}:
+                {i?.value}:
               </p>
             ))}
           </div>
@@ -411,10 +411,10 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
           <div className="w-full flex items-end justify-end my-3">
             <p
               style={{
-                color: headerDetails?.[0]?.styles.color,
-                fontSize: headerDetails?.[0]?.styles.size,
-                fontWeight: headerDetails?.[0]?.styles.weight,
-                fontFamily: headerDetails?.[0]?.styles.font,
+                color: headerDetails?.[0]?.styles?.color,
+                fontSize: headerDetails?.[0]?.styles?.size,
+                fontWeight: headerDetails?.[0]?.styles?.weight,
+                fontFamily: headerDetails?.[0]?.styles?.font,
               }}
               className="text-start   w-[25%] max-w-[40%]"
             >
@@ -422,7 +422,7 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
             </p>
           </div>
 
-          {mainDetails.map((i, index) => (
+          {mainDetails?.map((i, index) => (
             <div
               key={index}
               className=" min-h-[150px] mt-3 px-1 flex flex-col gap-2"

@@ -28,9 +28,11 @@ const Sidebar = ({ children }) => {
     SideMenuFunction();
   const { sidebarStatus } = useSelector((state) => state.sidebarInfo);
   const { userDetails } = useSelector((state) => state.userinfo);
-  const { Notifiacation, NotificationData } = useSelector((state) => state.notification);
+  const { Notifiacation, NotificationData } = useSelector(
+    (state) => state.notification
+  );
 
-  console.log('Notifiacation', NotificationData);
+  console.log("Notifiacation", NotificationData);
 
   const NotificationModal = () => {
     dispatch(setVisible());
@@ -89,28 +91,30 @@ const Sidebar = ({ children }) => {
               </NavLink>
             );
           })}
-        </div>
 
-        <div className=" bottom-section">
           <div
             onClick={NotificationModal}
             className=" relative flex items-center gap-[15px] px-3 py-3 cursor-pointer hover:bg-navbar_activate_color hover:rounded-xl"
           >
             <NotificationIcon />
-            {
-              NotificationData?.filter((item) => item?.read === false)?.length !== 0 &&
-            <p className="absolute w-[18px] h-[18px] top-[14px] left-[25px] text-[12px] flex items-center justify-center bg-white text-black rounded-full text-center">
-              {
-                NotificationData?.filter((item) => item?.read === false)?.length
-              }
-            </p>
-            }
+            {NotificationData?.filter((item) => item?.read === false)
+              ?.length !== 0 && (
+              <p className="absolute w-[18px] h-[18px] top-[14px] left-[25px] text-[12px] flex items-center justify-center bg-white text-black rounded-full text-center">
+                {
+                  NotificationData?.filter((item) => item?.read === false)
+                    ?.length
+                }
+              </p>
+            )}
             {sidebarStatus && (
               <span className="link_text 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden">
                 Notifications
               </span>
             )}
           </div>
+        </div>
+
+        <div className=" bottom-section">
           <hr className=" mt-4 mb-2 text-white" />
           <div className="profile">
             {sidebarStatus && (
