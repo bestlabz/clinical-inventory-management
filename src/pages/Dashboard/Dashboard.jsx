@@ -42,8 +42,6 @@ const Dashboard = () => {
 
   const { sidebarStatus } = useSelector((state) => state.sidebarInfo);
 
-  console.log("patientsTable", patientsTable.length);
-
   return (
     <div className="container">
       {primaryLoader ? (

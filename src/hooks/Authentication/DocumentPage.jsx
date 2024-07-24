@@ -14,9 +14,11 @@ import toast from "react-hot-toast";
 
 //Components
 import FormHandel from "../../Components/Properites/FormHandel/Formhandel";
+import { useNavigate } from "react-router-dom";
 
 const DocumentPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [error, setError] = useState(false);
   const [base64Image, setBase64Image] = useState([]);
