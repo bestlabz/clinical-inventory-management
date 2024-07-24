@@ -86,10 +86,7 @@ const DosageForm = () => {
               </div>
             </div>
             <div className=" mt-3 pb-3 overflow-auto w-full 2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[43%] xss:h-[43%] mobile:h-[43%]">
-             {tableBody?.length === 0 ?
-               <div className=" w-full h-full flex items-center justify-center">
-               <h1 className="text-[22px]">No record found</h1>
-             </div> :   <Table
+            <Table
                 headers={[
                   { title: "S.No" },
                   { title: "Dosage name" },
@@ -108,7 +105,6 @@ const DosageForm = () => {
                 clear={clear}
                 setClear={setClear}
               />
-             }
              
             
             </div>

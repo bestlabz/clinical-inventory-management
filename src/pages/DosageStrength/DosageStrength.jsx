@@ -85,11 +85,6 @@ const DosageStrength = () => {
             </div>
           </div>
           <div className=" mt-3 pb-3 overflow-auto w-full 2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[43%] xss:h-[43%] mobile:h-[43%]">
-            {tableBody?.length === 0 ? (
-              <div className=" w-full h-full flex items-center justify-center">
-                <h1 className="text-[22px]">No record found</h1>
-              </div>
-            ) : (
               <Table
                 headers={[
                   { title: "S.No" },
@@ -109,7 +104,6 @@ const DosageStrength = () => {
                 clear={clear}
                 setClear={setClear}
               />
-            )}
           </div>
           <div className=" w-full h-[10%] flex items-end justify-end pt-4 px-3 overflow-x-auto relative">
             {tableBody?.length !== 0 && (

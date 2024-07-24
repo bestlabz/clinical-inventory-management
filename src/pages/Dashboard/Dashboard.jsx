@@ -108,26 +108,20 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div className=" mt-3 pb-3 overflow-auto w-full  2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[53%] xss:h-[53%] mobile:h-[53%]">
-                  {patientsTable?.length === 0 ? (
-                    <div className=" w-full h-full flex items-center justify-center">
-                      <h1 className="text-[22px]">No record found</h1>
-                    </div>
-                  ) : (
-                    <Table
-                      headers={[
-                        { title: "S.No" },
-                        { title: "Patient name" },
-                        { title: "Doctor name" },
-                        { title: "Specialist" },
-                        { title: "Appointment time" },
-                        { title: "View" },
-                      ]}
-                      tableBody={patientsTable}
-                      tableName="Patients"
-                      id={setPatientID}
-                      setviewPage={setviewPage}
-                    />
-                  )}
+                  <Table
+                    headers={[
+                      { title: "S.No" },
+                      { title: "Patient name" },
+                      { title: "Doctor name" },
+                      { title: "Specialist" },
+                      { title: "Appointment time" },
+                      { title: "View" },
+                    ]}
+                    tableBody={patientsTable}
+                    tableName="Patients"
+                    id={setPatientID}
+                    setviewPage={setviewPage}
+                  />
                 </div>
                 <div className=" w-full h-[10%] flex items-end justify-end px-3 pt-4  overflow-x-auto relative">
                   {patientsTable?.length !== 0 && (

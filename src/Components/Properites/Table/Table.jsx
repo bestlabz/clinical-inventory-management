@@ -53,6 +53,11 @@ const Table = ({
         </thead>
 
         <tbody className="bg-white">
+          {tableBody.length === 0 && (
+            <div className=" w-full h-full flex items-center justify-center absolute">
+              <h1 className="text-[22px] text-center">No record found</h1>
+            </div>
+          )}
           {tableBody?.map((item, i) => {
             if (tableName === "Patients") {
               return (
