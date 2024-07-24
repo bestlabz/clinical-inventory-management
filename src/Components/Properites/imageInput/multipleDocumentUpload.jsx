@@ -86,9 +86,9 @@ const MultipleImageUpload = ({
     setImageTypes((prevTypes) => [...prevTypes, ...imageTypes]);
     if (file) {
       const newFile = [...file, ...validFiles];
-       setFieldValue("files", newFile); // Set the array of valid files
+      setFieldValue("files", newFile); // Set the array of valid files
     } else {
-       setFieldValue("files", validFiles); // Set the array of valid files
+      setFieldValue("files", validFiles); // Set the array of valid files
     }
   };
 
@@ -96,8 +96,6 @@ const MultipleImageUpload = ({
     e.preventDefault();
   };
 
-  console.log("file", file);
-  console.log("base64Images", base64Image);
 
   return (
     <div className="flex flex-col gap-1">
@@ -172,7 +170,12 @@ const MultipleImageUpload = ({
                   </span>
                   <span
                     className="text-xl cursor-pointer hover:text-red-500"
-                    onClick={() => handleDeleteFile(index)}
+                    onClick={() => {
+                      handleDeleteFile(index);
+                      setImageTypes(
+                        imageTypes.filter((_, idx) => idx !== index)
+                      );
+                    }}
                   >
                     <IoClose />
                   </span>

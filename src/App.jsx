@@ -7,6 +7,8 @@ import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 // Page routes
 import Login from "./pages/Authentication/Login";
 import SignUp from "./pages/Authentication/Signup";
+import DocumentPage from "./pages/Authentication/DocumentPage";
+
 import ThemeSuspense from "./Components/theme/ThemeSuspense";
 
 // Lazy load Layout component
@@ -37,6 +39,8 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/document" element={<DocumentPage />} />
+
 
           {/* Pruvate Route */}
           <Route path="/" element={<PrivateRoute />}>

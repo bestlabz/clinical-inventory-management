@@ -32,7 +32,6 @@ const Sidebar = ({ children }) => {
     (state) => state.notification
   );
 
-  console.log("Notifiacation", NotificationData);
 
   const NotificationModal = () => {
     dispatch(setVisible());

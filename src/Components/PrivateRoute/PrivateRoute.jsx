@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 
 import { setUser } from "../../Redux/Slice/User";
 
@@ -11,6 +11,7 @@ import { setNotification } from "../../Redux/Slice/Notification";
 
 const PrivateRoute = ({ children, ...rest }) => {
   const dispatch = useDispatch();
+  const navigate= useNavigate()
   const { userDetails } = useSelector((state) => state.userinfo);
   const [loading, setLoading] = useState(true);
 
@@ -31,9 +32,15 @@ const PrivateRoute = ({ children, ...rest }) => {
     fetchClinicData();
   }, [fetchClinicData]);
 
+
   useEffect(() => {
     const API = async () => {
       if (userDetails) {
+
+        if(!userDetails.details) {
+         return  navigate('/document')
+        }
+
         try {
           const { success, notifications } = await ApiRequest.get(
             `/getnotifications?recipientId=${userDetails?._id}`
