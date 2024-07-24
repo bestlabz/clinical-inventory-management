@@ -108,13 +108,14 @@ const DocumentPage = () => {
         const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
         setLoader(true);
         try {
-          const { data } = await ApiRequest.put(
+          const { success, message } = await ApiRequest.put(
             `${baseURL}/clinics/${userDetails?._id}`,
             formData,
             { "Content-Type": "multipart/form-data" }
           );
-          if (data.success) {
+          if (success) {
             setLoader(false);
+            toast.success(message);
             dispatch(clearUserDetails());
             return navigate("/login");
           }

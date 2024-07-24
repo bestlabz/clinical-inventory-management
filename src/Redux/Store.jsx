@@ -13,7 +13,7 @@ import DetailsPage from "./Slice/DetailsPage";
 import Dosage from "./Slice/Dosage";
 import Notification from "./Slice/Notification";
 import Template from "./Slice/SMSTemplate";
-
+import SubscriptionCard from './Slice/Subscription'
 
 
 
@@ -30,7 +30,8 @@ const store = configureStore({
     DetailsPage,
     dosage: Dosage,
     notification: Notification,
-    template:  Template
+    template:  Template,
+    subscription: SubscriptionCard
   },
 });
 

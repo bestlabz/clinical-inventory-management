@@ -18,6 +18,8 @@ import LogOutModalResponsive from "./LogOutModalResponsive";
 import NotificationModalResponsive from "./NotificationModel";
 
 import AdminNotVerify from "../ErrorPage/AdminNotVerify";
+import Subscription from "../ErrorPage/SubscriptionPage";
+
 import { setVisible } from "../../../Redux/Slice/Notification";
 
 const Sidebar = ({ children }) => {
@@ -31,7 +33,6 @@ const Sidebar = ({ children }) => {
   const { Notifiacation, NotificationData } = useSelector(
     (state) => state.notification
   );
-
 
   const NotificationModal = () => {
     dispatch(setVisible());
@@ -160,6 +161,10 @@ const Sidebar = ({ children }) => {
         {!userDetails.adminVerified ? (
           <div className="w-full h-full flex items-center justify-center">
             <AdminNotVerify />
+          </div>
+        ) : !userDetails.subscription ? (
+          <div className="w-full h-full">
+            <Subscription />
           </div>
         ) : (
           <main className="py-2 h-screen overflow-auto">{children}</main>
