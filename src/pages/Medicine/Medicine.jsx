@@ -71,7 +71,7 @@ const Medicine = () => {
                 <div className="table-box-top-left">
                   <div className="header-container">
                     <div className="felx flex-col">
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-4 pb-3">
                         <p className="header-container-left">
                           {TranslateJson.medicine.title}
                         </p>
@@ -94,7 +94,7 @@ const Medicine = () => {
                       <a
                         href={XcelSheet}
                         download
-                        className=" cursor-pointer hover:text-blue transition-all duration-300"
+                        className=" cursor-pointer bg-blue text-white rounded-md py-1 px-3 transition-all duration-300"
                       >
                         Preview Template
                       </a>
@@ -107,9 +107,9 @@ const Medicine = () => {
                       placeholder="Search"
                       className=" w-full rounded-full mt-2 py-[5px] outline-none border-[1px] border-gray-400 px-3"
                       onChange={(e) => {
-                        if (/^[a-zA-Z\s]*$/.test(e.target.value)) {
-                          return setsearchFilter(e.target.value);
-                        }
+                        // if (/^[a-zA-Z\s]*$/.test(e.target.value)) {
+                        setsearchFilter(e.target.value);
+                        // }
                       }}
                       value={searchFilter}
                     />
@@ -155,22 +155,21 @@ const Medicine = () => {
                 </div>
               </div>
               <div className=" mt-3 pb-3 overflow-auto w-full 2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[43%] xss:h-[43%] mobile:h-[43%]">
-               
-                  <Table
-                    headers={[
-                      { title: "Medicine Name" },
-                      { title: "Dosage form" },
-                      { title: "Dosage Strength" },
-                      { title: "Status" },
-                      { title: "Action" },
-                    ]}
-                    tableBody={medicineTable}
-                    tableName="Medicine"
-                    model={model}
-                    setModel={handelModel}
-                    handleChange={handleDelete}
-                    loader={loader}
-                  />
+                <Table
+                  headers={[
+                    { title: "Medicine Name" },
+                    { title: "Dosage form" },
+                    { title: "Dosage Strength" },
+                    { title: "Status" },
+                    { title: "Action" },
+                  ]}
+                  tableBody={medicineTable}
+                  tableName="Medicine"
+                  model={model}
+                  setModel={handelModel}
+                  handleChange={handleDelete}
+                  loader={loader}
+                />
               </div>
               <div className=" w-full pt-4 mx-auto  h-[10%] flex items-end justify-end px-3 overflow-x-auto relative">
                 {medicineTable.length !== 0 && (
