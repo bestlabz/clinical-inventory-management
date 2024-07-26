@@ -11,7 +11,8 @@ import NotificationFunction from "../../../hooks/Notification/Notification";
 import dayjs from "dayjs";
 
 const LogOutModalResponsive = ({ modalpopup }) => {
-  const { notifications, handleClick } = NotificationFunction();
+  const { notifications, handleClick, clearNotification } =
+    NotificationFunction();
   const dispatch = useDispatch();
 
   const openModal = () => {
@@ -31,7 +32,10 @@ const LogOutModalResponsive = ({ modalpopup }) => {
               />{" "}
               <p className=" text-[18px] font-semibold">Notifications</p>
               <div className="flex-1 text-end">
-                <button className=" text-[14px] font-semibold  px-4 py-[2px] rounded-md border-[1px] border-blue text-blue">
+                <button
+                  onClick={clearNotification}
+                  className=" text-[14px] font-semibold  px-4 py-[2px] rounded-md border-[1px] border-blue text-blue"
+                >
                   Clear all
                 </button>
               </div>
@@ -81,7 +85,7 @@ const LogOutModalResponsive = ({ modalpopup }) => {
 
       <div className=" 2xl:hidden xl:block lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
         <ModelPopup showDrawer={modalpopup} width="20%">
-        <div className="w-full h-full overflow-hidden px-3">
+          <div className="w-full h-full overflow-hidden px-3">
             <div className="static h-[40px] w-[98%] flex items-center space-x-4">
               <IoClose
                 onClick={openModal}
@@ -90,7 +94,10 @@ const LogOutModalResponsive = ({ modalpopup }) => {
               />{" "}
               <p className=" text-[18px] font-semibold">Notifications</p>
               <div className="flex-1 text-end">
-                <button className=" text-[14px] font-semibold  px-4 py-[2px] rounded-md border-[1px] border-blue text-blue">
+                <button
+                  onClick={clearNotification}
+                  className=" text-[14px] font-semibold  px-4 py-[2px] rounded-md border-[1px] border-blue text-blue"
+                >
                   Clear all
                 </button>
               </div>
@@ -140,7 +147,7 @@ const LogOutModalResponsive = ({ modalpopup }) => {
 
       <div className=" 2xl:hidden xl:hidden lg:block md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
         <ModelPopup showDrawer={modalpopup} width="30%">
-        <div className="w-full h-full overflow-hidden px-3">
+          <div className="w-full h-full overflow-hidden px-3">
             <div className="static h-[40px] w-[98%] flex items-center space-x-4">
               <IoClose
                 onClick={openModal}
@@ -149,7 +156,10 @@ const LogOutModalResponsive = ({ modalpopup }) => {
               />{" "}
               <p className=" text-[18px] font-semibold">Notifications</p>
               <div className="flex-1 text-end">
-                <button className=" text-[14px] font-semibold  px-4 py-[2px] rounded-md border-[1px] border-blue text-blue">
+                <button
+                  onClick={clearNotification}
+                  className=" text-[14px] font-semibold  px-4 py-[2px] rounded-md border-[1px] border-blue text-blue"
+                >
                   Clear all
                 </button>
               </div>
@@ -199,7 +209,7 @@ const LogOutModalResponsive = ({ modalpopup }) => {
 
       <div className=" 2xl:hidden xl:hidden lg:hidden md:block sm:block xs:hidden mobile:hidden xss:hidden">
         <ModelPopup showDrawer={modalpopup} width="40%">
-        <div className="w-full h-full overflow-hidden px-3">
+          <div className="w-full h-full overflow-hidden px-3">
             <div className="static h-[40px] w-[98%] flex items-center space-x-4">
               <IoClose
                 onClick={openModal}
@@ -208,7 +218,10 @@ const LogOutModalResponsive = ({ modalpopup }) => {
               />{" "}
               <p className=" text-[18px] font-semibold">Notifications</p>
               <div className="flex-1 text-end">
-                <button className=" text-[14px] font-semibold  px-4 py-[2px] rounded-md border-[1px] border-blue text-blue">
+                <button
+                  onClick={clearNotification}
+                  className=" text-[14px] font-semibold  px-4 py-[2px] rounded-md border-[1px] border-blue text-blue"
+                >
                   Clear all
                 </button>
               </div>
@@ -258,7 +271,7 @@ const LogOutModalResponsive = ({ modalpopup }) => {
 
       <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:block mobile:hidden xss:hidden">
         <ModelPopup showDrawer={modalpopup} width="65%">
-        <div className="w-full h-full overflow-hidden px-3">
+          <div className="w-full h-full overflow-hidden px-3">
             <div className="static h-[40px] w-[98%] flex items-center space-x-4">
               <IoClose
                 onClick={openModal}
@@ -267,7 +280,10 @@ const LogOutModalResponsive = ({ modalpopup }) => {
               />{" "}
               <p className=" text-[18px] font-semibold">Notifications</p>
               <div className="flex-1 text-end">
-                <button className=" text-[14px] font-semibold  px-4 py-[2px] rounded-md border-[1px] border-blue text-blue">
+                <button
+                  onClick={clearNotification}
+                  className=" text-[14px] font-semibold  px-4 py-[2px] rounded-md border-[1px] border-blue text-blue"
+                >
                   Clear all
                 </button>
               </div>
@@ -317,7 +333,7 @@ const LogOutModalResponsive = ({ modalpopup }) => {
 
       <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:hidden mobile:block xss:hidden">
         <ModelPopup showDrawer={modalpopup} width="80%">
-        <div className="w-full h-full overflow-hidden px-3">
+          <div className="w-full h-full overflow-hidden px-3">
             <div className="static h-[40px] w-[98%] flex items-center space-x-4">
               <IoClose
                 onClick={openModal}
@@ -326,7 +342,10 @@ const LogOutModalResponsive = ({ modalpopup }) => {
               />{" "}
               <p className=" text-[18px] font-semibold">Notifications</p>
               <div className="flex-1 text-end">
-                <button className=" text-[14px] font-semibold  px-4 py-[2px] rounded-md border-[1px] border-blue text-blue">
+                <button
+                  onClick={clearNotification}
+                  className=" text-[14px] font-semibold  px-4 py-[2px] rounded-md border-[1px] border-blue text-blue"
+                >
                   Clear all
                 </button>
               </div>
@@ -376,7 +395,7 @@ const LogOutModalResponsive = ({ modalpopup }) => {
 
       <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:block">
         <ModelPopup showDrawer={modalpopup} width="85%">
-        <div className="w-full h-full overflow-hidden px-3">
+          <div className="w-full h-full overflow-hidden px-3">
             <div className="static h-[40px] w-[98%] flex items-center space-x-4">
               <IoClose
                 onClick={openModal}
@@ -385,7 +404,10 @@ const LogOutModalResponsive = ({ modalpopup }) => {
               />{" "}
               <p className=" text-[18px] font-semibold">Notifications</p>
               <div className="flex-1 text-end">
-                <button className=" text-[14px] font-semibold  px-4 py-[2px] rounded-md border-[1px] border-blue text-blue">
+                <button
+                  onClick={clearNotification}
+                  className=" text-[14px] font-semibold  px-4 py-[2px] rounded-md border-[1px] border-blue text-blue"
+                >
                   Clear all
                 </button>
               </div>
