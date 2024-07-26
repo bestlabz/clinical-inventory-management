@@ -67,7 +67,7 @@ const Dashboard = () => {
         }
       } catch (error) {
         setPrimaryLoader(false);
-        toast.error(error.response.data.message);
+        toast.error(error.response.data.error);
       }
     };
     API();

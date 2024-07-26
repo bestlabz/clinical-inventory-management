@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import ApiRequest from "../../../services/httpService";
 import { AddSubscriptionCard } from "../../../Redux/Slice/Subscription";
 import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineRocketLaunch } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
+import ModelResponsive from "./ModelResponse";
 import toast from "react-hot-toast";
 
 const SubscriptionPage = () => {
@@ -41,20 +42,31 @@ const SubscriptionPage = () => {
 
     API();
   }, []);
+  const [model, setModel] = useState(false);
 
   const { subscriptionCard } = useSelector((state) => state.subscription);
   const { userDetails } = useSelector((state) => state.userinfo);
+  const [detailsAction, setDetailsAction] = useState({
+    id: "",
+    value: "",
+  });
+  const [clear, setClear] = useState(false);
+  const [loader, setLoader] = useState(false);
 
-  const handleClick = async (id) => {
+  const handleClick = async (id, value, reason) => {
     try {
+      setLoader(true);
       const { success, message } = await ApiRequest.post(
         `/updateSubscription/${userDetails?._id}`,
         {
           subscription_id: id,
+          transaction_id: reason,
         }
       );
 
       if (success) {
+        setClear(true);
+        setLoader(false);
         toast.success(message);
         window.location.reload();
         return;
@@ -70,7 +82,7 @@ const SubscriptionPage = () => {
         style={{
           boxShadow: "rgba(100, 100, 111, 0.3) 0px 7px 29px 0px",
         }}
-        className="w-full mx-auto h-full overflow-auto  rounded-3xl  p-4"
+        className="w-[99%] mx-auto h-[99%] overflow-auto  rounded-3xl  p-4"
       >
         <div className=" flex items-start justify-between flex-wrap">
           <div>
@@ -84,17 +96,14 @@ const SubscriptionPage = () => {
           </div>
         </div>
 
-        <div className="w-full h-[80%] place-content-start overflow-auto grid gap-8 2xl:p-4 xl:p-4 lg:p-4 md:p-4 sm:p-4 xs:p-1 mobile:p-1 xss:p-0  2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 mobile:grid-cols-1 xss:grid-cols-1 mt-3">
+        <div className="w-full place-content-start overflow-auto grid gap-8 2xl:p-4 xl:p-4 lg:p-4 md:p-4 sm:p-4 xs:p-1 mobile:p-1 xss:p-0  2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 mobile:grid-cols-1 xss:grid-cols-1 mt-3">
           {subscriptionCard?.map((item, index) => {
-            console.log("ss", item);
             return (
               <div
                 key={index}
                 style={{
                   boxShadow: "rgba(100, 100, 111, 0.4) 0px 7px 29px 0px",
                 }}
-                onMouseEnter={() => setIndexID(index)}
-                onMouseLeave={() => setIndexID(null)}
                 className="rounded-md px-4 w-full h-full pt-3 pb-6 relative overflow-hidden"
               >
                 <div className="flex items-center pt-4 justify-start mx-auto w-[80%]">
@@ -149,7 +158,10 @@ const SubscriptionPage = () => {
                   ))}
                 </div>
                 <div
-                  onClick={() => handleClick(item?.cardID)}
+                  onClick={() => {
+                    setModel(true);
+                    setDetailsAction({ id: item?.cardID, value: item?.title });
+                  }}
                   className=" w-full  mt-4  text-center"
                 >
                   <button className=" w-[80%] py-3 rounded-2xl text-green_light hover:bg-green_light hover:text-white text-center border-[3px] border-green_light transition-all duration-300">
@@ -161,6 +173,16 @@ const SubscriptionPage = () => {
           })}
         </div>
       </div>
+
+      <ModelResponsive
+        modalpopup={model}
+        openModal={setModel}
+        trigger={handleClick}
+        details={detailsAction}
+        clear={clear}
+        setClear={setClear}
+        loader={loader}
+      />
     </div>
   );
 };
