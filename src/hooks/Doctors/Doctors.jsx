@@ -92,7 +92,7 @@ const Doctors = () => {
       } catch (error) {
         setPrimaryLoader(false);
         dispatch(setDoctorTable([]));
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
       }
     };
 

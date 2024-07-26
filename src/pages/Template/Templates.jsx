@@ -47,6 +47,7 @@ const Index = () => {
           }
         } catch (error) {
           console.log("ee", error);
+          toast.error(error.response.data.message)
         }
       }
     };

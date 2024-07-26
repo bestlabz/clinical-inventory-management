@@ -36,7 +36,7 @@ const DosageStrength = () => {
             return dispatch(setDosageStrength(dosageUnits));
           }
         } catch (error) {
-          return toast.error(error.response.data.error);
+          return toast.error(error.response.data.message);
         }
       }
     };

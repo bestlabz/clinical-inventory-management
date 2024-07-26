@@ -88,7 +88,7 @@ const Medicine = () => {
         }
       } catch (error) {
         setPrimaryLoader(false);
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
       }
     };
 
