@@ -107,11 +107,10 @@ const DocumentPage = () => {
       }
 
       if (userDetails?._id) {
-        const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
         setLoader(true);
         try {
           const { success, message } = await ApiRequest.put(
-            `${baseURL}/clinics/${userDetails?._id}`,
+            `/clinics/${userDetails?._id}`,
             formData,
             { "Content-Type": "multipart/form-data" }
           );

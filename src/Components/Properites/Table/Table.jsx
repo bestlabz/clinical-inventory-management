@@ -25,7 +25,6 @@ const Table = ({
   });
   const [popUpModel, setPopUpModel] = useState("");
 
-  console.log("tableBody", tableBody);
 
   return (
     <>
@@ -78,7 +77,7 @@ const Table = ({
                     {item.doctor_name}
                   </td>
                   <td className={`py-2 px-10 `}>
-                    <p className="text-dark_purple border-[2px] border-[#dfc5fd] bg-[#f0e5fd] rounded-full w-[100px] h-[25px] flex items-center justify-center">
+                    <p className="text-dark_purple border-[2px] border-[#dfc5fd] bg-[#f0e5fd] rounded-full flex items-center justify-center">
                       {item?.specialist}
                     </p>
                   </td>

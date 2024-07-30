@@ -41,9 +41,6 @@ const ViewPage = ({
     value: "",
   });
 
-  console.log("details", details);
-
-  console.log("category", category);
 
   return (
     <div className=" w-full h-full overflow-auto ">

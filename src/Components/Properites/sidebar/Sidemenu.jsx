@@ -23,6 +23,7 @@ const menuConfig = [
       "/dosage-form",
       "/dosage-unit",
       "/templates",
+      "/profile"
 
     ],
     items: [

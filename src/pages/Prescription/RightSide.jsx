@@ -443,7 +443,13 @@ const RightSide = ({
                               }
                             }}
                             value={i?.value}
-                            length={i?.name === "Contact number" && 10} // Conditionally set length prop
+                            length={
+                              i?.name === "Contact number"
+                                ? 10
+                                : i?.name === "GST No"
+                                ? 15
+                                : undefined
+                            } // Conditionally set length prop
                           />
                         )}
                       </div>
@@ -706,7 +712,13 @@ const RightSide = ({
                               }
                             }}
                             value={i?.value}
-                            length={i?.name === "Contact Number" && 10}
+                            length={
+                              i?.name === "Contact number"
+                                ? 10
+                                : i?.name === "GST No"
+                                ? 15
+                                : undefined
+                            }
                           />
                         )}
                       </div>
@@ -957,7 +969,13 @@ const RightSide = ({
                               }
                             }}
                             value={i?.value}
-                            length={i?.name === "Contact Number" && 10}
+                            length={
+                              i?.name === "Contact number"
+                                ? 10
+                                : i?.name === "GST No"
+                                ? 15
+                                : undefined
+                            }
                           />
                         )}
                       </div>
@@ -1208,7 +1226,13 @@ const RightSide = ({
                               }
                             }}
                             value={i?.value}
-                            length={i?.name === "Contact Number" && 10}
+                            length={
+                              i?.name === "Contact number"
+                                ? 10
+                                : i?.name === "GST No"
+                                ? 15
+                                : undefined
+                            }
                           />
                         )}
                       </div>
@@ -1459,7 +1483,13 @@ const RightSide = ({
                               }
                             }}
                             value={i?.value}
-                            length={i?.name === "Contact Number" && 10}
+                            length={
+                              i?.name === "Contact number"
+                                ? 10
+                                : i?.name === "GST No"
+                                ? 15
+                                : undefined
+                            }
                           />
                         )}
                       </div>

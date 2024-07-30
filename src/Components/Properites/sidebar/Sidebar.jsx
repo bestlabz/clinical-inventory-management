@@ -38,6 +38,8 @@ const Sidebar = ({ children }) => {
     dispatch(setVisible());
   };
 
+  console.log('userDetails', userDetails)
+
   return (
     <div className="sidebar-container">
       <div
@@ -119,11 +121,11 @@ const Sidebar = ({ children }) => {
           <div className="profile">
             {sidebarStatus && (
               <div className="profile-content 2xl:flex xl:flex lg:flex md:flex sm:flex xs:hidden xss:hidden mobile:hidden">
-                <div className="w-[35px] h-[35px] rounded-full overflow-hidden border-[1px] border-white">
+                <div onClick={() => navigate('/profile')} className=" cursor-pointer w-[35px] h-[35px] rounded-full overflow-hidden border-[1px] border-white">
                   {userDetails?.profile && (
                     <img
                       className=" w-full h-full object-cover 2xl:block xl:block lg:block md:block sm:block xs:hidden xss:hidden mobile:hidden"
-                      src=""
+                      src={userDetails?.profile}
                       alt="profile"
                     />
                   )}
