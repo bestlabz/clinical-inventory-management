@@ -64,7 +64,9 @@ const Doctors = () => {
       } catch (error) {
         setPrimaryLoader(false);
         dispatch(setReceptionistTable([]));
-        toast.error(error.response.data.message);
+        toast.error(
+          `${error.response?.data?.message || error.response.data.error}`
+        );
       }
     };
   

@@ -122,14 +122,16 @@ const rightSide = ({ setReFetch }) => {
           }
         } catch (error) {
           setImageLoader(false);
-          toast.error(error.response?.data?.message || "An error occurred");
+          toast.error(
+            `${error.response?.data?.message || error.response.data.error}`
+          );
         }
       }
     };
     API();
   }, [imageUpload]);
 
-  console.log();
+
 
   useEffect(() => {
     const updatedData = updateDataValue(
@@ -446,7 +448,9 @@ const rightSide = ({ setReFetch }) => {
       } catch (error) {
         setReFetch(false);
         setLoader(false);
-        toast.error(error.response.data.error);
+        toast.error(
+          `${error.response?.data?.message || error.response.data.error}`
+        );
         return;
       }
     };

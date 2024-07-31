@@ -8,7 +8,7 @@ import { FaPlus } from "react-icons/fa6";
 import ModelResponsive from "./ModelResponse";
 import toast from "react-hot-toast";
 
-const SubscriptionPage = () => {
+const SubscriptionPage = ({close = false}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -79,10 +79,10 @@ const SubscriptionPage = () => {
   return (
     <div className="container">
       <div
-        style={{
-          boxShadow: "rgba(100, 100, 111, 0.3) 0px 7px 29px 0px",
-        }}
-        className="w-[99%] mx-auto h-[99%] overflow-auto  rounded-3xl  p-4"
+        // style={{
+        //   boxShadow: "rgba(100, 100, 111, 0.3) 0px 7px 29px 0px",
+        // }}
+        className="w-[99%] mx-auto h-[99%] overflow-hidden  rounded-3xl  p-4"
       >
         <div className=" flex items-start justify-between flex-wrap">
           <div>
@@ -96,7 +96,9 @@ const SubscriptionPage = () => {
           </div>
         </div>
 
-        <div className="w-full place-content-start overflow-auto grid gap-8 2xl:p-4 xl:p-4 lg:p-4 md:p-4 sm:p-4 xs:p-1 mobile:p-1 xss:p-0  2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 mobile:grid-cols-1 xss:grid-cols-1 mt-3">
+        <div className="w-full h-[90%] pb-10 overflow-auto p-2">
+
+        <div className="w-full place-content-start  grid gap-8 2xl:p-4 xl:p-4 lg:p-4 md:p-4 sm:p-4 xs:p-1 mobile:p-1 xss:p-0  2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 mobile:grid-cols-1 xss:grid-cols-1 mt-3">
           {subscriptionCard?.map((item, index) => {
             return (
               <div
@@ -172,6 +174,8 @@ const SubscriptionPage = () => {
             );
           })}
         </div>
+
+        </div>
       </div>
 
       <ModelResponsive
@@ -182,6 +186,7 @@ const SubscriptionPage = () => {
         clear={clear}
         setClear={setClear}
         loader={loader}
+        close={close}
       />
     </div>
   );

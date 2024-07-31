@@ -59,7 +59,9 @@ const Prescription = () => {
             return;
           }
         } catch (error) {
-          toast.error(error.response.data.message);
+          toast.error(
+            `${error.response?.data?.message || error.response.data.error}`
+          );
         }
       }
     };
@@ -92,7 +94,9 @@ const Prescription = () => {
     } catch (error) {
       setLoaderState(details.section, false);
       setReFetch(false);
-      toast.error(error.response?.data?.message || "An error occurred");
+      toast.error(
+        `${error.response?.data?.message || error.response.data.error}`
+      );
     }
   };
 
@@ -110,7 +114,9 @@ const Prescription = () => {
       }
     } catch (error) {
       setReFetch(false);
-      toast.error(error.response?.data?.message || "An error occurred");
+      toast.error(
+        `${error.response?.data?.message || error.response.data.error}`
+      );
     }
   };
 

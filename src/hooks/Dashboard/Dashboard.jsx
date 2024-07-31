@@ -26,7 +26,6 @@ const Dashboard = () => {
     patientstotalCount: paginationCount,
   } = useSelector((state) => state.Pagination);
 
-
   useEffect(() => {
     const API = async () => {
       try {
@@ -67,7 +66,9 @@ const Dashboard = () => {
         }
       } catch (error) {
         setPrimaryLoader(false);
-        toast.error(error.response.data.message);
+        toast.error(
+          `${error.response?.data?.message || error.response.data.error}`
+        );
       }
     };
     API();

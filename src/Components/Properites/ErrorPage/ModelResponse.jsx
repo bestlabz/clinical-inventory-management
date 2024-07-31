@@ -18,6 +18,7 @@ const ModelResponsive = ({
   clear,
   setClear,
   loader = false,
+  close,
 }) => {
   const [reason, setReason] = useState("");
 
@@ -35,6 +36,12 @@ const ModelResponsive = ({
     <>
       <div className=" 2xl:block xl:block lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
         <ModelPopup showDrawer={modalpopup} width="25%" height="53%">
+          {
+            close &&
+          <button onClick={() => openModal(false)} className=" absolute right-2 hover:text-red-500 transition-all duration-300">
+            <IoClose size={20} />
+          </button>
+          }
           <div className="flex flex-col gap-4 items-center justify-start mt-3 w-full h-full">
             {step === 1 && (
               <>
@@ -116,6 +123,12 @@ const ModelResponsive = ({
 
       <div className=" 2xl:hidden xl:hidden lg:block md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
         <ModelPopup showDrawer={modalpopup} width="50%" height="70%">
+        {
+            close &&
+          <button onClick={() => openModal(false)} className=" absolute right-2 hover:text-red-500 transition-all duration-300">
+            <IoClose size={20} />
+          </button>
+          }
           <div className="flex flex-col gap-4 items-center justify-start mt-3 w-full h-full">
             {step === 1 && (
               <>
@@ -193,6 +206,12 @@ const ModelResponsive = ({
 
       <div className=" 2xl:hidden xl:hidden lg:hidden md:block sm:block xs:hidden mobile:hidden xss:hidden">
         <ModelPopup showDrawer={modalpopup} width="60%" height="70%">
+        {
+            close &&
+          <button onClick={() => openModal(false)} className=" absolute right-2 hover:text-red-500 transition-all duration-300">
+            <IoClose size={20} />
+          </button>
+          }
           <div className="flex flex-col gap-4 items-center justify-start mt-3 w-full h-full">
             {step === 1 && (
               <>
@@ -270,6 +289,12 @@ const ModelResponsive = ({
 
       <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:block mobile:block xss:hidden">
         <ModelPopup showDrawer={modalpopup} width="90%" height="60%">
+        {
+            close &&
+          <button onClick={() => openModal(false)} className=" absolute right-2 hover:text-red-500 transition-all duration-300">
+            <IoClose size={20} />
+          </button>
+          }
           <div className="flex flex-col gap-4 items-center justify-start mt-3 w-full h-full">
             {step === 1 && (
               <>
@@ -351,6 +376,12 @@ const ModelResponsive = ({
 
       <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:block">
         <ModelPopup showDrawer={modalpopup} width="96%" height="60%">
+        {
+            close &&
+          <button onClick={() => openModal(false)} className=" absolute right-2 hover:text-red-500 transition-all duration-300">
+            <IoClose size={20} />
+          </button>
+          }
           <div className="flex flex-col gap-4 items-center justify-start mt-3 w-full h-full">
             {step === 1 && (
               <>

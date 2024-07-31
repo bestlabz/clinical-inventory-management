@@ -26,7 +26,9 @@ const Notification = () => {
 
           return;
         } catch (error) {
-          return toast.error(error.response.data.message);
+          return toast.error(
+            `${error.response?.data?.message || error.response.data.error}`
+          );
         }
       }
     };

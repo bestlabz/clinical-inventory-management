@@ -38,7 +38,6 @@ const Sidebar = ({ children }) => {
     dispatch(setVisible());
   };
 
-  console.log('userDetails', userDetails)
 
   return (
     <div className="sidebar-container">

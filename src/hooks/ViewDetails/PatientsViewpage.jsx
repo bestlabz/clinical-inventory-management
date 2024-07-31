@@ -22,7 +22,9 @@ const PatientsViewpage = ({ id }) => {
           }
         } catch (error) {
           setLoader(false);
-          toast.error(error.response.data.error);
+          toast.error(
+            `${error.response?.data?.message || error.response.data.error}`
+          );
         }
       }
     };

@@ -58,7 +58,9 @@ const ViewPage = ({ category, id }) => {
           }
         } catch (error) {
           setLoader(false);
-          toast.error(error.response.data.error);
+          toast.error(
+            `${error.response?.data?.message || error.response.data.error}`
+          );
         }
       }
 
@@ -104,7 +106,9 @@ const ViewPage = ({ category, id }) => {
             }
           } catch (error) {
             setVerifyCertificate(false);
-            toast.error(error.response.data.error);
+            toast.error(
+              `${error.response?.data?.message || error.response.data.error}`
+            );
           }
         }
 
@@ -122,7 +126,9 @@ const ViewPage = ({ category, id }) => {
             }
           } catch (error) {
             setVerifyCertificate(false);
-            toast.error(error.response.data.error);
+            toast.error(
+              `${error.response?.data?.message || error.response.data.error}`
+            );
           }
         }
       }
@@ -151,7 +157,9 @@ const ViewPage = ({ category, id }) => {
             }
           } catch (error) {
             setVerifyDoctor(false);
-            toast.error(error.response.data.error);
+            toast.error(
+              `${error.response?.data?.message || error.response.data.error}`
+            );
           }
         }
 
@@ -169,7 +177,9 @@ const ViewPage = ({ category, id }) => {
             }
           } catch (error) {
             setVerifyDoctor(false);
-            toast.error(error.response.data.error);
+            toast.error(
+              `${error.response?.data?.message || error.response.data.error}`
+            );
           }
         }
       }
@@ -194,7 +204,9 @@ const ViewPage = ({ category, id }) => {
         }
       } catch (error) {
         setLoader1(false);
-        toast.error(error.response.data.error);
+        toast.error(
+          `${error.response?.data?.message || error.response.data.error}`
+        );
       }
     }
     if (category === "receptionist") {
@@ -212,7 +224,9 @@ const ViewPage = ({ category, id }) => {
         }
       } catch (error) {
         setLoader1(false);
-        toast.error(error.response.data.error);
+        toast.error(
+          `${error.response?.data?.message || error.response.data.error}`
+        );
       }
     }
   };

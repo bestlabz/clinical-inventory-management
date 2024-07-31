@@ -3,6 +3,7 @@ import { TbEye } from "react-icons/tb";
 import Toggle from "../toggle/toggle";
 import ModelResponsive from "./ModelResponsive";
 import { FaTrashAlt } from "react-icons/fa";
+import dayjs from "dayjs";
 
 const Table = ({
   headers,
@@ -18,6 +19,7 @@ const Table = ({
   id,
   filtervalue,
   setAction = "",
+  date,
 }) => {
   const [details, setDetails] = useState({
     id: "",
@@ -25,6 +27,16 @@ const Table = ({
   });
   const [popUpModel, setPopUpModel] = useState("");
 
+  // Given date
+  const targetDate = dayjs(date);
+
+  // Current date
+  const currentDate = dayjs();
+
+  // Calculate the difference in days
+  const daysLeft = targetDate.diff(currentDate, "day");
+
+  console.log("tableBody", tableBody);
 
   return (
     <>
@@ -389,6 +401,28 @@ const Table = ({
                       size={20}
                       className="text-gray-400 cursor-pointer hover:text-red-500"
                     />
+                  </td>
+                </tr>
+              );
+            }
+            if (tableName === "subscription") {
+              return (
+                <tr className="border-b font-medium text-start" key={i}>
+                  <td className={`py-2 px-10`}>{i + 1}</td>
+                  <td className={`py-2 px-10`}>
+                    {item?.subscription_id?.title?.title}
+                  </td>
+                  <td className={`py-2 px-10`}>{item?.subscription_id?._id}</td>
+                  <td className={`py-2 px-10`}>{item?.transaction_id}</td>
+                  <td className={`py-2 px-10`}>
+                    {item?.subscription_id?.durationInNo}{" "}
+                    {item?.subscription_id?.duration}
+                  </td>
+                  <td className={`py-2 px-10`}>
+                    {daysLeft < 0 ? "Plan Expired" : `${daysLeft} Day`}
+                  </td>
+                  <td className={`py-2 px-10`}>
+                    ₹ {item?.subscription_id?.pricePerMonth}
                   </td>
                 </tr>
               );

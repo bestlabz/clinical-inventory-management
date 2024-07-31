@@ -19,6 +19,8 @@ const Profile = () => {
   const [base64Image, setBase64Image] = useState();
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState(false);
+  const [step, setStep] = useState(1);
+  const [payModel, setPayModel] = useState(false);
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
@@ -79,7 +81,9 @@ const Profile = () => {
       }
     } catch (error) {
       setLoader(false);
-      toast.error(error.response.data.error);
+      toast.error(
+        `${error.response?.data?.message || error.response.data.error}`
+      );
     }
   };
 
@@ -125,6 +129,10 @@ const Profile = () => {
     }, 2000);
   };
 
+  const closePayModel = () => {
+    setPayModel(!payModel);
+  };
+
   return {
     profileRef,
     handleClick,
@@ -138,6 +146,10 @@ const Profile = () => {
     validationCheck,
     base64Image,
     loader,
+    step,
+    setStep,
+    closePayModel,
+    payModel,
   };
 };
 
