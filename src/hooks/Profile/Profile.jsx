@@ -123,6 +123,10 @@ const Profile = () => {
   };
 
   const validationCheck = () => {
+  if(errors.profile){
+    toast.error(errors.profile);
+    
+  }
     setError(true);
     setTimeout(() => {
       setError(false);

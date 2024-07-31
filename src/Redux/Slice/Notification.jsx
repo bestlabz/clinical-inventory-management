@@ -14,11 +14,14 @@ export const notificationSlice = createSlice({
         },
         setNotification: (state, action) => { 
             state.NotificationData = action.payload
+        },
+        clearNotification: (state, action) => { 
+            state.NotificationData = [];
         }
         
     },
 });
 
 // Export actions and reducer
-export const { setVisible, setNotification} = notificationSlice.actions;
+export const { setVisible, setNotification, clearNotification} = notificationSlice.actions;
 export default notificationSlice.reducer;

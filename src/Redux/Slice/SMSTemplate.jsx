@@ -20,6 +20,9 @@ export const templateSlice = createSlice({
     setTemplates: (state, action) => {
       state.templates = action.payload;
     },
+    clearSMStemplate: (state, action) => { 
+      state.templates = [];
+    }
   },
 });
 
@@ -27,5 +30,6 @@ export const templateSlice = createSlice({
 export const {
   setTemplate,
   setTemplates,
+  clearSMStemplate
 } = templateSlice.actions;
 export default templateSlice.reducer;

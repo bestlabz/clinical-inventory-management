@@ -34,6 +34,15 @@ export const prescriptionSlice = createSlice({
 
     setUpdateFeild: (state, action) => {
       state.feildUpdated = action.payload;
+    },
+    clearTemplate: (state, action) => {
+      state.clinicLogo = { logo: "" };
+      state.clinicDetails = [];
+      state.doctorDetails = [];
+      state.headerDetails = [];
+      state.mainDetails = [];
+      state.feildUpdated = false;
+
     }
       // add more reducers for other details like patient details, medication details, etc. if required.  // add more reducers for other details like patient details, medication details, etc. if required.  // add more reducers for other details like patient details, medication details, etc. if required.  // add more reducers for other details
    
@@ -47,8 +56,8 @@ export const {
   setDoctorDetails,
   setAddHeader,
   setAddMain,
-  setUpdateFeild
-  
+  setUpdateFeild,
+  clearTemplate
 } = prescriptionSlice.actions;
 
 export default prescriptionSlice.reducer;

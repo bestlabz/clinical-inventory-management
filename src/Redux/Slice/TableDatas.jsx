@@ -23,6 +23,12 @@ export const userSlice = createSlice({
     setMedicineTable: (state, action) => {
       state.medicineTable = action.payload;
     },
+    clearTable: (state, action) => { 
+      state.doctorTable = [];
+      state.patientsTable = [];
+      state.receptionistTable = [];
+      state.medicineTable = [];
+    }
   },
 });
 
@@ -32,5 +38,6 @@ export const {
   setPatientsTable,
   setReceptionistTable,
   setMedicineTable,
+  clearTable
 } = userSlice.actions;
 export default userSlice.reducer;

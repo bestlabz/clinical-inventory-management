@@ -18,10 +18,15 @@ export const dosageSlice = createSlice({
         setDosageStrength: (state, action) => {
             state.dosageStrength =  action.payload
         },
+        clearDosage: (state, action) => {
+            state.dosageForm = [];
+            state.dosageStrength = [];
+
+        }
        
     },
 });
 
 // Export actions and reducer
-export const { setDosageForm, setDosageStrength } = dosageSlice.actions;
+export const { setDosageForm, setDosageStrength, clearDosage } = dosageSlice.actions;
 export default dosageSlice.reducer;
