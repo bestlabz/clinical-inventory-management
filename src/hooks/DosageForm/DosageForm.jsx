@@ -23,6 +23,7 @@ const DosageForm = () => {
   const [action, setAction] = useState("");
   const [clear, setClear] = useState(false);
   const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
+  const [statusAvailable, setStatusAvailable] = useState(false)
 
   const { dosageForm } = useSelector((state) => state.dosage);
 
@@ -47,6 +48,8 @@ const DosageForm = () => {
             await ApiRequest.get(`/dosageform?page=${currentPages}&limit=${selectedLimit.value}`);
 
           if (success) {
+      setStatusAvailable(false)
+
             dispatch(
               setDosageFormCurrentPage(
                 dosageForms.length === 0 && currentPage !== 1
@@ -154,12 +157,16 @@ const DosageForm = () => {
 
   const next = () => {
     if (currentPages !== pageNumbers[pageNumbers.length - 1]) {
+      setStatusAvailable(true)
       return dispatch(setDosageFormNextPage());
     }
   };
 
   const pre = () => {
-    return dispatch(setDosageFormPrePage());
+    if(currentPages !== 1) {
+      setStatusAvailable(true)
+      return dispatch(setDosageFormPrePage());
+    }
   };
 
   const getPagesCut = ({ pagesCutCount = 2 }) => {

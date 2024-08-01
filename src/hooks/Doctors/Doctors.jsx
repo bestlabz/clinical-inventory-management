@@ -31,6 +31,7 @@ const Doctors = () => {
   const [viewPage, setviewPage] = useState(false);
   const [dotorId, setDotorId] = useState(null);
   const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
+  const [statusAvailable, setStatusAvailable] = useState(false)
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
@@ -60,6 +61,7 @@ const Doctors = () => {
         );
 
         if (success) {
+          setStatusAvailable(false)
           dispatch(
             setDoctorsCurrentPage(
               doctorAvailability.length === 0 && currentPage !== 1
@@ -159,12 +161,16 @@ const Doctors = () => {
 
   const next = () => {
     if (currentPages !== pageNumbers[pageNumbers.length - 1]) {
+      setStatusAvailable(true)
       return dispatch(setDoctorsNextPage());
     }
   };
 
   const pre = () => {
-    return dispatch(setDoctorsPrePage());
+    if(currentPages !== 1){
+      setStatusAvailable(true)
+      return dispatch(setDoctorsPrePage());
+    }
   };
 
   const getPagesCut = ({ pagesCutCount = 2 }) => {
@@ -220,7 +226,8 @@ const Doctors = () => {
     setDotorId,
     dotorId,
     selectedLimit,
-    setSelectedLimit
+    setSelectedLimit,
+    statusAvailable
   };
 };
 

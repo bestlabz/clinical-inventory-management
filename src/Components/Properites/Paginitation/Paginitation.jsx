@@ -3,21 +3,25 @@ import React from "react";
 //Third party libraries
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
 
-const Paginitation = ({ currentpage, PrePage, nextPage, pageNumbers }) => {
-
-  console.log('pageNumbers', pageNumbers);
+const Paginitation = ({
+  currentpage,
+  PrePage,
+  nextPage,
+  pageNumbers,
+  status = true,
+}) => {
+  console.log("pageNumbers", pageNumbers);
   return (
     <>
       <button
+        disabled={status}
         onClick={PrePage}
         className={`flex items-center justify-center  h-[30px] ${
           currentpage !== 1 ? "text-balck" : " text-gray-300"
         }   text-center cursor-pointer `}
       >
         <FaAngleLeft
-          className={`${
-            currentpage !== 1 ? "text-balck" : " text-gray-300"
-          }`}
+          className={`${currentpage !== 1 ? "text-balck" : " text-gray-300"}`}
         />
         Previous
       </button>
@@ -45,6 +49,7 @@ const Paginitation = ({ currentpage, PrePage, nextPage, pageNumbers }) => {
         </span>
       )}
       <button
+        disabled={status}
         onClick={nextPage}
         className={`flex items-center justify-center   h-[30px]  ${
           currentpage === pageNumbers[pageNumbers?.length - 1]

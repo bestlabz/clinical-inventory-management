@@ -37,7 +37,8 @@ const Dashboard = () => {
     patientID,
     setPatientID,
     selectedLimit,
-    setSelectedLimit
+    setSelectedLimit,
+    statusAvailable
   } = DashboardFunction();
 
   const { patientsTable } = useSelector((state) => state.TableDatas);
@@ -145,6 +146,7 @@ const Dashboard = () => {
                           nextPage={next}
                           pageNumbers={pageNumbers}
                           paginationCount={paginationCount}
+                          status={statusAvailable}
                         />
                       </div>
                     </>

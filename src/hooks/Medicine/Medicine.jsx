@@ -30,6 +30,7 @@ const Medicine = () => {
   const [loader, setLoader] = useState(false);
   const [reFetch, setreFetch] = useState(false);
   const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
+  const [statusAvailable, setStatusAvailable] = useState(false);
 
   const {
     medicinescurrentPage: currentPages,
@@ -66,9 +67,12 @@ const Medicine = () => {
             ? `?${filter}=${value}&page=${page}&medicine_name=${search}`
             : `?page=${page}&medicine_name=${search}`;
         const { success, medicines, totalPages, currentPage } =
-          await ApiRequest.get(`/medicines${filterQuery}&limit=${selectedLimit.value}`);
+          await ApiRequest.get(
+            `/medicines${filterQuery}&limit=${selectedLimit.value}`
+          );
 
         if (success) {
+          setStatusAvailable(false)
           dispatch(
             setMedicineCurrentPage(
               medicines.length === 0 && currentPage !== 1
@@ -124,7 +128,14 @@ const Medicine = () => {
     };
 
     API();
-  }, [selectedFilter, currentPages, searchFilter, model, reFetch, selectedLimit]);
+  }, [
+    selectedFilter,
+    currentPages,
+    searchFilter,
+    model,
+    reFetch,
+    selectedLimit,
+  ]);
 
   const style = {
     width: "100%",
@@ -146,12 +157,16 @@ const Medicine = () => {
 
   const next = () => {
     if (currentPages !== pageNumbers[pageNumbers.length - 1]) {
+      setStatusAvailable(true);
       return dispatch(setMedicineNextPage());
     }
   };
 
   const pre = () => {
-    return dispatch(setMedicinePrePage());
+    if (currentPages !== 1) {
+      setStatusAvailable(true);
+      return dispatch(setMedicinePrePage());
+    }
   };
 
   const getPagesCut = ({ pagesCutCount = 2 }) => {
@@ -312,7 +327,9 @@ const Medicine = () => {
     handleExcel,
     inputRef,
     handleInput,
-    selectedLimit, setSelectedLimit
+    selectedLimit,
+    setSelectedLimit,
+    statusAvailable,
   };
 };
 

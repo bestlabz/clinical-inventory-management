@@ -21,6 +21,8 @@ const Dashboard = () => {
   const [viewPage, setviewPage] = useState(false);
   const [patientID, setPatientID] = useState(null);
   const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
+  const [statusAvailable, setStatusAvailable] = useState(false)
+
   const {
     patientscurrentPage: currentPages,
     patientstotalCount: paginationCount,
@@ -47,6 +49,7 @@ const Dashboard = () => {
           );
 
         if (success) {
+          setStatusAvailable(false)
           dispatch(
             setPatientsCurrentPage(
               patients.length === 0 && currentPage !== 1
@@ -97,12 +100,18 @@ const Dashboard = () => {
 
   const next = () => {
     if (currentPages !== pageNumbers[pageNumbers.length - 1]) {
+      setStatusAvailable(true)
+
       return dispatch(setPatientsNextPage());
     }
   };
 
   const pre = () => {
-    return dispatch(setPatientsPrePage());
+    if(currentPages !== 1){
+      setStatusAvailable(true)
+      return dispatch(setPatientsPrePage());
+
+    }
   };
 
   const getPagesCut = ({ pagesCutCount = 2 }) => {
@@ -149,6 +158,7 @@ const Dashboard = () => {
     setPatientID,
     selectedLimit,
     setSelectedLimit,
+    statusAvailable
   };
 };
 

@@ -23,6 +23,7 @@ const DosageStrength = () => {
   const [action, setAction] = useState("");
   const [clear, setClear] = useState(false);
   const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
+  const [statusAvailable, setStatusAvailable] = useState(false)
 
   const { dosageStrength } = useSelector((state) => state.dosage);
 
@@ -41,6 +42,7 @@ const DosageStrength = () => {
               `/dosageunit?page=${currentPages}&limit=${selectedLimit.value}`
             );
           if (success) {
+            setStatusAvailable(false)
             dispatch(
               setDosageUnitCurrentPage(
                 dosageUnits.length === 0 && currentPage !== 1
@@ -150,12 +152,16 @@ const DosageStrength = () => {
 
   const next = () => {
     if (currentPages !== pageNumbers[pageNumbers.length - 1]) {
+      setStatusAvailable(true)
       return dispatch(setDosageUnitNextPage());
     }
   };
 
   const pre = () => {
-    return dispatch(setDosageUnitPrePage());
+    if(currentPages !== 1){
+      setStatusAvailable(true)
+      return dispatch(setDosageUnitPrePage());
+    }
   };
 
   const getPagesCut = ({ pagesCutCount = 2 }) => {
@@ -218,6 +224,7 @@ const DosageStrength = () => {
     selectedLimit,
     setSelectedLimit,
     style,
+    statusAvailable
   };
 };
 

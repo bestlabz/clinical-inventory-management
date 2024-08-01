@@ -101,7 +101,7 @@ const Login = () => {
                 {formatTime(count)}
               </p>
               {loader ? (
-                <button type="button" className="login-otp">
+                <button type="button" className="login-button">
                   <ClipLoader color="#fff" size={20} />
                 </button>
               ) : (
