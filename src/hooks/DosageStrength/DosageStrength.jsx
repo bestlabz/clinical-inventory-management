@@ -4,7 +4,12 @@ import { setDosageForm, setDosageStrength } from "../../Redux/Slice/Dosage";
 import toast from "react-hot-toast";
 
 import ApiRequest from "../../services/httpService";
-import { setDosageUnitCurrentPage, setDosageUnitNextPage, setDosageUnitPrePage, setDosageUnitTotalCount } from "../../Redux/Slice/Pagination";
+import {
+  setDosageUnitCurrentPage,
+  setDosageUnitNextPage,
+  setDosageUnitPrePage,
+  setDosageUnitTotalCount,
+} from "../../Redux/Slice/Pagination";
 
 const DosageStrength = () => {
   const dispatch = useDispatch();
@@ -17,9 +22,10 @@ const DosageStrength = () => {
   const [loader1, setLoader1] = useState(false);
   const [action, setAction] = useState("");
   const [clear, setClear] = useState(false);
+  const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
 
   const { dosageStrength } = useSelector((state) => state.dosage);
-  
+
   const {
     dosageUnitcurrentPage: currentPages,
     dosageUnittotalCount: paginationCount,
@@ -29,10 +35,13 @@ const DosageStrength = () => {
     const API = async () => {
       if (!reFetch) {
         try {
-          const { success, dosageUnits } = await ApiRequest.get("/dosageunit");
-
-          console.log("dosageUnits", dosageUnits);
+          const { success, dosageUnits, currentPage, totalPages } =
+            await ApiRequest.get(
+              `/dosageunit?page=${currentPages}&limit=${selectedLimit.value}`
+            );
           if (success) {
+            dispatch(setDosageUnitCurrentPage(currentPage));
+            dispatch(setDosageUnitTotalCount(totalPages));
             return dispatch(setDosageStrength(dosageUnits));
           }
         } catch (error) {
@@ -43,7 +52,7 @@ const DosageStrength = () => {
       }
     };
     API();
-  }, [reFetch]);
+  }, [reFetch, selectedLimit]);
 
   const addDosageStrength = async () => {
     if (dosageValue.trim().length !== 0) {
@@ -51,15 +60,16 @@ const DosageStrength = () => {
         setError(false);
         setReFetch(true);
         setLoader(true);
-        const { success, message, currentPage, totalPages } = await ApiRequest.post("/dosageunit", {
-          unit_name: dosageValue,
-        });
+        const { success, message, currentPage, totalPages } =
+          await ApiRequest.post("/dosageunit", {
+            unit_name: dosageValue,
+          });
 
         if (success) {
           dispatch(setDosageUnitCurrentPage(currentPage));
           dispatch(setDosageUnitTotalCount(totalPages));
           setLoader(false);
-          setDosageValue("")
+          setDosageValue("");
           setReFetch(false);
           return toast.success(message);
         }
@@ -169,6 +179,13 @@ const DosageStrength = () => {
     (_, i) => start + i
   );
 
+  const style = {
+    width: "100%",
+    padding: "0px",
+    border: "1px solid #d3d3d3",
+    outline: "1px solid #d3d3d3",
+    background: "rgba(218, 227, 255, 0.31)",
+  };
 
   return {
     tableBody: dosageStrength,
@@ -192,6 +209,9 @@ const DosageStrength = () => {
     pageNumbers,
     next,
     pre,
+    selectedLimit,
+    setSelectedLimit,
+    style,
   };
 };
 

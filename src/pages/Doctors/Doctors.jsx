@@ -50,11 +50,13 @@ const Doctors = () => {
     paginationCount,
     dotorId,
     setDotorId,
+    selectedLimit,
+    setSelectedLimit
   } = DoctorsFunction();
 
   const { doctorTable } = useSelector((state) => state.TableDatas);
-
   const { sidebarStatus } = useSelector((state) => state.sidebarInfo);
+  const { limitCount } = useSelector((state) => state.Pagination);
 
   return (
     <div className=" container">
@@ -173,17 +175,31 @@ const Doctors = () => {
                         filtervalue={selectedFilter?.value}
                       />
                   </div>
-                  <div className=" w-full h-[10%] flex items-end justify-end pt-4 px-3 overflow-x-auto relative">
-                    {doctorTable.length !== 0 && (
-                      <Paginitation
-                        currentpage={currentPages}
-                        PrePage={pre}
-                        nextPage={next}
-                        pageNumbers={pageNumbers}
-                        paginationCount={paginationCount}
-                      />
-                    )}
-                  </div>
+                  <div className=" w-full h-[10%] flex items-center justify-between px-3 pt-4 relative 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col gap-2">
+                  {doctorTable?.length !== 0 && (
+                    <>
+                      <div className="w-[80px] z-50">
+                        <Select
+                          options={limitCount}
+                          styles={style}
+                          SelectedValue={setSelectedLimit}
+                          value={selectedLimit}
+                          clear={false}
+                          menuPlacement="top"
+                        />
+                      </div>
+                      <div className="flex-1 flex items-end justify-end ">
+                        <Paginitation
+                          currentpage={currentPages}
+                          PrePage={pre}
+                          nextPage={next}
+                          pageNumbers={pageNumbers}
+                          paginationCount={paginationCount}
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
                 </>
               </div>
             </>

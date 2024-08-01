@@ -20,7 +20,7 @@ const Dashboard = () => {
   const [primaryLoader, setPrimaryLoader] = useState(true);
   const [viewPage, setviewPage] = useState(false);
   const [patientID, setPatientID] = useState(null);
-
+  const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
   const {
     patientscurrentPage: currentPages,
     patientstotalCount: paginationCount,
@@ -43,7 +43,7 @@ const Dashboard = () => {
 
         const { success, patients, currentPage, totalPages } =
           await ApiRequest.get(
-            `/patients?appointment_date=${formattedDate}&page=${currentPages}`
+            `/patients?appointment_date=${formattedDate}&page=${currentPages}&limit=${selectedLimit.value}`
           );
 
         if (success) {
@@ -72,7 +72,7 @@ const Dashboard = () => {
       }
     };
     API();
-  }, [selectedDate, currentPages]);
+  }, [selectedDate, currentPages, selectedLimit]);
 
   const style = {
     width: "100%",
@@ -141,6 +141,8 @@ const Dashboard = () => {
     setviewPage,
     patientID,
     setPatientID,
+    selectedLimit,
+    setSelectedLimit,
   };
 };
 

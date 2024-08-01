@@ -6,7 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import ApiRequest from "../../services/httpService";
 import { setReceptionistTable } from "../../Redux/Slice/TableDatas";
 import toast from "react-hot-toast";
-import { setReceptionistsCurrentPage, setReceptionistsNextPage, setReceptionistsPrePage, setReceptionistsTotalCount } from "../../Redux/Slice/Pagination";
+import {
+  setReceptionistsCurrentPage,
+  setReceptionistsNextPage,
+  setReceptionistsPrePage,
+  setReceptionistsTotalCount,
+} from "../../Redux/Slice/Pagination";
 
 const Doctors = () => {
   const navigate = useNavigate();
@@ -16,31 +21,33 @@ const Doctors = () => {
   const [primaryLoader, setPrimaryLoader] = useState(true);
   const [clear, setClear] = useState(false);
   const [model, setModel] = useState(false);
-  const [selectedFilter, setselectedFilter] = useState(null)
-  const [loader, setLoader] = useState(false)
-  const [viewPage, setviewPage] = useState(false)
+  const [selectedFilter, setselectedFilter] = useState(null);
+  const [loader, setLoader] = useState(false);
+  const [viewPage, setviewPage] = useState(false);
+  const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
 
-  const [receptionistID, setReceptionistID] = useState(null)
-
+  const [receptionistID, setReceptionistID] = useState(null);
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
-  const { receptionistcurrentPage: currentPages, receptionisttotalCount: paginationCount } =
-    useSelector((state) => state.Pagination);
+  const {
+    receptionistcurrentPage: currentPages,
+    receptionisttotalCount: paginationCount,
+  } = useSelector((state) => state.Pagination);
 
   useEffect(() => {
-    const fetchData = async ({filter, page}) => {
+    const fetchData = async ({ filter, page }) => {
       try {
         dispatch(setReceptionistTable([]));
         const filterQuery = filter
-        ? `?${filter}=true&page=${page}`
-        : `?page=${page}&verify=true`;
+          ? `?${filter}=true&page=${page}`
+          : `?page=${page}&verify=true`;
 
-        const { success, receptionists,  currentPage,
-          totalPages, } = await ApiRequest.get(
-          `/receptionist/clinic/${userDetails._id}${filterQuery}`
-        );
-  
+        const { success, receptionists, currentPage, totalPages } =
+          await ApiRequest.get(
+            `/receptionist/clinic/${userDetails._id}${filterQuery}&limit=${selectedLimit.value}`
+          );
+
         if (success) {
           dispatch(setReceptionistsCurrentPage(currentPage));
           dispatch(setReceptionistsTotalCount(totalPages));
@@ -52,9 +59,9 @@ const Doctors = () => {
                 i?.availability === "unavailable" ? false : true || false,
               receptionist_image: i?.profile || null,
               status: i?.block,
-              mobile_number: i?.mobile_number
+              mobile_number: i?.mobile_number,
             };
-          })
+          });
           setPrimaryLoader(false);
           dispatch(setReceptionistTable(tableData));
           return;
@@ -69,21 +76,21 @@ const Doctors = () => {
         );
       }
     };
-  
+
     const API = async () => {
-      if(!model) {
+      if (!model) {
         if (!selectedFilter || selectedFilter?.value === "") {
           await fetchData({ page: currentPages });
-      } else if (selectedFilter?.value === "verify") {
-        await fetchData({ filter: "verify", page: currentPages });
-      } else if (selectedFilter?.value === "recently_joined") {
-        await fetchData({ filter: "recently_joined", page: currentPages });
+        } else if (selectedFilter?.value === "verify") {
+          await fetchData({ filter: "verify", page: currentPages });
+        } else if (selectedFilter?.value === "recently_joined") {
+          await fetchData({ filter: "recently_joined", page: currentPages });
+        }
       }
-    }
     };
-  
+
     API();
-  }, [selectedFilter, model, currentPages]);
+  }, [selectedFilter, model, currentPages, selectedLimit]);
 
   const style = {
     width: "100%",
@@ -98,31 +105,27 @@ const Doctors = () => {
     { label: "Verified", value: "verify" },
   ];
 
-
   const navigateAddRecptionistPage = () => {
     return navigate("/add-recptionist");
   };
 
   const handleChange = async (id, value, reason) => {
-
     try {
-      setLoader(true)
+      setLoader(true);
       const { success } = await ApiRequest.post(`/receptionist/${id}`, {
         block: value,
         reason,
       });
-  
+
       if (success) {
-        setLoader(false)
-        toast.success("Receptionist status updated successfully")
+        setLoader(false);
+        toast.success("Receptionist status updated successfully");
         return setClear(true);
-        ;
       }
     } catch (error) {
-      setLoader(false)
+      setLoader(false);
       toast.error(error.response.data.error);
     }
-    
   };
 
   const getPagesCut = ({ pagesCutCount = 2 }) => {
@@ -146,29 +149,22 @@ const Doctors = () => {
     }
   };
 
-
   const { start, end } = getPagesCut({ pagesCutCount: 3 }); // Adjust pagesCutCount as needed
-
 
   const pageNumbers = Array.from(
     { length: end - start + 1 },
     (_, i) => start + i
   );
 
-
   const next = () => {
-    if( currentPages !== pageNumbers[pageNumbers.length - 1]) {
+    if (currentPages !== pageNumbers[pageNumbers.length - 1]) {
       return dispatch(setReceptionistsNextPage());
-
     }
   };
 
   const pre = () => {
     return dispatch(setReceptionistsPrePage());
   };
-
-
-
 
   return {
     setselectedDate,
@@ -193,7 +189,9 @@ const Doctors = () => {
     next,
     pre,
     setReceptionistID,
-    receptionistID
+    receptionistID,
+    selectedLimit,
+    setSelectedLimit,
   };
 };
 

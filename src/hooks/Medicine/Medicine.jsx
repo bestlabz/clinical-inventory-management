@@ -29,6 +29,7 @@ const Medicine = () => {
   const [model, setmodel] = useState(false);
   const [loader, setLoader] = useState(false);
   const [reFetch, setreFetch] = useState(false);
+  const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
 
   const {
     medicinescurrentPage: currentPages,
@@ -65,7 +66,7 @@ const Medicine = () => {
             ? `?${filter}=${value}&page=${page}&medicine_name=${search}`
             : `?page=${page}&medicine_name=${search}`;
         const { success, medicines, totalPages, currentPage } =
-          await ApiRequest.get(`/medicines${filterQuery}`);
+          await ApiRequest.get(`/medicines${filterQuery}&limit=${selectedLimit.value}`);
 
         if (success) {
           dispatch(setMedicineCurrentPage(currentPage));
@@ -117,7 +118,7 @@ const Medicine = () => {
     };
 
     API();
-  }, [selectedFilter, currentPages, searchFilter, model, reFetch]);
+  }, [selectedFilter, currentPages, searchFilter, model, reFetch, selectedLimit]);
 
   const style = {
     width: "100%",
@@ -305,6 +306,7 @@ const Medicine = () => {
     handleExcel,
     inputRef,
     handleInput,
+    selectedLimit, setSelectedLimit
   };
 };
 

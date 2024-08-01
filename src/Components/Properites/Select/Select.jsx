@@ -1,7 +1,7 @@
 import React from "react";
 import Dropdown from "react-select";
 
-const Select = ({ options, value, SelectedValue, placeholder, styles, clear=false }) => {
+const Select = ({ options, value, SelectedValue, placeholder, styles, clear=false, menuPlacement="bottom" }) => {
   return (
     <>
       
@@ -19,6 +19,8 @@ const Select = ({ options, value, SelectedValue, placeholder, styles, clear=fals
         options={options}
         placeholder={placeholder}
         isClearable={clear}
+        isSearchable={false}
+        menuPlacement={menuPlacement}
       />
     </>
   );

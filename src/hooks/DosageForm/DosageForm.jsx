@@ -22,6 +22,7 @@ const DosageForm = () => {
   const [loader1, setLoader1] = useState(false);
   const [action, setAction] = useState("");
   const [clear, setClear] = useState(false);
+  const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
 
   const { dosageForm } = useSelector((state) => state.dosage);
 
@@ -30,12 +31,20 @@ const DosageForm = () => {
     dosageFormtotalCount: paginationCount,
   } = useSelector((state) => state.Pagination);
 
+  const style = {
+    width: "100%",
+    padding: "0px",
+    border: "1px solid #d3d3d3",
+    outline: "1px solid #d3d3d3",
+    background: "rgba(218, 227, 255, 0.31)",
+  };
+
   useEffect(() => {
     const API = async () => {
       if (!reFetch) {
         try {
           const { success, dosageForms, currentPage, totalPages } =
-            await ApiRequest.get("/dosageform");
+            await ApiRequest.get(`/dosageform?page=${currentPages}&limit=${selectedLimit.value}`);
 
           if (success) {
             dispatch(setDosageFormCurrentPage(currentPage));
@@ -50,7 +59,7 @@ const DosageForm = () => {
       }
     };
     API();
-  }, [reFetch]);
+  }, [reFetch, selectedLimit]);
 
   const addDosageForm = async () => {
     if (dosageValue.trim().length !== 0) {
@@ -196,6 +205,8 @@ const DosageForm = () => {
     pageNumbers,
     next,
     pre,
+    style,
+    selectedLimit, setSelectedLimit
   };
 };
 

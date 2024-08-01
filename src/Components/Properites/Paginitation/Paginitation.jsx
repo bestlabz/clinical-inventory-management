@@ -4,6 +4,8 @@ import React from "react";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
 
 const Paginitation = ({ currentpage, PrePage, nextPage, pageNumbers }) => {
+
+  console.log('pageNumbers', pageNumbers);
   return (
     <>
       <button
@@ -45,7 +47,7 @@ const Paginitation = ({ currentpage, PrePage, nextPage, pageNumbers }) => {
       <button
         onClick={nextPage}
         className={`flex items-center justify-center   h-[30px]  ${
-          currentpage === pageNumbers[pageNumbers.length - 1]
+          currentpage === pageNumbers[pageNumbers?.length - 1]
             ? "text-gray-300"
             : "text-balck"
         }   text-center cursor-pointer `}
@@ -53,7 +55,7 @@ const Paginitation = ({ currentpage, PrePage, nextPage, pageNumbers }) => {
         next
         <FaAngleRight
           className={`${
-            currentpage === pageNumbers[pageNumbers.length - 1]
+            currentpage === pageNumbers[pageNumbers?.length - 1]
               ? ""
               : "text-balck"
           } `}

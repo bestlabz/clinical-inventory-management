@@ -30,6 +30,7 @@ const Doctors = () => {
   const [loader, setLoader] = useState(false);
   const [viewPage, setviewPage] = useState(false);
   const [dotorId, setDotorId] = useState(null);
+  const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
@@ -55,7 +56,7 @@ const Doctors = () => {
           currentPage,
           totalPages,
         } = await ApiRequest.get(
-          `/doctersby_clinic/${userDetails._id}${filterQuery}`
+          `/doctersby_clinic/${userDetails._id}${filterQuery}&imit=${selectedLimit.value}`
         );
 
         if (success) {
@@ -111,7 +112,7 @@ const Doctors = () => {
     };
 
     API();
-  }, [selectedFilter, model, currentPages]);
+  }, [selectedFilter, model, currentPages, selectedLimit]);
 
   const handleChange = async (id, value, reason) => {
     try {
@@ -212,6 +213,8 @@ const Doctors = () => {
     pre,
     setDotorId,
     dotorId,
+    selectedLimit,
+    setSelectedLimit
   };
 };
 

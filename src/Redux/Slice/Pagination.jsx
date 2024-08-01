@@ -13,6 +13,13 @@ const initialState = {
   dosageFormtotalCount: null,
   dosageUnitcurrentPage: 1,
   dosageUnittotalCount: null,
+
+  limitCount: [
+    {label: 10, value: 10},
+    {label: 25, value: 25},
+    {label: 50, value: 50},
+
+  ]
 };
 
 export const paginationSlice = createSlice({
