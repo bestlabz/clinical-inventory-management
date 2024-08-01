@@ -109,15 +109,18 @@ const rightSide = ({ setReFetch }) => {
               formData.append(key, bodyData[key]);
             }
           }
-          const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
           setImageLoader(true);
-          const { data } = await axios.post(`${baseURL}/update_logo`, formData);
+          const { success, message, template } = await ApiRequest.post(
+            `/update_logo`,
+            formData,
+            { "Content-Type": "multipart/form-data" }
+          );
 
-          if (data.success) {
+          if (success) {
             setImageLoader(false);
-            toast.success(data.message);
-            dispatch(setClinicLogo({ logo: data.template?.logo }));
+            toast.success(message);
             setImageUpload(null);
+            dispatch(setClinicLogo({ logo: template?.logo }));
             return;
           }
         } catch (error) {
@@ -130,8 +133,6 @@ const rightSide = ({ setReFetch }) => {
     };
     API();
   }, [imageUpload]);
-
-
 
   useEffect(() => {
     const updatedData = updateDataValue(

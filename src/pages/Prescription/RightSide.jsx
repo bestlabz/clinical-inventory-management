@@ -71,7 +71,7 @@ const RightSide = ({
       <div className="prescription-right-top">
         <div className="prescription-right-top-inside">
           <div
-            onClick={handelImage}
+            // onClick={handelImage}
             className="prescription-right-top-inside-image"
           >
             <div className="w-full h-full flex items-center justify-center overflow-hidden">
