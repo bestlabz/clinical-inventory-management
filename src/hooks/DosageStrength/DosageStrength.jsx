@@ -31,6 +31,7 @@ const DosageStrength = () => {
     dosageUnittotalCount: paginationCount,
   } = useSelector((state) => state.Pagination);
 
+  
   useEffect(() => {
     const API = async () => {
       if (!reFetch) {
@@ -40,7 +41,13 @@ const DosageStrength = () => {
               `/dosageunit?page=${currentPages}&limit=${selectedLimit.value}`
             );
           if (success) {
-            dispatch(setDosageUnitCurrentPage(currentPage));
+            dispatch(
+              setDosageUnitCurrentPage(
+                dosageUnits.length === 0 && currentPage !== 1
+                  ? currentPage - 1
+                  : currentPage
+              )
+            );
             dispatch(setDosageUnitTotalCount(totalPages));
             return dispatch(setDosageStrength(dosageUnits));
           }
@@ -52,7 +59,7 @@ const DosageStrength = () => {
       }
     };
     API();
-  }, [reFetch, selectedLimit]);
+  }, [reFetch, selectedLimit, currentPages]);
 
   const addDosageStrength = async () => {
     if (dosageValue.trim().length !== 0) {
@@ -60,14 +67,13 @@ const DosageStrength = () => {
         setError(false);
         setReFetch(true);
         setLoader(true);
-        const { success, message, currentPage, totalPages } =
+        const { success, message } =
           await ApiRequest.post("/dosageunit", {
             unit_name: dosageValue,
           });
 
+
         if (success) {
-          dispatch(setDosageUnitCurrentPage(currentPage));
-          dispatch(setDosageUnitTotalCount(totalPages));
           setLoader(false);
           setDosageValue("");
           setReFetch(false);

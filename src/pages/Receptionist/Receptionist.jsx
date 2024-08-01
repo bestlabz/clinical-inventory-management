@@ -148,7 +148,7 @@ const Receptionist = () => {
               <div className=" w-full h-[10%] flex items-center justify-between px-3 pt-4 relative 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col gap-2">
                   {receptionistTable?.length !== 0 && (
                     <>
-                      <div className="w-[80px] z-50">
+                      <div className="w-[80px] z-30">
                         <Select
                           options={limitCount}
                           styles={style}

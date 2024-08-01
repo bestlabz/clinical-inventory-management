@@ -47,7 +47,13 @@ const DosageForm = () => {
             await ApiRequest.get(`/dosageform?page=${currentPages}&limit=${selectedLimit.value}`);
 
           if (success) {
-            dispatch(setDosageFormCurrentPage(currentPage));
+            dispatch(
+              setDosageFormCurrentPage(
+                dosageForms.length === 0 && currentPage !== 1
+                  ? currentPage - 1
+                  : currentPage
+              )
+            );
             dispatch(setDosageFormTotalCount(totalPages));
             return dispatch(setDosageForm(dosageForms));
           }
@@ -59,7 +65,7 @@ const DosageForm = () => {
       }
     };
     API();
-  }, [reFetch, selectedLimit]);
+  }, [reFetch, selectedLimit, currentPages]);
 
   const addDosageForm = async () => {
     if (dosageValue.trim().length !== 0) {

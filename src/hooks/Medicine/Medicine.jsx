@@ -69,7 +69,13 @@ const Medicine = () => {
           await ApiRequest.get(`/medicines${filterQuery}&limit=${selectedLimit.value}`);
 
         if (success) {
-          dispatch(setMedicineCurrentPage(currentPage));
+          dispatch(
+            setMedicineCurrentPage(
+              medicines.length === 0 && currentPage !== 1
+                ? currentPage - 1
+                : currentPage
+            )
+          );
           dispatch(setMedicineTotalCount(totalPages));
           const tableData = medicines.map((i) => {
             return {

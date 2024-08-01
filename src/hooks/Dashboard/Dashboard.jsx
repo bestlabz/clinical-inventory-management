@@ -47,7 +47,13 @@ const Dashboard = () => {
           );
 
         if (success) {
-          dispatch(setPatientsCurrentPage(currentPage));
+          dispatch(
+            setPatientsCurrentPage(
+              patients.length === 0 && currentPage !== 1
+                ? currentPage - 1
+                : currentPage
+            )
+          );
           dispatch(setPatientsTotalCount(totalPages));
           const tableData = patients.map((i) => {
             return {

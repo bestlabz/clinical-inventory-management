@@ -49,7 +49,13 @@ const Doctors = () => {
           );
 
         if (success) {
-          dispatch(setReceptionistsCurrentPage(currentPage));
+          dispatch(
+            setReceptionistsCurrentPage(
+              receptionists.length === 0 && currentPage !== 1
+                ? currentPage - 1
+                : currentPage
+            )
+          );
           dispatch(setReceptionistsTotalCount(totalPages));
           const tableData = receptionists.map((i) => {
             return {

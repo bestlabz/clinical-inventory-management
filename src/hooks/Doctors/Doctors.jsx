@@ -60,7 +60,13 @@ const Doctors = () => {
         );
 
         if (success) {
-          dispatch(setDoctorsCurrentPage(currentPage));
+          dispatch(
+            setDoctorsCurrentPage(
+              doctorAvailability.length === 0 && currentPage !== 1
+                ? currentPage - 1
+                : currentPage
+            )
+          );
           dispatch(setDoctorsTotalCount(totalPages));
           setCardValue({
             total_doctor: totalDoctorsCount,
