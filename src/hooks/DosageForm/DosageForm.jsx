@@ -23,7 +23,8 @@ const DosageForm = () => {
   const [action, setAction] = useState("");
   const [clear, setClear] = useState(false);
   const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
-  const [statusAvailable, setStatusAvailable] = useState(false)
+  const [statusAvailable, setStatusAvailable] = useState(false);
+  const [tableLoader, setTableLoader] = useState(false);
 
   const { dosageForm } = useSelector((state) => state.dosage);
 
@@ -41,14 +42,21 @@ const DosageForm = () => {
   };
 
   useEffect(() => {
+    setTableLoader(true);
+  }, [selectedLimit]);
+
+  useEffect(() => {
     const API = async () => {
       if (!reFetch) {
         try {
           const { success, dosageForms, currentPage, totalPages } =
-            await ApiRequest.get(`/dosageform?page=${currentPages}&limit=${selectedLimit.value}`);
+            await ApiRequest.get(
+              `/dosageform?page=${currentPages}&limit=${selectedLimit.value}`
+            );
 
           if (success) {
-      setStatusAvailable(false)
+            setTableLoader(false);
+            setStatusAvailable(false);
 
             dispatch(
               setDosageFormCurrentPage(
@@ -61,6 +69,9 @@ const DosageForm = () => {
             return dispatch(setDosageForm(dosageForms));
           }
         } catch (error) {
+          setTableLoader(false);
+
+          setStatusAvailable(false);
           return toast.error(
             `${error.response?.data?.message || error.response.data.error}`
           );
@@ -100,6 +111,8 @@ const DosageForm = () => {
   };
 
   const deleteDosageForm = async (id, value) => {
+    console.log("id, value", id, value);
+
     if (id && value) {
       try {
         setReFetch(true);
@@ -142,6 +155,7 @@ const DosageForm = () => {
         });
 
         if (success) {
+          setAction("");
           setLoader1(false);
           setClear(true);
           setReFetch(false);
@@ -157,14 +171,16 @@ const DosageForm = () => {
 
   const next = () => {
     if (currentPages !== pageNumbers[pageNumbers.length - 1]) {
-      setStatusAvailable(true)
+      setStatusAvailable(true);
+      setTableLoader(true);
       return dispatch(setDosageFormNextPage());
     }
   };
 
   const pre = () => {
-    if(currentPages !== 1) {
-      setStatusAvailable(true)
+    if (currentPages !== 1) {
+      setStatusAvailable(true);
+      setTableLoader(true);
       return dispatch(setDosageFormPrePage());
     }
   };
@@ -219,7 +235,10 @@ const DosageForm = () => {
     next,
     pre,
     style,
-    selectedLimit, setSelectedLimit
+    selectedLimit,
+    setSelectedLimit,
+    statusAvailable,
+    tableLoader,
   };
 };
 

@@ -36,12 +36,14 @@ const DosageStrength = () => {
     selectedLimit,
     setSelectedLimit,
     style,
+    statusAvailable,
+    tableLoader,
   } = DosageStrengthFunction();
 
   const { limitCount } = useSelector((state) => state.Pagination);
 
   return (
-    <div className="container">
+    <div className="w-full 2xl:h-[90%] xl:h-[90%] lg:h-[90%] md:h-[90%] sm:h-[90%] xs:h-[96%] mobile:h-[96%] xss:h-[96%] pb-3 overflow-auto">
       <div
         style={{
           border: "3px solid #e8e8e8",
@@ -111,6 +113,7 @@ const DosageStrength = () => {
               setAction={setAction}
               clear={clear}
               setClear={setClear}
+              tableLoader={tableLoader}
             />
           </div>
           <div className=" w-full h-[10%] flex items-center justify-between px-3 pt-4 relative 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col gap-2">
@@ -133,6 +136,7 @@ const DosageStrength = () => {
                     nextPage={next}
                     pageNumbers={pageNumbers}
                     paginationCount={paginationCount}
+                    status={statusAvailable}
                   />
                 </div>
               </>

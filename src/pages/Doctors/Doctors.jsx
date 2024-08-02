@@ -51,7 +51,9 @@ const Doctors = () => {
     dotorId,
     setDotorId,
     selectedLimit,
-    setSelectedLimit
+    setSelectedLimit,
+    tableLoader,
+    statusAvailable
   } = DoctorsFunction();
 
   const { doctorTable } = useSelector((state) => state.TableDatas);
@@ -59,10 +61,10 @@ const Doctors = () => {
   const { limitCount } = useSelector((state) => state.Pagination);
 
   return (
-    <div className=" container">
-      {primaryLoader ? (
+    <div className=" w-full 2xl:h-[90%] xl:h-[90%] lg:h-[90%] md:h-[90%] sm:h-[90%] xs:h-[96%] mobile:h-[96%] xss:h-[96%] pb-3 overflow-auto">
+      {/* {primaryLoader ? (
         <ThemeSuspense />
-      ) : (
+      ) : ( */}
         <>
           {viewPage ? (
             <ViewPage
@@ -173,6 +175,7 @@ const Doctors = () => {
                         setviewPage={setviewPage}
                         id={setDotorId}
                         filtervalue={selectedFilter?.value}
+                        tableLoader={tableLoader}
                       />
                   </div>
                   <div className=" w-full h-[10%] flex items-center justify-between px-3 pt-4 relative 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col gap-2">
@@ -195,6 +198,7 @@ const Doctors = () => {
                           nextPage={next}
                           pageNumbers={pageNumbers}
                           paginationCount={paginationCount}
+                          status={statusAvailable}
                         />
                       </div>
                     </>
@@ -205,7 +209,7 @@ const Doctors = () => {
             </>
           )}
         </>
-      )}
+      {/* )} */}
     </div>
   );
 };

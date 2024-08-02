@@ -50,17 +50,19 @@ const Receptionist = () => {
     receptionistID,
     setReceptionistID,
     selectedLimit,
-    setSelectedLimit
+    setSelectedLimit,
+    statusAvailable,
+    tableLoader,
   } = ReceptionistFunction();
 
   const { receptionistTable } = useSelector((state) => state.TableDatas);
   const { limitCount } = useSelector((state) => state.Pagination);
 
   return (
-    <div className="container">
-      {primaryLoader ? (
+    <div className="w-full 2xl:h-[90%] xl:h-[90%] lg:h-[90%] md:h-[90%] sm:h-[90%] xs:h-[96%] mobile:h-[96%] xss:h-[96%] pb-3 overflow-auto">
+      {/* {primaryLoader ? (
         <ThemeSuspense />
-      ) : (
+      ) : ( */}
         <>
           {viewPage ? (
             <ViewPage
@@ -143,37 +145,39 @@ const Receptionist = () => {
                   setviewPage={setviewPage}
                   id={setReceptionistID}
                   filtervalue={selectedFilter?.value}
+                  tableLoader={tableLoader}
                 />
               </div>
               <div className=" w-full h-[10%] flex items-center justify-between px-3 pt-4 relative 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col gap-2">
-                  {receptionistTable?.length !== 0 && (
-                    <>
-                      <div className="w-[80px] z-30">
-                        <Select
-                          options={limitCount}
-                          styles={style}
-                          SelectedValue={setSelectedLimit}
-                          value={selectedLimit}
-                          clear={false}
-                          menuPlacement="top"
-                        />
-                      </div>
-                      <div className="flex-1 flex items-end justify-end ">
-                        <Paginitation
-                          currentpage={currentPages}
-                          PrePage={pre}
-                          nextPage={next}
-                          pageNumbers={pageNumbers}
-                          paginationCount={paginationCount}
-                        />
-                      </div>
-                    </>
-                  )}
-                </div>
+                {receptionistTable?.length !== 0 && (
+                  <>
+                    <div className="w-[80px] z-30">
+                      <Select
+                        options={limitCount}
+                        styles={style}
+                        SelectedValue={setSelectedLimit}
+                        value={selectedLimit}
+                        clear={false}
+                        menuPlacement="top"
+                      />
+                    </div>
+                    <div className="flex-1 flex items-end justify-end ">
+                      <Paginitation
+                        currentpage={currentPages}
+                        PrePage={pre}
+                        nextPage={next}
+                        pageNumbers={pageNumbers}
+                        paginationCount={paginationCount}
+                        status={statusAvailable}
+                      />
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           )}
         </>
-      )}
+      {/* )} */}
     </div>
   );
 };

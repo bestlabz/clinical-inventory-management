@@ -31,13 +31,14 @@ const Index = () => {
                     type_id: item._id,
                     type_name: item.name,
                     template: smstemplates.filter(
-                      (template) => template.smstypeId === item._id
+                      (template) => template.smstypeId._id === item._id
                     )[0].body,
                     templateID: smstemplates.filter(
-                      (template) => template.smstypeId === item._id
+                      (template) => template.smstypeId._id === item._id
                     )[0]._id,
                   };
                 });
+                
                 dispatch(setTemplates(Types));
                 return;
               }
@@ -58,10 +59,11 @@ const Index = () => {
     return dispatch(setTemplate({ index, value }));
   };
 
+  
+
   const handleSubmit = async (index) => {
     const getTemple = templates.filter((_, idx) => idx === index)[0];
 
-    console.log('getTemple', getTemple);
     if (
       getTemple.type_name === "SEND_OTP" &&
       !getTemple?.template.includes("{{otpCode}}")
@@ -72,11 +74,13 @@ const Index = () => {
 
     if (
       getTemple.type_name === "Create_Account" &&
-      (!getTemple?.template.includes("{{otpCode}}") ||
-        !getTemple?.template.includes("{{clinicName}}"))
+      (
+        // !getTemple?.template.includes("{{otpCode}}") || 
+        !getTemple?.template.includes("{{clinicName}}")
+      )
     ) {
       toast.error(
-        "The message is missing the {{clinicName}} or {{otpCode}} placeholder."
+        "The message is missing the {{clinicName}} or placeholder."
       );
       return;
     }

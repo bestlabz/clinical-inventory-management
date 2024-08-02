@@ -65,7 +65,10 @@ const ModelResponsive = ({
                     </button>
                   ) : (
                     <button
-                      onClick={() => trigger(details.id, details.value, reason)}
+                      onClick={() => {
+                        trigger(details.id, details.value)
+                        
+                      }}
                       className="logout-button text-[18px] border-secondary_text hover:bg-primary_color hover:text-white hover:border-primary_color transition-all duration-300"
                     >
                       {TranslateJson.toggel.buttons.Submit}

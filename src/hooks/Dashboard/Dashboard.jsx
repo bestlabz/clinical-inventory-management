@@ -22,11 +22,17 @@ const Dashboard = () => {
   const [patientID, setPatientID] = useState(null);
   const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
   const [statusAvailable, setStatusAvailable] = useState(false)
+  const [tableLoader, setTableLoader] = useState(false)
 
   const {
     patientscurrentPage: currentPages,
     patientstotalCount: paginationCount,
   } = useSelector((state) => state.Pagination);
+
+
+  useEffect(() => {
+    setTableLoader(true)
+  }, [selectedLimit])
 
   useEffect(() => {
     const API = async () => {
@@ -49,6 +55,7 @@ const Dashboard = () => {
           );
 
         if (success) {
+    setTableLoader(false)
           setStatusAvailable(false)
           dispatch(
             setPatientsCurrentPage(
@@ -74,6 +81,7 @@ const Dashboard = () => {
           return;
         }
       } catch (error) {
+    setTableLoader(false)
         setPrimaryLoader(false);
         toast.error(
           `${error.response?.data?.message || error.response.data.error}`
@@ -101,6 +109,7 @@ const Dashboard = () => {
   const next = () => {
     if (currentPages !== pageNumbers[pageNumbers.length - 1]) {
       setStatusAvailable(true)
+      setTableLoader(true)
 
       return dispatch(setPatientsNextPage());
     }
@@ -109,6 +118,8 @@ const Dashboard = () => {
   const pre = () => {
     if(currentPages !== 1){
       setStatusAvailable(true)
+      setTableLoader(true)
+
       return dispatch(setPatientsPrePage());
 
     }
@@ -158,7 +169,8 @@ const Dashboard = () => {
     setPatientID,
     selectedLimit,
     setSelectedLimit,
-    statusAvailable
+    statusAvailable,
+    tableLoader
   };
 };
 

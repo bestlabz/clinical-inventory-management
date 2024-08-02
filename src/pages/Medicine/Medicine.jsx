@@ -51,17 +51,19 @@ const Medicine = () => {
     inputRef,
     handleExcel,
     selectedLimit,
-    setSelectedLimit
+    setSelectedLimit,
+    statusAvailable,
+    tableLoader
   } = MedicineFunction();
 
   const { medicineTable } = useSelector((state) => state.TableDatas);
   const { limitCount } = useSelector((state) => state.Pagination);
 
   return (
-    <div className=" container">
-      {primaryLoader ? (
+    <div className=" w-full 2xl:h-[90%] xl:h-[90%] lg:h-[90%] md:h-[90%] sm:h-[90%] xs:h-[96%] mobile:h-[96%] xss:h-[96%] pb-3 overflow-auto">
+      {/* {primaryLoader ? (
         <ThemeSuspense />
-      ) : (
+      ) : ( */}
         <>
           <div
             style={{
@@ -172,6 +174,7 @@ const Medicine = () => {
                   setModel={handelModel}
                   handleChange={handleDelete}
                   loader={loader}
+                  tableLoader={tableLoader}
                 />
               </div>
               <div className=" w-full h-[10%] flex items-center justify-between px-3 pt-4 relative 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col gap-2">
@@ -194,6 +197,7 @@ const Medicine = () => {
                           nextPage={next}
                           pageNumbers={pageNumbers}
                           paginationCount={paginationCount}
+                          status={statusAvailable}
                         />
                       </div>
                     </>
@@ -202,7 +206,7 @@ const Medicine = () => {
             </>
           </div>
         </>
-      )}
+      {/* )} */}
     </div>
   );
 };

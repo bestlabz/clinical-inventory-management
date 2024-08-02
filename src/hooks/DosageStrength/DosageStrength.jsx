@@ -23,7 +23,8 @@ const DosageStrength = () => {
   const [action, setAction] = useState("");
   const [clear, setClear] = useState(false);
   const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
-  const [statusAvailable, setStatusAvailable] = useState(false)
+  const [statusAvailable, setStatusAvailable] = useState(false);
+  const [tableLoader, setTableLoader] = useState(false);
 
   const { dosageStrength } = useSelector((state) => state.dosage);
 
@@ -32,7 +33,10 @@ const DosageStrength = () => {
     dosageUnittotalCount: paginationCount,
   } = useSelector((state) => state.Pagination);
 
-  
+  useEffect(() => {
+    setTableLoader(true);
+  }, [selectedLimit]);
+
   useEffect(() => {
     const API = async () => {
       if (!reFetch) {
@@ -42,7 +46,9 @@ const DosageStrength = () => {
               `/dosageunit?page=${currentPages}&limit=${selectedLimit.value}`
             );
           if (success) {
-            setStatusAvailable(false)
+            setTableLoader(false);
+
+            setStatusAvailable(false);
             dispatch(
               setDosageUnitCurrentPage(
                 dosageUnits.length === 0 && currentPage !== 1
@@ -54,6 +60,9 @@ const DosageStrength = () => {
             return dispatch(setDosageStrength(dosageUnits));
           }
         } catch (error) {
+          setTableLoader(false);
+
+          setStatusAvailable(false);
           return toast.error(
             `${error.response?.data?.message || error.response.data.error}`
           );
@@ -69,11 +78,9 @@ const DosageStrength = () => {
         setError(false);
         setReFetch(true);
         setLoader(true);
-        const { success, message } =
-          await ApiRequest.post("/dosageunit", {
-            unit_name: dosageValue,
-          });
-
+        const { success, message } = await ApiRequest.post("/dosageunit", {
+          unit_name: dosageValue,
+        });
 
         if (success) {
           setLoader(false);
@@ -95,6 +102,7 @@ const DosageStrength = () => {
   };
 
   const deleteDosageStrength = async (id, value) => {
+    
     if (id && value) {
       try {
         setReFetch(true);
@@ -137,6 +145,8 @@ const DosageStrength = () => {
         });
 
         if (success) {
+          setAction("");
+
           setLoader1(false);
           setClear(true);
           setReFetch(false);
@@ -152,14 +162,18 @@ const DosageStrength = () => {
 
   const next = () => {
     if (currentPages !== pageNumbers[pageNumbers.length - 1]) {
-      setStatusAvailable(true)
+      setStatusAvailable(true);
+      setTableLoader(true);
+
       return dispatch(setDosageUnitNextPage());
     }
   };
 
   const pre = () => {
-    if(currentPages !== 1){
-      setStatusAvailable(true)
+    if (currentPages !== 1) {
+      setStatusAvailable(true);
+      setTableLoader(true);
+
       return dispatch(setDosageUnitPrePage());
     }
   };
@@ -224,7 +238,8 @@ const DosageStrength = () => {
     selectedLimit,
     setSelectedLimit,
     style,
-    statusAvailable
+    statusAvailable,
+    tableLoader,
   };
 };
 

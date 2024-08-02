@@ -27,6 +27,7 @@ const Doctors = () => {
   const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
   const [statusAvailable, setStatusAvailable] = useState(false);
   const [receptionistID, setReceptionistID] = useState(null);
+  const [tableLoader, setTableLoader] = useState(false);
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
@@ -34,6 +35,10 @@ const Doctors = () => {
     receptionistcurrentPage: currentPages,
     receptionisttotalCount: paginationCount,
   } = useSelector((state) => state.Pagination);
+
+  useEffect(() => {
+    setTableLoader(true);
+  }, [selectedLimit]);
 
   useEffect(() => {
     const fetchData = async ({ filter, page }) => {
@@ -49,6 +54,8 @@ const Doctors = () => {
           );
 
         if (success) {
+          setTableLoader(false);
+
           setStatusAvailable(false);
           dispatch(
             setReceptionistsCurrentPage(
@@ -73,9 +80,13 @@ const Doctors = () => {
           dispatch(setReceptionistTable(tableData));
           return;
         } else {
+          setTableLoader(false);
+          setStatusAvailable(false);
           setPrimaryLoader(false);
         }
       } catch (error) {
+        setTableLoader(false);
+        setStatusAvailable(false);
         setPrimaryLoader(false);
         dispatch(setReceptionistTable([]));
         toast.error(
@@ -166,6 +177,8 @@ const Doctors = () => {
   const next = () => {
     if (currentPages !== pageNumbers[pageNumbers.length - 1]) {
       setStatusAvailable(true);
+      setTableLoader(true);
+
       return dispatch(setReceptionistsNextPage());
     }
   };
@@ -173,6 +186,8 @@ const Doctors = () => {
   const pre = () => {
     if (currentPages !== 1) {
       setStatusAvailable(true);
+      setTableLoader(true);
+
       return dispatch(setReceptionistsPrePage());
     }
   };
@@ -204,6 +219,7 @@ const Doctors = () => {
     selectedLimit,
     setSelectedLimit,
     statusAvailable,
+    tableLoader
   };
 };
 
