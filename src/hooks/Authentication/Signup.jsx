@@ -36,6 +36,12 @@ const Signup = () => {
   const { otpValue } = useSelector((state) => state.otpValue);
 
   useEffect(() => {
+    if (step === 1) {
+      localStorage.removeItem("token");
+    }
+  }, [step]);
+
+  useEffect(() => {
     setTimeout(() => {
       setError(false);
     }, 2000);
@@ -103,26 +109,27 @@ const Signup = () => {
     }
     if (step === 4) {
       const files = () => {
-        return values?.files?.map((img, index) => {
-          if (index === 0) {
-            return {
-              certificate: img,
-            };
-          } else {
-            const file = {
-              [`certificate${index + 1}`]: img,
-            };
+        return values?.files
+          ?.map((img, index) => {
+            if (index === 0) {
+              return {
+                certificate: img,
+              };
+            } else {
+              const file = {
+                [`certificate${index + 1}`]: img,
+              };
 
-            return file;
-          }
-        }).reduce((acc, obj) => ({ ...acc, ...obj }), {})
+              return file;
+            }
+          })
+          .reduce((acc, obj) => ({ ...acc, ...obj }), {});
       };
 
       const storeDetails = {
         ...newuser,
         ...files(),
       };
-
 
       const formData = new FormData();
 
@@ -133,10 +140,13 @@ const Signup = () => {
       }
 
       if (id) {
-        const baseURL = import.meta.env.VITE_APP_API_BASE_URL
+        const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
         setLoader(true);
         try {
-          const { data } = await axios.put(`${baseURL}/clinics/${id}`, formData);
+          const { data } = await axios.put(
+            `${baseURL}/clinics/${id}`,
+            formData
+          );
           if (data.success) {
             setLoader(false);
             dispatch(clearUserDetails());
@@ -148,7 +158,6 @@ const Signup = () => {
             `${error.response?.data?.message || error.response.data.error}`
           );
         }
-
       } else {
         toast.error("Invalid ID");
         setTimeout(() => {

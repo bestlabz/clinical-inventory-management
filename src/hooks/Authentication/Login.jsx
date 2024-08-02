@@ -32,6 +32,13 @@ const Login = () => {
   const { otpValue } = useSelector((state) => state.otpValue);
 
   useEffect(() => {
+    if(step === 1) {
+      localStorage.removeItem('token')
+
+    }
+  }, [step])
+
+  useEffect(() => {
     setTimeout(() => {
       setError(false);
     }, 2000);

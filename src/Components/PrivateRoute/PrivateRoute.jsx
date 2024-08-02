@@ -22,7 +22,8 @@ const PrivateRoute = ({ children, ...rest }) => {
         dispatch(setUser(clinic));
       }
     } catch (error) {
-      console.error("Error fetching clinic data:", error);
+      localStorage.removeItem('token')
+      console.error("Error fetching clinic data:", error.response.data);
     } finally {
       setLoading(false);
     }
