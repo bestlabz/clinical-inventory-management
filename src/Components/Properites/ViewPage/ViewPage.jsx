@@ -11,6 +11,7 @@ import { FaFileImage } from "react-icons/fa";
 
 import ModelResponsive from "./ModelResponsive";
 import Select from "../Select/Select";
+import dayjs from "dayjs";
 
 const ViewPage = ({
   timeSlot = true,
@@ -40,7 +41,6 @@ const ViewPage = ({
     id: "",
     value: "",
   });
-
 
   return (
     <div className=" w-full h-full overflow-auto ">
@@ -174,7 +174,7 @@ const ViewPage = ({
                   DOB<span>:</span>
                 </span>
                 <span className="view-page-personal-details-container-body-details-value">
-                  {details?.dob || ""}
+                  {details?.dob ? dayjs(details?.dob).format("DD-MM-YYYY") : ""}
                 </span>
               </div>
             </div>
