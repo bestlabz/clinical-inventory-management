@@ -132,7 +132,11 @@ const Profile = () => {
                 name="name"
                 id="name"
                 value={values.name}
-                setValue={handleChange}
+                setValue={(e) => {
+                  if (/^[a-zA-Z\s]*$/.test(e.target.value)) {
+                    handleChange(e);
+                  }
+                }}
                 err={error && errors.name}
               />
               <Input
@@ -140,7 +144,11 @@ const Profile = () => {
                 name="clinic_name"
                 id="clinic_name"
                 value={values.clinic_name}
-                setValue={handleChange}
+                setValue={(e) => {
+                  if (/^[a-zA-Z\s]*$/.test(e.target.value)) {
+                    handleChange(e);
+                  }
+                }}
                 err={error && errors.clinic_name}
               />
               <Input
@@ -156,7 +164,12 @@ const Profile = () => {
                 name="mobile_number"
                 id="mobile_number"
                 value={values.mobile_number}
-                setValue={handleChange}
+                setValue={(e) => {
+                  if (/^\d*$/.test(e.target.value)) {
+                    handleChange(e);
+                  }
+                }}
+                length={11}
                 err={error && errors.mobile_number}
               />
             </div>
