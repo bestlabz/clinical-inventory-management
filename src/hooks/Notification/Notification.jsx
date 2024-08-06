@@ -64,6 +64,7 @@ const Notification = () => {
         setReFetch(false);
         toast.success(message);
         dispatch(setVisible());
+        dispatch(setNotification([]));
         return;
       }
     } catch (error) {
