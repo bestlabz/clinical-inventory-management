@@ -19,7 +19,8 @@ const SubscriptionPage = ({close = false}) => {
         );
 
         if (success) {
-          const datas = durations.map((items) => {
+          const filter = durations.filter((itm) => itm?.title?.title !== 'Free Trail')
+          const datas = filter.map((items) => {
             return {
               cardID: items?._id,
               title: items?.title?.title,
