@@ -151,7 +151,7 @@ const Signup = () => {
           if (data.success) {
             await ApiRequest.post(`/updateSubscription/${id}`, {
               subscription_id: import.meta.env.VITE_APP_API_FreeTrail,
-              transaction_id: "Free Trail",
+              transaction_id: "free_trail",
             });
 
             setLoader(false);
