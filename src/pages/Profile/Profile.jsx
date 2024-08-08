@@ -44,10 +44,34 @@ const Profile = () => {
 
   let date = null;
 
+  const TimeString = dateString?.subscription_enddate?.split(" ")[1];
+
   if (dateString) {
-    const [day, month, year] = dateString?.subscription_enddate?.split("-");
+    const DateString = dateString?.subscription_enddate?.split(" ")[0];
+
+    const [day, month, year] = DateString?.split("-");
     date = new Date(year, month - 1, day);
   }
+
+  const currentDateFormat = dayjs().format("YYYY-MM-DD");
+  const currentTime = dayjs().format("HH:mm:ss");
+
+  const DateString =
+    userDetails?.subscription_details[
+      userDetails?.subscription_details?.length - 1
+    ].subscription_enddate?.split(" ")?.[0];
+  const DateTime =
+    userDetails?.subscription_details[
+      userDetails?.subscription_details?.length - 1
+    ].subscription_enddate?.split(" ")?.[1];
+  const dueDate = dayjs(DateString).format("YYYY-MM-DD");
+  const planDate = `${dueDate}T${DateTime}`;
+  const currentDate = `${currentDateFormat}T${currentTime}`; // Example of another date
+  const planDateObj = dayjs(planDate);
+  const currentDateObj = dayjs(currentDate);
+
+  // Check if date is greater than otherDate
+  const isGreaterThan = currentDateObj.isAfter(planDateObj);
 
   return (
     <div className="container">
@@ -67,10 +91,18 @@ const Profile = () => {
             Profile
           </h1>
           <span className=" w-full text-end 2xl:text-[16px] xl:text-[16px] lg:text-[16px] md:text-[14px] sm:text-[14px] xs:text-[16px] mobile:text-[14px] xss:text-[12px] text-gray-400">
-            Next Bill date:{" "}
-            <strong className="text-black">
-              {dayjs(date).format("DD MMMM YYYY")}
-            </strong>
+            {isGreaterThan ? (
+              <>
+                Current Plan : <strong className="text-black">Expired</strong>
+              </>
+            ) : (
+              <>
+                Next Bill date:{" "}
+                <strong className="text-black">
+                  {dayjs(date).format("DD MMMM YYYY")} {TimeString}
+                </strong>
+              </>
+            )}
           </span>
         </div>
       </div>
@@ -207,7 +239,7 @@ const Profile = () => {
             ]}
             tableBody={subscriptionDetails}
             tableName="subscription"
-            date={date}
+            // date={date}
           />
         </div>
       )}

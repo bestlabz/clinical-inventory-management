@@ -30,14 +30,9 @@ const Table = ({
   const [popUpModel, setPopUpModel] = useState("");
 
 
-  // Given date
-  const targetDate = dayjs(date);
-
   // Current date
-  const currentDate = dayjs();
-
-  // Calculate the difference in days
-  const daysLeft = targetDate.diff(currentDate, "day");
+  const currentDateFormat = dayjs().format('YYYY-MM-DD')
+  const currentTime = dayjs().format('HH:mm:ss')
 
   return (
     <>
@@ -80,6 +75,16 @@ const Table = ({
           {!tableLoader &&
             tableBody?.length !== 0 &&
             tableBody?.map((item, i) => {
+              const DateString = item?.subscription_enddate?.split(" ")?.[0];
+            const DateTime = item?.subscription_enddate?.split(" ")?.[1];
+            const dueDate = dayjs(DateString).format('YYYY-MM-DD')
+            const planDate = `${dueDate}T${DateTime}`;
+            const currentDate  = `${currentDateFormat}T${currentTime}`; // Example of another date
+            const planDateObj = dayjs(planDate);
+            const currentDateObj = dayjs(currentDate);
+
+            // Check if date is greater than otherDate
+            const isGreaterThan = currentDateObj.isAfter(planDateObj);
               if (tableName === "Patients") {
                 return (
                   <tr className="border-b font-medium text-start" key={i}>
@@ -431,7 +436,12 @@ const Table = ({
                       {item?.subscription_id?.duration}
                     </td>
                     <td className={`py-2 px-10`}>
-                      {daysLeft < 0 ? "Plan Expired" : `${daysLeft} Day`}
+                    {dayjs(DateString).diff(currentDate, "day") < 0
+                      ? "Plan Expired"
+                      : dayjs(DateString).diff(currentDate, "day") === 0 &&
+                        isGreaterThan
+                      ? "Plan Expired"
+                      : `${dayjs(DateString).diff(currentDate, "day")} Day`}
                     </td>
                     <td className={`py-2 px-10`}>
                       ₹ {item?.subscription_id?.pricePerMonth}
