@@ -115,6 +115,14 @@ const DocumentPage = () => {
             { "Content-Type": "multipart/form-data" }
           );
           if (success) {
+
+            await ApiRequest.post(
+              `/updateSubscription/${userDetails?._id}`,
+              {
+                subscription_id: import.meta.env.VITE_APP_API_FreeTrail,
+                transaction_id: 'Free Trail',
+              }
+            );
             setLoader(false);
             toast.success(message);
             dispatch(clearUserDetails());

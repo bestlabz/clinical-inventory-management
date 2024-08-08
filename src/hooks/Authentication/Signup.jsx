@@ -34,6 +34,7 @@ const Signup = () => {
   const [id, setID] = useState(null);
   const { newuser } = useSelector((state) => state.Signup);
   const { otpValue } = useSelector((state) => state.otpValue);
+  const [token, setToken] = useState(null)
 
   useEffect(() => {
     if (step === 1) {
@@ -148,8 +149,14 @@ const Signup = () => {
             formData
           );
           if (data.success) {
+            await ApiRequest.post(`/updateSubscription/${id}`, {
+              subscription_id: import.meta.env.VITE_APP_API_FreeTrail,
+              transaction_id: "Free Trail",
+            });
+
             setLoader(false);
             dispatch(clearUserDetails());
+            localStorage.removeItem('token')
             return navigate("/login");
           }
         } catch (error) {
@@ -202,7 +209,6 @@ const Signup = () => {
     }
   }, [values.files, step]);
 
-  console.log("base64Image", base64Image);
 
   const handelClickOTP = async () => {
     if (!otpValue) {
@@ -219,13 +225,14 @@ const Signup = () => {
       };
       setLoader(true);
       try {
-        const { clinic, success } = await ApiRequest.post(
+        const { clinic, success, token } = await ApiRequest.post(
           "/verifyotp",
           bodyData
         );
         if (success) {
           setLoader(false);
           setID(clinic?._id);
+          localStorage.setItem("token", token)
           dispatch(clearOTP());
           return setStep((step) => step + 1);
         }
