@@ -157,8 +157,8 @@ const RightSide = ({
                   </div>
                 ) : (
                   <Input
-                    label={i?.name}
-                    placeholder={`Enter ${i?.name}`}
+                  label={i?.name === "GST No" ? "Reg No": i?.name}
+                    placeholder={`Enter ${i?.name === "GST No" ? "Reg No": i?.name}`}
                     color={i?.styles?.color}
                     size={i?.styles?.size}
                     font={i?.styles?.font}
@@ -367,14 +367,14 @@ const RightSide = ({
       <div className=" 2xl:block xl:block lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
         <ModelPopup height="80%" width="50%" showDrawer={openModel}>
           <div className="flex w-full h-full relative">
-            <IoClose
+            {/* <IoClose
               size={25}
               onClick={() => {
                 closePopup();
                 modelHandel();
               }}
               className="absolute z-40 top-1 right-3 cursor-pointer hover:text-red-500 transition-all duration-300"
-            />
+            /> */}
 
             <div className=" w-[60%] h-full overflow-auto border-r-[2px] border-gray-200 ">
               <p className="text-[24px] font-semibold p-4">
@@ -414,8 +414,8 @@ const RightSide = ({
                           </div>
                         ) : (
                           <Input
-                            label={i?.name}
-                            placeholder={`Enter ${i?.name}`}
+                            label={i?.name === "GST No" ? "Reg No": i?.name}
+                            placeholder={`Enter ${i?.name === "GST No" ? "Reg No": i?.name}`}
                             color={i?.styles?.color}
                             size={i?.styles?.size}
                             font={i?.styles?.font}
@@ -640,11 +640,11 @@ const RightSide = ({
       <div className=" 2xl:hidden xl:hidden lg:block md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
         <ModelPopup height="95%" width="70%" showDrawer={openModel}>
           <div className="flex w-full h-full relative">
-            <IoClose
+            {/* <IoClose
               size={25}
               onClick={modelHandel}
               className="absolute z-40 top-1 right-3 cursor-pointer hover:text-red-500 transition-all duration-300"
-            />
+            /> */}
 
             <div className=" w-[60%] h-full overflow-auto border-r-[2px] border-gray-200 ">
               <p className="text-[24px] font-semibold p-4">
@@ -683,8 +683,8 @@ const RightSide = ({
                           </div>
                         ) : (
                           <Input
-                            label={i?.name}
-                            placeholder={`Enter ${i?.name}`}
+                          label={i?.name === "GST No" ? "Reg No": i?.name}
+                          placeholder={`Enter ${i?.name === "GST No" ? "Reg No": i?.name}`}
                             color={i?.styles?.color}
                             size={i?.styles?.size}
                             font={i?.styles?.font}
@@ -897,11 +897,11 @@ const RightSide = ({
       <div className=" 2xl:hidden xl:hidden lg:hidden md:block sm:block xs:hidden mobile:hidden xss:hidden">
         <ModelPopup height="95%" width="95%" showDrawer={openModel}>
           <div className="flex w-full h-full relative">
-            <IoClose
+            {/* <IoClose
               size={25}
               onClick={modelHandel}
               className="absolute z-40 top-1 right-3 cursor-pointer hover:text-red-500 transition-all duration-300"
-            />
+            /> */}
 
             <div className=" w-[60%] h-full overflow-auto border-r-[2px] border-gray-200 ">
               <p className="text-[24px] font-semibold p-4">
@@ -940,8 +940,8 @@ const RightSide = ({
                           </div>
                         ) : (
                           <Input
-                            label={i?.name}
-                            placeholder={`Enter ${i?.name}`}
+                          label={i?.name === "GST No" ? "Reg No": i?.name}
+                          placeholder={`Enter ${i?.name === "GST No" ? "Reg No": i?.name}`}
                             color={i?.styles?.color}
                             size={i?.styles?.size}
                             font={i?.styles?.font}
@@ -1154,11 +1154,11 @@ const RightSide = ({
       <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:block mobile:block xss:hidden">
         <ModelPopup height="95%" width="90%" showDrawer={openModel}>
           <div className="flex flex-col w-full h-full relative">
-            <IoClose
+            {/* <IoClose
               size={25}
               onClick={modelHandel}
               className="absolute z-40 top-1 right-3 cursor-pointer hover:text-red-500 transition-all duration-300"
-            />
+            /> */}
 
             <div className=" w-full h-full overflow-auto border-r-[2px] border-gray-200 ">
               <p className="text-[24px] font-semibold p-4">
@@ -1197,8 +1197,8 @@ const RightSide = ({
                           </div>
                         ) : (
                           <Input
-                            label={i?.name}
-                            placeholder={`Enter ${i?.name}`}
+                          label={i?.name === "GST No" ? "Reg No": i?.name}
+                          placeholder={`Enter ${i?.name === "GST No" ? "Reg No": i?.name}`}
                             color={i?.styles?.color}
                             size={i?.styles?.size}
                             font={i?.styles?.font}
@@ -1411,11 +1411,11 @@ const RightSide = ({
       <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:block">
         <ModelPopup height="95%" width="95%" showDrawer={openModel}>
           <div className="flex flex-col w-full h-full relative">
-            <IoClose
+            {/* <IoClose
               size={25}
               onClick={modelHandel}
               className="absolute z-40 top-1 right-3 cursor-pointer hover:text-red-500 transition-all duration-300"
-            />
+            /> */}
 
             <div className=" w-full h-full overflow-auto border-r-[2px] border-gray-200 ">
               <p className="text-[24px] font-semibold p-4">
@@ -1454,8 +1454,8 @@ const RightSide = ({
                           </div>
                         ) : (
                           <Input
-                            label={i?.name}
-                            placeholder={`Enter ${i?.name}`}
+                          label={i?.name === "GST No" ? "Reg No": i?.name}
+                          placeholder={`Enter ${i?.name === "GST No" ? "Reg No": i?.name}`}
                             color={i?.styles?.color}
                             size={i?.styles?.size}
                             font={i?.styles?.font}
