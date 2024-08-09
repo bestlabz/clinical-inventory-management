@@ -174,7 +174,7 @@ const ViewPage = ({
                   DOB<span>:</span>
                 </span>
                 <span className="view-page-personal-details-container-body-details-value">
-                  {details?.dob ? dayjs(details?.dob).format("DD-MM-YYYY") : ""}
+                  {details?.dob ? details?.dob : ""}
                 </span>
               </div>
             </div>
