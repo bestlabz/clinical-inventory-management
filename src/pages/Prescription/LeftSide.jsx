@@ -21,7 +21,7 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
   const orderedDetails = [
     clinicDetails.find((detail) => detail?.name === "Clinic Name"),
     clinicDetails.find((detail) => detail?.name === "Address"),
-    clinicDetails.find((detail) => detail?.name === "Contact Number"),
+    clinicDetails.find((detail) => detail?.name === "Contact number"),
     clinicDetails.find((detail) => detail?.name === "GST No"),
   ];
 
@@ -99,7 +99,7 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
                       </p>
                     )}
 
-                    {i?.name === "Contact Number" && (
+                    {i?.name === "Contact number" && (
                       <p
                         style={{
                           color: i?.styles?.color,
