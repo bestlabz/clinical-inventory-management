@@ -1,8 +1,8 @@
 {
  "Login": {
   "title": "Log in to your account",
-  "label": "Mobile Number",
-  "placeholder": "Enter your phone number",
+  "label": "Email",
+  "placeholder": "Enter your email address",
   "button": "Log in",
   "bottom_text": {
     "text1": "Don't have an account?",
@@ -28,7 +28,11 @@
    "title": "Create a new account",
   "step1": {
     "label": "Mobile Number",
+    "label1": "Email",
+
     "placeholder": "Enter your phone number",
+    "placeholder1": "Enter your email address",
+
     "button": "Next",
     "error": {
       "phone_number_required": "Phone number is required"

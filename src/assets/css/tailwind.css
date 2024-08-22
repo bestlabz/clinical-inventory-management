@@ -47,11 +47,11 @@
 }
 
 .input {
-  @apply w-full h-full py-4 rounded-xl border-[1px]  p-2  outline-none;
+  @apply w-full h-full py-4  border-[1px]  p-2  outline-none;
 }
 
 .login-form {
-  @apply w-[90%] flex flex-col 2xl:items-start xl:items-start lg:items-start md:items-center xs:items-center xss:items-center mobile:items-center gap-4;
+  @apply w-[90%] flex flex-col 2xl:items-start xl:items-start lg:items-start md:items-center xs:items-center xss:items-center mobile:items-center
 }
 
 .login-button {

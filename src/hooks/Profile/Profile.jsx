@@ -21,6 +21,8 @@ const Profile = () => {
   const [error, setError] = useState(false);
   const [step, setStep] = useState(1);
   const [payModel, setPayModel] = useState(false);
+  const [balanceDue, setBalanceDue] = useState(false);
+  const [model, setModel] = useState(false)
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
@@ -123,10 +125,9 @@ const Profile = () => {
   };
 
   const validationCheck = () => {
-  if(errors.profile){
-    toast.error(errors.profile);
-    
-  }
+    if (errors.profile) {
+      toast.error(errors.profile);
+    }
     setError(true);
     setTimeout(() => {
       setError(false);
@@ -135,6 +136,10 @@ const Profile = () => {
 
   const closePayModel = () => {
     setPayModel(!payModel);
+  };
+
+  const balanceModel = () => {
+    setBalanceDue(!balanceDue);
   };
 
   return {
@@ -154,6 +159,9 @@ const Profile = () => {
     setStep,
     closePayModel,
     payModel,
+    balanceDue,
+    balanceModel,
+    model, setModel
   };
 };
 

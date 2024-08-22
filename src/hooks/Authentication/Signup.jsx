@@ -20,6 +20,7 @@ import { clearOTP, setOTP } from "../../Redux/Slice/Otp";
 import ApiRequest from "../../services/httpService";
 import toast from "react-hot-toast";
 import axios from "axios";
+import dayjs from "dayjs";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -30,11 +31,11 @@ const Signup = () => {
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState(false);
   const [validationError, setValidationError] = useState(false);
-  const [phone_number, setPhone_number] = useState("");
+  const [validation, setValidation] = useState("");
   const [id, setID] = useState(null);
   const { newuser } = useSelector((state) => state.Signup);
   const { otpValue } = useSelector((state) => state.otpValue);
-  const [token, setToken] = useState(null)
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     if (step === 1) {
@@ -83,14 +84,23 @@ const Signup = () => {
   const onSubmit = async (values, actions) => {
     if (step === 1) {
       setLoader(true);
-      dispatch(setUserDetails({ phone_number: values.phone_number }));
+      dispatch(
+        setUserDetails({
+          phone_number: values.phone_number,
+          email: values.email,
+        })
+      );
       try {
         const { success } = await ApiRequest.post("/sendotp", {
           mobile_number: values.phone_number,
+          email: values.email,
         });
         if (success) {
           setLoader(false);
-          setPhone_number(values.phone_number);
+          setValidation({
+            mobile_number: values.phone_number,
+            email: values.email,
+          });
           return setStep((step) => step + 1);
         }
       } catch (error) {
@@ -102,7 +112,6 @@ const Signup = () => {
       const storeDetails = {
         name: values.name,
         clinic_name: values.clinic_name,
-        email: values.email,
         agree: true,
       };
       dispatch(setUserDetails(storeDetails));
@@ -149,14 +158,23 @@ const Signup = () => {
             formData
           );
           if (data.success) {
-            await ApiRequest.post(`/updateSubscription/${id}`, {
-              subscription_id: import.meta.env.VITE_APP_API_FreeTrail,
-              transaction_id: "free_trail",
-            });
+            const { success, freetrails } = await ApiRequest.get("/freetrail");
+
+            if (success) {
+              const count = freetrails[0].days;
+              await ApiRequest.post(`/updateSubscription/${id}`, {
+                subscription_id: import.meta.env.VITE_APP_API_FreeTrail,
+                transaction_id: "free_trail",
+                subscription_startdate: dayjs().format("DD-MM-YYYY HH:MM:ss"),
+                subscription_enddate: dayjs()
+                  .add(count, "day")
+                  .format("DD-MM-YYYY HH:MM:ss"),
+              });
+            }
 
             setLoader(false);
             dispatch(clearUserDetails());
-            localStorage.removeItem('token')
+            localStorage.removeItem("token");
             return navigate("/login");
           }
         } catch (error) {
@@ -209,7 +227,6 @@ const Signup = () => {
     }
   }, [values.files, step]);
 
-
   const handelClickOTP = async () => {
     if (!otpValue) {
       return setError(true);
@@ -220,7 +237,7 @@ const Signup = () => {
       setError(false);
 
       const bodyData = {
-        mobile_number: phone_number,
+        email: validation.email,
         otp: otpValue,
       };
       setLoader(true);
@@ -232,7 +249,7 @@ const Signup = () => {
         if (success) {
           setLoader(false);
           setID(clinic?._id);
-          localStorage.setItem("token", token)
+          localStorage.setItem("token", token);
           dispatch(clearOTP());
           return setStep((step) => step + 1);
         }

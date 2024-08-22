@@ -5,6 +5,10 @@ export const SignupPhoneNumber = yup.object().shape({
     .string("Please enter your phone number")
     .matches(/^[0-9]{10}$/, "Enter a valid phone number")
     .required("Phone number is required"),
+    email: yup
+    .string("Please enter your email address")
+    .email("Enter valid email address")
+    .required("Email address is required"),
 });
 
 
@@ -15,10 +19,7 @@ export const SignupDetails = yup.object().shape({
       clinic_name: yup
       .string("Please enter your clinic name")
       .required("Clinic name is required"),
-      email: yup
-      .string("Please enter your email address")
-      .email("Enter valid email address")
-      .required("Email address is required"),
+     
   });
   
 

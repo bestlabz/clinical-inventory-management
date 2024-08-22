@@ -19,6 +19,7 @@ import Select from "../../Components/Properites/Select/Select";
 import Table from "../../Components/Properites/Table/Table";
 import ThemeSuspense from "../../Components/theme/ThemeSuspense";
 import ViewPage from "../../Components/Properites/ViewPage/PatientsView";
+import dayjs from "dayjs";
 
 const Dashboard = () => {
   const {
@@ -45,6 +46,9 @@ const Dashboard = () => {
   const { patientsTable } = useSelector((state) => state.TableDatas);
   const { sidebarStatus } = useSelector((state) => state.sidebarInfo);
   const { limitCount } = useSelector((state) => state.Pagination);
+
+  console.log(dayjs().add(10, 'day').format('DD-MM-YYYY HH:MM:ss'));
+  
 
   return (
     <div className="w-full 2xl:h-[90%] xl:h-[90%] lg:h-[90%] md:h-[90%] sm:h-[90%] xs:h-[96%] mobile:h-[96%] xss:h-[96%] pb-3 overflow-auto">

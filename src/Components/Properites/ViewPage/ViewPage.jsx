@@ -8,10 +8,7 @@ import ViewPageFunction from "../../../hooks/ViewDetails/ViewPage";
 import { useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
 import { FaFileImage } from "react-icons/fa";
-
 import ModelResponsive from "./ModelResponsive";
-import Select from "../Select/Select";
-import dayjs from "dayjs";
 
 const ViewPage = ({
   timeSlot = true,

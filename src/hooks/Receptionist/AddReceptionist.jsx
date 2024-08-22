@@ -17,6 +17,7 @@ const AddDoctor = () => {
   const [value, setValue] = useState("");
   const [errorValidate, setErrorValidate] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [email, setEmail] = useState("")
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
@@ -34,6 +35,7 @@ const AddDoctor = () => {
 
       setTimeout(() => {
         setModalPopup(false);
+        setEmail("")
         setValue("");
         setOTP("");
         setStep(1);
@@ -52,12 +54,13 @@ const AddDoctor = () => {
   };
   const next = async () => {
     if (step === 1) {
-      if (value.trim() !== "" && value.length >= 12) {
+      if (email.trim() !== "" && value.trim() !== "" && value.length <= 12) {
         try {
           setLoader(true);
           const { success } = await ApiRequest.post("/sendotp/receptionist", {
             mobile_number: value,
             clinicId: userDetails._id,
+            email
           });
 
           if (success) {
@@ -74,14 +77,14 @@ const AddDoctor = () => {
     }
 
     if (step === 2) {
-      if (value !== "" && otp.length !== 4) {
+      if (email !== "" && otp.length !== 4) {
         setErrorValidate(true);
         return;
       } else {
         try {
           setLoader(true);
           const { success } = await ApiRequest.post("/verifyotp/receptionist", {
-            mobile_number: value,
+            email,
             otp,
           });
 
@@ -109,6 +112,7 @@ const AddDoctor = () => {
     setErrorValidate,
     errorValidate,
     loader,
+    email, setEmail
   };
 };
 

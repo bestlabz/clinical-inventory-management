@@ -17,6 +17,7 @@ const AddDoctor = () => {
   const [value, setValue] = useState("");
   const [errorValidate, setErrorValidate] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [email, setEmail] = useState("");
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
@@ -34,6 +35,7 @@ const AddDoctor = () => {
 
       setTimeout(() => {
         setModalPopup(false);
+        setEmail("");
         setValue("");
         setOTP("");
         setStep(1);
@@ -52,17 +54,18 @@ const AddDoctor = () => {
   };
   const next = async () => {
     if (step === 1) {
-      if (value.trim() !== "" && value.length >= 12) {
+      if (email.trim() !== "" && value.trim() !== "" && value.length <= 12) {
         setLoader(true);
         try {
           const { success } = await ApiRequest.post("/sendotp/doctor", {
             mobile_number: value,
             clinicId: userDetails._id,
+            email,
           });
-  
+
           if (success) {
             setLoader(false);
-  
+
             return setStep((step) => step + 1);
           }
         } catch (error) {
@@ -71,9 +74,9 @@ const AddDoctor = () => {
             `${error.response?.data?.message || error.response.data.error}`
           );
         }
-      
       } else {
         setErrorValidate(true);
+        return;
       }
     }
 
@@ -85,13 +88,12 @@ const AddDoctor = () => {
         try {
           setLoader(true);
           const { success } = await ApiRequest.post("/verifyotp/doctor", {
-            mobile_number: value,
+            email,
             otp,
           });
 
           if (success) {
             setLoader(false);
-
             return setStep((step) => step + 1);
           }
         } catch (error) {
@@ -116,6 +118,8 @@ const AddDoctor = () => {
     setErrorValidate,
     errorValidate,
     loader,
+    email,
+    setEmail,
   };
 };
 

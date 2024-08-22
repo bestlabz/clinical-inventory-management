@@ -26,17 +26,16 @@ const Login = () => {
   const [otp, setOtp] = useState(new Array(otpCount).fill(""));
   const [error, setError] = useState(false);
   const [number, setNumber] = useState(null);
-  const [phone_number, setPhone_number] = useState("");
+  const [email, setEmail] = useState("");
   const [loader, setLoader] = useState(false);
 
   const { otpValue } = useSelector((state) => state.otpValue);
 
   useEffect(() => {
-    if(step === 1) {
-      localStorage.removeItem('token')
-
+    if (step === 1) {
+      localStorage.removeItem("token");
     }
-  }, [step])
+  }, [step]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -46,9 +45,9 @@ const Login = () => {
 
   const onSubmit = async (values, actions) => {
     const bodyData = {
-      mobile_number: values.phone_number,
+      email: values.email,
     };
-    setPhone_number(values.phone_number);
+    setEmail(values.email);
     try {
       setLoader(true);
       const { success, message } = await ApiRequest.put("/login", bodyData);
@@ -68,7 +67,7 @@ const Login = () => {
   };
 
   const { errors, handleChange, handleSubmit, values } = FormHandel({
-    initialValue: { phone_number: "" },
+    initialValue: { email: "" },
     schema: LoginSchema,
     submitFunction: onSubmit,
   });
@@ -83,7 +82,7 @@ const Login = () => {
       setError(false);
 
       const bodyData = {
-        mobile_number: phone_number,
+        email: email,
         otp: otpValue,
       };
       try {

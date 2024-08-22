@@ -45,23 +45,22 @@ const Login = () => {
               autoComplete="off"
               className="login-form"
             >
-              <Input
-                id="phone_number"
-                name="phone_number"
-                label={TranslateJson.Login.label}
-                placeholder={TranslateJson.Login.placeholder}
-                value={values.phone_number}
-                setValue={(e) => {
-                  if (!/^\d*$/.test(e.target.value)) {
-                    return; // If not a digit, return without updating the state
-                  }else {
-                    handleChange(e);
-
-                  }
-                }}
-                err={errors.phone_number}
-                length={10}
-              />
+              <div className=" flex flex-col items-center 2xl:w-full xl:w-full lg:w-full md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%]">
+                {/* // if (!/^\d*$/.test(e.target.value)) {
+                  //   return; // If not a digit, return without updating the state
+                  // } else {
+                  //   handleChange(e);
+                  // } */}
+                <Input
+                  id="email"
+                  name="email"
+                  label={TranslateJson.Login.label}
+                  placeholder={TranslateJson.Login.placeholder}
+                  value={values.email}
+                  setValue={handleChange}
+                  err={errors.email}
+                />
+              </div>
               {loader ? (
                 <button type="button" className="login-button">
                   <ClipLoader color="#fff" size={20} />

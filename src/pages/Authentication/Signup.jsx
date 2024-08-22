@@ -51,6 +51,8 @@ const Signup = () => {
               className="login-form"
               onSubmit={handleSubmit}
             >
+              <div className=" flex flex-col items-center 2xl:w-full xl:w-full lg:w-full md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%]">
+
               <Input
                 id="phone_number"
                 name="phone_number"
@@ -67,6 +69,17 @@ const Signup = () => {
                 placeholder={TranslateJson.signup.step1.placeholder}
                 err={validationError && errors.phone_number}
               />
+
+              <Input
+                id="email"
+                name="email"
+                value={values.email}
+                setValue={handleChange}
+                label={TranslateJson.signup.step1.label1}
+                placeholder={TranslateJson.signup.step1.placeholder1}
+                err={validationError && errors.email}
+              />
+              </div>
               {loader ? (
                 <button type="button" className="login-button">
                   <ClipLoader color="#fff" size={20} />
@@ -140,6 +153,7 @@ const Signup = () => {
               <h1 className="sub-text">
                 {TranslateJson.signup.step3.subtitle}
               </h1>
+              <div className=" flex flex-col items-center 2xl:w-full xl:w-full lg:w-full md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%]">
               <Input
                 id="name"
                 name="name"
@@ -174,7 +188,11 @@ const Signup = () => {
                 err={validationError && errors.email}
                 label={TranslateJson.signup.step3.label.email}
                 placeholder={TranslateJson.signup.step3.placeholder.email}
+                disabled={true}
+
               />
+
+              </div>
               <div className=" 2xl:w-full xl:w-full lg:w-full md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] flex items-center gap-3 mt-2">
                 <input
                   required={true}

@@ -4,16 +4,16 @@ import React from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-const PhoneNumber = ({ country = "in", value, setValue, err }) => {
+const PhoneNumber = ({ country = "in", value, setValue, err, label }) => {
   return (
     <div className=" 2xl:w-[40%] xl:w-[40%] lg:w-[60%] md:w-[80%] sm:w-[80%] xs:w-[100%] xss:w-[100%] mobile:w-[100%] flex items-center justify-center flex-col relative">
+      {label && <label className=" text-start w-full">{label}</label>}
       <PhoneInput
         inputStyle={{
           height: "50px",
           paddingLeft: "70px",
           width: "100%",
         }}
-        
         containerStyle={{
           display: "block",
           flexDirection: "column",
@@ -26,8 +26,11 @@ const PhoneNumber = ({ country = "in", value, setValue, err }) => {
         enableSearch={true}
       />
 
-
-      {err && <p className=" w-full items-start pt-3 text-red-500 absolute  top-[90%]">Required</p>}
+      {err && (
+        <span style={{ top: "top-[90%]" }} className="err-txt">
+          Required
+        </span>
+      )}
     </div>
   );
 };
