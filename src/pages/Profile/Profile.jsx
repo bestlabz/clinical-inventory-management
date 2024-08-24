@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { MdOutlineModeEdit } from "react-icons/md";
 
@@ -46,7 +46,7 @@ const Profile = () => {
   const [err, setErr] = useState(false);
   const [paymentLoader, setPaymentLoader] = useState(false);
 
-  const { userDetails } = useSelector((state) => state.userinfo);
+  const { userDetails, balance_due } = useSelector((state) => state.userinfo);
 
   const subscriptionDetails = userDetails?.subscription_details || [];
 
@@ -85,29 +85,6 @@ const Profile = () => {
 
   // Check if date is greater than otherDate
   const isGreaterThan = currentDateObj.isAfter(planDateObj);
-
-  const handlePay = async (id, value, reason) => {
-    try {
-      setLoader(true);
-      const { success, message } = await ApiRequest.post(
-        `/updateSubscription/${userDetails?._id}`,
-        {
-          subscription_id: id,
-          transaction_id: reason,
-        }
-      );
-
-      if (success) {
-        setClear(true);
-        setLoader(false);
-        toast.success(message);
-        window.location.reload();
-        return;
-      }
-    } catch (error) {
-      console.log("ee", error);
-    }
-  };
 
   return (
     <div className="container">
@@ -192,13 +169,15 @@ const Profile = () => {
               >
                 Pay Now
               </button>
-              <button
-                type="button"
-                onClick={balanceModel}
-                className=" view-page-button !text-red !border-red absolute right-2 top-[86%] 2xl:block xl:block lg:block md:block sm:hidden xs:hidden mobile:hidden xss:hidden"
-              >
-                Balance Due
-              </button>
+              {userDetails?.balancedue && (
+                <button
+                  type="button"
+                  onClick={balanceModel}
+                  className=" view-page-button !text-red !border-red absolute right-2 top-[86%] 2xl:block xl:block lg:block md:block sm:hidden xs:hidden mobile:hidden xss:hidden"
+                >
+                  Balance Due
+                </button>
+              )}
             </div>
 
             <div className="w-[90%] grid  gap-6 mt-6 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 xs:grid-cols-1 mobile:grid-cols-1 xss:grid-cols-1">
@@ -282,7 +261,6 @@ const Profile = () => {
               { title: "Remaining days" },
               { title: "Amount" },
               { title: "View" },
-
             ]}
             tableBody={subscriptionDetails}
             tableName="subscription"
@@ -329,12 +307,15 @@ const Profile = () => {
               </h1>
             </div>
             <div className="grid grid-cols-4 mt-3">
-              <h1 className=" col-span-2 text-[16px] font-normal">Standard</h1>
+              <h1 className=" col-span-2 text-[16px] font-normal">
+                {balance_due?.subscriptionDurations?.title?.title}
+              </h1>
               <h1 className=" col-span-1 text-[16px] font-normal text-end">
-                3 Month
+                {balance_due?.subscriptionDurations?.durationInNo}{" "}
+                {balance_due?.subscriptionDurations?.duration}
               </h1>
               <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                ₹599
+                ₹{balance_due?.subscriptionDurations?.pricePerMonth}
               </h1>
             </div>
 
@@ -357,15 +338,18 @@ const Profile = () => {
 
             <div className="grid grid-cols-5 mt-3">
               <h1 className=" col-span-2 text-[16px] font-normal">
-                Doctors x 4
+                Doctors x{" "}
+                {Number(balance_due?.doctors?.subscribed) +
+                  Number(balance_due?.doctors?.unsubscribed)}
               </h1>
               <h1 className=" col-span-1 text-[16px] font-normal text-end">
-                {" "}
-                3
+                {balance_due?.doctors.subscribed}
               </h1>
-              <h1 className=" col-span-1 text-[16px]  text-end">1</h1>
+              <h1 className=" col-span-1 text-[16px]  text-end">
+                {balance_due?.doctors?.unsubscribed}
+              </h1>
               <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
-                ₹599
+                ₹{balance_due?.doctors?.unsubscriptionAmount}
               </h1>
             </div>
             <div className="w-full h-[2px] bg-light_gray my-3"></div>
@@ -387,27 +371,30 @@ const Profile = () => {
 
             <div className="grid grid-cols-5 mt-3">
               <h1 className=" col-span-2 text-[16px] font-normal">
-                Receptionist x 3
+                Receptionist x{" "}
+                {Number(balance_due?.receptionists?.subscribed) +
+                  Number(balance_due?.receptionists?.unsubscribed)}
               </h1>
               <h1 className=" col-span-1 text-[16px] font-normal text-end">
-                {" "}
-                1
+                {balance_due?.receptionists.subscribed}
               </h1>
-              <h1 className=" col-span-1 text-[16px]  text-end">2</h1>
+              <h1 className=" col-span-1 text-[16px]  text-end">
+                {balance_due?.receptionists?.unsubscribed}
+              </h1>
               <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
-                ₹1198
+                ₹ {balance_due?.receptionists.unsubscriptionAmount}
               </h1>
             </div>
             <div className="w-full h-[2px] bg-light_gray my-3"></div>
 
-            <div className="grid grid-cols-5 mt-6 overflow-auto">
+            <div className="grid grid-cols-5 mt-6">
               <h1 className=" col-span-2 text-[16px] font-bold"></h1>
               <h1 className=" col-span-1 text-[16px] font-bold text-end"></h1>
               <h1 className=" col-span-1 text-[16px] font-bold text-end">
                 Balance Due{" "}
               </h1>
               <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
-                ₹1797
+                ₹{balance_due?.totalUnsubscriptionAmount}
               </h1>
             </div>
 
@@ -418,11 +405,9 @@ const Profile = () => {
                 Total Amount
               </h1>
               <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                ₹1797
+                ₹{balance_due?.totalUnsubscriptionAmount}
               </h1>
             </div>
-
-            <div className="w-full h-[2px] bg-light_gray my-3"></div>
           </div>
 
           <div className=" w-full flex items-center justify-end px-3">

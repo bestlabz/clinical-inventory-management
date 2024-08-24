@@ -10,7 +10,7 @@ import { ProfileDetails } from "../../utils/Validation/Profile";
 import ApiRequest from "../../services/httpService";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import { setUser } from "../../Redux/Slice/User";
+import { addBalanceDue, setUser } from "../../Redux/Slice/User";
 
 const Profile = () => {
   const profileRef = useRef();
@@ -23,15 +23,33 @@ const Profile = () => {
   const [payModel, setPayModel] = useState(false);
   const [balanceDue, setBalanceDue] = useState(false);
   const [model, setModel] = useState(false)
+  const [subscriptionID, setsubscriptionID] = useState(null)
 
   const { userDetails } = useSelector((state) => state.userinfo);
+
+  
+  
+  useEffect(() => {
+    const subscriptionid =
+    userDetails?.subscription_details[
+      userDetails?.subscription_details?.length - 1
+    ];
+    setsubscriptionID(subscriptionid?.subscription_id?._id)
+
+  }, [userDetails])
+  
 
   useEffect(() => {
     const Api = async () => {
       if (!loader) {
-        const { success, clinic } = await ApiRequest.get("/clinic");
+        const { success, clinic, balancedue } = await ApiRequest.get("/clinic");
         if (success) {
-          dispatch(setUser(clinic));
+          const data = {
+            ...clinic,
+            balancedue,
+          };
+    
+          dispatch(setUser(data));
           setFieldValue("name", clinic?.name);
           setFieldValue("clinic_name", clinic?.clinic_name);
           setFieldValue("email", clinic?.email);
@@ -42,6 +60,43 @@ const Profile = () => {
     };
     Api();
   }, [loader]);
+
+
+  useEffect(() => {
+    const API = async () => {
+      if (balanceDue && userDetails) {
+        if (subscriptionID) {
+          try {
+            const {
+              success,
+              doctors,
+              receptionists,
+              totalUnsubscriptionAmount,
+              subscriptionDurations,
+            } = await ApiRequest.post(`/balancedue/${userDetails?._id}/${subscriptionID}`);
+
+            if (success) {
+              const data = {
+                doctors,
+                receptionists,
+                totalUnsubscriptionAmount,
+                subscriptionDurations,
+              };
+
+              dispatch(addBalanceDue(data));
+              return;
+            }
+          } catch (error) {
+            toast.error(error.response.data.error);
+          }
+        } else {
+          toast.error("No balance due popup or subscription ID");
+        }
+      }
+    };
+
+    API();
+  }, [balanceDue]);
 
   const initialvalue = () => {
     return {

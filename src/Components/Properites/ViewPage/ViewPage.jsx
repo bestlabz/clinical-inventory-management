@@ -415,7 +415,7 @@ const ViewPage = ({
             </div>
           )}
 
-          {category === "doctor" && (
+          {/* {category === "doctor" && (
             <>
               <h1 className="text-[24px] font-bold ">Schedule</h1>
               <div className="view-page-time-slot-container">
@@ -426,7 +426,7 @@ const ViewPage = ({
                 ))}
               </div>
             </>
-          )}
+          )} */}
 
           {category === "doctor" && (
             <div className="flex items-center justify-center mt-16">

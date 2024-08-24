@@ -11,18 +11,26 @@ import { setNotification } from "../../Redux/Slice/Notification";
 
 const PrivateRoute = ({ children, ...rest }) => {
   const dispatch = useDispatch();
-  const navigate= useNavigate()
+  const navigate = useNavigate();
   const { userDetails } = useSelector((state) => state.userinfo);
   const [loading, setLoading] = useState(true);
 
   const fetchClinicData = useCallback(async () => {
     try {
-      const { success, clinic } = await ApiRequest.get("/clinic");
+      const { success, clinic, balancedue } = await ApiRequest.get("/clinic");
+
+      const data = {
+        ...clinic,
+        balancedue,
+      };
+
+      
+
       if (success) {
-        dispatch(setUser(clinic));
+        dispatch(setUser(data));
       }
     } catch (error) {
-      localStorage.removeItem('token')
+      localStorage.removeItem("token");
       console.error("Error fetching clinic data:", error.response.data);
     } finally {
       setLoading(false);
@@ -33,13 +41,14 @@ const PrivateRoute = ({ children, ...rest }) => {
     fetchClinicData();
   }, [fetchClinicData]);
 
+  console.log('data', userDetails);
+
 
   useEffect(() => {
     const API = async () => {
       if (userDetails) {
-
-        if(!userDetails.details) {
-         return  navigate('/document')
+        if (!userDetails.details) {
+          return navigate("/document");
         }
 
         try {
@@ -53,7 +62,7 @@ const PrivateRoute = ({ children, ...rest }) => {
 
           return;
         } catch (error) {
-          console.log('ee', error)
+          console.log("ee", error);
           // return toast.error(error.response.data.error);
         }
       }
