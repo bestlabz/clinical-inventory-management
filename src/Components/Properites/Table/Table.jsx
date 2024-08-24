@@ -5,6 +5,10 @@ import ModelResponsive from "./ModelResponsive";
 import { FaTrashAlt } from "react-icons/fa";
 import dayjs from "dayjs";
 import { ClimbingBoxLoader, ClipLoader } from "react-spinners";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import ModelPopup from "../ModelPopup/ModelPopup";
+import { IoClose } from "react-icons/io5";
+dayjs.extend(customParseFormat);
 
 const Table = ({
   headers,
@@ -29,10 +33,15 @@ const Table = ({
   });
   const [popUpModel, setPopUpModel] = useState("");
 
+  const [balanceDuePopup, setBalanceDuePopup] = useState(false);
 
   // Current date
-  const currentDateFormat = dayjs().format('YYYY-MM-DD')
-  const currentTime = dayjs().format('HH:mm:ss')
+  const currentDateFormat = dayjs().format("YYYY-MM-DD");
+  const currentTime = dayjs().format("HH:mm:ss");
+
+  const handleBalanceModel = () => {
+    setBalanceDuePopup(!balanceDuePopup);
+  };
 
   return (
     <>
@@ -76,15 +85,17 @@ const Table = ({
             tableBody?.length !== 0 &&
             tableBody?.map((item, i) => {
               const DateString = item?.subscription_enddate?.split(" ")?.[0];
-            const DateTime = item?.subscription_enddate?.split(" ")?.[1];
-            const dueDate = dayjs(DateString).format('YYYY-MM-DD')
-            const planDate = `${dueDate}T${DateTime}`;
-            const currentDate  = `${currentDateFormat}T${currentTime}`; // Example of another date
-            const planDateObj = dayjs(planDate);
-            const currentDateObj = dayjs(currentDate);
+              const DateTime = item?.subscription_enddate?.split(" ")?.[1];
+              const dueDate = dayjs(DateString, "DD-MM-YYYY").format(
+                "YYYY-MM-DD"
+              );
+              const planDate = `${dueDate}T${DateTime}`;
+              const currentDate = `${currentDateFormat}T${currentTime}`; // Example of another date
+              const planDateObj = dayjs(planDate);
+              const currentDateObj = dayjs(currentDate);
 
-            // Check if date is greater than otherDate
-            const isGreaterThan = currentDateObj.isAfter(planDateObj);
+              // Check if date is greater than otherDate
+              const isGreaterThan = currentDateObj.isAfter(planDateObj);
               if (tableName === "Patients") {
                 return (
                   <tr className="border-b font-medium text-start" key={i}>
@@ -436,15 +447,24 @@ const Table = ({
                       {item?.subscription_id?.duration}
                     </td>
                     <td className={`py-2 px-10`}>
-                    {dayjs(DateString).diff(currentDate, "day") < 0
-                      ? "Plan Expired"
-                      : dayjs(DateString).diff(currentDate, "day") === 0 &&
-                        isGreaterThan
-                      ? "Plan Expired"
-                      : `${dayjs(DateString).diff(currentDate, "day")} Day`}
+                      {dayjs(dueDate).diff(currentDate, "day") < 0
+                        ? "Plan Expired"
+                        : dayjs(dueDate).diff(currentDate, "day") === 0 &&
+                          isGreaterThan
+                        ? "Plan Expired"
+                        : `${dayjs(dueDate).diff(currentDate, "day")} Day`}
                     </td>
                     <td className={`py-2 px-10`}>
                       ₹ {item?.subscription_id?.pricePerMonth}
+                    </td>
+                    <td className={`py-2 px-10`}>
+                      <div className="flex items-center justify-start gap-6">
+                        <TbEye
+                          onClick={handleBalanceModel}
+                          size={30}
+                          className="text-gray-300 hover:text-blue-400 cursor-pointer"
+                        />
+                      </div>
                     </td>
                   </tr>
                 );
@@ -463,6 +483,127 @@ const Table = ({
         setClear={setClear}
         loader={loader}
       />
+
+      <ModelPopup showDrawer={balanceDuePopup} height="90%" width="90%">
+        <div className=" w-full h-full overflow-hidden ">
+          <div className="relative">
+            <button
+              onClick={handleBalanceModel}
+              className=" absolute right-3 hover:text-red-500 transition-all duration-300"
+            >
+              <IoClose size={20} />
+            </button>
+          </div>
+
+          <div className=" w-[95%] h-[90%] mx-auto overflow-auto mt-6">
+            <h1 className=" text-[22px] font-semibold">Balance Due </h1>
+            <div className="grid grid-cols-4 mt-3 overflow-auto">
+              <h1 className=" col-span-2 text-[16px] font-bold">
+                Subscription Name
+              </h1>
+              <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                Duration
+              </h1>
+              <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                Price
+              </h1>
+            </div>
+            <div className="grid grid-cols-4 mt-3">
+              <h1 className=" col-span-2 text-[16px] font-normal">Standard</h1>
+              <h1 className=" col-span-1 text-[16px] font-normal text-end">
+                3 Month
+              </h1>
+              <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                ₹599
+              </h1>
+            </div>
+
+            <div className="w-full h-[2px] bg-light_gray my-3"></div>
+
+            <div className="grid grid-cols-5 mt-6 overflow-auto">
+              <h1 className=" col-span-2 text-[16px] font-bold">
+                Doctors Count
+              </h1>
+              <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                Paid
+              </h1>
+              <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                Unpaid
+              </h1>
+              <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                Balance Due
+              </h1>
+            </div>
+
+            <div className="grid grid-cols-5 mt-3">
+              <h1 className=" col-span-2 text-[16px] font-normal">
+                Doctors x 4
+              </h1>
+              <h1 className=" col-span-1 text-[16px] font-normal text-end">
+                {" "}
+                3
+              </h1>
+              <h1 className=" col-span-1 text-[16px]  text-end">1</h1>
+              <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
+                ₹599
+              </h1>
+            </div>
+            <div className="w-full h-[2px] bg-light_gray my-3"></div>
+
+            <div className="grid grid-cols-5 mt-6 overflow-auto">
+              <h1 className=" col-span-2 text-[16px] font-bold">
+                Receptionist Count
+              </h1>
+              <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                Paid
+              </h1>
+              <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                Unpaid
+              </h1>
+              <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                Balance Due
+              </h1>
+            </div>
+
+            <div className="grid grid-cols-5 mt-3">
+              <h1 className=" col-span-2 text-[16px] font-normal">
+                Receptionist x 3
+              </h1>
+              <h1 className=" col-span-1 text-[16px] font-normal text-end">
+                {" "}
+                1
+              </h1>
+              <h1 className=" col-span-1 text-[16px]  text-end">2</h1>
+              <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
+                ₹1198
+              </h1>
+            </div>
+            <div className="w-full h-[2px] bg-light_gray my-3"></div>
+
+            <div className="grid grid-cols-5 mt-6">
+              <h1 className=" col-span-2 text-[16px] font-bold"></h1>
+              <h1 className=" col-span-1 text-[16px] font-bold text-end"></h1>
+              <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                Balance Due{" "}
+              </h1>
+              <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
+                ₹1797
+              </h1>
+            </div>
+
+            <div className="grid grid-cols-5 mt-6 overflow-auto">
+              <h1 className=" col-span-2 text-[16px] font-bold"></h1>
+              <h1 className=" col-span-1 text-[16px] font-bold text-end"></h1>
+              <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                Total Amount
+              </h1>
+              <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                ₹1797
+              </h1>
+            </div>
+          </div>
+        </div>
+      </ModelPopup>
     </>
   );
 };

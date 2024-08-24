@@ -281,6 +281,8 @@ const Profile = () => {
               { title: "Duration" },
               { title: "Remaining days" },
               { title: "Amount" },
+              { title: "View" },
+
             ]}
             tableBody={subscriptionDetails}
             tableName="subscription"
