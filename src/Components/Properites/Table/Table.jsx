@@ -34,6 +34,7 @@ const Table = ({
   const [popUpModel, setPopUpModel] = useState("");
 
   const [balanceDuePopup, setBalanceDuePopup] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   // Current date
   const currentDateFormat = dayjs().format("YYYY-MM-DD");
@@ -42,6 +43,8 @@ const Table = ({
   const handleBalanceModel = () => {
     setBalanceDuePopup(!balanceDuePopup);
   };
+
+  console.log("tabnble", selectedItem);
 
   return (
     <>
@@ -457,32 +460,39 @@ const Table = ({
                 return (
                   <tr className="border-b font-medium text-start" key={i}>
                     <td className={`py-2 px-10`}>{i + 1}</td>
-                    <td className={`py-2 px-10`}>
-                      {item?.subscription_id?.title?.title}
-                    </td>
-                    <td className={`py-2 px-10`}>
-                      {item?.subscription_id?._id}
+                    <td className={`py-2 px-10`}>{item?.name}</td>
+                    <td className={`py-2 px-10 text-center`}>
+                      {item?.subscription_id}
                     </td>
                     <td className={`py-2 px-10`}>{item?.transaction_id}</td>
+                    <td className={`py-2 px-10`}>{item?.durationInNo} </td>
                     <td className={`py-2 px-10`}>
-                      {item?.subscription_id?.durationInNo}{" "}
-                      {item?.subscription_id?.duration}
+                      {dayjs(dueDate).isValid() ? (
+                        <>
+                          {dayjs(dueDate).diff(currentDate, "day") < 0
+                            ? "Plan Expired"
+                            : dayjs(dueDate).diff(currentDate, "day") === 0 &&
+                              isGreaterThan
+                            ? "Plan Expired"
+                            : `${dayjs(dueDate).diff(currentDate, "day")} Day${
+                                dayjs(dueDate).diff(currentDate, "day") !== 1
+                                  ? "s"
+                                  : ""
+                              }`}
+                        </>
+                      ) : (
+                        "----"
+                      )}
                     </td>
-                    <td className={`py-2 px-10`}>
-                      {dayjs(dueDate).diff(currentDate, "day") < 0
-                        ? "Plan Expired"
-                        : dayjs(dueDate).diff(currentDate, "day") === 0 &&
-                          isGreaterThan
-                        ? "Plan Expired"
-                        : `${dayjs(dueDate).diff(currentDate, "day")} Day`}
-                    </td>
-                    <td className={`py-2 px-10`}>
-                      ₹ {item?.subscription_id?.pricePerMonth}
-                    </td>
+
+                    <td className={`py-2 px-10`}>₹ {item?.price}</td>
                     <td className={`py-2 px-10`}>
                       <div className="flex items-center justify-start gap-6">
                         <TbEye
-                          onClick={handleBalanceModel}
+                          onClick={() => {
+                            setSelectedItem(item);
+                            handleBalanceModel();
+                          }}
                           size={30}
                           className="text-gray-300 hover:text-blue-400 cursor-pointer"
                         />
@@ -519,110 +529,91 @@ const Table = ({
 
           <div className=" w-[95%] h-[90%] mx-auto overflow-auto mt-6">
             <h1 className=" text-[22px] font-semibold">Balance Due </h1>
-            <div className="grid grid-cols-4 mt-3 overflow-auto">
-              <h1 className=" col-span-2 text-[16px] font-bold">
-                Subscription Name
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Duration
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Price
-              </h1>
-            </div>
-            <div className="grid grid-cols-4 mt-3">
-              <h1 className=" col-span-2 text-[16px] font-normal">Standard</h1>
-              <h1 className=" col-span-1 text-[16px] font-normal text-end">
-                3 Month
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                ₹599
-              </h1>
-            </div>
+            {selectedItem?.duration && (
+              <>
+                <div className="grid grid-cols-4 mt-3 overflow-auto">
+                  <h1 className=" col-span-2 text-[16px] font-bold">
+                    Subscription Name
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                    Duration
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                    Price
+                  </h1>
+                </div>
 
-            <div className="w-full h-[2px] bg-light_gray my-3"></div>
+                <div className="grid grid-cols-4 mt-3">
+                  <h1 className=" col-span-2 text-[16px] font-normal">
+                    {selectedItem?.name}
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-normal text-end">
+                    {selectedItem?.durationInNo} {selectedItem?.duration}
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                    ₹{selectedItem?.pricePerMonth ? selectedItem?.pricePerMonth : selectedItem?.price}
+                  </h1>
+                </div>
 
-            <div className="grid grid-cols-5 mt-6 overflow-auto">
-              <h1 className=" col-span-2 text-[16px] font-bold">
-                Doctors Count
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Paid
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Unpaid
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Balance Due
-              </h1>
-            </div>
+                <div className="w-full h-[2px] bg-light_gray my-3"></div>
+              </>
+            )}
 
-            <div className="grid grid-cols-5 mt-3">
-              <h1 className=" col-span-2 text-[16px] font-normal">
-                Doctors x 4
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-normal text-end">
-                {" "}
-                3
-              </h1>
-              <h1 className=" col-span-1 text-[16px]  text-end">1</h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
-                ₹599
-              </h1>
-            </div>
-            <div className="w-full h-[2px] bg-light_gray my-3"></div>
+              <>
+                {selectedItem?.doctor && selectedItem?.doctor !== 0 && (
+                  <>
+                    <div className="grid grid-cols-3 mt-6 overflow-auto">
+                      <h1 className=" col-span-2 text-[16px] font-bold">
+                        Doctors Count
+                      </h1>
+                      <h1 className=" col-span-1 text-[16px] font-bold text-end"></h1>
+                    </div>
 
-            <div className="grid grid-cols-5 mt-6 overflow-auto">
-              <h1 className=" col-span-2 text-[16px] font-bold">
-                Receptionist Count
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Paid
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Unpaid
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Balance Due
-              </h1>
-            </div>
+                    <div className="grid grid-cols-3 mt-3">
+                      <h1 className=" col-span-2 text-[16px] font-normal">
+                        Doctors x
+                      </h1>
+                      <h1 className=" col-span-1 text-[16px] font-normal text-end">
+                        {selectedItem?.doctor < 9
+                          ? `0${selectedItem?.doctor}`
+                          : selectedItem?.doctor}
+                      </h1>
+                    </div>
+                    <div className="w-full h-[2px] bg-light_gray my-3"></div>
+                  </>
+                )}
+                {selectedItem?.receptionist && selectedItem?.receptionist !== 0 && (
+                  <>
+                    <div className="grid grid-cols-3 mt-6 overflow-auto">
+                      <h1 className=" col-span-2 text-[16px] font-bold">
+                        Receptionist Count
+                      </h1>
+                      <h1 className=" col-span-1 text-[16px] font-bold text-end"></h1>
+                    </div>
 
-            <div className="grid grid-cols-5 mt-3">
-              <h1 className=" col-span-2 text-[16px] font-normal">
-                Receptionist x 3
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-normal text-end">
-                {" "}
-                1
-              </h1>
-              <h1 className=" col-span-1 text-[16px]  text-end">2</h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
-                ₹1198
-              </h1>
-            </div>
-            <div className="w-full h-[2px] bg-light_gray my-3"></div>
+                    <div className="grid grid-cols-3 mt-3">
+                      <h1 className=" col-span-2 text-[16px] font-normal">
+                        Receptionist x
+                      </h1>
+                      <h1 className=" col-span-1 text-[16px] font-normal text-end">
+                        {selectedItem?.receptionist < 9
+                          ? `0${selectedItem?.receptionist}`
+                          : selectedItem?.receptionist}
+                      </h1>
+                    </div>
+                    <div className="w-full h-[2px] bg-light_gray my-3"></div>
+                  </>
+                )}
 
-            <div className="grid grid-cols-5 mt-6">
-              <h1 className=" col-span-2 text-[16px] font-bold"></h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end"></h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Balance Due{" "}
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
-                ₹1797
-              </h1>
-            </div>
-
-            <div className="grid grid-cols-5 mt-6 overflow-auto">
-              <h1 className=" col-span-2 text-[16px] font-bold"></h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end"></h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Total Amount
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                ₹1797
-              </h1>
-            </div>
+                <div className="grid grid-cols-5 mt-6 overflow-auto">
+                  <h1 className=" col-span-2 text-[16px] font-bold">Price</h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end"></h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end"></h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                    ₹{selectedItem?.price}
+                  </h1>
+                </div>
+              </>
           </div>
         </div>
       </ModelPopup>

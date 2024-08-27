@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 
-import { setUser } from "../../Redux/Slice/User";
+import { addBillingHistory, setUser } from "../../Redux/Slice/User";
 
 // Api Call
 import ApiRequest from "../../services/httpService";
@@ -24,8 +24,6 @@ const PrivateRoute = ({ children, ...rest }) => {
         balancedue,
       };
 
-      
-
       if (success) {
         dispatch(setUser(data));
       }
@@ -41,15 +39,61 @@ const PrivateRoute = ({ children, ...rest }) => {
     fetchClinicData();
   }, [fetchClinicData]);
 
-  console.log('data', userDetails);
-
-
   useEffect(() => {
     const API = async () => {
       if (userDetails) {
         if (!userDetails.details) {
           return navigate("/document");
         }
+        const transformedData = userDetails?.subscription_details.flatMap(
+          (item) => {
+            const subscriptionDetails = item.subscription_id
+              ? {
+                  duration: item?.subscription_id?.duration,
+                  durationInNo: item?.subscription_id?.durationInNo,
+                  price: item?.subscription_id?.pricePerMonth,
+                  name: item?.subscription_id?.title?.title
+                    ? item?.subscription_id?.title?.title
+                    : "----",
+                  subscription_startdate: item?.subscription_startdate,
+                  subscription_enddate: item?.subscription_enddate,
+                  subscription_id: item?.subscription_id._id,
+                  id: item?._id,
+                }
+              : null;
+
+            const billingHistoryDetails = item?.billinghistory
+              .filter(
+                (history) =>
+                  history?.doctor !== 0 || history?.receptionist !== 0
+              )
+              .map((history) => ({
+                transaction_id: history?.transaction_id
+                  ? history?.transaction_id
+                  : "----",
+                price: history?.amount ? history?.amount : 0,
+                doctor: history?.doctor,
+                receptionist: history?.receptionist,
+                _id: history?._id,
+                subscription_id: item?.subscription_id
+                  ? item?.subscription_id?._id
+                  : "----",
+                id: item?._id,
+                duration: item?.subscription_id?.duration,
+                durationInNo: item?.subscription_id?.durationInNo,
+                pricePerMonth: item?.subscription_id?.pricePerMonth,
+                name: item?.subscription_id?.title?.title
+                  ? item?.subscription_id?.title?.title
+                  : "----",
+              }));
+
+            return subscriptionDetails
+              ? [subscriptionDetails, ...billingHistoryDetails]
+              : billingHistoryDetails;
+          }
+        );
+
+        dispatch(addBillingHistory(transformedData));
 
         try {
           const { success, notifications } = await ApiRequest.get(

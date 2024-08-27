@@ -36,19 +36,23 @@ const Profile = () => {
     balanceModel,
     model,
     setModel,
+    updateBalanceDue,
+    amount,
+    setAmount,
+    setTransitationID,
+    transitationID,
+    paymentLoader,
+    err,
+    setErr,
+    setSteps,
+    steps,
   } = ProfileFunction();
-  const [detailsAction, setDetailsAction] = useState({
-    id: "",
-    value: "",
-  });
-  const [steps, setSteps] = useState(1);
-  const [transitationID, setTransitationID] = useState("");
-  const [err, setErr] = useState(false);
-  const [paymentLoader, setPaymentLoader] = useState(false);
 
-  const { userDetails, balance_due } = useSelector((state) => state.userinfo);
+  const { userDetails, balance_due, billing_history } = useSelector(
+    (state) => state.userinfo
+  );
 
-  const subscriptionDetails = userDetails?.subscription_details || [];
+  const subscriptionDetails = billing_history || [];
 
   const dateString =
     userDetails?.subscription_details[
@@ -270,7 +274,7 @@ const Profile = () => {
       )}
 
       <ModelPopup showDrawer={payModel} height="90%" width="90%">
-        <div className="relative">
+        <div className="relative w-full h-full overflow-hidden">
           <button
             onClick={closePayModel}
             className=" absolute right-3 hover:text-red-500 transition-all duration-300"
@@ -321,71 +325,79 @@ const Profile = () => {
 
             <div className="w-full h-[2px] bg-light_gray my-3"></div>
 
-            <div className="grid grid-cols-5 mt-6 overflow-auto">
-              <h1 className=" col-span-2 text-[16px] font-bold">
-                Doctors Count
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Paid
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Unpaid
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Balance Due
-              </h1>
-            </div>
+            {balance_due?.doctors?.unsubscribed !== 0 && (
+              <>
+                <div className="grid grid-cols-5 mt-6 overflow-auto">
+                  <h1 className=" col-span-2 text-[16px] font-bold">
+                    Doctors Count
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                    Paid
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                    Unpaid
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                    Balance Due
+                  </h1>
+                </div>
 
-            <div className="grid grid-cols-5 mt-3">
-              <h1 className=" col-span-2 text-[16px] font-normal">
-                Doctors x{" "}
-                {Number(balance_due?.doctors?.subscribed) +
-                  Number(balance_due?.doctors?.unsubscribed)}
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-normal text-end">
-                {balance_due?.doctors.subscribed}
-              </h1>
-              <h1 className=" col-span-1 text-[16px]  text-end">
-                {balance_due?.doctors?.unsubscribed}
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
-                ₹{balance_due?.doctors?.unsubscriptionAmount}
-              </h1>
-            </div>
-            <div className="w-full h-[2px] bg-light_gray my-3"></div>
+                <div className="grid grid-cols-5 mt-3">
+                  <h1 className=" col-span-2 text-[16px] font-normal">
+                    Doctors x{" "}
+                    {Number(balance_due?.doctors?.subscribed) +
+                      Number(balance_due?.doctors?.unsubscribed)}
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-normal text-end">
+                    {balance_due?.doctors.subscribed}
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px]  text-end">
+                    {balance_due?.doctors?.unsubscribed}
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
+                    ₹{balance_due?.doctors?.unsubscriptionAmount}
+                  </h1>
+                </div>
+                <div className="w-full h-[2px] bg-light_gray my-3"></div>
+              </>
+            )}
 
-            <div className="grid grid-cols-5 mt-6 overflow-auto">
-              <h1 className=" col-span-2 text-[16px] font-bold">
-                Receptionist Count
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Paid
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Unpaid
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Balance Due
-              </h1>
-            </div>
+            {balance_due?.receptionists?.unsubscribed !== 0 && (
+              <>
+                <div className="grid grid-cols-5 mt-6 overflow-auto">
+                  <h1 className=" col-span-2 text-[16px] font-bold">
+                    Receptionist Count
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                    Paid
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                    Unpaid
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                    Balance Due
+                  </h1>
+                </div>
 
-            <div className="grid grid-cols-5 mt-3">
-              <h1 className=" col-span-2 text-[16px] font-normal">
-                Receptionist x{" "}
-                {Number(balance_due?.receptionists?.subscribed) +
-                  Number(balance_due?.receptionists?.unsubscribed)}
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-normal text-end">
-                {balance_due?.receptionists.subscribed}
-              </h1>
-              <h1 className=" col-span-1 text-[16px]  text-end">
-                {balance_due?.receptionists?.unsubscribed}
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
-                ₹ {balance_due?.receptionists.unsubscriptionAmount}
-              </h1>
-            </div>
-            <div className="w-full h-[2px] bg-light_gray my-3"></div>
+                <div className="grid grid-cols-5 mt-3">
+                  <h1 className=" col-span-2 text-[16px] font-normal">
+                    Receptionist x{" "}
+                    {Number(balance_due?.receptionists?.subscribed) +
+                      Number(balance_due?.receptionists?.unsubscribed)}
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-normal text-end">
+                    {balance_due?.receptionists.subscribed}
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px]  text-end">
+                    {balance_due?.receptionists?.unsubscribed}
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
+                    ₹ {balance_due?.receptionists.unsubscriptionAmount}
+                  </h1>
+                </div>
+                <div className="w-full h-[2px] bg-light_gray my-3"></div>
+              </>
+            )}
 
             <div className="grid grid-cols-5 mt-6">
               <h1 className=" col-span-2 text-[16px] font-bold"></h1>
@@ -424,7 +436,7 @@ const Profile = () => {
       {model && (
         <>
           <div className=" 2xl:block xl:block lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:hidden">
-            <ModelPopup showDrawer={model} width="25%" height="53%">
+            <ModelPopup showDrawer={model} width="25%" height="60%">
               <button
                 onClick={() => setModel(false)}
                 className=" absolute right-2 hover:text-red-500 transition-all duration-300"
@@ -454,7 +466,7 @@ const Profile = () => {
                 )}
 
                 {steps === 2 && (
-                  <div className=" w-full h-full flex flex-col items-center justify-start ">
+                  <div className=" relative w-full h-full flex flex-col items-center justify-start ">
                     <p className=" w-full text-start px-4">
                       <IoMdArrowRoundBack
                         size={20}
@@ -466,7 +478,7 @@ const Profile = () => {
                       Enter your Transaction ID
                     </p>
 
-                    <div className=" w-[80%] h-full flex flex-col justify-center">
+                    <div className=" w-[80%] h-full flex flex-col justify-start">
                       <p className=" text-start mt-4 font-medium text-[18px] py-2">
                         Transaction ID
                       </p>
@@ -481,8 +493,26 @@ const Profile = () => {
                       />
 
                       {err && <p className="text-red-500">Require</p>}
+
+                      <p className=" text-start mt-4 font-medium text-[18px] py-2">
+                        Amount
+                      </p>
+                      <input
+                        onChange={(e) => {
+                          if (/^\d*$/.test(e.target.value)) {
+                            setAmount(e.target.value);
+                            setErr(false);
+                          }
+                        }}
+                        value={amount}
+                        placeholder="amount "
+                        className=" w-full rounded-lg border-[1px] border-gray-400 p-2 resize-none outline-none"
+                      />
+
+                      {err && <p className="text-red-500">Require</p>}
                     </div>
-                    <div className="flex items-start justify-center w-[80%] h-full gap-4">
+
+                    <div className="flex items-start justify-center w-[80%] h-full gap-4 mt-8 absolute top-[70%]">
                       {paymentLoader ? (
                         <button className="w-full py-1 text-[18px] border-[1px] text-blue border-primary_color  rounded-md">
                           <ClipLoader size={15} color="#0073EE" />
@@ -491,7 +521,7 @@ const Profile = () => {
                         <button
                           onClick={() => {
                             if (transitationID !== "") {
-                              console.log("ID");
+                              updateBalanceDue();
                             } else {
                               return setErr(true);
                             }
@@ -535,7 +565,7 @@ const Profile = () => {
                 )}
 
                 {steps === 2 && (
-                  <div className=" w-full h-full flex flex-col items-center justify-start ">
+                  <div className=" relative w-full h-full flex flex-col items-center justify-start ">
                     <p className=" w-full text-start px-4">
                       <IoMdArrowRoundBack
                         size={20}
@@ -547,7 +577,7 @@ const Profile = () => {
                       Enter your Transaction ID
                     </p>
 
-                    <div className=" w-[80%] h-full flex flex-col justify-center">
+                    <div className=" w-[80%] h-full flex flex-col justify-start">
                       <p className=" text-start mt-4 font-medium text-[18px] py-2">
                         Transaction ID
                       </p>
@@ -562,8 +592,26 @@ const Profile = () => {
                       />
 
                       {err && <p className="text-red-500">Require</p>}
+
+                      <p className=" text-start mt-4 font-medium text-[18px] py-2">
+                        Amount
+                      </p>
+                      <input
+                        onChange={(e) => {
+                          if (/^\d*$/.test(e.target.value)) {
+                            setAmount(e.target.value);
+                            setErr(false);
+                          }
+                        }}
+                        value={amount}
+                        placeholder="amount "
+                        className=" w-full rounded-lg border-[1px] border-gray-400 p-2 resize-none outline-none"
+                      />
+
+                      {err && <p className="text-red-500">Require</p>}
                     </div>
-                    <div className="flex items-start justify-center w-[80%] h-full gap-4">
+
+                    <div className="flex items-start justify-center w-[80%] h-full gap-4 mt-8 absolute top-[70%]">
                       {loader ? (
                         <button className="w-full py-1 text-[18px] border-[1px] text-blue border-primary_color  rounded-md">
                           <ClipLoader size={15} color="#0073EE" />
@@ -572,7 +620,7 @@ const Profile = () => {
                         <button
                           onClick={() => {
                             if (transitationID !== "") {
-                              console.log("ID");
+                              updateBalanceDue();
                             } else {
                               return setErr(true);
                             }
@@ -617,7 +665,7 @@ const Profile = () => {
                 )}
 
                 {steps === 2 && (
-                  <div className=" w-full h-full flex flex-col items-center justify-start ">
+                  <div className=" relative w-full h-full flex flex-col items-center justify-start ">
                     <p className=" w-full text-start px-4">
                       <IoMdArrowRoundBack
                         size={20}
@@ -629,7 +677,7 @@ const Profile = () => {
                       Enter your Transaction ID
                     </p>
 
-                    <div className=" w-[80%] h-full flex flex-col justify-center">
+                    <div className=" w-[80%] h-full flex flex-col justify-start">
                       <p className=" text-start mt-4 font-medium text-[18px] py-2">
                         Transaction ID
                       </p>
@@ -644,8 +692,26 @@ const Profile = () => {
                       />
 
                       {err && <p className="text-red-500">Require</p>}
+
+                      <p className=" text-start mt-4 font-medium text-[18px] py-2">
+                        Amount
+                      </p>
+                      <input
+                        onChange={(e) => {
+                          if (/^\d*$/.test(e.target.value)) {
+                            setAmount(e.target.value);
+                            setErr(false);
+                          }
+                        }}
+                        value={amount}
+                        placeholder="amount "
+                        className=" w-full rounded-lg border-[1px] border-gray-400 p-2 resize-none outline-none"
+                      />
+
+                      {err && <p className="text-red-500">Require</p>}
                     </div>
-                    <div className="flex items-start justify-center w-[80%] h-full gap-4">
+
+                    <div className="flex items-start justify-center w-[80%] h-full gap-4 mt-8 absolute top-[70%]">
                       {loader ? (
                         <button className="w-full py-1 text-[18px] border-[1px] text-blue border-primary_color  rounded-md">
                           <ClipLoader size={15} color="#0073EE" />
@@ -654,7 +720,7 @@ const Profile = () => {
                         <button
                           onClick={() => {
                             if (transitationID !== "") {
-                              console.log("ID");
+                              updateBalanceDue();
                             } else {
                               return setErr(true);
                             }
@@ -672,7 +738,7 @@ const Profile = () => {
           </div>
 
           <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:block mobile:block xss:hidden">
-            <ModelPopup showDrawer={model} width="90%" height="60%">
+            <ModelPopup showDrawer={model} width="90%" height="65%">
               <button
                 onClick={() => setModel(false)}
                 className=" absolute right-2 hover:text-red-500 transition-all duration-300"
@@ -703,7 +769,7 @@ const Profile = () => {
                 )}
 
                 {steps === 2 && (
-                  <div className=" w-full h-full flex flex-col items-center justify-start ">
+                  <div className=" relative w-full h-full flex flex-col items-center justify-start ">
                     <p className=" w-full text-start px-4">
                       <IoMdArrowRoundBack
                         size={20}
@@ -715,7 +781,7 @@ const Profile = () => {
                       Enter your Transaction ID
                     </p>
 
-                    <div className=" w-[80%] h-full flex flex-col justify-center">
+                    <div className=" w-[80%] h-full flex flex-col justify-start">
                       <p className=" text-start mt-4 font-medium text-[18px] py-2">
                         Transaction ID
                       </p>
@@ -730,8 +796,26 @@ const Profile = () => {
                       />
 
                       {err && <p className="text-red-500">Require</p>}
+
+                      <p className=" text-start mt-4 font-medium text-[18px] py-2">
+                        Amount
+                      </p>
+                      <input
+                        onChange={(e) => {
+                          if (/^\d*$/.test(e.target.value)) {
+                            setAmount(e.target.value);
+                            setErr(false);
+                          }
+                        }}
+                        value={amount}
+                        placeholder="amount "
+                        className=" w-full rounded-lg border-[1px] border-gray-400 p-2 resize-none outline-none"
+                      />
+
+                      {err && <p className="text-red-500">Require</p>}
                     </div>
-                    <div className="flex items-start justify-center w-[80%] h-full gap-4">
+
+                    <div className="flex items-start justify-center w-[80%] h-full gap-4 mt-8 absolute top-[73%]">
                       {loader ? (
                         <button className="w-full py-1 text-[18px] border-[1px] text-blue border-primary_color  rounded-md">
                           <ClipLoader size={15} color="#0073EE" />
@@ -740,7 +824,7 @@ const Profile = () => {
                         <button
                           onClick={() => {
                             if (transitationID !== "") {
-                              console.log("ID");
+                              updateBalanceDue();
                             } else {
                               return setErr(true);
                             }
@@ -758,7 +842,7 @@ const Profile = () => {
           </div>
 
           <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:block">
-            <ModelPopup showDrawer={model} width="96%" height="60%">
+            <ModelPopup showDrawer={model} width="96%" height="68%">
               <button
                 onClick={() => setModel(false)}
                 className=" absolute right-2 hover:text-red-500 transition-all duration-300"
@@ -789,7 +873,7 @@ const Profile = () => {
                 )}
 
                 {steps === 2 && (
-                  <div className=" w-full h-full flex flex-col items-center justify-start ">
+                  <div className=" relative w-full h-full flex flex-col items-center justify-start ">
                     <p className=" w-full text-start px-4">
                       <IoMdArrowRoundBack
                         size={20}
@@ -801,7 +885,7 @@ const Profile = () => {
                       Enter your Transaction ID
                     </p>
 
-                    <div className=" w-[80%] h-full flex flex-col justify-center">
+                    <div className=" w-[80%] h-full flex flex-col justify-start">
                       <p className=" text-start mt-4 font-medium text-[18px] py-2">
                         Transaction ID
                       </p>
@@ -816,8 +900,26 @@ const Profile = () => {
                       />
 
                       {err && <p className="text-red-500">Require</p>}
+
+                      <p className=" text-start mt-4 font-medium text-[18px] py-2">
+                        Amount
+                      </p>
+                      <input
+                        onChange={(e) => {
+                          if (/^\d*$/.test(e.target.value)) {
+                            setAmount(e.target.value);
+                            setErr(false);
+                          }
+                        }}
+                        value={amount}
+                        placeholder="amount "
+                        className=" w-full rounded-lg border-[1px] border-gray-400 p-2 resize-none outline-none"
+                      />
+
+                      {err && <p className="text-red-500">Require</p>}
                     </div>
-                    <div className="flex items-start justify-center w-[80%] h-full gap-4">
+
+                    <div className="flex items-start justify-center w-[80%] h-full gap-4 mt-8 absolute top-[70%]">
                       {loader ? (
                         <button className="w-full py-1 text-[18px] border-[1px] text-blue border-primary_color  rounded-md">
                           <ClipLoader size={15} color="#0073EE" />
@@ -826,7 +928,7 @@ const Profile = () => {
                         <button
                           onClick={() => {
                             if (transitationID !== "") {
-                              console.log("ID");
+                              updateBalanceDue();
                             } else {
                               return setErr(true);
                             }

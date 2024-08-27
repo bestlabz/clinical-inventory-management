@@ -22,22 +22,23 @@ const Profile = () => {
   const [step, setStep] = useState(1);
   const [payModel, setPayModel] = useState(false);
   const [balanceDue, setBalanceDue] = useState(false);
-  const [model, setModel] = useState(false)
-  const [subscriptionID, setsubscriptionID] = useState(null)
+  const [model, setModel] = useState(false);
+  const [subscriptionID, setsubscriptionID] = useState(null);
+  const [transitationID, setTransitationID] = useState("");
+  const [amount, setAmount] = useState("");
+  const [paymentLoader, setPaymentLoader] = useState(false);
+  const [err, setErr] = useState(false);
+  const [steps, setSteps] = useState(1);
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
-  
-  
   useEffect(() => {
     const subscriptionid =
-    userDetails?.subscription_details[
-      userDetails?.subscription_details?.length - 1
-    ];
-    setsubscriptionID(subscriptionid?.subscription_id?._id)
-
-  }, [userDetails])
-  
+      userDetails?.subscription_details[
+        userDetails?.subscription_details?.length - 1
+      ];
+    setsubscriptionID(subscriptionid?.subscription_id?._id);
+  }, [userDetails]);
 
   useEffect(() => {
     const Api = async () => {
@@ -48,7 +49,7 @@ const Profile = () => {
             ...clinic,
             balancedue,
           };
-    
+
           dispatch(setUser(data));
           setFieldValue("name", clinic?.name);
           setFieldValue("clinic_name", clinic?.clinic_name);
@@ -61,7 +62,6 @@ const Profile = () => {
     Api();
   }, [loader]);
 
-
   useEffect(() => {
     const API = async () => {
       if (balanceDue && userDetails) {
@@ -73,7 +73,9 @@ const Profile = () => {
               receptionists,
               totalUnsubscriptionAmount,
               subscriptionDurations,
-            } = await ApiRequest.post(`/balancedue/${userDetails?._id}/${subscriptionID}`);
+            } = await ApiRequest.post(
+              `/balancedue/${userDetails?._id}/${subscriptionID}`
+            );
 
             if (success) {
               const data = {
@@ -197,6 +199,32 @@ const Profile = () => {
     setBalanceDue(!balanceDue);
   };
 
+  const updateBalanceDue = async () => {
+    try {
+      const latestSubscription =
+        userDetails.subscription_details[
+          userDetails.subscription_details.length - 1
+        ];
+      setPaymentLoader(true);
+      const { success, message } = await ApiRequest.put(
+        `/balanceduepayment/${userDetails._id}/${latestSubscription._id}`,
+        {
+          transaction_id: transitationID,
+          amount: amount,
+        }
+      );
+
+      if (success) {
+        setPaymentLoader(false);
+        setModel(false);
+        setBalanceDue(!balanceDue);
+        toast.success(message);
+      }
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
+  };
+
   return {
     profileRef,
     handleClick,
@@ -216,7 +244,18 @@ const Profile = () => {
     payModel,
     balanceDue,
     balanceModel,
-    model, setModel
+    model,
+    setModel,
+    updateBalanceDue,
+    transitationID,
+    setTransitationID,
+    amount,
+    setAmount,
+    paymentLoader,
+    err,
+    setErr,
+    steps,
+    setSteps,
   };
 };
 

@@ -34,6 +34,9 @@ const ViewPage = ({
 
   const { details } = useSelector((state) => state.DetailsPage);
 
+  console.log('details', details)
+  
+
   const [detailsAction, setDetailsAction] = useState({
     id: "",
     value: "",
@@ -209,7 +212,7 @@ const ViewPage = ({
                 <span className="view-page-personal-details-container-body-details-key">
                   Qualification<span>:</span>
                 </span>
-                <span className="view-page-personal-details-container-body-details-value"></span>
+                <span className="view-page-personal-details-container-body-details-value">{details?.qualification || ""}</span>
               </div>
             )}
           </div>
