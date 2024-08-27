@@ -34,8 +34,7 @@ const ViewPage = ({
 
   const { details } = useSelector((state) => state.DetailsPage);
 
-  console.log('details', details)
-  
+  console.log("details", details);
 
   const [detailsAction, setDetailsAction] = useState({
     id: "",
@@ -190,13 +189,22 @@ const ViewPage = ({
                   <span className="view-page-personal-details-container-body-details-key">
                     Under Graduate<span>:</span>
                   </span>
-                  <span className="view-page-personal-details-container-body-details-value"></span>
+                  <span className="view-page-personal-details-container-body-details-value">
+                    {" "}
+                    {details?.ug_qualification || ""}
+                  </span>
                 </div>
                 <div className="w-full flex items-center gap-2">
                   <span className="view-page-personal-details-container-body-details-key">
                     Post Graduate<span>:</span>
                   </span>
-                  <span className="view-page-personal-details-container-body-details-value"></span>
+
+                  <span className="view-page-personal-details-container-body-details-value">
+                    {/* {details?.pg_qualification &&
+                      JSON.parse(details?.pg_qualification)?.map(
+                        (item, index) => <div key={index}>{item}</div>
+                      )} */}
+                  </span>
                 </div>
                 <div className="w-full flex items-center gap-2">
                   <span className="view-page-personal-details-container-body-details-key">
@@ -212,7 +220,9 @@ const ViewPage = ({
                 <span className="view-page-personal-details-container-body-details-key">
                   Qualification<span>:</span>
                 </span>
-                <span className="view-page-personal-details-container-body-details-value">{details?.qualification || ""}</span>
+                <span className="view-page-personal-details-container-body-details-value">
+                  {details?.qualification || ""}
+                </span>
               </div>
             )}
           </div>
