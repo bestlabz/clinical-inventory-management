@@ -218,6 +218,17 @@ const Table = ({
                         </div>
                       </td>
                       <td className={`py-2 px-10`}>
+                        {item?.payment_paid ? (
+                          <p className="text-green_dark border-[2px] border-green-100 bg-green-50 rounded-full text-[14px] w-[80px] h-[25px] flex items-center justify-center">
+                            Paid
+                          </p>
+                        ) : (
+                          <p className="text-orange_dark border-[1px] border-orange-200 bg-orange-100 rounded-full w-[80px] h-[25px] text-[14px] flex items-center justify-center">
+                            Not Paid
+                          </p>
+                        )}
+                      </td>
+                      <td className={`py-2 px-10`}>
                         <div
                           onClick={() => {
                             id(item.id);
@@ -308,6 +319,17 @@ const Table = ({
                             }}
                           />
                         </div>
+                      </td>
+                      <td className={`py-2 px-10`}>
+                        {item?.payment_status ? (
+                          <p className="text-green_dark border-[2px] border-green-100 bg-green-50 rounded-full text-[14px] w-[80px] h-[25px] flex items-center justify-center">
+                            Paid
+                          </p>
+                        ) : (
+                          <p className="text-orange_dark border-[1px] border-orange-200 bg-orange-100 rounded-full w-[80px] h-[25px] text-[14px] flex items-center justify-center">
+                            Not Paid
+                          </p>
+                        )}
                       </td>
                       <td className={`py-2 px-10`}>
                         <div

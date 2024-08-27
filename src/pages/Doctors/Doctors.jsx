@@ -160,6 +160,7 @@ const Doctors = () => {
                               { title: "Specialist" },
                               { title: "Status" },
                               { title: "Action" },
+                              { title: "Payment Status" },
                               { title: "View" },
                             ];
                           }

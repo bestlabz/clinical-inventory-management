@@ -31,8 +31,8 @@ const Doctors = () => {
   const [viewPage, setviewPage] = useState(false);
   const [dotorId, setDotorId] = useState(null);
   const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
-  const [statusAvailable, setStatusAvailable] = useState(false)
-  const [tableLoader, setTableLoader] = useState(false)
+  const [statusAvailable, setStatusAvailable] = useState(false);
+  const [tableLoader, setTableLoader] = useState(false);
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
@@ -42,8 +42,8 @@ const Doctors = () => {
   } = useSelector((state) => state.Pagination);
 
   useEffect(() => {
-    setTableLoader(true)
-  }, [selectedLimit])
+    setTableLoader(true);
+  }, [selectedLimit]);
 
   useEffect(() => {
     const fetchData = async ({ filter, page }) => {
@@ -66,8 +66,8 @@ const Doctors = () => {
         );
 
         if (success) {
-          setTableLoader(false)
-          setStatusAvailable(false)
+          setTableLoader(false);
+          setStatusAvailable(false);
           dispatch(
             setDoctorsCurrentPage(
               doctorAvailability.length === 0 && currentPage !== 1
@@ -96,19 +96,22 @@ const Doctors = () => {
                   : false,
               doctor_image: i?.doctor?.profile || null,
               mobile_number: i?.doctor?.mobile_number,
+              payment_paid: i?.doctor?.clinics.filter(
+                (item) => item?.clinicId === userDetails?._id
+              )?.[0]?.subscription,
             };
           });
 
           setPrimaryLoader(false);
           dispatch(setDoctorTable(tableData));
         } else {
-          setTableLoader(false)
-          setStatusAvailable(false)
+          setTableLoader(false);
+          setStatusAvailable(false);
           setPrimaryLoader(false);
         }
       } catch (error) {
-        setTableLoader(false)
-        setStatusAvailable(false)
+        setTableLoader(false);
+        setStatusAvailable(false);
 
         setPrimaryLoader(false);
         dispatch(setDoctorTable([]));
@@ -172,16 +175,16 @@ const Doctors = () => {
 
   const next = () => {
     if (currentPages !== pageNumbers[pageNumbers.length - 1]) {
-      setStatusAvailable(true)
-      setTableLoader(true)
+      setStatusAvailable(true);
+      setTableLoader(true);
       return dispatch(setDoctorsNextPage());
     }
   };
 
   const pre = () => {
-    if(currentPages !== 1){
-      setStatusAvailable(true)
-      setTableLoader(true)
+    if (currentPages !== 1) {
+      setStatusAvailable(true);
+      setTableLoader(true);
       return dispatch(setDoctorsPrePage());
     }
   };
@@ -241,7 +244,7 @@ const Doctors = () => {
     selectedLimit,
     setSelectedLimit,
     statusAvailable,
-    tableLoader
+    tableLoader,
   };
 };
 

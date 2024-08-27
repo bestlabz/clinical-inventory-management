@@ -64,6 +64,7 @@ const Doctors = () => {
                 : currentPage
             )
           );
+
           dispatch(setReceptionistsTotalCount(totalPages));
           const tableData = receptionists.map((i) => {
             return {
@@ -74,6 +75,7 @@ const Doctors = () => {
               receptionist_image: i?.profile || null,
               status: i?.block,
               mobile_number: i?.mobile_number,
+              payment_status: i?.subscription
             };
           });
           setPrimaryLoader(false);
