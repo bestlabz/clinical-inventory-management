@@ -44,7 +44,7 @@ const Table = ({
     setBalanceDuePopup(!balanceDuePopup);
   };
 
-  console.log("tabnble", selectedItem);
+  console.log("selectedItem", selectedItem);
 
   return (
     <>
@@ -560,7 +560,7 @@ const Table = ({
             )}
 
               <>
-                {selectedItem?.doctor && selectedItem?.doctor !== 0 && (
+                {selectedItem?.doctor && selectedItem?.doctor !== 0 ? (
                   <>
                     <div className="grid grid-cols-3 mt-6 overflow-auto">
                       <h1 className=" col-span-2 text-[16px] font-bold">
@@ -581,8 +581,8 @@ const Table = ({
                     </div>
                     <div className="w-full h-[2px] bg-light_gray my-3"></div>
                   </>
-                )}
-                {selectedItem?.receptionist && selectedItem?.receptionist !== 0 && (
+                ): null}
+                {selectedItem?.receptionist && selectedItem?.receptionist !== 0 ?(
                   <>
                     <div className="grid grid-cols-3 mt-6 overflow-auto">
                       <h1 className=" col-span-2 text-[16px] font-bold">
@@ -603,7 +603,7 @@ const Table = ({
                     </div>
                     <div className="w-full h-[2px] bg-light_gray my-3"></div>
                   </>
-                )}
+                ): null}
 
                 <div className="grid grid-cols-5 mt-6 overflow-auto">
                   <h1 className=" col-span-2 text-[16px] font-bold">Price</h1>
