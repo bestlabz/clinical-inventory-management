@@ -163,7 +163,7 @@ const Signup = () => {
             if (success) {
               const count = freetrails[0].days;
               await ApiRequest.post(`/updateSubscription/${id}`, {
-                subscription_id: import.meta.env.VITE_APP_API_FreeTrail,
+                subscription_id: freetrails[0]._id,
                 transaction_id: "free_trail",
                 subscription_startdate: dayjs().format("DD-MM-YYYY HH:MM:ss"),
                 subscription_enddate: dayjs()
