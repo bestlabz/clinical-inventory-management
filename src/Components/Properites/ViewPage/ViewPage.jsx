@@ -200,6 +200,7 @@ const ViewPage = ({
                   </span>
 
                   <span className="view-page-personal-details-container-body-details-value">
+                    {details?.pg_qualification || ""}
                     {/* {details?.pg_qualification &&
                       JSON.parse(details?.pg_qualification)?.map(
                         (item, index) => <div key={index}>{item}</div>
