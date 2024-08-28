@@ -53,7 +53,7 @@ const Doctors = () => {
     selectedLimit,
     setSelectedLimit,
     tableLoader,
-    statusAvailable
+    statusAvailable,
   } = DoctorsFunction();
 
   const { doctorTable } = useSelector((state) => state.TableDatas);
@@ -65,121 +65,120 @@ const Doctors = () => {
       {/* {primaryLoader ? (
         <ThemeSuspense />
       ) : ( */}
-        <>
-          {viewPage ? (
-            <ViewPage
-              setviewPage={setviewPage}
-              headerText="View Doctor Details"
-              id={dotorId}
-              category="doctor"
-            />
-          ) : (
-            <>
-              <div
-                className={`grid  gap-4 min-h-[100px] ${
-                  sidebarStatus
-                    ? "2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 xss:grid-cols-1 mobile:grid-cols-1"
-                    : "2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 xs:grid-cols-1 xss:grid-cols-1 mobile:grid-cols-1"
-                } `}
-              >
-                <Card
-                  title={TranslateJson.doctors.card.text1}
-                  count={cardValue?.total_doctor}
-                  bg="#0073EE"
-                  textColor="#fff"
-                />
-                <Card
-                  title={TranslateJson.doctors.card.text2}
-                  count={cardValue?.available_doctor}
-                  textColor="#000"
-                />
-                <Card
-                  title={TranslateJson.doctors.card.text3}
-                  count={cardValue?.leave_doctor}
-                  textColor="#000"
-                />
-              </div>
+      <>
+        {viewPage ? (
+          <ViewPage
+            setviewPage={setviewPage}
+            headerText="View Doctor Details"
+            id={dotorId}
+            category="doctor"
+          />
+        ) : (
+          <>
+            <div
+              className={`grid  gap-4 min-h-[100px] ${
+                sidebarStatus
+                  ? "2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 xss:grid-cols-1 mobile:grid-cols-1"
+                  : "2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 xs:grid-cols-1 xss:grid-cols-1 mobile:grid-cols-1"
+              } `}
+            >
+              <Card
+                title={TranslateJson.doctors.card.text1}
+                count={cardValue?.total_doctor || 0}
+                bg="#0073EE"
+                textColor="#fff"
+              />
+              <Card
+                title={TranslateJson.doctors.card.text2}
+                count={cardValue?.available_doctor || 0}
+                textColor="#000"
+              />
+              <Card
+                title={TranslateJson.doctors.card.text3}
+                count={cardValue?.leave_doctor || 0}
+                textColor="#000"
+              />
+            </div>
 
-              <div
-                style={{
-                  border: "3px solid #e8e8e8",
-                }}
-                className="table-box mt-4"
-              >
-                <>
-                  <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
-                    <div className="table-box-top-left">
-                      <TableHeaderTitle
-                        title={TranslateJson.doctors.title}
-                        subContent={`${doctorTable.length} ${TranslateJson.doctors.subText}`}
-                      />
-                    </div>
-                    <div className="table-box-top-right-1">
-                      <div className="table-box-top-right-grid-1">
-                        {/* <div className="table-box-top-right-content-date-1">
+            <div
+              style={{
+                border: "3px solid #e8e8e8",
+              }}
+              className="table-box mt-4"
+            >
+              <>
+                <div className="table-box-top 2xl:h-[100px] xl:h-[100px] lg:h-[100px] md:h-[20%] sm:h-[20%] xs:h-[40%] xss:h-[40%] mobile:h-[40%]">
+                  <div className="table-box-top-left">
+                    <TableHeaderTitle
+                      title={TranslateJson.doctors.title}
+                      subContent={`${doctorTable.length} ${TranslateJson.doctors.subText}`}
+                    />
+                  </div>
+                  <div className="table-box-top-right-1">
+                    <div className="table-box-top-right-grid-1">
+                      {/* <div className="table-box-top-right-content-date-1">
                     <DatePicker
                       date={selectedDate}
                       handleDateSelect={setselectedDate}
                     />
                   </div> */}
-                        <div className="table-box-top-right-content-filter-1">
-                          <Select
-                            options={Options}
-                            styles={style}
-                            placeholder="Filter"
-                            SelectedValue={setselectedFilter}
-                            value={selectedFilter}
-                            clear={true}
-                          />
-                        </div>
-                        <div className="table-box-top-right-content-filter-1">
-                          <button
-                            onClick={navigateAddDoctorPage}
-                            className="table-box-top-right-content-button-1 "
-                          >
-                            <AddIcon /> Invite
-                          </button>
-                        </div>
+                      <div className="table-box-top-right-content-filter-1">
+                        <Select
+                          options={Options}
+                          styles={style}
+                          placeholder="Filter"
+                          SelectedValue={setselectedFilter}
+                          value={selectedFilter}
+                          clear={true}
+                        />
+                      </div>
+                      <div className="table-box-top-right-content-filter-1">
+                        <button
+                          onClick={navigateAddDoctorPage}
+                          className="table-box-top-right-content-button-1 "
+                        >
+                          <AddIcon /> Invite
+                        </button>
                       </div>
                     </div>
                   </div>
-                  <div className=" mt-3 pb-3 overflow-auto w-full 2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[43%] xss:h-[43%] mobile:h-[43%]">
-                
-                      <Table
-                        headers={() => {
-                          if (selectedFilter?.value === "recently_joined") {
-                            return [
-                              { title: "S.No" },
-                              { title: "Mobile Number" },
-                              { title: "View" },
-                            ];
-                          } else {
-                            return [
-                              { title: "S.No" },
-                              { title: "Doctor name" },
-                              { title: "Specialist" },
-                              { title: "Status" },
-                              { title: "Action" },
-                              { title: "Payment Status" },
-                              { title: "View" },
-                            ];
-                          }
-                        }}
-                        tableBody={doctorTable}
-                        tableName="Doctor"
-                        model={model}
-                        setModel={setModel}
-                        handleChange={handleChange}
-                        clear={clear}
-                        setClear={setClear}
-                        loader={loader}
-                        setviewPage={setviewPage}
-                        id={setDotorId}
-                        filtervalue={selectedFilter?.value}
-                        tableLoader={tableLoader}
-                      />
-                  </div>
-                  <div className=" w-full h-[10%] flex items-center justify-between px-3 pt-4 relative 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col gap-2">
+                </div>
+                <div className=" mt-3 pb-3 overflow-auto w-full 2xl:h-[70%] xl:h-[70%] lg:h-[73%] md:h-[63%] sm:h-[63%] xs:h-[43%] xss:h-[43%] mobile:h-[43%]">
+                  <Table
+                    headers={() => {
+                      if (selectedFilter?.value === "recently_joined") {
+                        return [
+                          { title: "S.No" },
+                          { title: "Mobile Number" },
+                          { title: "View" },
+                        ];
+                      } else {
+                        return [
+                          { title: "S.No" },
+                          { title: "Doctor name" },
+                          { title: "Specialist" },
+                          { title: "Status" },
+                          { title: "Action" },
+                          { title: "Payment Status" },
+                          { title: "View" },
+                        ];
+                      }
+                    }}
+                    tableBody={doctorTable}
+                    tableName="Doctor"
+                    model={model}
+                    setModel={setModel}
+                    handleChange={handleChange}
+                    clear={clear}
+                    setClear={setClear}
+                    loader={loader}
+                    setviewPage={setviewPage}
+                    id={setDotorId}
+                    filtervalue={selectedFilter?.value}
+                    tableLoader={tableLoader}
+                  />
+                </div>
+                <div className=" w-full h-[10%] flex items-center justify-between px-3 pt-4 relative 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col gap-2">
                   {doctorTable?.length !== 0 && (
                     <>
                       <div className="w-[80px] z-30">
@@ -205,11 +204,11 @@ const Doctors = () => {
                     </>
                   )}
                 </div>
-                </>
-              </div>
-            </>
-          )}
-        </>
+              </>
+            </div>
+          </>
+        )}
+      </>
       {/* )} */}
     </div>
   );

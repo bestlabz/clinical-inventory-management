@@ -97,6 +97,7 @@ const AddDoctor = () => {
             return setStep((step) => step + 1);
           }
         } catch (error) {
+          setOTP("");
           setLoader(false);
           toast.error(
             `${error.response?.data?.message || error.response.data.error}`

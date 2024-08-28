@@ -1,298 +1,278 @@
 {
- "Login": {
-  "title": "Log in to your account",
-  "label": "Email",
-  "placeholder": "Enter your email address",
-  "button": "Log in",
-  "bottom_text": {
-    "text1": "Don't have an account?",
-    "text2": "Create a new one"
-  },
-  "error": {
-    "phone_number_required": "Phone number is required"
-  }
- },
-
- "verification": {
-  "title": "Log in to your account",
- "resend-text": "Resend OTP",
- "button": "Log in",
- "bottom_text": {
-  "text1": "Don't have an account?",
-  "text2": "Create a new one"
-}
-
- },
-
- "signup": {
-   "title": "Create a new account",
-  "step1": {
-    "label": "Mobile Number",
-    "label1": "Email",
-
-    "placeholder": "Enter your phone number",
-    "placeholder1": "Enter your email address",
-
-    "button": "Next",
+  "Login": {
+    "title": "Log in to your account",
+    "label": "Email",
+    "placeholder": "Enter your email address",
+    "button": "Log in",
+    "bottom_text": {
+      "text1": "Don't have an account?",
+      "text2": "Create a new one"
+    },
     "error": {
       "phone_number_required": "Phone number is required"
-    },
-    "bottom_text": {
-      "text1": "Already have an account?",
-      "text2": "Login"
     }
-
   },
-  "step2" :{
+
+  "verification": {
+    "title": "Log in to your account",
+    "err-text": "OTP Required",
     "resend-text": "Resend OTP",
-    "label": "Mobile Number",
-    "button": "Next",
-    "error": {
-      "phone_number_required": "Phone number is required"
-    },
+    "button": "Log in",
     "bottom_text": {
-      "text1": "Already have an account?",
-      "text2": "Login"
-    }
-
-  },
-  "step3" :{
-    "subtitle": "Profile Details",
-    "label": {
-      "name": "Name",
-      "clinic_name": "Clinic Name",
-      "email": "Email"
-
-    },
-    "placeholder": {
-      "name": "Enter your name",
-      "clinic_name": "Enter your clinic Name",
-      "email": "Enter your email"
-    },
-    "termsandcondition": "Agree to terms and conditions",
-    "button": "Next",
-    "error": {
-      "name_required": "Name is required",
-      "clinic_name_required": "Clinic name is required",
-      "email": "Email is required"
+      "text1": "Don't have an account?",
+      "text2": "Create a new one"
     }
   },
 
-  "step4" :{
+  "signup": {
     "title": "Create a new account",
-    "subtitle": "Clinical Document Verification",    
-    "error": {
-      "document_required": "Document is required"
+    "step1": {
+      "label": "Mobile Number",
+      "label1": "Email",
+
+      "placeholder": "Enter your phone number",
+      "placeholder1": "Enter your email address",
+
+      "button": "Next",
+      "error": {
+        "phone_number_required": "Phone number is required"
+      },
+      "bottom_text": {
+        "text1": "Already have an account?",
+        "text2": "Login"
+      }
     },
-    "button": "Submit"
-    
-
-  }
- },
-
- "dashboard": {
-  "title": "Patient List",
-  "subText": "Patients",
-  "card": {
-    "text1":"Today’s patient list",
-    "text2":"Doctor’s available",
-    "text3":"Doctor’s on leave"
-
-  }
- },
-
- "doctors": {
-  "title": "Doctor’s List",
-  "subText": "Doctors",
-  "card": {
-    "text1":"Total Doctor’s list",
-    "text2":"Doctor’s available",
-    "text3":"Doctor’s on leave"
-  }
- },
-
- "add_doctor": {
-   "navigate_content": "Invite Doctor",
-  "step1": {
-    "title": "Enter Doctor’s Mobile number",
-    "button": "Send Code"
-  },
-  "step2": {
-    "title": "Enter Doctor’s Mobile number",
-    "subtext": "A secure code has been sent to doctor’s mobile number",
-    "resend_text": "Resend Code",
-    "button": "Verify"
-  }
- 
- },
-
- "receptionist": {
-  "title": "Receptionist List",
-  "subText": "Receptionist",
-  "card": {
-    "text1":"Total Doctor’s list",
-    "text2":"Doctor’s available",
-    "text3":"Doctor’s on leave"
-  }
- },
-
- "add_receptionist": {
-  "navigate_content": "Invite Receptionist",
- "step1": {
-   "title": "Enter Receptionist Mobile number",
-   "button": "Send Code"
- },
- "step2": {
-   "title": "Enter Receptionist Mobile number",
-   "subtext": "A secure code has been sent to Receptionist mobile number",
-   "resend_text": "Resend Code",
-   "button": "Verify"
- }
-},
-
-"medicine": {
-  "title": "Medicine List",
-  "subText": "Medicine"
- },
-
- "add_medicine": {
-  "navigate_content": "Add Medicine",
- "label": {
-  "name": "Medicine Name",
-  "dasage_form": "Dosage Form",
-  "dasage_strength": "Dosage Strength",
-  "dasage_unit": "Dosage Strength"
-
- },
- "placeholder": {
-  "name": "eg. dolo",
-  "dasage_form": "eg. Tablet, Liquid etc",
-  "dasage_strength": "eg. 500",
-  "dasage_unit": "eg. mg"
- },
- "button": "Submit",
- "errors": {
-  "name": "Medicine name is required",
-  "dasage_form":"Dasage form is required",
-  "dasage_strength":"Dasage strength is required"
- }
-},
-
-"logout": {
-  "title": "Are you sure do you wants to logout?",
-  "buttons": {
-    "cancel": "Cancel",
-    "Submit": "Yes"
-  }
-
-},
-
-"common": {
-  "success_message": "Added Successfully",
-  "title": "Feel Great through the power of better health"
-},
-
-"prescription" : {
-  "navigate_content": "Prescription template",
-  "bottom_title": "Doctor Signature",
-  "button": "Submit",
-  "step1": {
-    "title": "Doctor Information",
-    "placeholder": {
-      "placeholder_text1": "Enter Speciality",
-      "placeholder_text2": "Enter Phone Number",
-      "placeholder_text3": "Enter License Number"
+    "step2": {
+      "resend-text": "Resend OTP",
+      "label": "Mobile Number",
+      "button": "Next",
+      "error": {
+        "phone_number_required": "Phone number is required"
+      },
+      "bottom_text": {
+        "text1": "Already have an account?",
+        "text2": "Login"
+      }
     },
-    "label": {
-      "label1": "Speciality",
-      "label2": "Phone Number",
-      "label3": "License Number"
+    "step3": {
+      "subtitle": "Profile Details",
+      "label": {
+        "name": "Name",
+        "clinic_name": "Clinic Name",
+        "email": "Email"
+      },
+      "placeholder": {
+        "name": "Enter your name",
+        "clinic_name": "Enter your clinic Name",
+        "email": "Enter your email"
+      },
+      "termsandcondition": "Agree to terms and conditions",
+      "button": "Next",
+      "error": {
+        "name_required": "Name is required",
+        "clinic_name_required": "Clinic name is required",
+        "email": "Email is required"
+      }
     },
-    "errors": {
-      "error1": "Speciality is required",
-      "error2": "Phone number is required",
-      "error3": "License number is required"
-    }
-  },
-  "step2": {
-    "title": "Patient Information",
-    "placeholder": {
-      "placeholder_text1": "Enter Patient Name",
-      "placeholder_text2": "Enter Age",
-      "placeholder_text3": "Select Gender",
-      "placeholder_text4": "Enter Phone Number"
-    },
-    "label": {
-      "label1": "Patient Name",
-      "label2": "Age",
-      "label3": "Gender",
-      "label4": "Phone Number"
-    },
-    "errors": {
-      "error1": "Patient name is required",
-      "error2": "Age is required",
-      "error3": "Phone number is required"
+
+    "step4": {
+      "title": "Create a new account",
+      "subtitle": "Clinical Document Verification",
+      "error": {
+        "document_required": "Document is required"
+      },
+      "button": "Submit"
     }
   },
 
-  "step3": {
-    "title": "Prescription Details",
-    "placeholder": {
-      "placeholder_text1": "Enter Medicine Name",
-      "placeholder_text2": "Enter Dosage",
-      "placeholder_text3": "Enter Frequency",
-      "placeholder_text4": "Enter Duration",
-      "placeholder_text5": "Enter Instruction/comments"
-
-    },
-    "label": {
-      "label1": "Medicine Name",
-      "label2": "Dosage",
-      "label3": "Frequency",
-      "label4": "Duration",
-      "label5": "Instruction/comments"
-
-    },
-    "errors": {
-      "error1": "Medicine Name is required",
-      "error2": "Dosage is required",
-      "error3": "Frequency is required",
-      "error4": "Duration is required",
-      "error5": "Instruction/comments is required"
-
+  "dashboard": {
+    "title": "Patient List",
+    "subText": "Patients",
+    "card": {
+      "text1": "Today’s patient list",
+      "text2": "Doctor’s available",
+      "text3": "Doctor’s on leave"
     }
   },
-  "step4": {
-    "title": "Diagnosis",
-    "placeholder": {
-      "placeholder_text1": "Enter Diagnosis"
 
-    },
-    "label": {
-      "label1": "Diagnosis/condition",
-      "label2": "Additional Notes"
-
-    },
-    "errors": {
-      "error1": "Diagnosis/condition is required"    },
-    "image-text": "Additional Notes"
-  }
-},
-
-
-"toggel": {
-  "block": "Are you sure you want to Block ?",
-  "unBlock": "Are you sure you want to UnBlock ?",
-  "buttons": {
-    "cancel": "Cancel",
-    "Submit": "Yes"
-
+  "doctors": {
+    "title": "Doctor’s List",
+    "subText": "Doctors",
+    "card": {
+      "text1": "Total Doctor’s list",
+      "text2": "Doctor’s available",
+      "text3": "Doctor’s on leave"
+    }
   },
-  "label": "Reason"
 
-}
+  "add_doctor": {
+    "navigate_content": "Invite Doctor",
+    "step1": {
+      "title": "Enter Doctor’s Mobile number",
+      "button": "Send Code"
+    },
+    "step2": {
+      "title": "Enter Doctor’s Mobile number",
+      "subtext": "A secure code has been sent to doctor’s mobile number",
+      "resend_text": "Resend Code",
+      "button": "Verify"
+    }
+  },
 
+  "receptionist": {
+    "title": "Receptionist List",
+    "subText": "Receptionist",
+    "card": {
+      "text1": "Total Doctor’s list",
+      "text2": "Doctor’s available",
+      "text3": "Doctor’s on leave"
+    }
+  },
 
+  "add_receptionist": {
+    "navigate_content": "Invite Receptionist",
+    "step1": {
+      "title": "Enter Receptionist Mobile number",
+      "button": "Send Code"
+    },
+    "step2": {
+      "title": "Enter Receptionist Mobile number",
+      "subtext": "A secure code has been sent to Receptionist mobile number",
+      "resend_text": "Resend Code",
+      "button": "Verify"
+    }
+  },
 
+  "medicine": {
+    "title": "Medicine List",
+    "subText": "Medicine"
+  },
 
+  "add_medicine": {
+    "navigate_content": "Add Medicine",
+    "label": {
+      "name": "Medicine Name",
+      "dasage_form": "Dosage Form",
+      "dasage_strength": "Dosage Strength",
+      "dasage_unit": "Dosage Strength"
+    },
+    "placeholder": {
+      "name": "eg. dolo",
+      "dasage_form": "eg. Tablet, Liquid etc",
+      "dasage_strength": "eg. 500",
+      "dasage_unit": "eg. mg"
+    },
+    "button": "Submit",
+    "errors": {
+      "name": "Medicine name is required",
+      "dasage_form": "Dasage form is required",
+      "dasage_strength": "Dasage strength is required"
+    }
+  },
+
+  "logout": {
+    "title": "Are you sure do you wants to logout?",
+    "buttons": {
+      "cancel": "Cancel",
+      "Submit": "Yes"
+    }
+  },
+
+  "common": {
+    "success_message": "Added Successfully",
+    "title": "Feel Great through the power of better health"
+  },
+
+  "prescription": {
+    "navigate_content": "Prescription template",
+    "bottom_title": "Doctor Signature",
+    "button": "Submit",
+    "step1": {
+      "title": "Doctor Information",
+      "placeholder": {
+        "placeholder_text1": "Enter Speciality",
+        "placeholder_text2": "Enter Phone Number",
+        "placeholder_text3": "Enter License Number"
+      },
+      "label": {
+        "label1": "Speciality",
+        "label2": "Phone Number",
+        "label3": "License Number"
+      },
+      "errors": {
+        "error1": "Speciality is required",
+        "error2": "Phone number is required",
+        "error3": "License number is required"
+      }
+    },
+    "step2": {
+      "title": "Patient Information",
+      "placeholder": {
+        "placeholder_text1": "Enter Patient Name",
+        "placeholder_text2": "Enter Age",
+        "placeholder_text3": "Select Gender",
+        "placeholder_text4": "Enter Phone Number"
+      },
+      "label": {
+        "label1": "Patient Name",
+        "label2": "Age",
+        "label3": "Gender",
+        "label4": "Phone Number"
+      },
+      "errors": {
+        "error1": "Patient name is required",
+        "error2": "Age is required",
+        "error3": "Phone number is required"
+      }
+    },
+
+    "step3": {
+      "title": "Prescription Details",
+      "placeholder": {
+        "placeholder_text1": "Enter Medicine Name",
+        "placeholder_text2": "Enter Dosage",
+        "placeholder_text3": "Enter Frequency",
+        "placeholder_text4": "Enter Duration",
+        "placeholder_text5": "Enter Instruction/comments"
+      },
+      "label": {
+        "label1": "Medicine Name",
+        "label2": "Dosage",
+        "label3": "Frequency",
+        "label4": "Duration",
+        "label5": "Instruction/comments"
+      },
+      "errors": {
+        "error1": "Medicine Name is required",
+        "error2": "Dosage is required",
+        "error3": "Frequency is required",
+        "error4": "Duration is required",
+        "error5": "Instruction/comments is required"
+      }
+    },
+    "step4": {
+      "title": "Diagnosis",
+      "placeholder": {
+        "placeholder_text1": "Enter Diagnosis"
+      },
+      "label": {
+        "label1": "Diagnosis/condition",
+        "label2": "Additional Notes"
+      },
+      "errors": {
+        "error1": "Diagnosis/condition is required"
+      },
+      "image-text": "Additional Notes"
+    }
+  },
+
+  "toggel": {
+    "block": "Are you sure you want to Block ?",
+    "unBlock": "Are you sure you want to UnBlock ?",
+    "buttons": {
+      "cancel": "Cancel",
+      "Submit": "Yes"
+    },
+    "label": "Reason"
+  }
 }

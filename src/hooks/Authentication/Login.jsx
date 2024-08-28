@@ -13,7 +13,7 @@ import { LoginSchema } from "../../utils/Validation/Login";
 
 //Hooks
 import { setToken, setUser } from "../../Redux/Slice/User";
-import { setOTP, clearOTP } from "../../Redux/Slice/Otp";
+import { clearOTP, setErr } from "../../Redux/Slice/Otpinput";
 
 //Api Call
 import ApiRequest from "../../services/httpService";
@@ -74,16 +74,27 @@ const Login = () => {
 
   const handelClickOTP = async () => {
     if (!otpValue) {
-      return setError(true);
+      dispatch(setErr(true));
+
+      setTimeout(() => {
+        dispatch(setErr(false));
+      }, 2000);
+      return;
     }
+
     if (otpValue?.length < 6) {
-      return setError(true);
+      dispatch(setErr(true));
+
+      setTimeout(() => {
+        dispatch(setErr(false));
+      }, 2000);
+      return;
     } else {
       setError(false);
 
       const bodyData = {
         email: email,
-        otp: otpValue,
+        otp: otpValue.join(""),
       };
       try {
         setLoader(true);
@@ -95,23 +106,16 @@ const Login = () => {
         return navigate("/dashboard");
       } catch (error) {
         setLoader(false);
+        dispatch(clearOTP());
+        dispatch(setErr(true));
+        setTimeout(() => {
+          dispatch(setErr(false));
+        }, 2000);
         toast.error(
           `${error.response?.data?.message || error.response.data.error}`
         );
       }
     }
-  };
-
-  const handelChange = ({ e }) => {
-    const value = e;
-
-    // Check if the value is a digit
-    if (!/^\d*$/.test(value)) {
-      return; // If not a digit, return without updating the state
-    }
-
-    dispatch(setOTP(value));
-    return;
   };
 
   const navigateSignup = () => {
@@ -122,7 +126,6 @@ const Login = () => {
     step,
     setStep,
     setotpCount,
-    handelChange,
     otp,
     handelClickOTP,
     setNumber,

@@ -9,11 +9,12 @@ import TranslateJson from "../../utils/translation/en.json";
 
 //Components
 import Input from "../../Components/Properites/Inputs/Input";
-import OTPResponsive from "../../Components/Properites/OTP/OTPResponsive";
+import OTP from "../../Components/Properites/OTP/OtpBox";
 
 //Hooks
 import LoginFunction from "../../hooks/Authentication/Login";
 import CountDown from "../../hooks/Authentication/CountDown";
+import { useSelector } from "react-redux";
 
 const Login = () => {
   const {
@@ -26,10 +27,11 @@ const Login = () => {
     values,
     navigateSignup,
     handelChange,
-    otpValue,
     loader,
   } = LoginFunction();
   const { count, formatTime, setTime } = CountDown();
+
+  const { otpValue, Err } = useSelector((state) => state.otpValue);
 
   return (
     <div className="public-route">
@@ -83,12 +85,40 @@ const Login = () => {
           )}
           {step === 2 && (
             <>
-              <OTPResponsive
-                error={error}
-                handelChange={(e) => handelChange({ e })}
-                length={6}
-                otpValue={otpValue}
-              />
+              <div className="flex flex-col ">
+                {/* lg:w-[55%] xl:w-[70%] 2xl:w-[85%] md:w-[55%] gap-3 sm:w-[55%] xs:w-[90%] xss:w-[90%] mobile:w-[95%] */}
+                <div className=" 2xl:block xl:block lg:block md:block sm:block xs:hidden mobile:hidden xss:hidden">
+                  <OTP err={Err} />
+                </div>
+                <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:block mobile:hidden xss:hidden">
+                  <OTP err={Err} gap="6px" height="45px" width="45px" />
+                </div>
+                <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:hidden mobile:block xss:hidden">
+                  <OTP
+                    err={Err}
+                    gap="6px"
+                    height="35px"
+                    width="35px"
+                    fontSize="24px"
+                  />
+                </div>
+                <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:block">
+                  <OTP
+                    err={Err}
+                    gap="3px"
+                    height="33px"
+                    width="33px"
+                    fontSize="18px"
+                  />
+                </div>
+                {/* <div className=" flex items-center justify-between">
+                  <span className=" text-red-500 w-full mt-3">
+                    {!otpValue &&
+                      Err &&
+                      `${TranslateJson.verification["err-text"]}`}
+                  </span>
+                </div> */}
+              </div>
 
               <p className="resend-text">
                 <span
@@ -100,7 +130,7 @@ const Login = () => {
                 {formatTime(count)}
               </p>
               {loader ? (
-                <button type="button" className="login-button">
+                <button type="button" className="login-button-otp">
                   <ClipLoader color="#fff" size={20} />
                 </button>
               ) : (

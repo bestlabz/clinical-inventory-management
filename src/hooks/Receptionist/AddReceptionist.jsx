@@ -17,7 +17,7 @@ const AddDoctor = () => {
   const [value, setValue] = useState("");
   const [errorValidate, setErrorValidate] = useState(false);
   const [loader, setLoader] = useState(false);
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("");
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
@@ -35,7 +35,7 @@ const AddDoctor = () => {
 
       setTimeout(() => {
         setModalPopup(false);
-        setEmail("")
+        setEmail("");
         setValue("");
         setOTP("");
         setStep(1);
@@ -60,7 +60,7 @@ const AddDoctor = () => {
           const { success } = await ApiRequest.post("/sendotp/receptionist", {
             mobile_number: value,
             clinicId: userDetails._id,
-            email
+            email,
           });
 
           if (success) {
@@ -93,6 +93,7 @@ const AddDoctor = () => {
             return setStep((step) => step + 1);
           }
         } catch (error) {
+          setOTP("");
           setLoader(false);
           toast.error(error.response.data.message);
         }
@@ -112,7 +113,8 @@ const AddDoctor = () => {
     setErrorValidate,
     errorValidate,
     loader,
-    email, setEmail
+    email,
+    setEmail,
   };
 };
 

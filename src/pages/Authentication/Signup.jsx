@@ -10,11 +10,12 @@ import TranslateJson from "../../utils/translation/en.json";
 //Components
 import Input from "../../Components/Properites/Inputs/Input";
 import ImageInput from "../../Components/Properites/imageInput/multipleDocumentUpload";
-import OTPResponsive from "../../Components/Properites/OTP/OTPResponsive";
+import OTP from "../../Components/Properites/OTP/OtpBox";
 
 //Hooks
 import SignupFunction from "../../hooks/Authentication/Signup";
 import CountDown from "../../hooks/Authentication/CountDown";
+import { useSelector } from "react-redux";
 
 const Signup = () => {
   const {
@@ -33,9 +34,10 @@ const Signup = () => {
     validationError,
     validationCheck,
     handelChange,
-    otpValue,
   } = SignupFunction();
   const { count, formatTime, setTime } = CountDown();
+
+  const { Err } = useSelector((state) => state.otpValue);
 
   return (
     <div className="public-route">
@@ -52,33 +54,32 @@ const Signup = () => {
               onSubmit={handleSubmit}
             >
               <div className=" flex flex-col items-center 2xl:w-full xl:w-full lg:w-full md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%]">
+                <Input
+                  id="phone_number"
+                  name="phone_number"
+                  value={values.phone_number}
+                  setValue={(e) => {
+                    if (!/^\d*$/.test(e.target.value)) {
+                      return; // If not a digit, return without updating the state
+                    } else {
+                      handleChange(e);
+                    }
+                  }}
+                  length={10}
+                  label={TranslateJson.signup.step1.label}
+                  placeholder={TranslateJson.signup.step1.placeholder}
+                  err={validationError && errors.phone_number}
+                />
 
-              <Input
-                id="phone_number"
-                name="phone_number"
-                value={values.phone_number}
-                setValue={(e) => {
-                  if (!/^\d*$/.test(e.target.value)) {
-                    return; // If not a digit, return without updating the state
-                  } else {
-                    handleChange(e);
-                  }
-                }}
-                length={10}
-                label={TranslateJson.signup.step1.label}
-                placeholder={TranslateJson.signup.step1.placeholder}
-                err={validationError && errors.phone_number}
-              />
-
-              <Input
-                id="email"
-                name="email"
-                value={values.email}
-                setValue={handleChange}
-                label={TranslateJson.signup.step1.label1}
-                placeholder={TranslateJson.signup.step1.placeholder1}
-                err={validationError && errors.email}
-              />
+                <Input
+                  id="email"
+                  name="email"
+                  value={values.email}
+                  setValue={handleChange}
+                  label={TranslateJson.signup.step1.label1}
+                  placeholder={TranslateJson.signup.step1.placeholder1}
+                  err={validationError && errors.email}
+                />
               </div>
               {loader ? (
                 <button type="button" className="login-button">
@@ -106,12 +107,33 @@ const Signup = () => {
           )}
           {step === 2 && (
             <>
-              <OTPResponsive
-                error={error}
-                handelChange={(e) => handelChange({ e })}
-                length={6}
-                otpValue={otpValue}
-              />
+              <div className="flex flex-col ">
+                {/* lg:w-[55%] xl:w-[70%] 2xl:w-[85%] md:w-[55%] gap-3 sm:w-[55%] xs:w-[90%] xss:w-[90%] mobile:w-[95%] */}
+                <div className=" 2xl:block xl:block lg:block md:block sm:block xs:hidden mobile:hidden xss:hidden">
+                  <OTP err={Err} />
+                </div>
+                <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:block mobile:hidden xss:hidden">
+                  <OTP err={Err} gap="6px" height="45px" width="45px" />
+                </div>
+                <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:hidden mobile:block xss:hidden">
+                  <OTP
+                    err={Err}
+                    gap="6px"
+                    height="35px"
+                    width="35px"
+                    fontSize="24px"
+                  />
+                </div>
+                <div className=" 2xl:hidden xl:hidden lg:hidden md:hidden sm:hidden xs:hidden mobile:hidden xss:block">
+                  <OTP
+                    err={Err}
+                    gap="3px"
+                    height="33px"
+                    width="33px"
+                    fontSize="18px"
+                  />
+                </div>
+              </div>
 
               <p className="resend-text">
                 <span
@@ -154,44 +176,44 @@ const Signup = () => {
                 {TranslateJson.signup.step3.subtitle}
               </h1>
               <div className=" flex flex-col items-center 2xl:w-full xl:w-full lg:w-full md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%]">
-              <Input
-                id="name"
-                name="name"
-                value={values.name}
-                setValue={(e) => {
-                  if (/^[a-zA-Z\s]*$/.test(e.target.value)) {
-                    handleChange(e); // Call handleChange if the input is valid
+                <Input
+                  id="name"
+                  name="name"
+                  value={values.name}
+                  setValue={(e) => {
+                    if (/^[a-zA-Z\s]*$/.test(e.target.value)) {
+                      handleChange(e); // Call handleChange if the input is valid
+                    }
+                  }}
+                  err={validationError && errors.name}
+                  label={TranslateJson.signup.step3.label.name}
+                  placeholder={TranslateJson.signup.step3.placeholder.name}
+                />
+                <Input
+                  id="clinic_name"
+                  name="clinic_name"
+                  value={values.clinic_name}
+                  setValue={(e) => {
+                    if (/^[a-zA-Z\s]*$/.test(e.target.value)) {
+                      handleChange(e); // Call handleChange if the input is valid
+                    }
+                  }}
+                  err={validationError && errors.clinic_name}
+                  label={TranslateJson.signup.step3.label.clinic_name}
+                  placeholder={
+                    TranslateJson.signup.step3.placeholder.clinic_name
                   }
-                }}
-                err={validationError && errors.name}
-                label={TranslateJson.signup.step3.label.name}
-                placeholder={TranslateJson.signup.step3.placeholder.name}
-              />
-              <Input
-                id="clinic_name"
-                name="clinic_name"
-                value={values.clinic_name}
-                setValue={(e) => {
-                  if (/^[a-zA-Z\s]*$/.test(e.target.value)) {
-                    handleChange(e); // Call handleChange if the input is valid
-                  }
-                }}
-                err={validationError && errors.clinic_name}
-                label={TranslateJson.signup.step3.label.clinic_name}
-                placeholder={TranslateJson.signup.step3.placeholder.clinic_name}
-              />
-              <Input
-                id="email"
-                name="email"
-                value={values.email}
-                setValue={handleChange}
-                err={validationError && errors.email}
-                label={TranslateJson.signup.step3.label.email}
-                placeholder={TranslateJson.signup.step3.placeholder.email}
-                disabled={true}
-
-              />
-
+                />
+                <Input
+                  id="email"
+                  name="email"
+                  value={values.email}
+                  setValue={handleChange}
+                  err={validationError && errors.email}
+                  label={TranslateJson.signup.step3.label.email}
+                  placeholder={TranslateJson.signup.step3.placeholder.email}
+                  disabled={true}
+                />
               </div>
               <div className=" 2xl:w-full xl:w-full lg:w-full md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] flex items-center gap-3 mt-2">
                 <input

@@ -16,7 +16,7 @@ import {
 
 //Hooks
 import { clearUserDetails, setUserDetails } from "../../Redux/Slice/SignupUser";
-import { clearOTP, setOTP } from "../../Redux/Slice/Otp";
+import { clearOTP, setErr, setOTP } from "../../Redux/Slice/Otpinput";
 import ApiRequest from "../../services/httpService";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -229,16 +229,27 @@ const Signup = () => {
 
   const handelClickOTP = async () => {
     if (!otpValue) {
-      return setError(true);
+      dispatch(setErr(true));
+
+      setTimeout(() => {
+        dispatch(setErr(false));
+      }, 2000);
+      return;
     }
+
     if (otpValue?.length < 6) {
-      return setError(true);
+      dispatch(setErr(true));
+
+      setTimeout(() => {
+        dispatch(setErr(false));
+      }, 2000);
+      return;
     } else {
       setError(false);
 
       const bodyData = {
         email: validation.email,
-        otp: otpValue,
+        otp: otpValue.join(""),
       };
       setLoader(true);
       try {
@@ -251,9 +262,20 @@ const Signup = () => {
           setID(clinic?._id);
           localStorage.setItem("token", token);
           dispatch(clearOTP());
-          return setStep((step) => step + 1);
+          dispatch(setErr(true));
+
+          setTimeout(() => {
+            dispatch(setErr(false));
+          }, 2000);
+          setStep((step) => step + 1);
+          return;
         }
       } catch (error) {
+        dispatch(setErr(true));
+
+        setTimeout(() => {
+          dispatch(setErr(false));
+        }, 2000);
         setLoader(false);
         toast.error(
           `${error.response?.data?.message || error.response.data.error}`

@@ -17,11 +17,14 @@ const PrivateRoute = ({ children, ...rest }) => {
 
   const fetchClinicData = useCallback(async () => {
     try {
-      const { success, clinic, balancedue } = await ApiRequest.get("/clinic");
+      const { success, clinic, balancedue, doctorsCount, receptionistsCount } =
+        await ApiRequest.get("/clinic");
 
       const data = {
         ...clinic,
         balancedue,
+        doctorsCount,
+        receptionistsCount,
       };
 
       if (success) {

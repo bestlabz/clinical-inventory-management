@@ -43,11 +43,19 @@ const Profile = () => {
   useEffect(() => {
     const Api = async () => {
       if (!loader) {
-        const { success, clinic, balancedue } = await ApiRequest.get("/clinic");
+        const {
+          success,
+          clinic,
+          balancedue,
+          doctorsCount,
+          receptionistsCount,
+        } = await ApiRequest.get("/clinic");
         if (success) {
           const data = {
             ...clinic,
             balancedue,
+            doctorsCount,
+            receptionistsCount,
           };
 
           dispatch(setUser(data));

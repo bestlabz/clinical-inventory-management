@@ -69,12 +69,12 @@ const menuConfig = [
         icon: <Medicine />,
         activeName: "Dosage Unit",
       },
-      {
-        path: "/templates",
-        name: "Templates",
-        icon: <TbTemplate size={30} />,
-        activeName: "Templates",
-      },
+      // {
+      //   path: "/templates",
+      //   name: "Templates",
+      //   icon: <TbTemplate size={30} />,
+      //   activeName: "Templates",
+      // },
     ],
   },
   // {

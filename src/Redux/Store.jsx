@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import User from "./Slice/User";
 import Sidebar from "./Slice/Sidebar";
-import OTP from "./Slice/Otp";
+import OTP from "./Slice/Otpinput";
 import Signup from "./Slice/SignupUser";
 
 import TableDatas from "./Slice/TableDatas";
