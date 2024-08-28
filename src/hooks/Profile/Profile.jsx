@@ -73,34 +73,35 @@ const Profile = () => {
   useEffect(() => {
     const API = async () => {
       if (balanceDue && userDetails) {
-        if (subscriptionID) {
-          try {
-            const {
-              success,
+        if (!subscriptionID) {
+          setBalanceDue(false);
+          toast.error("subscription ID not available");
+          return;
+        }
+        try {
+          const {
+            success,
+            doctors,
+            receptionists,
+            totalUnsubscriptionAmount,
+            subscriptionDurations,
+          } = await ApiRequest.post(
+            `/balancedue/${userDetails?._id}/${subscriptionID}`
+          );
+
+          if (success) {
+            const data = {
               doctors,
               receptionists,
               totalUnsubscriptionAmount,
               subscriptionDurations,
-            } = await ApiRequest.post(
-              `/balancedue/${userDetails?._id}/${subscriptionID}`
-            );
+            };
 
-            if (success) {
-              const data = {
-                doctors,
-                receptionists,
-                totalUnsubscriptionAmount,
-                subscriptionDurations,
-              };
-
-              dispatch(addBalanceDue(data));
-              return;
-            }
-          } catch (error) {
-            toast.error(error.response.data.error);
+            dispatch(addBalanceDue(data));
+            return;
           }
-        } else {
-          toast.error("No balance due popup or subscription ID");
+        } catch (error) {
+          toast.error(error.response.data.error);
         }
       }
     };
@@ -204,7 +205,11 @@ const Profile = () => {
   };
 
   const balanceModel = () => {
-    setBalanceDue(!balanceDue);
+    if (subscriptionID) {
+      setBalanceDue(!balanceDue);
+    } else {
+      toast.error("subscription ID not available");
+    }
   };
 
   const updateBalanceDue = async () => {
