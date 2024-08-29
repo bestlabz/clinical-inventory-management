@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 //Components
 import FormHandel from "../../Components/Properites/FormHandel/Formhandel";
 import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 
 const DocumentPage = () => {
   const dispatch = useDispatch();
@@ -25,13 +26,10 @@ const DocumentPage = () => {
   const [validationError, setValidationError] = useState(false);
   const [loader, setLoader] = useState(false);
 
-
   const { userDetails } = useSelector((state) => state.userinfo);
   const { newuser } = useSelector((state) => state.Signup);
 
-
-  console.log('ss', userDetails)
-
+  console.log("ss", userDetails);
 
   useEffect(() => {
     setTimeout(() => {
@@ -115,18 +113,23 @@ const DocumentPage = () => {
             { "Content-Type": "multipart/form-data" }
           );
           if (success) {
+            const { success, freetrails } = await ApiRequest.get("/freetrail");
 
-            await ApiRequest.post(
-              `/updateSubscription/${userDetails?._id}`,
-              {
-                subscription_id: import.meta.env.VITE_APP_API_FreeTrail,
-                transaction_id: 'free_trail',
-              }
-            );
-            setLoader(false);
-            toast.success(message);
-            dispatch(clearUserDetails());
-            return navigate("/login");
+            if (success) {
+              const count = freetrails[0].days;
+              await ApiRequest.post(`/updateSubscription/${userDetails?._id}`, {
+                subscription_id: freetrails[0]._id,
+                transaction_id: "free_trail",
+                subscription_startdate: dayjs().format("DD-MM-YYYY HH:MM:ss"),
+                subscription_enddate: dayjs()
+                  .add(count, "day")
+                  .format("DD-MM-YYYY HH:MM:ss"),
+              });
+              setLoader(false);
+              toast.success(message);
+              dispatch(clearUserDetails());
+              return navigate("/login");
+            }
           }
         } catch (error) {
           setLoader(false);

@@ -38,6 +38,7 @@ const AddDoctor = () => {
         setEmail("");
         setValue("");
         setOTP("");
+        navigate("/receptionist");
         setStep(1);
       }, 3000);
     }
@@ -50,6 +51,8 @@ const AddDoctor = () => {
   const pre = () => {
     if (step !== 1) {
       setStep((step) => step - 1);
+      setValue("");
+      setEmail("");
     }
   };
   const next = async () => {

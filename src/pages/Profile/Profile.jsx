@@ -7,12 +7,15 @@ import Input from "../../Components/Properites/Inputs/Input";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useSelector } from "react-redux";
 import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 import Table from "../../Components/Properites/Table/Table";
 
 import ModelPopup from "../../Components/Properites/ModelPopup/ModelPopup";
 import SubscriptionPage from "../../Components/Properites/ErrorPage/SubscriptionPage";
 import { IoClose } from "react-icons/io5";
 import QRCODE from "../../assets/qr_code.jpg";
+
+dayjs.extend(customParseFormat);
 
 const Profile = () => {
   const {
@@ -81,14 +84,14 @@ const Profile = () => {
     userDetails?.subscription_details[
       userDetails?.subscription_details?.length - 1
     ].subscription_enddate?.split(" ")?.[1];
-  const dueDate = dayjs(DateString).format("YYYY-MM-DD");
+  const dueDate = dayjs(DateString, "DD-MM-YYYY").format("YYYY-MM-DD");
   const planDate = `${dueDate}T${DateTime}`;
   const currentDate = `${currentDateFormat}T${currentTime}`; // Example of another date
   const planDateObj = dayjs(planDate);
   const currentDateObj = dayjs(currentDate);
 
   // Check if date is greater than otherDate
-  const isGreaterThan = currentDateObj.isAfter(planDateObj);
+  const isGreaterThan = currentDateObj.isAfter(dueDate);
 
   return (
     <div className="container">

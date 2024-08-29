@@ -26,6 +26,13 @@ export const userSlice = createSlice({
 });
 
 // Export actions and reducer
-export const { setUser, clearUser, setToken, addBalanceDue, addBillingHistory } =
-  userSlice.actions;
+export const {
+  setUser,
+  clearUser,
+  setToken,
+  addBalanceDue,
+  addBillingHistory,
+  addValues,
+  clearValues,
+} = userSlice.actions;
 export default userSlice.reducer;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //Third party libraries
 import { ClipLoader } from "react-spinners";
@@ -28,10 +28,26 @@ const Login = () => {
     navigateSignup,
     handelChange,
     loader,
+    resendOtp,
+    initial,
+    setInitial,
   } = LoginFunction();
   const { count, formatTime, setTime } = CountDown();
 
   const { otpValue, Err } = useSelector((state) => state.otpValue);
+
+  console.log("count", count);
+
+  const click = () => {
+    if (!initial) {
+      setInitial(true);
+      resendOtp();
+    } else {
+      if (count === 0) {
+        resendOtp();
+      }
+    }
+  };
 
   return (
     <div className="public-route">
@@ -122,7 +138,10 @@ const Login = () => {
 
               <p className="resend-text">
                 <span
-                  onClick={setTime}
+                  onClick={() => {
+                    setTime();
+                    click();
+                  }}
                   className=" text-primary_color cursor-pointer"
                 >
                   {TranslateJson.verification["resend-text"]}

@@ -28,6 +28,7 @@ const Login = () => {
   const [number, setNumber] = useState(null);
   const [email, setEmail] = useState("");
   const [loader, setLoader] = useState(false);
+  const [initial, setInitial] = useState(false)
 
   const { otpValue } = useSelector((state) => state.otpValue);
 
@@ -122,6 +123,26 @@ const Login = () => {
     navigate("/signup");
   };
 
+  const resendOtp = async () => {
+    const bodyData = {
+      email: email,
+    }
+
+    try {
+      const {success, message} = await ApiRequest.post('/resendotp/clinic', bodyData)
+
+      if(success){
+        toast.success(message);
+      }
+      
+    } catch (error) {
+
+      toast.error(error.response?.data?.message || error.response.data.error)
+      
+    }
+
+  }
+
   return {
     step,
     setStep,
@@ -138,6 +159,8 @@ const Login = () => {
     navigateSignup,
     otpValue,
     loader,
+    resendOtp,
+    initial, setInitial
   };
 };
 

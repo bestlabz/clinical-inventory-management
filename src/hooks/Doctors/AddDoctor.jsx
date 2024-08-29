@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 //Thired party library
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 
 const AddDoctor = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const [step, setStep] = useState(1);
   const [otp, setOTP] = useState("");
   const [modalPopup, setModalPopup] = useState(false);
@@ -19,7 +19,9 @@ const AddDoctor = () => {
   const [loader, setLoader] = useState(false);
   const [email, setEmail] = useState("");
 
-  const { userDetails } = useSelector((state) => state.userinfo);
+  const { userDetails, } = useSelector(
+    (state) => state.userinfo
+  );
 
   useEffect(() => {
     if (errorValidate) {
@@ -38,6 +40,7 @@ const AddDoctor = () => {
         setEmail("");
         setValue("");
         setOTP("");
+        navigate("/doctors");
         setStep(1);
       }, 3000);
     }
@@ -50,7 +53,10 @@ const AddDoctor = () => {
   const pre = () => {
     if (step !== 1) {
       setStep((step) => step - 1);
+      setValue("")
+setEmail("")
     }
+
   };
   const next = async () => {
     if (step === 1) {
