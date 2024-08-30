@@ -35,6 +35,7 @@ const AddReceptionist = () => {
     setErrorValidate,
     email,
     setEmail,
+    resendOtp
   } = AddReceptionistFunction();
 
   return (
