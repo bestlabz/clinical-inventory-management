@@ -111,7 +111,7 @@ const AddDoctor = () => {
 
     try {
       const { success, message } = await ApiRequest.post(
-        "/resendotp/clinic",
+        "/resendotp/receptionist",
         bodyData
       );
 
