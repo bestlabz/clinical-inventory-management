@@ -107,14 +107,14 @@ const Table = ({
                     <td
                       className={`py-2 px-10 flex items-center justify-start gap-3`}
                     >
-                      <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
-                        {item.doctor_image && (
+                      {item.doctor_image && (
+                        <div className="w-[50px] h-[50px] overflow-hidden rounded-full b-[2px] border-black ">
                           <img
                             src={item?.doctor_image}
                             className="w-full h-full object-cover "
                           />
-                        )}
-                      </div>
+                        </div>
+                      )}
                       {item.doctor_name}
                     </td>
                     <td className={`py-2 px-10 `}>
@@ -173,14 +173,14 @@ const Table = ({
                       <td
                         className={`py-2 px-10 flex items-center justify-start gap-3`}
                       >
-                        <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
-                          {item.doctor_image && (
+                        {item.doctor_image && (
+                          <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
                             <img
                               src={item?.doctor_image}
                               className="w-full h-full object-cover "
                             />
-                          )}
-                        </div>
+                          </div>
+                        )}
                         {item.doctor_name}
                       </td>
                       <td className={`py-2 px-10 `}>
@@ -283,12 +283,14 @@ const Table = ({
                       <td
                         className={`py-2 px-10 flex items-center justify-start gap-3`}
                       >
-                        <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
-                          <img
-                            src={item?.receptionist_image}
-                            className="w-full h-full object-cover "
-                          />
-                        </div>
+                        {item?.receptionist_image && (
+                          <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
+                            <img
+                              src={item?.receptionist_image}
+                              className="w-full h-full object-cover "
+                            />
+                          </div>
+                        )}
                         {item.receptionist_name}
                       </td>
                       <td className={`py-2 px-10`}>
@@ -551,7 +553,10 @@ const Table = ({
                     {selectedItem?.durationInNo} {selectedItem?.duration}
                   </h1>
                   <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                    ₹{selectedItem?.pricePerMonth ? selectedItem?.pricePerMonth : selectedItem?.price}
+                    ₹
+                    {selectedItem?.pricePerMonth
+                      ? selectedItem?.pricePerMonth
+                      : selectedItem?.price}
                   </h1>
                 </div>
 
@@ -559,61 +564,62 @@ const Table = ({
               </>
             )}
 
-              <>
-                {selectedItem?.doctor && selectedItem?.doctor !== 0 ? (
-                  <>
-                    <div className="grid grid-cols-3 mt-6 overflow-auto">
-                      <h1 className=" col-span-2 text-[16px] font-bold">
-                        Doctors Count
-                      </h1>
-                      <h1 className=" col-span-1 text-[16px] font-bold text-end"></h1>
-                    </div>
+            <>
+              {selectedItem?.doctor && selectedItem?.doctor !== 0 ? (
+                <>
+                  <div className="grid grid-cols-3 mt-6 overflow-auto">
+                    <h1 className=" col-span-2 text-[16px] font-bold">
+                      Doctors Count
+                    </h1>
+                    <h1 className=" col-span-1 text-[16px] font-bold text-end"></h1>
+                  </div>
 
-                    <div className="grid grid-cols-3 mt-3">
-                      <h1 className=" col-span-2 text-[16px] font-normal">
-                        Doctors x
-                      </h1>
-                      <h1 className=" col-span-1 text-[16px] font-normal text-end">
-                        {selectedItem?.doctor < 9
-                          ? `0${selectedItem?.doctor}`
-                          : selectedItem?.doctor}
-                      </h1>
-                    </div>
-                    <div className="w-full h-[2px] bg-light_gray my-3"></div>
-                  </>
-                ): null}
-                {selectedItem?.receptionist && selectedItem?.receptionist !== 0 ?(
-                  <>
-                    <div className="grid grid-cols-3 mt-6 overflow-auto">
-                      <h1 className=" col-span-2 text-[16px] font-bold">
-                        Receptionist Count
-                      </h1>
-                      <h1 className=" col-span-1 text-[16px] font-bold text-end"></h1>
-                    </div>
+                  <div className="grid grid-cols-3 mt-3">
+                    <h1 className=" col-span-2 text-[16px] font-normal">
+                      Doctors x
+                    </h1>
+                    <h1 className=" col-span-1 text-[16px] font-normal text-end">
+                      {selectedItem?.doctor < 9
+                        ? `0${selectedItem?.doctor}`
+                        : selectedItem?.doctor}
+                    </h1>
+                  </div>
+                  <div className="w-full h-[2px] bg-light_gray my-3"></div>
+                </>
+              ) : null}
+              {selectedItem?.receptionist &&
+              selectedItem?.receptionist !== 0 ? (
+                <>
+                  <div className="grid grid-cols-3 mt-6 overflow-auto">
+                    <h1 className=" col-span-2 text-[16px] font-bold">
+                      Receptionist Count
+                    </h1>
+                    <h1 className=" col-span-1 text-[16px] font-bold text-end"></h1>
+                  </div>
 
-                    <div className="grid grid-cols-3 mt-3">
-                      <h1 className=" col-span-2 text-[16px] font-normal">
-                        Receptionist x
-                      </h1>
-                      <h1 className=" col-span-1 text-[16px] font-normal text-end">
-                        {selectedItem?.receptionist < 9
-                          ? `0${selectedItem?.receptionist}`
-                          : selectedItem?.receptionist}
-                      </h1>
-                    </div>
-                    <div className="w-full h-[2px] bg-light_gray my-3"></div>
-                  </>
-                ): null}
+                  <div className="grid grid-cols-3 mt-3">
+                    <h1 className=" col-span-2 text-[16px] font-normal">
+                      Receptionist x
+                    </h1>
+                    <h1 className=" col-span-1 text-[16px] font-normal text-end">
+                      {selectedItem?.receptionist < 9
+                        ? `0${selectedItem?.receptionist}`
+                        : selectedItem?.receptionist}
+                    </h1>
+                  </div>
+                  <div className="w-full h-[2px] bg-light_gray my-3"></div>
+                </>
+              ) : null}
 
-                <div className="grid grid-cols-5 mt-6 overflow-auto">
-                  <h1 className=" col-span-2 text-[16px] font-bold">Price</h1>
-                  <h1 className=" col-span-1 text-[16px] font-bold text-end"></h1>
-                  <h1 className=" col-span-1 text-[16px] font-bold text-end"></h1>
-                  <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                    ₹{selectedItem?.price}
-                  </h1>
-                </div>
-              </>
+              <div className="grid grid-cols-5 mt-6 overflow-auto">
+                <h1 className=" col-span-2 text-[16px] font-bold">Price</h1>
+                <h1 className=" col-span-1 text-[16px] font-bold text-end"></h1>
+                <h1 className=" col-span-1 text-[16px] font-bold text-end"></h1>
+                <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                  ₹{selectedItem?.price}
+                </h1>
+              </div>
+            </>
           </div>
         </div>
       </ModelPopup>
