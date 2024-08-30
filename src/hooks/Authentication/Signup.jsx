@@ -35,7 +35,7 @@ const Signup = () => {
   const [id, setID] = useState(null);
   const { newuser } = useSelector((state) => state.Signup);
   const { otpValue } = useSelector((state) => state.otpValue);
-  const [token, setToken] = useState(null);
+  const Token = localStorage.getItem("token");
 
   useEffect(() => {
     if (step === 1) {
@@ -175,7 +175,11 @@ const Signup = () => {
             setLoader(false);
             dispatch(clearUserDetails());
             localStorage.removeItem("token");
-            return navigate("/login");
+            if (Token) {
+              return navigate("/dashboard");
+            } else {
+              return navigate("/login");
+            }
           }
         } catch (error) {
           setLoader(false);

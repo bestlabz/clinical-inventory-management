@@ -197,15 +197,15 @@ const ViewPage = ({
                     Post Graduate<span>:</span>
                   </span>
 
-                  {details?.pg_qualification &&
-                    details?.pg_qualification?.map((item, index) => (
-                      <span
-                        key={index}
-                        className="view-page-personal-details-container-body-details-value"
-                      >
-                        {item}
-                      </span>
-                    ))}
+                  <span className="view-page-personal-details-container-body-details-value">
+                    {details?.pg_qualification &&
+                      details.pg_qualification.map((item, index) => (
+                        <span key={index} className="ml-1">
+                          {item}
+                          {index < details.pg_qualification.length - 1 && `, `}
+                        </span> 
+                      ))}
+                  </span>
                 </div>
                 <div className="w-full flex items-center gap-2">
                   <span className="view-page-personal-details-container-body-details-key">

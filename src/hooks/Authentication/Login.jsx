@@ -28,7 +28,7 @@ const Login = () => {
   const [number, setNumber] = useState(null);
   const [email, setEmail] = useState("");
   const [loader, setLoader] = useState(false);
-  const [initial, setInitial] = useState(false)
+  const [initial, setInitial] = useState(false);
 
   const { otpValue } = useSelector((state) => state.otpValue);
 
@@ -97,11 +97,13 @@ const Login = () => {
         email: email,
         otp: otpValue.join(""),
       };
+      localStorage.setItem("email", email);
       try {
         setLoader(true);
         const { clinic, token } = await ApiRequest.post("/verifyotp", bodyData);
         setLoader(false);
         dispatch(setUser(clinic));
+        localStorage.setItem("user_id", clinic?._id);
         localStorage.setItem("token", token);
         dispatch(clearOTP());
         return navigate("/dashboard");
@@ -126,22 +128,21 @@ const Login = () => {
   const resendOtp = async () => {
     const bodyData = {
       email: email,
-    }
+    };
 
     try {
-      const {success, message} = await ApiRequest.post('/resendotp/clinic', bodyData)
+      const { success, message } = await ApiRequest.post(
+        "/resendotp/clinic",
+        bodyData
+      );
 
-      if(success){
+      if (success) {
         toast.success(message);
       }
-      
     } catch (error) {
-
-      toast.error(error.response?.data?.message || error.response.data.error)
-      
+      toast.error(error.response?.data?.message || error.response.data.error);
     }
-
-  }
+  };
 
   return {
     step,
@@ -160,7 +161,8 @@ const Login = () => {
     otpValue,
     loader,
     resendOtp,
-    initial, setInitial
+    initial,
+    setInitial,
   };
 };
 

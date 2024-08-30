@@ -19,9 +19,7 @@ const AddDoctor = () => {
   const [loader, setLoader] = useState(false);
   const [email, setEmail] = useState("");
 
-  const { userDetails, } = useSelector(
-    (state) => state.userinfo
-  );
+  const { userDetails } = useSelector((state) => state.userinfo);
 
   useEffect(() => {
     if (errorValidate) {
@@ -53,10 +51,9 @@ const AddDoctor = () => {
   const pre = () => {
     if (step !== 1) {
       setStep((step) => step - 1);
-      setValue("")
-setEmail("")
+      setValue("");
+      setEmail("");
     }
-
   };
   const next = async () => {
     if (step === 1) {
@@ -112,6 +109,25 @@ setEmail("")
       }
     }
   };
+
+  const resendOtp = async () => {
+    const bodyData = {
+      email: email,
+    };
+
+    try {
+      const { success, message } = await ApiRequest.post(
+        "/resendotp/clinic",
+        bodyData
+      );
+
+      if (success) {
+        toast.success(message);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.response.data.error);
+    }
+  };
   return {
     goBack,
     step,
@@ -127,6 +143,7 @@ setEmail("")
     loader,
     email,
     setEmail,
+    resendOtp,
   };
 };
 

@@ -23,6 +23,8 @@ const DocumentPage = () => {
     loader,
   } = DocumentPageFunction();
 
+
+
   return (
     <div className="public-route">
       <div className="public-route-right">
@@ -73,6 +75,7 @@ const DocumentPage = () => {
               err={validationError && errors.email}
               label={TranslateJson.signup.step3.label.email}
               placeholder={TranslateJson.signup.step3.placeholder.email}
+              disabled={true}
             />
             <div className=" 2xl:w-full xl:w-full lg:w-full md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] flex items-center gap-3 mt-2">
               <input

@@ -83,6 +83,7 @@ const Addmedicine = () => {
         setSelectedItem1(null);
         setTimeout(() => {
           setModalPopup(false);
+          navigate('/medicine')
           actions.resetForm();
         }, 3000);
         return;

@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 //Utilities
-import {
-  SignupPhoneNumber,
-  SignupDetails,
-  SignupImage,
-} from "../../utils/Validation/Signup";
+import { SignupDetails, SignupImage } from "../../utils/Validation/Signup";
 
 import ApiRequest from "../../services/httpService";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,8 +24,9 @@ const DocumentPage = () => {
 
   const { userDetails } = useSelector((state) => state.userinfo);
   const { newuser } = useSelector((state) => state.Signup);
-
-  console.log("ss", userDetails);
+  const Email = localStorage.getItem("email");
+  const userID = localStorage.getItem("user_id");
+  const Token = localStorage.getItem("token");
 
   useEffect(() => {
     setTimeout(() => {
@@ -104,11 +101,11 @@ const DocumentPage = () => {
         }
       }
 
-      if (userDetails?._id) {
+      if (userID) {
         setLoader(true);
         try {
           const { success, message } = await ApiRequest.put(
-            `/clinics/${userDetails?._id}`,
+            `/clinics/${userID}`,
             formData,
             { "Content-Type": "multipart/form-data" }
           );
@@ -117,7 +114,7 @@ const DocumentPage = () => {
 
             if (success) {
               const count = freetrails[0].days;
-              await ApiRequest.post(`/updateSubscription/${userDetails?._id}`, {
+              await ApiRequest.post(`/updateSubscription/${userID}`, {
                 subscription_id: freetrails[0]._id,
                 transaction_id: "free_trail",
                 subscription_startdate: dayjs().format("DD-MM-YYYY HH:MM:ss"),
@@ -128,7 +125,11 @@ const DocumentPage = () => {
               setLoader(false);
               toast.success(message);
               dispatch(clearUserDetails());
-              return navigate("/login");
+              if (Token) {
+                return navigate("/dashboard");
+              } else {
+                return navigate("/login");
+              }
             }
           }
         } catch (error) {
@@ -189,6 +190,10 @@ const DocumentPage = () => {
     setFieldValue("files", [...filters]);
     return;
   };
+
+  useEffect(() => {
+    setFieldValue("email", Email);
+  }, [Email]);
 
   const validationCheck = () => {
     setValidationError(true);

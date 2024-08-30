@@ -119,7 +119,10 @@ const AddReceptionist = () => {
               err={errorValidate}
             />
 
-            <p className=" flex items-center gap-3 cursor-pointer">
+            <p
+              onClick={resendOtp}
+              className=" flex items-center gap-3 cursor-pointer"
+            >
               {" "}
               <ReloadIcon /> {TranslateJson.add_receptionist.step2.resend_text}
             </p>

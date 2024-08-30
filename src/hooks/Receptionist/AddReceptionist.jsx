@@ -103,6 +103,25 @@ const AddDoctor = () => {
       }
     }
   };
+
+  const resendOtp = async () => {
+    const bodyData = {
+      email: email,
+    };
+
+    try {
+      const { success, message } = await ApiRequest.post(
+        "/resendotp/clinic",
+        bodyData
+      );
+
+      if (success) {
+        toast.success(message);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.response.data.error);
+    }
+  };
   return {
     goBack,
     step,
@@ -118,6 +137,7 @@ const AddDoctor = () => {
     loader,
     email,
     setEmail,
+    resendOtp,
   };
 };
 

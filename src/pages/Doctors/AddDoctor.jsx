@@ -37,6 +37,7 @@ const AddDoctor = () => {
     loader,
     email,
     setEmail,
+    resendOtp
   } = AddDoctorFunction();
 
   return (
@@ -123,7 +124,7 @@ const AddDoctor = () => {
               err={errorValidate}
             />
 
-            <p className=" flex items-center gap-3 cursor-pointer">
+            <p onClick={resendOtp} className=" flex items-center gap-3 cursor-pointer">
               {" "}
               <ReloadIcon /> {TranslateJson.add_doctor.step2.resend_text}
             </p>
