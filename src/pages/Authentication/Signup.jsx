@@ -34,10 +34,24 @@ const Signup = () => {
     validationError,
     validationCheck,
     handelChange,
+    resendOtp,
+    initial,
+    setInitial,
   } = SignupFunction();
   const { count, formatTime, setTime } = CountDown();
 
   const { Err } = useSelector((state) => state.otpValue);
+
+  const click = () => {
+    if (!initial) {
+      setInitial(true);
+      resendOtp();
+    } else {
+      if (count === 0) {
+        resendOtp();
+      }
+    }
+  };
 
   return (
     <div className="public-route">
@@ -137,7 +151,10 @@ const Signup = () => {
 
               <p className="resend-text">
                 <span
-                  onClick={setTime}
+                  onClick={() => {
+                    setTime();
+                    click();
+                  }}
                   className=" text-primary_color cursor-pointer"
                 >
                   {TranslateJson.signup.step2["resend-text"]}

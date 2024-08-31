@@ -25,7 +25,6 @@ import dayjs from "dayjs";
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const [step, setStep] = useState(1);
   const [base64Image, setBase64Image] = useState([]);
   const [loader, setLoader] = useState(false);
@@ -33,6 +32,7 @@ const Signup = () => {
   const [validationError, setValidationError] = useState(false);
   const [validation, setValidation] = useState("");
   const [id, setID] = useState(null);
+  const [initial, setInitial] = useState(false);
   const { newuser } = useSelector((state) => state.Signup);
   const { otpValue } = useSelector((state) => state.otpValue);
   const Token = localStorage.getItem("token");
@@ -320,6 +320,25 @@ const Signup = () => {
     }, 2000);
   };
 
+  const resendOtp = async () => {
+    const bodyData = {
+      email: validation?.email,
+    };
+
+    try {
+      const { success, message } = await ApiRequest.post(
+        "/resendotp/clinic",
+        bodyData
+      );
+
+      if (success) {
+        toast.success(message);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.response.data.error);
+    }
+  };
+
   return {
     step,
     setStep,
@@ -338,6 +357,8 @@ const Signup = () => {
     validationCheck,
     validationError,
     otpValue,
+    resendOtp,
+    initial, setInitial
   };
 };
 
