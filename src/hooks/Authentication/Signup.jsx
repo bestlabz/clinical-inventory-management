@@ -25,7 +25,7 @@ import dayjs from "dayjs";
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
   const [base64Image, setBase64Image] = useState({
     clinical_registration_certificate: "",
     primary_consultant_degree_certificate: "",
