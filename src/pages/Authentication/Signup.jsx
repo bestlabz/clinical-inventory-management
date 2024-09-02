@@ -273,6 +273,7 @@ const Signup = () => {
                   setFieldValue={setFieldValue}
                   fileName="clinical_registration_certificate"
                   label="Clinical registration certificate"
+                  access="(.pdf)"
                 />
                 {validationError &&
                   errors.clinical_registration_certificate && (
@@ -291,6 +292,7 @@ const Signup = () => {
                   setFieldValue={setFieldValue}
                   fileName="primary_consultant_degree_certificate"
                   label="Primary consultant degree certificate"
+                  access="(.pdf)"
                 />
                 {validationError &&
                   errors.primary_consultant_degree_certificate && (
@@ -307,6 +309,7 @@ const Signup = () => {
                   setFieldValue={setFieldValue}
                   fileName="clinic_photo"
                   label="Clinic photo with name board"
+                  access="(.png .jpg .jpeg)"
                 />
                 {validationError && errors.clinic_photo && (
                   <span className="err-txt  -mt-3">{errors.clinic_photo}</span>

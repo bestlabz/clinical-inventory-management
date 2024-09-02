@@ -17,14 +17,13 @@ const support = () => {
     loader,
   } = SupportFUnction();
   return (
-    <div className="w-full 2xl:h-[90%] xl:h-[90%] lg:h-[90%] md:h-[90%] sm:h-[90%] xs:h-[96%] mobile:h-[96%] xss:h-[96%] pb-3  ">
+    <div className="container ">
       <h1 className="text-start w-full pb-3 text-[26px] font-semibold">
         Help Center
       </h1>
-      <div className=" w-full  overflow-auto 2xl:h-full xl:h-full lg:h-full h-[90%]">
         <form
           autoComplete="off"
-          className="login-form  mx-auto gap-4"
+          className="login-form  mx-auto gap-3"
           onSubmit={handleSubmit}
         >
           <Input
@@ -122,7 +121,6 @@ const support = () => {
             </button>
           )}
         </form>
-      </div>
     </div>
   );
 };

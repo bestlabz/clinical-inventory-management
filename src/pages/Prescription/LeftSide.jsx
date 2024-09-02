@@ -238,7 +238,7 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
               }}
               className=""
             >
-              {i.value}
+              {i.value}:
             </p>
             <p className="pl-1"></p>
           </div>

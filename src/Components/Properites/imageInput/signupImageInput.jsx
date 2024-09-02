@@ -13,6 +13,7 @@ const ImageInput = ({
   setFieldValue,
   fileName,
   label,
+  access
 }) => {
   const fileInputRef = useRef(null);
 
@@ -101,13 +102,13 @@ const ImageInput = ({
         {/* <div className=" p-2 border-2 rounded-lg mb-3 ">
           <LuUploadCloud size={30} className=" text-secondary_text" />
         </div> */}
-        <div className="flex flex-col gap-0.5 items-center py-3">
-          <span className="text-[16px] font-bold text-secondary_text">
+        <div className="flex flex-col gap-5 items-center py-3">
+          <span className="text-[16px] font-bold text-secondary_text flex gap-2">
             Click to Upload
-            <span className="text-md text-center font-medium">
-              {" "}
-              or drag and drop
-            </span>{" "}
+            <strong className="text-sm text-center font-medium">
+              {access}
+
+            </strong>
           </span>
         </div>
         {/* <div>
