@@ -8,6 +8,10 @@ import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Login from "./pages/Authentication/Login";
 import SignUp from "./pages/Authentication/Signup";
 import DocumentPage from "./pages/Authentication/DocumentPage";
+import Privacy from "./pages/policy/Privacy";
+import Acceptance from "./pages/policy/Acceptance";
+
+
 
 import ThemeSuspense from "./Components/theme/ThemeSuspense";
 
@@ -40,6 +44,9 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/document" element={<DocumentPage />} />
+          <Route path="/privacy-policy" element={<Privacy />} />
+          <Route path="/terms-condition" element={<Acceptance />} />
+
 
 
           {/* Pruvate Route */}

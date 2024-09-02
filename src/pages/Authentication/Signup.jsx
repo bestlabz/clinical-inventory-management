@@ -18,6 +18,7 @@ import OTP from "../../Components/Properites/OTP/OtpBox";
 import SignupFunction from "../../hooks/Authentication/Signup";
 import CountDown from "../../hooks/Authentication/CountDown";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const {
@@ -237,14 +238,24 @@ const Signup = () => {
                   disabled={true}
                 />
               </div>
+              
+
               <div className=" 2xl:w-full xl:w-full lg:w-full md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] flex items-center gap-3 mt-2">
                 <input
                   required={true}
                   type="checkbox"
                   className=" w-[20px] h-[20px] accent-primary_color"
                 />
-                <span>{TranslateJson.signup.step3.termsandcondition}</span>
+                <Link target="_blank" to="/terms-condition" referrerPolicy="no-referrer" className="text-primary_color">{TranslateJson.signup.step3.termsandcondition}</Link>
               </div>
+
+              <div className=" 2xl:w-full xl:w-full lg:w-full md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] flex items-center gap-3 mt-2">
+               <p className=" w-[20px]"></p>
+                <Link target="_blank" to="/privacy-policy" referrerPolicy="no-referrer" className="text-primary_color">{TranslateJson.signup.step3.privacypolicy}</Link>
+              </div>
+
+           
+
 
               <button
                 type="submit"

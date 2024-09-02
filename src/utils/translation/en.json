@@ -67,6 +67,8 @@
         "email": "Enter your email"
       },
       "termsandcondition": "Agree to terms and conditions",
+      "privacypolicy": "Privacy Policy",
+
       "button": "Next",
       "error": {
         "name_required": "Name is required",
