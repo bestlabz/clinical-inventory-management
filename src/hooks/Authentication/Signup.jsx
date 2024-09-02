@@ -26,7 +26,11 @@ const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [step, setStep] = useState(1);
-  const [base64Image, setBase64Image] = useState([]);
+  const [base64Image, setBase64Image] = useState({
+    clinical_registration_certificate: "",
+    primary_consultant_degree_certificate: "",
+    clinic_photo: "",
+  });
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState(false);
   const [validationError, setValidationError] = useState(false);
@@ -118,27 +122,29 @@ const Signup = () => {
       return setStep((step) => step + 1);
     }
     if (step === 4) {
-      const files = () => {
-        return values?.files
-          ?.map((img, index) => {
-            if (index === 0) {
-              return {
-                certificate: img,
-              };
-            } else {
-              const file = {
-                [`certificate${index + 1}`]: img,
-              };
+      // const files = () => {
+      //   return values?.files
+      //     ?.map((img, index) => {
+      //       if (index === 0) {
+      //         return {
+      //           certificate: img,
+      //         };
+      //       } else {
+      //         const file = {
+      //           [`certificate${index + 1}`]: img,
+      //         };
 
-              return file;
-            }
-          })
-          .reduce((acc, obj) => ({ ...acc, ...obj }), {});
-      };
+      //         return file;
+      //       }
+      //     })
+      //     .reduce((acc, obj) => ({ ...acc, ...obj }), {});
+      // };
 
       const storeDetails = {
         ...newuser,
-        ...files(),
+        certificate: values.clinical_registration_certificate,
+        certificate2: values.primary_consultant_degree_certificate,
+        certificate3: values.clinic_photo,
       };
 
       const formData = new FormData();
@@ -174,7 +180,6 @@ const Signup = () => {
 
             setLoader(false);
             dispatch(clearUserDetails());
-            localStorage.removeItem("token");
             if (Token) {
               return navigate("/dashboard");
             } else {
@@ -205,21 +210,54 @@ const Signup = () => {
     });
 
   useEffect(() => {
-    if (step === 4 && values.files && values.files.length > 0) {
-      const newBase64Images = [];
-
-      for (let i = 0; i < values.files.length; i++) {
-        const file = values.files[i];
+    if (step === 4) {
+      if (values.clinical_registration_certificate) {
+        const file = values.clinical_registration_certificate;
         const reader = new FileReader();
 
         reader.onload = function (event) {
           const base64String = event.target.result;
-          newBase64Images.push(base64String);
+          setBase64Image((prev) => ({
+            ...prev,
+            clinical_registration_certificate: base64String,
+          }));
+        };
 
-          // Update state only after all files are processed
-          if (newBase64Images.length === values.files.length) {
-            setBase64Image(newBase64Images);
-          }
+        reader.onerror = function (error) {
+          console.error("Error: ", error);
+        };
+
+        reader.readAsDataURL(file);
+      }
+      if (values.primary_consultant_degree_certificate) {
+        const file = values.primary_consultant_degree_certificate;
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+          const base64String = event.target.result;
+          setBase64Image((prev) => ({
+            ...prev,
+            primary_consultant_degree_certificate: base64String,
+          }));
+        };
+
+        reader.onerror = function (error) {
+          console.error("Error: ", error);
+        };
+
+        reader.readAsDataURL(file);
+      }
+      if (values.clinic_photo) {
+        const file = values.clinic_photo;
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+          const base64String = event.target.result;
+
+          setBase64Image((prev) => ({
+            ...prev,
+            clinic_photo: base64String,
+          }));
         };
 
         reader.onerror = function (error) {
@@ -229,7 +267,7 @@ const Signup = () => {
         reader.readAsDataURL(file);
       }
     }
-  }, [values.files, step]);
+  }, [values, step]);
 
   const handelClickOTP = async () => {
     if (!otpValue) {
@@ -358,7 +396,8 @@ const Signup = () => {
     validationError,
     otpValue,
     resendOtp,
-    initial, setInitial
+    initial,
+    setInitial,
   };
 };
 

@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 
+import Logo from '../../assets/logo.jpg'
+
 //Third party libraries
 import { ClipLoader } from "react-spinners";
 
@@ -36,8 +38,6 @@ const Login = () => {
 
   const { otpValue, Err } = useSelector((state) => state.otpValue);
 
-  console.log("count", count);
-
   const click = () => {
     if (!initial) {
       setInitial(true);
@@ -56,6 +56,8 @@ const Login = () => {
       </div>
       <div className="public-route-left">
         <div className="public-route-left-inside">
+        <div className="title-text 2xl:hidden xl:hidden lg:hidden block"><img src={Logo} className="object-contain w-[200px]"/></div>
+
           <h1 className="title-text">{TranslateJson.Login.title}</h1>
           {step === 1 && (
             <form

@@ -12,6 +12,7 @@ const ImageInput = ({
   base64Image,
   setFieldValue,
   fileName,
+  label,
 }) => {
   const fileInputRef = useRef(null);
 
@@ -72,13 +73,14 @@ const ImageInput = ({
   };
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1 mb-3">
+      {label && <h1 className=" font-semibold text-[18px] py-1">{label}</h1>}
       <div
         className={`
         flex flex-col items-center gap-1
         border-2 border-solid 
         ${error ? "border-red-500" : ""}
-        px-2 py-10 
+        px-2 py-1
         rounded-md 
         cursor-pointer
         `}
@@ -91,12 +93,15 @@ const ImageInput = ({
           type="file"
           className="hidden"
           accept="image/*, application/pdf"
-          onChange={handleFileInputChange} // Handle file selection change event
+          onChange={(e) => {
+            handleFileInputChange(e);
+            e.target.value = null;
+          }} // Handle file selection change event
         />
-        <div className=" p-2 border-2 rounded-lg mb-3 ">
+        {/* <div className=" p-2 border-2 rounded-lg mb-3 ">
           <LuUploadCloud size={30} className=" text-secondary_text" />
-        </div>
-        <div className="flex flex-col gap-0.5 items-center">
+        </div> */}
+        <div className="flex flex-col gap-0.5 items-center py-3">
           <span className="text-[16px] font-bold text-secondary_text">
             Click to Upload
             <span className="text-md text-center font-medium">
@@ -105,11 +110,11 @@ const ImageInput = ({
             </span>{" "}
           </span>
         </div>
-        <div>
+        {/* <div>
           <span className="text-xs text-secondary_text font-medium">
             SVG, PNG, JPG and PDF
           </span>
-        </div>
+        </div> */}
       </div>
       <div className="flex items-center justify-end w-full text-center mx-auto">
         {file && (
@@ -140,13 +145,7 @@ const ImageInput = ({
               </div>
               <div className=" flex items-center justify-end w-full  gap-3">
                 <span className="text-sm">
-                  {file?.name.substring(0, 25) + "..."}
-                </span>
-                <span
-                  className="text-xl cursor-pointer hover:text-red-500"
-                  onClick={handleDeleteFile}
-                >
-                  <IoClose />
+                  {file?.name ? file.name.substring(0, 25) + "..." : ""}
                 </span>
               </div>
             </div>

@@ -27,7 +27,7 @@
 }
 
 .title-text {
-  @apply text-[30px] font-semibold xss:text-center mobile:text-center xs:text-center;
+  @apply text-[28px] font-semibold xss:text-center mobile:text-center xs:text-center;
 }
 
 .input-container {
@@ -51,7 +51,7 @@
 }
 
 .login-form {
-  @apply w-[90%] flex flex-col 2xl:items-start xl:items-start lg:items-start md:items-center xs:items-center xss:items-center mobile:items-center
+  @apply w-[90%] flex flex-col 2xl:items-start xl:items-start lg:items-start md:items-center xs:items-center xss:items-center mobile:items-center overflow-auto pb-2
 }
 
 .login-button {
