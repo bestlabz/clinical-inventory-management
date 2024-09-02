@@ -266,7 +266,7 @@
 }
 
 .prescription-container {
-  @apply flex items-start w-full h-full 2xl:flex-row xl:flex-row lg:flex-col md:flex-col sm:flex-col xs:flex-col mobile:flex-col xss:flex-col overflow-auto;
+  @apply  items-start w-full h-full 2xl:flex-row xl:flex-row lg:flex-col md:flex-col sm:flex-col xs:flex-col mobile:flex-col xss:flex-col overflow-auto 2xl:flex xl:flex lg:flex md:flex hidden;
 }
 
 .prescription-right-container {

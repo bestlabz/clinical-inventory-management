@@ -21,18 +21,20 @@ const Dashboard = () => {
   const [viewPage, setviewPage] = useState(false);
   const [patientID, setPatientID] = useState(null);
   const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
-  const [statusAvailable, setStatusAvailable] = useState(false)
-  const [tableLoader, setTableLoader] = useState(false)
+  const [statusAvailable, setStatusAvailable] = useState(false);
+  const [tableLoader, setTableLoader] = useState(false);
+  const [patientsCount, setpatientsCount] = useState(0);
+  const [doctorAvailable, setdoctorAvailable] = useState(0);
+  const [doctorNotAvailable, setdoctorNotAvailable] = useState(0);
 
   const {
     patientscurrentPage: currentPages,
     patientstotalCount: paginationCount,
   } = useSelector((state) => state.Pagination);
 
-
   useEffect(() => {
-    setTableLoader(true)
-  }, [selectedLimit])
+    setTableLoader(true);
+  }, [selectedLimit]);
 
   useEffect(() => {
     const API = async () => {
@@ -49,14 +51,21 @@ const Dashboard = () => {
           formattedDate = "";
         }
 
-        const { success, patients, currentPage, totalPages } =
-          await ApiRequest.get(
-            `/patients?appointment_date=${formattedDate}&page=${currentPages}&limit=${selectedLimit.value}`
-          );
+        const {
+          success,
+          patients,
+          currentPage,
+          totalPages,
+          availableDoctorsCount,
+          unavailableDoctorsCount,
+          totalCount,
+        } = await ApiRequest.get(
+          `/patients?appointment_date=${formattedDate}&page=${currentPages}&limit=${selectedLimit.value}`
+        );
 
         if (success) {
-    setTableLoader(false)
-          setStatusAvailable(false)
+          setTableLoader(false);
+          setStatusAvailable(false);
           dispatch(
             setPatientsCurrentPage(
               patients.length === 0 && currentPage !== 1
@@ -65,6 +74,10 @@ const Dashboard = () => {
             )
           );
           dispatch(setPatientsTotalCount(totalPages));
+          setpatientsCount(totalCount || 0);
+          setdoctorAvailable(availableDoctorsCount || 0);
+          setdoctorNotAvailable(unavailableDoctorsCount || 0);
+
           const tableData = patients.map((i) => {
             return {
               name: i?.name || "",
@@ -81,7 +94,7 @@ const Dashboard = () => {
           return;
         }
       } catch (error) {
-    setTableLoader(false)
+        setTableLoader(false);
         setPrimaryLoader(false);
         toast.error(
           `${error.response?.data?.message || error.response.data.error}`
@@ -108,20 +121,19 @@ const Dashboard = () => {
 
   const next = () => {
     if (currentPages !== pageNumbers[pageNumbers.length - 1]) {
-      setStatusAvailable(true)
-      setTableLoader(true)
+      setStatusAvailable(true);
+      setTableLoader(true);
 
       return dispatch(setPatientsNextPage());
     }
   };
 
   const pre = () => {
-    if(currentPages !== 1){
-      setStatusAvailable(true)
-      setTableLoader(true)
+    if (currentPages !== 1) {
+      setStatusAvailable(true);
+      setTableLoader(true);
 
       return dispatch(setPatientsPrePage());
-
     }
   };
 
@@ -170,7 +182,7 @@ const Dashboard = () => {
     selectedLimit,
     setSelectedLimit,
     statusAvailable,
-    tableLoader
+    tableLoader,
   };
 };
 

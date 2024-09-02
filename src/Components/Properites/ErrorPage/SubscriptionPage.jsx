@@ -65,8 +65,6 @@ const SubscriptionPage = ({ close = false }) => {
     setBalanceDuePopup(!balanceDuePopup);
   };
 
-  console.log("selectedItem", userDetails);
-
   const handleClick = async (id, value, reason) => {
     try {
       setLoader(true);
@@ -75,6 +73,13 @@ const SubscriptionPage = ({ close = false }) => {
         {
           subscription_id: id,
           transaction_id: reason,
+          amount:
+            userDetails?.receptionistsCount !== 0 ||
+            userDetails?.doctorsCount !== 0
+              ? Number(selectedItem?.price) *
+                (Number(userDetails?.receptionistsCount) +
+                  Number(userDetails?.doctorsCount))
+              : selectedItem?.price,
         }
       );
 
@@ -229,59 +234,69 @@ const SubscriptionPage = ({ close = false }) => {
                 ₹ {selectedItem?.price}
               </h1>
             </div>
-
-            <div className="w-full h-[2px] bg-light_gray my-3"></div>
-            <div className="grid grid-cols-4 mt-6 overflow-auto">
-              <h1 className=" col-span-2 text-[16px] font-bold">Doctors</h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Count
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Balance Due
-              </h1>
-            </div>
-
-            <div className="grid grid-cols-4 mt-3">
-              <h1 className=" col-span-2 text-[16px] font-normal">Doctors x</h1>
-              <h1 className=" col-span-1 text-[16px] font-normal text-end">
-                {userDetails?.doctorsCount}
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
-                ₹
-                {Number(selectedItem?.price) *
-                  Number(userDetails?.doctorsCount)}
-              </h1>
-            </div>
             <div className="w-full h-[2px] bg-light_gray my-3"></div>
 
-            <div className="grid grid-cols-4 mt-6 overflow-auto">
-              <h1 className=" col-span-2 text-[16px] font-bold">
-                Receptionist
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Count
-              </h1>
+            {userDetails?.doctorsCount !== 0 && (
+              <>
+                <div className="grid grid-cols-4 mt-6 overflow-auto">
+                  <h1 className=" col-span-2 text-[16px] font-bold">Doctors</h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                    Count
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                    Balance Due
+                  </h1>
+                </div>
 
-              <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                Balance Due
-              </h1>
-            </div>
+                <div className="grid grid-cols-4 mt-3">
+                  <h1 className=" col-span-2 text-[16px] font-normal">
+                    Doctors x
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-normal text-end">
+                    {userDetails?.doctorsCount}
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
+                    ₹
+                    {Number(selectedItem?.price) *
+                      Number(userDetails?.doctorsCount)}
+                  </h1>
+                </div>
+                <div className="w-full h-[2px] bg-light_gray my-3"></div>
+              </>
+            )}
 
-            <div className="grid grid-cols-4 mt-3">
-              <h1 className=" col-span-2 text-[16px] font-normal">
-                Receptionist x
-              </h1>
-              <h1 className=" col-span-1 text-[16px] font-normal text-end">
-                {userDetails?.receptionistsCount}
-              </h1>
+            {userDetails?.receptionistsCount !== 0 && (
+              <>
+                <div className="grid grid-cols-4 mt-6 overflow-auto">
+                  <h1 className=" col-span-2 text-[16px] font-bold">
+                    Receptionist
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                    Count
+                  </h1>
 
-              <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
-                ₹
-                {Number(selectedItem?.price) *
-                  Number(userDetails?.receptionistsCount)}
-              </h1>
-            </div>
-            <div className="w-full h-[2px] bg-light_gray my-3"></div>
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                    Balance Due
+                  </h1>
+                </div>
+
+                <div className="grid grid-cols-4 mt-3">
+                  <h1 className=" col-span-2 text-[16px] font-normal">
+                    Receptionist x
+                  </h1>
+                  <h1 className=" col-span-1 text-[16px] font-normal text-end">
+                    {userDetails?.receptionistsCount}
+                  </h1>
+
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
+                    ₹
+                    {Number(selectedItem?.price) *
+                      Number(userDetails?.receptionistsCount)}
+                  </h1>
+                </div>
+                <div className="w-full h-[2px] bg-light_gray my-3"></div>
+              </>
+            )}
 
             <div className="grid grid-cols-5 mt-6">
               <h1 className=" col-span-2 text-[16px] font-bold"></h1>
@@ -289,12 +304,19 @@ const SubscriptionPage = ({ close = false }) => {
               <h1 className=" col-span-1 text-[16px] font-bold text-end">
                 Balance Due{" "}
               </h1>
-              <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
-                ₹
-                {Number(selectedItem?.price) *
-                  (Number(userDetails?.receptionistsCount) +
-                    Number(userDetails?.doctorsCount))}
-              </h1>
+              {userDetails?.receptionistsCount !== 0 ||
+              userDetails?.doctorsCount !== 0 ? (
+                <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
+                  ₹
+                  {Number(selectedItem?.price) *
+                    (Number(userDetails?.receptionistsCount) +
+                      Number(userDetails?.doctorsCount))}
+                </h1>
+              ) : (
+                <h1 className=" col-span-1 text-[16px] font-bold text-end text-red-500">
+                  ₹{selectedItem?.price}
+                </h1>
+              )}
             </div>
 
             <div className="grid grid-cols-5 mt-6 overflow-auto">
@@ -304,10 +326,19 @@ const SubscriptionPage = ({ close = false }) => {
                 Total Amount
               </h1>
               <h1 className=" col-span-1 text-[16px] font-bold text-end">
-                ₹
-                {Number(selectedItem?.price) *
-                  (Number(userDetails?.receptionistsCount) +
-                    Number(userDetails?.doctorsCount))}
+                {userDetails?.receptionistsCount !== 0 ||
+                userDetails?.doctorsCount !== 0 ? (
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end ">
+                    ₹
+                    {Number(selectedItem?.price) *
+                      (Number(userDetails?.receptionistsCount) +
+                        Number(userDetails?.doctorsCount))}
+                  </h1>
+                ) : (
+                  <h1 className=" col-span-1 text-[16px] font-bold text-end">
+                    ₹{selectedItem?.price}
+                  </h1>
+                )}
               </h1>
             </div>
           </div>

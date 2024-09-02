@@ -44,7 +44,7 @@ const Table = ({
     setBalanceDuePopup(!balanceDuePopup);
   };
 
-  console.log("selectedItem", selectedItem);
+  
 
   return (
     <>

@@ -427,7 +427,10 @@ const Profile = () => {
 
           <div className=" w-full flex items-center justify-end px-3">
             <button
-              onClick={() => setModel(!model)}
+              onClick={() => {
+                setAmount(balance_due?.totalUnsubscriptionAmount);
+                setModel(!model);
+              }}
               className="w-[150px] py-2 rounded-md font-semibold bg-primary_color text-white"
             >
               Pay Now
@@ -492,23 +495,6 @@ const Profile = () => {
                         }}
                         value={transitationID}
                         placeholder="Transaction "
-                        className=" w-full rounded-lg border-[1px] border-gray-400 p-2 resize-none outline-none"
-                      />
-
-                      {err && <p className="text-red-500">Require</p>}
-
-                      <p className=" text-start mt-4 font-medium text-[18px] py-2">
-                        Amount
-                      </p>
-                      <input
-                        onChange={(e) => {
-                          if (/^\d*$/.test(e.target.value)) {
-                            setAmount(e.target.value);
-                            setErr(false);
-                          }
-                        }}
-                        value={amount}
-                        placeholder="amount "
                         className=" w-full rounded-lg border-[1px] border-gray-400 p-2 resize-none outline-none"
                       />
 
@@ -595,23 +581,6 @@ const Profile = () => {
                       />
 
                       {err && <p className="text-red-500">Require</p>}
-
-                      <p className=" text-start mt-4 font-medium text-[18px] py-2">
-                        Amount
-                      </p>
-                      <input
-                        onChange={(e) => {
-                          if (/^\d*$/.test(e.target.value)) {
-                            setAmount(e.target.value);
-                            setErr(false);
-                          }
-                        }}
-                        value={amount}
-                        placeholder="amount "
-                        className=" w-full rounded-lg border-[1px] border-gray-400 p-2 resize-none outline-none"
-                      />
-
-                      {err && <p className="text-red-500">Require</p>}
                     </div>
 
                     <div className="flex items-start justify-center w-[80%] h-full gap-4 mt-8 absolute top-[70%]">
@@ -691,23 +660,6 @@ const Profile = () => {
                         }}
                         value={transitationID}
                         placeholder="Transaction "
-                        className=" w-full rounded-lg border-[1px] border-gray-400 p-2 resize-none outline-none"
-                      />
-
-                      {err && <p className="text-red-500">Require</p>}
-
-                      <p className=" text-start mt-4 font-medium text-[18px] py-2">
-                        Amount
-                      </p>
-                      <input
-                        onChange={(e) => {
-                          if (/^\d*$/.test(e.target.value)) {
-                            setAmount(e.target.value);
-                            setErr(false);
-                          }
-                        }}
-                        value={amount}
-                        placeholder="amount "
                         className=" w-full rounded-lg border-[1px] border-gray-400 p-2 resize-none outline-none"
                       />
 
@@ -799,23 +751,6 @@ const Profile = () => {
                       />
 
                       {err && <p className="text-red-500">Require</p>}
-
-                      <p className=" text-start mt-4 font-medium text-[18px] py-2">
-                        Amount
-                      </p>
-                      <input
-                        onChange={(e) => {
-                          if (/^\d*$/.test(e.target.value)) {
-                            setAmount(e.target.value);
-                            setErr(false);
-                          }
-                        }}
-                        value={amount}
-                        placeholder="amount "
-                        className=" w-full rounded-lg border-[1px] border-gray-400 p-2 resize-none outline-none"
-                      />
-
-                      {err && <p className="text-red-500">Require</p>}
                     </div>
 
                     <div className="flex items-start justify-center w-[80%] h-full gap-4 mt-8 absolute top-[73%]">
@@ -899,23 +834,6 @@ const Profile = () => {
                         }}
                         value={transitationID}
                         placeholder="Transaction "
-                        className=" w-full rounded-lg border-[1px] border-gray-400 p-2 resize-none outline-none"
-                      />
-
-                      {err && <p className="text-red-500">Require</p>}
-
-                      <p className=" text-start mt-4 font-medium text-[18px] py-2">
-                        Amount
-                      </p>
-                      <input
-                        onChange={(e) => {
-                          if (/^\d*$/.test(e.target.value)) {
-                            setAmount(e.target.value);
-                            setErr(false);
-                          }
-                        }}
-                        value={amount}
-                        placeholder="amount "
                         className=" w-full rounded-lg border-[1px] border-gray-400 p-2 resize-none outline-none"
                       />
 

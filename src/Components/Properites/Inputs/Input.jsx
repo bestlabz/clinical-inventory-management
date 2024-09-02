@@ -20,7 +20,7 @@ const Input = ({
   font,
   weight,
   selectKey,
-  rounded= "rounded-xl"
+  rounded = "rounded-xl",
 }) => {
   return (
     <div className="input-container">
@@ -35,7 +35,9 @@ const Input = ({
           }}
           id={id}
           name={name}
-          className={`input ${rounded} ${err ? "err-border" : "border-gray-300"}`}
+          className={`input ${
+            disabled ? "bg-gray-200" : "bg-white"
+          } ${rounded} ${err ? "err-border" : "border-gray-300"}`}
           type={type}
           maxLength={length}
           placeholder={placeholder}

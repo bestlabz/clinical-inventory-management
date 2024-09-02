@@ -2,6 +2,8 @@ import React from "react";
 import { RiMenuUnfold4Line } from "react-icons/ri";
 import { useLocation, useNavigate } from "react-router-dom";
 import { TbTemplate } from "react-icons/tb";
+import { MdHelpOutline } from "react-icons/md";
+
 
 import GridSvgComponent from "../../../assets/Svg/Home";
 import DoctorsIcon from "../../../assets/Svg/DoctorsIcon";
@@ -23,7 +25,8 @@ const menuConfig = [
       "/dosage-form",
       "/dosage-unit",
       "/templates",
-      "/profile"
+      "/profile",
+      "/help-center"
 
     ],
     items: [
@@ -75,6 +78,12 @@ const menuConfig = [
       //   icon: <TbTemplate size={30} />,
       //   activeName: "Templates",
       // },
+      {
+        path: "/help-center",
+        name: "Help Center",
+        icon: <MdHelpOutline />,
+        activeName: "Help Center",
+      },
     ],
   },
   // {

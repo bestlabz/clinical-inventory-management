@@ -13,6 +13,8 @@ const DosageForm = lazy(() => import("../pages/DosageForm/DosageForm"));
 const DosageStrength = lazy(() => import("../pages/DosageStrength/DosageStrength"));
 const Templates = lazy(() => import("../pages/Template/Templates"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
+const Support = lazy(() => import("../pages/support/support"));
+
 
 
 
@@ -79,7 +81,12 @@ const routes = [
   {
     path: "/profile",
     component: Profile,
+  },
+  {
+    path: "/help-center",
+    component: Support,
   }
+  
 ];
 
 export default routes;

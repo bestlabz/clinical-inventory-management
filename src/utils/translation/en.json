@@ -274,5 +274,20 @@
       "Submit": "Yes"
     },
     "label": "Reason"
+  },
+
+
+  "help-center": {
+    "input-label": {
+      "name": "Name",
+      "placeholder-name": "Enter your name",
+      "email": "Email",
+      "placeholder-email": "Enter your email",
+      "mobile": "Mobile number",
+      "placeholder-mobile": "Enter your mobile number",
+      "description": "Description",
+      "placeholder-description": "Enter your description"
+    },
+    "button-text": "Submit"
   }
 }
