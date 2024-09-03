@@ -238,24 +238,35 @@ const Signup = () => {
                   disabled={true}
                 />
               </div>
-              
 
-              <div className=" 2xl:w-full xl:w-full lg:w-full md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] flex items-center gap-3 mt-2">
+              <div className=" 2xl:w-full xl:w-full lg:w-full md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] flex items-center mt-2">
                 <input
                   required={true}
                   type="checkbox"
-                  className=" w-[20px] h-[20px] accent-primary_color"
+                  className=" w-[16px] h-[16px] accent-primary_color"
                 />
-                <Link target="_blank" to="/terms-condition" referrerPolicy="no-referrer" className="text-primary_color">{TranslateJson.signup.step3.termsandcondition}</Link>
+                <span className="ml-3 text-[12px]">
+                Agree to {""}
+                <Link
+                  target="_blank"
+                  to="/terms-condition"
+                  referrerPolicy="no-referrer"
+                  className="text-primary_color underline"
+                >
+                  {TranslateJson.signup.step3.termsandcondition} {""}
+                </Link>
+                and {""}
+                <Link
+                  target="_blank"
+                  to="/privacy-policy"
+                  referrerPolicy="no-referrer"
+                  className="text-primary_color underline"
+                >
+                  {TranslateJson.signup.step3.privacypolicy}
+                </Link>
+
+                </span>
               </div>
-
-              <div className=" 2xl:w-full xl:w-full lg:w-full md:w-[80%] sm:w-[80%] xs:w-[80%] xss:w-[80%] mobile:w-[80%] flex items-center gap-3 mt-2">
-               <p className=" w-[20px]"></p>
-                <Link target="_blank" to="/privacy-policy" referrerPolicy="no-referrer" className="text-primary_color">{TranslateJson.signup.step3.privacypolicy}</Link>
-              </div>
-
-           
-
 
               <button
                 type="submit"
@@ -284,7 +295,7 @@ const Signup = () => {
                   setFieldValue={setFieldValue}
                   fileName="clinical_registration_certificate"
                   label="Clinical registration certificate"
-                  access="(.pdf)"
+                  access="(.pdf, .png .jpg .jpeg)"
                 />
                 {validationError &&
                   errors.clinical_registration_certificate && (
@@ -303,7 +314,7 @@ const Signup = () => {
                   setFieldValue={setFieldValue}
                   fileName="primary_consultant_degree_certificate"
                   label="Primary consultant degree certificate"
-                  access="(.pdf)"
+                  access="(.pdf, .png .jpg .jpeg)"
                 />
                 {validationError &&
                   errors.primary_consultant_degree_certificate && (
@@ -320,7 +331,7 @@ const Signup = () => {
                   setFieldValue={setFieldValue}
                   fileName="clinic_photo"
                   label="Clinic photo with name board"
-                  access="(.png .jpg .jpeg)"
+                  access="(.pdf, .png .jpg .jpeg)"
                 />
                 {validationError && errors.clinic_photo && (
                   <span className="err-txt  -mt-3">{errors.clinic_photo}</span>

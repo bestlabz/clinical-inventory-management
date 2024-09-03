@@ -62,7 +62,7 @@ export const SignupImage = yup.object().shape({
     .test("fileFormat", "Only image files are allowed", (value) => {
       if (value) {
         const fileType = value.type.split("/")[0]; // Checks the major file type category
-        return fileType === "image"; // Strictly allow only images
+        return fileType === "image" || value.type === "application/pdf"// Strictly allow only images
       }
       return true;
     })
