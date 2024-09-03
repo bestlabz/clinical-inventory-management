@@ -93,6 +93,17 @@ const Profile = () => {
   // Check if date is greater than otherDate
   const isGreaterThan = currentDateObj.isAfter(dueDate);
 
+  const FreeTrail =
+    userDetails?.subscription_details[
+      userDetails?.subscription_details?.length - 1
+    ]?.subscription_id === null
+      ? "FreeTrail"
+      : "Subscribed";
+
+
+      console.log(FreeTrail);
+      
+
   return (
     <div className="container">
       <div className="View-page-top">
@@ -169,13 +180,15 @@ const Profile = () => {
               >
                 Billing history
               </button>
-              <button
-                type="button"
-                onClick={closePayModel}
-                className=" view-page-button !text-green_light !border-green_light absolute right-2 -top-[10%] 2xl:block xl:block lg:block md:block sm:hidden xs:hidden mobile:hidden xss:hidden"
-              >
-                Pay Now
-              </button>
+              {(FreeTrail === "Subscribed" || isGreaterThan) && (
+                <button
+                  type="button"
+                  onClick={closePayModel}
+                  className=" view-page-button !text-green_light !border-green_light absolute right-2 -top-[10%] 2xl:block xl:block lg:block md:block sm:hidden xs:hidden mobile:hidden xss:hidden"
+                >
+                  Pay Now
+                </button>
+              )}
               {userDetails?.balancedue && (
                 <button
                   type="button"

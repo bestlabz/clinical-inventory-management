@@ -49,6 +49,8 @@ const OtpBox = () => {
 
   const handleInputChange = (element, index) => {
     const value = element.value;
+
+    if(!/^\d*$/.test(value)) return
     if (!value) return;
 
     const newOtp = [...otp];
@@ -64,6 +66,7 @@ const OtpBox = () => {
   };
 
   const handleInputChange1 = (element, index, target) => {
+
     if (index < 6) {
       const value = element;
       if (!value) return;
