@@ -26,6 +26,8 @@ const Table = ({
   setAction = "",
   date,
   tableLoader,
+  resendOtp,
+  otpLoader,
 }) => {
   const [details, setDetails] = useState({
     id: "",
@@ -43,8 +45,6 @@ const Table = ({
   const handleBalanceModel = () => {
     setBalanceDuePopup(!balanceDuePopup);
   };
-
-  
 
   return (
     <>
@@ -232,6 +232,30 @@ const Table = ({
                         )}
                       </td>
                       <td className={`py-2 px-10`}>
+                        {item?.verified ? (
+                          <p className="text-green_light border-[1px] border-green-600 bg-green-100 rounded-full w-[80px] h-[25px] text-[14px] flex items-center justify-center">
+                            Verified
+                          </p>
+                        ) : (
+                          <>
+                            {otpLoader ? (
+                              <p className="text-green_light border-[1px] border-green-600 bg-green-100 rounded-full w-[80px] h-[25px] text-[12px] flex items-center justify-center cursor-pointer">
+                                <ClipLoader size={15} color="#069B56" />
+                              </p>
+                            ) : (
+                              <p
+                                onClick={() =>
+                                  resendOtp({ email: item?.email })
+                                }
+                                className="text-green_light border-[1px] border-green-600 bg-green-100 rounded-full w-[80px] h-[25px] text-[12px] flex items-center justify-center cursor-pointer"
+                              >
+                                Send OTP
+                              </p>
+                            )}
+                          </>
+                        )}
+                      </td>
+                      <td className={`py-2 px-10`}>
                         <div
                           onClick={() => {
                             id(item.id);
@@ -336,6 +360,32 @@ const Table = ({
                           </p>
                         )}
                       </td>
+
+                      <td className={`py-2 px-10`}>
+                        {item?.verified ? (
+                          <p className="text-green_light border-[1px] border-green-600 bg-green-100 rounded-full w-[80px] h-[25px] text-[14px] flex items-center justify-center">
+                            Verified
+                          </p>
+                        ) : (
+                          <>
+                            {otpLoader ? (
+                              <p className="text-green_light border-[1px] border-green-600 bg-green-100 rounded-full w-[80px] h-[25px] text-[12px] flex items-center justify-center cursor-pointer">
+                                <ClipLoader size={15} color="#069B56" />
+                              </p>
+                            ) : (
+                              <p
+                                onClick={() =>
+                                  resendOtp({ email: item?.email })
+                                }
+                                className="text-green_light border-[1px] border-green-600 bg-green-100 rounded-full w-[80px] h-[25px] text-[12px] flex items-center justify-center cursor-pointer"
+                              >
+                                Send OTP
+                              </p>
+                            )}
+                          </>
+                        )}
+                      </td>
+
                       <td className={`py-2 px-10`}>
                         <div
                           onClick={() => {

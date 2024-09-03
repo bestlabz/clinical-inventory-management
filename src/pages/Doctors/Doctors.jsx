@@ -54,6 +54,8 @@ const Doctors = () => {
     setSelectedLimit,
     tableLoader,
     statusAvailable,
+    resendOtp,
+    otpLoader
   } = DoctorsFunction();
 
   const { doctorTable } = useSelector((state) => state.TableDatas);
@@ -160,6 +162,7 @@ const Doctors = () => {
                           { title: "Status" },
                           { title: "Action" },
                           { title: "Payment Status" },
+                          { title: "Verified" },
                           { title: "View" },
                         ];
                       }
@@ -176,6 +179,8 @@ const Doctors = () => {
                     id={setDotorId}
                     filtervalue={selectedFilter?.value}
                     tableLoader={tableLoader}
+                    resendOtp={resendOtp}
+                    otpLoader={otpLoader}
                   />
                 </div>
                 <div className=" w-full h-[10%] flex items-center justify-between px-3 pt-4 relative 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-row xs:flex-col mobile:flex-col xss:flex-col gap-2">

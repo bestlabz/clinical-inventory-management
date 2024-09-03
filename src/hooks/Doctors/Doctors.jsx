@@ -33,6 +33,8 @@ const Doctors = () => {
   const [selectedLimit, setSelectedLimit] = useState({ label: 10, value: 10 });
   const [statusAvailable, setStatusAvailable] = useState(false);
   const [tableLoader, setTableLoader] = useState(false);
+  const [otpLoader, setOtpLoader] = useState(false);
+  const [refetch, setrefetch] = useState(false);
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
@@ -99,6 +101,8 @@ const Doctors = () => {
               payment_paid: i?.doctor?.clinics.filter(
                 (item) => item?.clinicId === userDetails?._id
               )?.[0]?.subscription,
+              verified: i?.doctor?.otpVerified,
+              email: i?.doctor?.email,
             };
           });
 
@@ -122,7 +126,7 @@ const Doctors = () => {
     };
 
     const API = async () => {
-      if (!model) {
+      if (!model && !refetch) {
         if (!selectedFilter || selectedFilter?.value === "") {
           await fetchData({ page: currentPages });
         } else if (selectedFilter?.value === "verify") {
@@ -134,7 +138,7 @@ const Doctors = () => {
     };
 
     API();
-  }, [selectedFilter, model, currentPages, selectedLimit]);
+  }, [selectedFilter, model, currentPages, selectedLimit, refetch]);
 
   const handleChange = async (id, value, reason) => {
     try {
@@ -216,6 +220,31 @@ const Doctors = () => {
     (_, i) => start + i
   );
 
+  const resendOtp = async ({ email }) => {
+    const bodyData = {
+      email: email,
+    };
+
+    try {
+      setOtpLoader(true);
+      setrefetch(true);
+      const { success, message } = await ApiRequest.post(
+        "/resendotp/doctor",
+        bodyData
+      );
+
+      if (success) {
+        toast.success(message);
+        setOtpLoader(false);
+        setrefetch(false);
+      }
+    } catch (error) {
+      setOtpLoader(false);
+      setrefetch(false);
+      toast.error(error.response?.data?.message || error.response.data.error);
+    }
+  };
+
   return {
     setselectedDate,
     selectedDate,
@@ -245,6 +274,8 @@ const Doctors = () => {
     setSelectedLimit,
     statusAvailable,
     tableLoader,
+    resendOtp,
+    otpLoader,
   };
 };
 

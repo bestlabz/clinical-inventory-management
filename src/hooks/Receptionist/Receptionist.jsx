@@ -28,6 +28,8 @@ const Doctors = () => {
   const [statusAvailable, setStatusAvailable] = useState(false);
   const [receptionistID, setReceptionistID] = useState(null);
   const [tableLoader, setTableLoader] = useState(false);
+  const [refetch, setrefetch] = useState(false);
+  const [otpLoader, setOtpLoader] = useState(false);
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
@@ -75,7 +77,9 @@ const Doctors = () => {
               receptionist_image: i?.profile || null,
               status: i?.block,
               mobile_number: i?.mobile_number,
-              payment_status: i?.subscription
+              payment_status: i?.subscription,
+              verified: i?.otpVerified,
+              email: i?.email,
             };
           });
           setPrimaryLoader(false);
@@ -98,7 +102,7 @@ const Doctors = () => {
     };
 
     const API = async () => {
-      if (!model) {
+      if (!model && !refetch) {
         if (!selectedFilter || selectedFilter?.value === "") {
           await fetchData({ page: currentPages });
         } else if (selectedFilter?.value === "verify") {
@@ -110,7 +114,7 @@ const Doctors = () => {
     };
 
     API();
-  }, [selectedFilter, model, currentPages, selectedLimit]);
+  }, [selectedFilter, model, currentPages, selectedLimit, refetch]);
 
   const style = {
     width: "100%",
@@ -189,8 +193,32 @@ const Doctors = () => {
     if (currentPages !== 1) {
       setStatusAvailable(true);
       setTableLoader(true);
-
       return dispatch(setReceptionistsPrePage());
+    }
+  };
+
+  const resendOtp = async ({ email }) => {
+    const bodyData = {
+      email: email,
+    };
+
+    try {
+      setrefetch(true);
+      setOtpLoader(true);
+      const { success, message } = await ApiRequest.post(
+        "/resendotp/receptionist",
+        bodyData
+      );
+
+      if (success) {
+        setrefetch(false);
+        setOtpLoader(false);
+        toast.success(message);
+      }
+    } catch (error) {
+      setrefetch(false);
+      setOtpLoader(false);
+      toast.error(error.response?.data?.message || error.response.data.error);
     }
   };
 
@@ -221,7 +249,9 @@ const Doctors = () => {
     selectedLimit,
     setSelectedLimit,
     statusAvailable,
-    tableLoader
+    tableLoader,
+    resendOtp,
+    otpLoader
   };
 };
 
