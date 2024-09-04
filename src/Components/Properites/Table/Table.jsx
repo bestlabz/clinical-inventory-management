@@ -8,6 +8,12 @@ import { ClimbingBoxLoader, ClipLoader } from "react-spinners";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import ModelPopup from "../ModelPopup/ModelPopup";
 import { IoClose } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import {
+  setDoctorDetails,
+  setReceptionistDetails,
+} from "../../../Redux/Slice/Otpinput";
+import { useNavigate } from "react-router-dom";
 dayjs.extend(customParseFormat);
 
 const Table = ({
@@ -29,6 +35,8 @@ const Table = ({
   resendOtp,
   otpLoader,
 }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [details, setDetails] = useState({
     id: "",
     value: "",
@@ -153,8 +161,19 @@ const Table = ({
                       <td className={`py-2 px-10`}>
                         <div
                           onClick={() => {
-                            id(item.id);
-                            setviewPage(true);
+                            console.log("Item", item);
+                            if (item.verified) {
+                              id(item.id);
+                              setviewPage(true);
+                            } else {
+                              dispatch(
+                                setDoctorDetails({
+                                  email: item?.email,
+                                  phone: item?.mobile_number?.toString(),
+                                })
+                              );
+                              navigate("/add-doctor");
+                            }
                           }}
                           className="flex items-center justify-start gap-6"
                         >
@@ -287,8 +306,18 @@ const Table = ({
                       <td className={`py-2 px-10`}>
                         <div
                           onClick={() => {
-                            id(item.id);
-                            setviewPage(true);
+                            if (item.verified) {
+                              id(item.id);
+                              setviewPage(true);
+                            } else {
+                              dispatch(
+                                setReceptionistDetails({
+                                  email: item?.email,
+                                  phone: item?.mobile_number?.toString(),
+                                })
+                              );
+                              navigate("/add-recptionist");
+                            }
                           }}
                           className="flex items-center justify-start gap-6"
                         >

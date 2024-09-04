@@ -18,6 +18,7 @@ import AddReceptionistFunction from "../../hooks/Receptionist/AddReceptionist";
 import ResponsiveSuccessmodal from "../../Components/Properites/ResponsiveSuccessmodal/ResponsiveSuccessmodal";
 import { ClipLoader } from "react-spinners";
 import Input from "../../Components/Properites/Inputs/Input";
+import { useSelector } from "react-redux";
 
 const AddReceptionist = () => {
   const {
@@ -35,8 +36,10 @@ const AddReceptionist = () => {
     setErrorValidate,
     email,
     setEmail,
-    resendOtp
+    resendOtp,
   } = AddReceptionistFunction();
+
+  const { receptionist } = useSelector((state) => state.otpValue);
 
   return (
     <div
@@ -142,7 +145,16 @@ const AddReceptionist = () => {
 
         {step === 3 && (
           <>
-            {modalPopup && <ResponsiveSuccessmodal modalPopup={modalPopup} />}
+            {modalPopup && (
+              <ResponsiveSuccessmodal
+                modalPopup={modalPopup}
+                message={
+                  receptionist
+                    ? TranslateJson.common["verified-message"]
+                    : TranslateJson.common.success_message
+                }
+              />
+            )}
           </>
         )}
       </div>
