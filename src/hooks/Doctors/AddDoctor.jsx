@@ -1,3 +1,4 @@
+//add doctor hook
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -7,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 //Api Call
 import ApiRequest from "../../services/httpService";
 import toast from "react-hot-toast";
-import { setDoctorDetails } from "../../Redux/Slice/Otpinput";
 
 const AddDoctor = () => {
   const navigate = useNavigate();
@@ -22,15 +22,6 @@ const AddDoctor = () => {
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
-  const { doctor } = useSelector((state) => state.otpValue);
-
-  useEffect(() => {
-    if (doctor) {
-      setEmail(doctor.email);
-      setValue(doctor.phone);
-    }
-  }, [doctor]);
-
   useEffect(() => {
     if (errorValidate) {
       setTimeout(() => {
@@ -42,8 +33,6 @@ const AddDoctor = () => {
   useEffect(() => {
     if (step === 3) {
       setModalPopup(true);
-
-      dispatch(setDoctorDetails(null));
 
       setTimeout(() => {
         setModalPopup(false);

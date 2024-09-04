@@ -1,3 +1,5 @@
+//add doctor
+
 import React from "react";
 
 //Translate
@@ -20,7 +22,6 @@ import AddDoctorFunction from "../../hooks/Doctors/AddDoctor";
 import ResponsiveSuccessmodal from "../../Components/Properites/ResponsiveSuccessmodal/ResponsiveSuccessmodal";
 import { ClipLoader } from "react-spinners";
 import Input from "../../Components/Properites/Inputs/Input";
-import { useSelector } from "react-redux";
 
 const AddDoctor = () => {
   const {
@@ -38,10 +39,8 @@ const AddDoctor = () => {
     loader,
     email,
     setEmail,
-    resendOtp,
+    resendOtp
   } = AddDoctorFunction();
-
-  const { doctor } = useSelector((state) => state.otpValue);
 
   return (
     <div
@@ -71,30 +70,33 @@ const AddDoctor = () => {
       <div className="add-doctor-content">
         {step === 1 && (
           <>
-            <div className="w-full flex flex-col items-center ">
-              <PhoneNumber
-                setValue={(e) => {
-                  setValue(e);
-                  setErrorValidate(false);
-                }}
-                value={value}
-                err={errorValidate}
-                label="Mobile Number"
-              />
-            </div>
+          <div className="w-full flex flex-col items-center ">
+            <PhoneNumber
+              setValue={(e) => {
+                setValue(e);
+                setErrorValidate(false);
+              }}
+              value={value}
+              err={errorValidate}
+              label="Mobile Number"
+            />
+
+          </div>
 
             <div className="2xl:w-[40%] xl:w-[40%] lg:w-[60%] md:w-[80%] sm:w-[80%] xs:w-[100%] xss:w-[100%] mobile:w-[100%]">
-              <Input
-                id="email"
-                name="email"
-                label="Email"
-                placeholder="Enter your email address"
-                value={email}
-                setValue={(e) => setEmail(e.target.value)}
-                err={errorValidate && "Enter your email address"}
-                rounded="rounded-md"
-              />
+            <Input
+              id="email"
+              name="email"
+              label="Email"
+              placeholder="Enter your email address"
+              value={email}
+              setValue={(e) => setEmail(e.target.value)}
+              err={errorValidate && "Enter your email address"}
+              rounded="rounded-md"
+            />
+
             </div>
+
 
             {loader ? (
               <button className="add-doctor-content-phonenumber">
@@ -124,10 +126,7 @@ const AddDoctor = () => {
               err={errorValidate}
             />
 
-            <p
-              onClick={resendOtp}
-              className=" flex items-center gap-3 cursor-pointer"
-            >
+            <p onClick={resendOtp} className=" flex items-center gap-3 cursor-pointer">
               {" "}
               <ReloadIcon /> {TranslateJson.add_doctor.step2.resend_text}
             </p>
@@ -148,14 +147,7 @@ const AddDoctor = () => {
           <>
             {modalPopup && (
               <>
-                <ResponsiveSuccessmodal
-                  modalPopup={modalPopup}
-                  message={
-                    doctor
-                      ? TranslateJson.common["verified-message"]
-                      : TranslateJson.common.success_message
-                  }
-                />
+                <ResponsiveSuccessmodal modalPopup={modalPopup} />
               </>
             )}
           </>

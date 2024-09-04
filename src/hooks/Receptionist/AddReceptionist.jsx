@@ -1,5 +1,6 @@
+//add receptionist hook
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 //Thired party library
 import { useNavigate } from "react-router-dom";
@@ -7,10 +8,8 @@ import { useNavigate } from "react-router-dom";
 //Api Call
 import ApiRequest from "../../services/httpService";
 import toast from "react-hot-toast";
-import { setReceptionistDetails } from "../../Redux/Slice/Otpinput";
 
 const AddDoctor = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [step, setStep] = useState(1);
@@ -23,17 +22,6 @@ const AddDoctor = () => {
 
   const { userDetails } = useSelector((state) => state.userinfo);
 
-  const { receptionist } = useSelector((state) => state.otpValue);
-
-
-  useEffect(() => {
-    if (receptionist) {
-      setEmail(receptionist.email);
-      setValue(receptionist.phone);
-    }
-  }, [receptionist]);
-
-
   useEffect(() => {
     if (errorValidate) {
       setTimeout(() => {
@@ -45,8 +33,6 @@ const AddDoctor = () => {
   useEffect(() => {
     if (step === 3) {
       setModalPopup(true);
-
-      dispatch(setReceptionistDetails(null))
 
       setTimeout(() => {
         setModalPopup(false);
