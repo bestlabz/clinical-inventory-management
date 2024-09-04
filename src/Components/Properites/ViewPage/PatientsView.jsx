@@ -109,11 +109,11 @@ const PatientsView = ({ setviewPage, headerText, id }) => {
                     <strong className="text-gray_text">Doctor: </strong>
                     {item?.doctor?.name}
                   </p>
-                  <p>
+                  {/* <p>
                     <strong className="text-gray_text">Reason: </strong>
                     <br />
                     {item?.reason}
-                  </p>
+                  </p> */}
                 </div>
               );
             })}
