@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 //Api Call
 import ApiRequest from "../../services/httpService";
 import toast from "react-hot-toast";
+import { clearOTP } from "../../Redux/Slice/Otpinput";
 
 const AddDoctor = () => {
   const navigate = useNavigate();
@@ -21,6 +22,21 @@ const AddDoctor = () => {
   const [email, setEmail] = useState("");
 
   const { userDetails } = useSelector((state) => state.userinfo);
+  const { receptionistDetails } = useSelector((state) => state.otpValue);
+
+  useEffect(() => {
+    if (receptionistDetails) {
+      setValue(receptionistDetails?.phone || "");
+      setEmail(receptionistDetails?.email || "");
+      setStep((step) => step + 1);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (email !== "" && receptionistDetails) {
+      resendOtp();
+    }
+  }, [email]);
 
   useEffect(() => {
     if (errorValidate) {
@@ -39,6 +55,7 @@ const AddDoctor = () => {
         setEmail("");
         setValue("");
         setOTP("");
+        dispatch(clearOTP());
         navigate("/receptionist");
         setStep(1);
       }, 3000);
