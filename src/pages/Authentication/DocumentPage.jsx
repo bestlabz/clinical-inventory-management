@@ -9,6 +9,7 @@ import TranslateJson from "../../utils/translation/en.json";
 import Input from "../../Components/Properites/Inputs/Input";
 import ImageInput from "../../Components/Properites/imageInput/signupImageInput";
 import { ClipLoader } from "react-spinners";
+import { Link } from "react-router-dom";
 
 const DocumentPage = () => {
   const {

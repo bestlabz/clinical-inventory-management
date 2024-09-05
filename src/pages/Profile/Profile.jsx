@@ -57,6 +57,7 @@ const Profile = () => {
 
   const subscriptionDetails = billing_history || [];
 
+
   const dateString =
     userDetails?.subscription_details[
       userDetails?.subscription_details?.length - 1
@@ -79,11 +80,11 @@ const Profile = () => {
   const DateString =
     userDetails?.subscription_details[
       userDetails?.subscription_details?.length - 1
-    ].subscription_enddate?.split(" ")?.[0];
+    ]?.subscription_enddate?.split(" ")?.[0];
   const DateTime =
     userDetails?.subscription_details[
       userDetails?.subscription_details?.length - 1
-    ].subscription_enddate?.split(" ")?.[1];
+    ]?.subscription_enddate?.split(" ")?.[1];
   const dueDate = dayjs(DateString, "DD-MM-YYYY").format("YYYY-MM-DD");
   const planDate = `${dueDate}T${DateTime}`;
   const currentDate = `${currentDateFormat}T${currentTime}`; // Example of another date

@@ -99,17 +99,17 @@ const ImageInput = ({
             e.target.value = null;
           }} // Handle file selection change event
         />
-        {/* <div className=" p-2 border-2 rounded-lg mb-3 ">
+        <div className=" p-2 border-2 rounded-lg my-3 ">
           <LuUploadCloud size={30} className=" text-secondary_text" />
-        </div> */}
-        <div className="flex flex-col gap-5 items-center py-3">
+        </div>
+        <div className="flex flex-col gap-1 items-center py-4">
           <span className="text-[16px] font-bold text-secondary_text flex gap-2">
-            Click to Upload
-            <strong className="text-sm text-center font-medium">
+            Click to Upload ot <span className="font-normal">drag and drop</span>
+          </span>
+            <strong className="text-sm text-center font-medium text-gray-400">
               {access}
 
             </strong>
-          </span>
         </div>
         {/* <div>
           <span className="text-xs text-secondary_text font-medium">
