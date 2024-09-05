@@ -193,7 +193,7 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
           </div>
         </div>
 
-        <div className="mt-3 py-3 px-1 border-t-[1px] border-b-[1px] border-gray-300 grid grid-cols-6">
+        <div className="mt-3 py-3 px-1 border-t-[1px] border-b-[1px] border-gray-300 grid grid-cols-6 pl-6">
           {headerDetails?.map((i, index) => (
             <p
               key={index}
@@ -227,7 +227,7 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
         {mainDetails?.map((i, index) => (
           <div
             key={index}
-            className=" min-h-[150px] mt-3 px-1 flex flex-col gap-2"
+            className=" min-h-[150px] mt-3 px-1 flex flex-col gap-2 pl-6"
           >
             <p
               style={{
@@ -391,7 +391,7 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
             </div>
           </div>
 
-          <div className="mt-3 py-3 px-1 border-t-[1px] border-b-[1px] border-gray-300 grid grid-cols-6">
+          <div className="mt-3 py-3 px-1 border-t-[1px] border-b-[1px] border-gray-300 grid grid-cols-6 pl-6">
             {headerDetails?.map((i, index) => (
               <p
                 key={index}
@@ -425,7 +425,7 @@ const LeftSide = ({ openPreview, setOpenPreview }) => {
           {mainDetails?.map((i, index) => (
             <div
               key={index}
-              className=" min-h-[150px] mt-3 px-1 flex flex-col gap-2"
+              className=" min-h-[150px] mt-3 px-1 flex flex-col gap-2 pl-6"
             >
               <p
                 style={{
