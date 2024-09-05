@@ -55,8 +55,8 @@ const AddDoctor = () => {
         setEmail("");
         setValue("");
         setOTP("");
-        dispatch(clearOTP());
         navigate("/receptionist");
+        dispatch(clearOTP());
         setStep(1);
       }, 3000);
     }
