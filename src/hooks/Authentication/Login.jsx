@@ -67,7 +67,7 @@ const Login = () => {
     }
   };
 
-  const { errors, handleChange, handleSubmit, values } = FormHandel({
+  const { errors, handleChange, handleSubmit, values, setFieldValue } = FormHandel({
     initialValue: { email: "" },
     schema: LoginSchema,
     submitFunction: onSubmit,
@@ -163,6 +163,7 @@ const Login = () => {
     resendOtp,
     initial,
     setInitial,
+    setFieldValue
   };
 };
 

@@ -33,6 +33,7 @@ const Login = () => {
     resendOtp,
     initial,
     setInitial,
+    setFieldValue
   } = LoginFunction();
   const { count, formatTime, setTime } = CountDown();
 
@@ -77,7 +78,10 @@ const Login = () => {
                   label={TranslateJson.Login.label}
                   placeholder={TranslateJson.Login.placeholder}
                   value={values.email}
-                  setValue={handleChange}
+                  setValue={(e) => {
+                    const lowercase = e.target.value.toLowerCase();
+                    setFieldValue("email", lowercase);
+                  }}
                   err={errors.email}
                 />
               </div>

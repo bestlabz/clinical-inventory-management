@@ -95,7 +95,10 @@ const Signup = () => {
                   id="email"
                   name="email"
                   value={values.email}
-                  setValue={handleChange}
+                  setValue={(e) => {
+                    const lowercase = e.target.value.toLowerCase();
+                    setFieldValue("email", lowercase);
+                  }}
                   label={TranslateJson.signup.step1.label1}
                   placeholder={TranslateJson.signup.step1.placeholder1}
                   err={validationError && errors.email}

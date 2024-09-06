@@ -87,7 +87,10 @@ const AddReceptionist = () => {
                 label="Email"
                 placeholder="Enter your email address"
                 value={email}
-                setValue={(e) => setEmail(e.target.value)}
+                setValue={(e) => {
+                  const lowercase = e.target.value.toLowerCase();
+                  setEmail("email", lowercase);
+                }}
                 err={errorValidate && "Enter your email address"}
                 rounded="rounded-md"
               />
