@@ -110,12 +110,12 @@
   "add_doctor": {
     "navigate_content": "Invite Doctor",
     "step1": {
-      "title": "Enter Doctor’s Mobile number",
+      "title": "Enter Doctor’s Email",
       "button": "Send Code"
     },
     "step2": {
-      "title": "Enter Doctor’s Mobile number",
-      "subtext": "A secure code has been sent to doctor’s mobile number",
+      "title": "Enter Doctor’s Email number",
+      "subtext": "A secure code has been sent to doctor’s Email",
       "resend_text": "Resend Code",
       "button": "Verify"
     }
@@ -134,12 +134,12 @@
   "add_receptionist": {
     "navigate_content": "Invite Receptionist",
     "step1": {
-      "title": "Enter Receptionist Mobile number",
+      "title": "Enter Receptionist Email",
       "button": "Send Code"
     },
     "step2": {
-      "title": "Enter Receptionist Mobile number",
-      "subtext": "A secure code has been sent to Receptionist mobile number",
+      "title": "Enter Receptionist Email",
+      "subtext": "A secure code has been sent to Receptionist Email",
       "resend_text": "Resend Code",
       "button": "Verify"
     }
