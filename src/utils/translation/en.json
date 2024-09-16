@@ -114,7 +114,7 @@
       "button": "Send Code"
     },
     "step2": {
-      "title": "Enter Doctor’s Email number",
+      "title": "Enter Doctor’s Email",
       "subtext": "A secure code has been sent to doctor’s Email",
       "resend_text": "Resend Code",
       "button": "Verify"

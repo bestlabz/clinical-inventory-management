@@ -39,6 +39,8 @@ const ViewPage = ({
     value: "",
   });
 
+  console.log("details", details);
+
   return (
     <div className=" w-full h-full overflow-auto ">
       {loader ? (
@@ -203,7 +205,7 @@ const ViewPage = ({
                         <span key={index} className="ml-1">
                           {item}
                           {index < details.pg_qualification.length - 1 && `, `}
-                        </span> 
+                        </span>
                       ))}
                   </span>
                 </div>
@@ -224,6 +226,40 @@ const ViewPage = ({
                 <span className="view-page-personal-details-container-body-details-value">
                   {details?.qualification || ""}
                 </span>
+              </div>
+            )}
+          </div>
+
+          {details?.signature && (
+            <h1 className="text-[24px] font-bold mb-2">Doctor Signature</h1>
+          )}
+
+          <div className="view-page-certificate-container mb-6">
+            {details?.signature && (
+              <div className="view-page-certificate-container-image 2xl:w-[23%] xl:w-[23%] lg:w-[24%] md:w-[25%] sm:w-[25%] xs:w-[100%] mobile:w-[100%] xss:w-[100%]">
+                <img
+                  onClick={() => window.open(details?.signature, "_blank")}
+                  src={details?.signature || ""}
+                  className="view-page-certificate-container-image-view"
+                />
+                <div
+                  onClick={() => window.open(details?.signature, "_blank")}
+                  className="view-page-certificate-container-image-name-container"
+                >
+                  {details?.signature?.split(".")?.pop() === "pdf" ? (
+                    <BiSolidFilePdf color="#d8d8d8" size={30} />
+                  ) : (
+                    <FaFileImage color="#d8d8d8" size={30} />
+                  )}
+                  <span className="text-[13px] ">
+                    {details?.signature &&
+                    details?.signature?.split("/").pop().length > 10
+                      ? details?.signature.split("/").pop().substring(0, 15) +
+                        "." +
+                        details?.signature?.split(".")?.pop()
+                      : details?.signature?.split("/").pop()}
+                  </span>
+                </div>
               </div>
             )}
           </div>
