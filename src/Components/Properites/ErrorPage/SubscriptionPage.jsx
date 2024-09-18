@@ -10,6 +10,7 @@ import ModelPopup from "../ModelPopup/ModelPopup";
 
 import toast from "react-hot-toast";
 import { IoClose } from "react-icons/io5";
+import dayjs from "dayjs";
 
 const SubscriptionPage = ({ close = false }) => {
   const dispatch = useDispatch();
@@ -80,6 +81,7 @@ const SubscriptionPage = ({ close = false }) => {
                 (Number(userDetails?.receptionistsCount) +
                   Number(userDetails?.doctorsCount))
               : selectedItem?.price,
+          subscription_startdate: dayjs().toISOString(),
         }
       );
 
