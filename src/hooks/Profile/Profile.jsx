@@ -31,14 +31,36 @@ const Profile = () => {
   const [steps, setSteps] = useState(1);
 
   const { userDetails } = useSelector((state) => state.userinfo);
+  const { subscriptionCard } = useSelector((state) => state.subscription);
 
   useEffect(() => {
-    const subscriptionid =
-      userDetails?.subscription_details[
-        userDetails?.subscription_details?.length - 1
-      ];
-    setsubscriptionID(subscriptionid?.subscription_id?._id);
+    const API = async () => {
+      const subscriptionid =
+        userDetails?.subscription_details[
+          userDetails?.subscription_details?.length - 1
+        ];
+
+      if (!subscriptionid?.subscription_id?._id) {
+        const { success, durations } = await ApiRequest.get(
+          "/subscription_durations"
+        );
+
+        if (success) {
+          const filter = durations.filter(
+            (itm) => itm?.title?.title !== "Free Trail"
+          )?.[0]?._id;
+
+          setsubscriptionID(filter);
+          return;
+        }
+      } else {
+        setsubscriptionID(subscriptionid?.subscription_id?._id);
+      }
+    };
+
+    API();
   }, [userDetails]);
+
 
   useEffect(() => {
     const Api = async () => {
