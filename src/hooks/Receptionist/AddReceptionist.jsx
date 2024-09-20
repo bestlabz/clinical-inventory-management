@@ -1,6 +1,6 @@
 //add receptionist hook
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 //Thired party library
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ import { clearOTP } from "../../Redux/Slice/Otpinput";
 
 const AddDoctor = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const [step, setStep] = useState(1);
   const [otp, setOTP] = useState("");
   const [modalPopup, setModalPopup] = useState(false);
@@ -55,9 +55,9 @@ const AddDoctor = () => {
         setEmail("");
         setValue("");
         setOTP("");
-        navigate("/receptionist");
-        dispatch(clearOTP());
         setStep(1);
+        dispatch(clearOTP());
+        navigate("/receptionist");
       }, 3000);
     }
   }, [step]);
