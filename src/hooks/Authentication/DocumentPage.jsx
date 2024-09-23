@@ -123,10 +123,8 @@ const DocumentPage = () => {
               await ApiRequest.post(`/updateSubscription/${userID}`, {
                 subscription_id: freetrails[0]._id,
                 transaction_id: "free_trail",
-                subscription_startdate: dayjs().format("DD-MM-YYYY HH:MM:ss"),
-                subscription_enddate: dayjs()
-                  .add(count, "day")
-                  .format("DD-MM-YYYY HH:MM:ss"),
+                subscription_startdate: dayjs().toISOString(),
+                subscription_enddate: dayjs().add(count, "day").toISOString(),
               });
                 setLoader(false);
                 toast.success(message);
