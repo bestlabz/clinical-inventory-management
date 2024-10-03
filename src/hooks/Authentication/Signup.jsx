@@ -168,11 +168,18 @@ const Signup = () => {
 
             if (success) {
               const count = freetrails[0].days;
+              const currentDate = new Date(); // current date
+              const currentDateisoString = currentDate.toISOString();
+              const futureDate = new Date(
+                currentDate.setDate(currentDate.getDate() + Number(count))
+              );
+              const isoString = futureDate.toISOString();
+
               await ApiRequest.post(`/updateSubscription/${id}`, {
                 subscription_id: freetrails[0]._id,
                 transaction_id: "free_trail",
-                subscription_startdate: dayjs().toISOString(),
-                subscription_enddate: dayjs().add(count, "day").toISOString(),
+                subscription_startdate: currentDateisoString,
+                subscription_enddate: isoString,
               });
             }
 

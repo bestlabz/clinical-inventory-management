@@ -63,36 +63,55 @@ const Profile = () => {
       userDetails?.subscription_details?.length - 1
     ];
 
+    const convertToISOString = (dateString) => {
+      if (!dateString) return null;
+  
+      // Check if the string is already in ISO format
+      const isoRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/;
+      if (isoRegex.test(dateString)) {
+        return dateString; // Return the ISO string unchanged
+      }
+  
+      // For non-ISO date format "dd-MM-yyyy HH:mm:ss"
+      if (typeof dateString === "string" && dateString.includes(" ")) {
+        // Split the date and time parts
+        const [datePart, timePart] = dateString.split(" ");
+  
+        // Split the date into day, month, and year
+        const [day, month, year] = datePart.split("-");
+  
+        // Split the time into hours, minutes, and seconds
+        const [hours, minutes, seconds] = timePart.split(":");
+  
+        // Create a Date object in the local time zone
+        const dateObject = new Date(
+          year,
+          month - 1,
+          day,
+          hours,
+          minutes,
+          seconds
+        );
+  
+        // Convert to ISO string
+        return dateObject.toISOString();
+      }
+  
+      return null; // Handle case when dateString is invalid
+    };
+
   let date = null;
 
   const TimeString = dateString?.subscription_enddate?.split(" ")[1];
 
   if (dateString) {
-    const DateString = dateString?.subscription_enddate?.split(" ")[0];
-
-    const [day, month, year] = DateString?.split("-");
-    date = new Date(year, month - 1, day);
+     date = convertToISOString(dateString?.subscription_enddate);
   }
 
-  const currentDateFormat = dayjs().format("YYYY-MM-DD");
-  const currentTime = dayjs().format("HH:mm:ss");
 
-  const DateString =
-    userDetails?.subscription_details[
-      userDetails?.subscription_details?.length - 1
-    ]?.subscription_enddate?.split(" ")?.[0];
-  const DateTime =
-    userDetails?.subscription_details[
-      userDetails?.subscription_details?.length - 1
-    ]?.subscription_enddate?.split(" ")?.[1];
-  const dueDate = dayjs(DateString, "DD-MM-YYYY").format("YYYY-MM-DD");
-  const planDate = `${dueDate}T${DateTime}`;
-  const currentDate = `${currentDateFormat}T${currentTime}`; // Example of another date
-  const planDateObj = dayjs(planDate);
-  const currentDateObj = dayjs(currentDate);
-
-  // Check if date is greater than otherDate
-  const isGreaterThan = currentDateObj.isAfter(dueDate);
+  const subscriptionDate = new Date(date);
+  const currentDate = new Date();
+  const isGreaterThan = currentDate > subscriptionDate;
 
   const FreeTrail =
     userDetails?.subscription_details[
@@ -101,9 +120,6 @@ const Profile = () => {
       ? "FreeTrail"
       : "Subscribed";
 
-
-      console.log(FreeTrail);
-      
 
   return (
     <div className="container">
