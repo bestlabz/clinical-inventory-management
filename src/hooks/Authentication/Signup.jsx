@@ -53,6 +53,7 @@ const Signup = () => {
     }, 2000);
   }, [error]);
 
+
   const initialvalue = () => {
     if (step === 1) {
       return {
@@ -168,18 +169,11 @@ const Signup = () => {
 
             if (success) {
               const count = freetrails[0].days;
-              const currentDate = new Date(); // current date
-              const currentDateisoString = currentDate.toISOString();
-              const futureDate = new Date(
-                currentDate.setDate(currentDate.getDate() + Number(count))
-              );
-              const isoString = futureDate.toISOString();
-
               await ApiRequest.post(`/updateSubscription/${id}`, {
                 subscription_id: freetrails[0]._id,
                 transaction_id: "free_trail",
-                subscription_startdate: currentDateisoString,
-                subscription_enddate: isoString,
+                subscription_startdate: dayjs().format("DD-MM-YYYY HH:mm:ss"),
+                subscription_enddate:  dayjs().add(Number(count), 'day').format("DD-MM-YYYY HH:mm:ss"),
               });
             }
 

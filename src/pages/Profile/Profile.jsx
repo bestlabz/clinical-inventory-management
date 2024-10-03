@@ -102,8 +102,6 @@ const Profile = () => {
 
   let date = null;
 
-  const TimeString = dateString?.subscription_enddate?.split(" ")[1];
-
   if (dateString) {
      date = convertToISOString(dateString?.subscription_enddate);
   }
@@ -147,7 +145,7 @@ const Profile = () => {
               <>
                 Next Bill date:{" "}
                 <strong className="text-black">
-                  {dayjs(date).format("DD MMMM YYYY")} {TimeString}
+                  {dayjs(date).format("DD MMMM YYYY hh:mm:ss A")}
                 </strong>
               </>
             )}

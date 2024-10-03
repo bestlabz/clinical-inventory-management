@@ -81,7 +81,7 @@ const SubscriptionPage = ({ close = false }) => {
                 (Number(userDetails?.receptionistsCount) +
                   Number(userDetails?.doctorsCount))
               : selectedItem?.price,
-          subscription_startdate: dayjs().toISOString(),
+          subscription_startdate: dayjs().format("DD-MM-YYYY HH:mm:ss"),
         }
       );
 
